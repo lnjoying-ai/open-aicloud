@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.cmp.db.mapper.TblCmpBaremetalInstanceMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.cmp.db.model.TblCmpBaremetalInstance">
+    <id column="cloud_id" jdbcType="VARCHAR" property="cloudId" />
+    <id column="instance_id" jdbcType="VARCHAR" property="instanceId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="device_id" jdbcType="VARCHAR" property="deviceId" />
+    <result column="phase_status" jdbcType="INTEGER" property="phaseStatus" />
+    <result column="image_id" jdbcType="VARCHAR" property="imageId" />
+    <result column="vpc_id" jdbcType="VARCHAR" property="vpcId" />
+    <result column="subnet_id" jdbcType="VARCHAR" property="subnetId" />
+    <result column="static_ip" jdbcType="VARCHAR" property="staticIp" />
+    <result column="host_name" jdbcType="VARCHAR" property="hostName" />
+    <result column="sys_username" jdbcType="VARCHAR" property="sysUsername" />
+    <result column="sys_password" jdbcType="VARCHAR" property="sysPassword" />
+    <result column="pubkey_id" jdbcType="VARCHAR" property="pubkeyId" />
+    <result column="iscsi_target" jdbcType="VARCHAR" property="iscsiTarget" />
+    <result column="iscsi_initiator" jdbcType="VARCHAR" property="iscsiInitiator" />
+    <result column="iscsi_ipport" jdbcType="VARCHAR" property="iscsiIpport" />
+    <result column="share_id_from_agent" jdbcType="VARCHAR" property="shareIdFromAgent" />
+    <result column="nic_id_from_agent" jdbcType="VARCHAR" property="nicIdFromAgent" />
+    <result column="port_id_from_agent" jdbcType="VARCHAR" property="portIdFromAgent" />
+    <result column="instance_id_from_agent" jdbcType="VARCHAR" property="instanceIdFromAgent" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="ee_bp" jdbcType="VARCHAR" property="eeBp" />
+    <result column="ee_user" jdbcType="VARCHAR" property="eeUser" />
+    <result column="ee_status" jdbcType="INTEGER" property="eeStatus" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    cloud_id, instance_id, name, device_id, phase_status, image_id, vpc_id, subnet_id, 
+    static_ip, host_name, sys_username, sys_password, pubkey_id, iscsi_target, iscsi_initiator, 
+    iscsi_ipport, share_id_from_agent, nic_id_from_agent, port_id_from_agent, instance_id_from_agent, 
+    description, create_time, update_time, ee_bp, ee_user, ee_status
+  </sql>
+  <select id="selectByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpBaremetalInstanceExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_cmp_baremetal_instance
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null and pageSize != null and pageSize != 0">
+      limit #{pageSize} offset #{startRow}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpBaremetalInstanceKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_cmp_baremetal_instance
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and instance_id = #{instanceId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpBaremetalInstanceKey">
+    delete from tbl_cmp_baremetal_instance
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and instance_id = #{instanceId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpBaremetalInstanceExample">
+    delete from tbl_cmp_baremetal_instance
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpBaremetalInstance">
+    insert into tbl_cmp_baremetal_instance (cloud_id, instance_id, name, 
+      device_id, phase_status, image_id, 
+      vpc_id, subnet_id, static_ip, 
+      host_name, sys_username, sys_password, 
+      pubkey_id, iscsi_target, iscsi_initiator, 
+      iscsi_ipport, share_id_from_agent, nic_id_from_agent, 
+      port_id_from_agent, instance_id_from_agent, description, 
+      create_time, update_time, ee_bp, 
+      ee_user, ee_status)
+    values (#{cloudId,jdbcType=VARCHAR}, #{instanceId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{deviceId,jdbcType=VARCHAR}, #{phaseStatus,jdbcType=INTEGER}, #{imageId,jdbcType=VARCHAR}, 
+      #{vpcId,jdbcType=VARCHAR}, #{subnetId,jdbcType=VARCHAR}, #{staticIp,jdbcType=VARCHAR}, 
+      #{hostName,jdbcType=VARCHAR}, #{sysUsername,jdbcType=VARCHAR}, #{sysPassword,jdbcType=VARCHAR}, 
+      #{pubkeyId,jdbcType=VARCHAR}, #{iscsiTarget,jdbcType=VARCHAR}, #{iscsiInitiator,jdbcType=VARCHAR}, 
+      #{iscsiIpport,jdbcType=VARCHAR}, #{shareIdFromAgent,jdbcType=VARCHAR}, #{nicIdFromAgent,jdbcType=VARCHAR}, 
+      #{portIdFromAgent,jdbcType=VARCHAR}, #{instanceIdFromAgent,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{eeBp,jdbcType=VARCHAR}, 
+      #{eeUser,jdbcType=VARCHAR}, #{eeStatus,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpBaremetalInstance">
+    insert into tbl_cmp_baremetal_instance
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cloudId != null">
+        cloud_id,
+      </if>
+      <if test="instanceId != null">
+        instance_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="deviceId != null">
+        device_id,
+      </if>
+      <if test="phaseStatus != null">
+        phase_status,
+      </if>
+      <if test="imageId != null">
+        image_id,
+      </if>
+      <if test="vpcId != null">
+        vpc_id,
+      </if>
+      <if test="subnetId != null">
+        subnet_id,
+      </if>
+      <if test="staticIp != null">
+        static_ip,
+      </if>
+      <if test="hostName != null">
+        host_name,
+      </if>
+      <if test="sysUsername != null">
+        sys_username,
+      </if>
+      <if test="sysPassword != null">
+        sys_password,
+      </if>
+      <if test="pubkeyId != null">
+        pubkey_id,
+      </if>
+      <if test="iscsiTarget != null">
+        iscsi_target,
+      </if>
+      <if test="iscsiInitiator != null">
+        iscsi_initiator,
+      </if>
+      <if test="iscsiIpport != null">
+        iscsi_ipport,
+      </if>
+      <if test="shareIdFromAgent != null">
+        share_id_from_agent,
+      </if>
+      <if test="nicIdFromAgent != null">
+        nic_id_from_agent,
+      </if>
+      <if test="portIdFromAgent != null">
+        port_id_from_agent,
+      </if>
+      <if test="instanceIdFromAgent != null">
+        instance_id_from_agent,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="eeBp != null">
+        ee_bp,
+      </if>
+      <if test="eeUser != null">
+        ee_user,
+      </if>
+      <if test="eeStatus != null">
+        ee_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cloudId != null">
+        #{cloudId,jdbcType=VARCHAR},
+      </if>
+      <if test="instanceId != null">
+        #{instanceId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null">
+        #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="phaseStatus != null">
+        #{phaseStatus,jdbcType=INTEGER},
+      </if>
+      <if test="imageId != null">
+        #{imageId,jdbcType=VARCHAR},
+      </if>
+      <if test="vpcId != null">
+        #{vpcId,jdbcType=VARCHAR},
+      </if>
+      <if test="subnetId != null">
+        #{subnetId,jdbcType=VARCHAR},
+      </if>
+      <if test="staticIp != null">
+        #{staticIp,jdbcType=VARCHAR},
+      </if>
+      <if test="hostName != null">
+        #{hostName,jdbcType=VARCHAR},
+      </if>
+      <if test="sysUsername != null">
+        #{sysUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="sysPassword != null">
+        #{sysPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="pubkeyId != null">
+        #{pubkeyId,jdbcType=VARCHAR},
+      </if>
+      <if test="iscsiTarget != null">
+        #{iscsiTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="iscsiInitiator != null">
+        #{iscsiInitiator,jdbcType=VARCHAR},
+      </if>
+      <if test="iscsiIpport != null">
+        #{iscsiIpport,jdbcType=VARCHAR},
+      </if>
+      <if test="shareIdFromAgent != null">
+        #{shareIdFromAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="nicIdFromAgent != null">
+        #{nicIdFromAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="portIdFromAgent != null">
+        #{portIdFromAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="instanceIdFromAgent != null">
+        #{instanceIdFromAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="eeBp != null">
+        #{eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="eeUser != null">
+        #{eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="eeStatus != null">
+        #{eeStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpBaremetalInstanceExample" resultType="java.lang.Long">
+    select count(*) from tbl_cmp_baremetal_instance
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_cmp_baremetal_instance
+    <set>
+      <if test="record.cloudId != null">
+        cloud_id = #{record.cloudId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.instanceId != null">
+        instance_id = #{record.instanceId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceId != null">
+        device_id = #{record.deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phaseStatus != null">
+        phase_status = #{record.phaseStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.imageId != null">
+        image_id = #{record.imageId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vpcId != null">
+        vpc_id = #{record.vpcId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subnetId != null">
+        subnet_id = #{record.subnetId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staticIp != null">
+        static_ip = #{record.staticIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hostName != null">
+        host_name = #{record.hostName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sysUsername != null">
+        sys_username = #{record.sysUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sysPassword != null">
+        sys_password = #{record.sysPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pubkeyId != null">
+        pubkey_id = #{record.pubkeyId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iscsiTarget != null">
+        iscsi_target = #{record.iscsiTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iscsiInitiator != null">
+        iscsi_initiator = #{record.iscsiInitiator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iscsiIpport != null">
+        iscsi_ipport = #{record.iscsiIpport,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shareIdFromAgent != null">
+        share_id_from_agent = #{record.shareIdFromAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nicIdFromAgent != null">
+        nic_id_from_agent = #{record.nicIdFromAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.portIdFromAgent != null">
+        port_id_from_agent = #{record.portIdFromAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.instanceIdFromAgent != null">
+        instance_id_from_agent = #{record.instanceIdFromAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.eeBp != null">
+        ee_bp = #{record.eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeUser != null">
+        ee_user = #{record.eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeStatus != null">
+        ee_status = #{record.eeStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_cmp_baremetal_instance
+    set cloud_id = #{record.cloudId,jdbcType=VARCHAR},
+      instance_id = #{record.instanceId,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      device_id = #{record.deviceId,jdbcType=VARCHAR},
+      phase_status = #{record.phaseStatus,jdbcType=INTEGER},
+      image_id = #{record.imageId,jdbcType=VARCHAR},
+      vpc_id = #{record.vpcId,jdbcType=VARCHAR},
+      subnet_id = #{record.subnetId,jdbcType=VARCHAR},
+      static_ip = #{record.staticIp,jdbcType=VARCHAR},
+      host_name = #{record.hostName,jdbcType=VARCHAR},
+      sys_username = #{record.sysUsername,jdbcType=VARCHAR},
+      sys_password = #{record.sysPassword,jdbcType=VARCHAR},
+      pubkey_id = #{record.pubkeyId,jdbcType=VARCHAR},
+      iscsi_target = #{record.iscsiTarget,jdbcType=VARCHAR},
+      iscsi_initiator = #{record.iscsiInitiator,jdbcType=VARCHAR},
+      iscsi_ipport = #{record.iscsiIpport,jdbcType=VARCHAR},
+      share_id_from_agent = #{record.shareIdFromAgent,jdbcType=VARCHAR},
+      nic_id_from_agent = #{record.nicIdFromAgent,jdbcType=VARCHAR},
+      port_id_from_agent = #{record.portIdFromAgent,jdbcType=VARCHAR},
+      instance_id_from_agent = #{record.instanceIdFromAgent,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      ee_bp = #{record.eeBp,jdbcType=VARCHAR},
+      ee_user = #{record.eeUser,jdbcType=VARCHAR},
+      ee_status = #{record.eeStatus,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpBaremetalInstance">
+    update tbl_cmp_baremetal_instance
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null">
+        device_id = #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="phaseStatus != null">
+        phase_status = #{phaseStatus,jdbcType=INTEGER},
+      </if>
+      <if test="imageId != null">
+        image_id = #{imageId,jdbcType=VARCHAR},
+      </if>
+      <if test="vpcId != null">
+        vpc_id = #{vpcId,jdbcType=VARCHAR},
+      </if>
+      <if test="subnetId != null">
+        subnet_id = #{subnetId,jdbcType=VARCHAR},
+      </if>
+      <if test="staticIp != null">
+        static_ip = #{staticIp,jdbcType=VARCHAR},
+      </if>
+      <if test="hostName != null">
+        host_name = #{hostName,jdbcType=VARCHAR},
+      </if>
+      <if test="sysUsername != null">
+        sys_username = #{sysUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="sysPassword != null">
+        sys_password = #{sysPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="pubkeyId != null">
+        pubkey_id = #{pubkeyId,jdbcType=VARCHAR},
+      </if>
+      <if test="iscsiTarget != null">
+        iscsi_target = #{iscsiTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="iscsiInitiator != null">
+        iscsi_initiator = #{iscsiInitiator,jdbcType=VARCHAR},
+      </if>
+      <if test="iscsiIpport != null">
+        iscsi_ipport = #{iscsiIpport,jdbcType=VARCHAR},
+      </if>
+      <if test="shareIdFromAgent != null">
+        share_id_from_agent = #{shareIdFromAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="nicIdFromAgent != null">
+        nic_id_from_agent = #{nicIdFromAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="portIdFromAgent != null">
+        port_id_from_agent = #{portIdFromAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="instanceIdFromAgent != null">
+        instance_id_from_agent = #{instanceIdFromAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="eeBp != null">
+        ee_bp = #{eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="eeUser != null">
+        ee_user = #{eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="eeStatus != null">
+        ee_status = #{eeStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and instance_id = #{instanceId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpBaremetalInstance">
+    update tbl_cmp_baremetal_instance
+    set name = #{name,jdbcType=VARCHAR},
+      device_id = #{deviceId,jdbcType=VARCHAR},
+      phase_status = #{phaseStatus,jdbcType=INTEGER},
+      image_id = #{imageId,jdbcType=VARCHAR},
+      vpc_id = #{vpcId,jdbcType=VARCHAR},
+      subnet_id = #{subnetId,jdbcType=VARCHAR},
+      static_ip = #{staticIp,jdbcType=VARCHAR},
+      host_name = #{hostName,jdbcType=VARCHAR},
+      sys_username = #{sysUsername,jdbcType=VARCHAR},
+      sys_password = #{sysPassword,jdbcType=VARCHAR},
+      pubkey_id = #{pubkeyId,jdbcType=VARCHAR},
+      iscsi_target = #{iscsiTarget,jdbcType=VARCHAR},
+      iscsi_initiator = #{iscsiInitiator,jdbcType=VARCHAR},
+      iscsi_ipport = #{iscsiIpport,jdbcType=VARCHAR},
+      share_id_from_agent = #{shareIdFromAgent,jdbcType=VARCHAR},
+      nic_id_from_agent = #{nicIdFromAgent,jdbcType=VARCHAR},
+      port_id_from_agent = #{portIdFromAgent,jdbcType=VARCHAR},
+      instance_id_from_agent = #{instanceIdFromAgent,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      ee_bp = #{eeBp,jdbcType=VARCHAR},
+      ee_user = #{eeUser,jdbcType=VARCHAR},
+      ee_status = #{eeStatus,jdbcType=INTEGER}
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and instance_id = #{instanceId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="countByPhasesUserId" resultType="java.lang.Long">
+    select count(distinct instance_id) from tbl_cmp_baremetal_instance,tbl_cmp_baremetal_device
+    where tbl_cmp_baremetal_instance.device_id = tbl_cmp_baremetal_device.device_id and tbl_cmp_baremetal_instance.phase_status != -1
+    <if test="userId != null">
+      and tbl_cmp_baremetal_device.ee_user=#{userId}
+    </if>
+    <if test="baremetalInstancePhaseStatus != null">
+      and tbl_cmp_baremetal_instance.phase_status=#{baremetalInstancePhaseStatus}
+    </if>
+    and tbl_cmp_baremetal_device.cloud_id=#{cloudId}
+  </select>
+
+  <select id="getBaremetalInstanceIds" resultType="String">
+    select instance_id from tbl_cmp_baremetal_instance
+    where cloud_id = #{cloudId} and ee_status != -1
+  </select>
+</mapper>

@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.cmp.db.mapper.TblCmpOsFlavorsMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.cmp.db.model.TblCmpOsFlavors">
+    <id column="cloud_id" jdbcType="VARCHAR" property="cloudId" />
+    <id column="flavorid" jdbcType="VARCHAR" property="flavorid" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="memory_mb" jdbcType="INTEGER" property="memoryMb" />
+    <result column="vcpus" jdbcType="INTEGER" property="vcpus" />
+    <result column="swap" jdbcType="INTEGER" property="swap" />
+    <result column="vcpu_weight" jdbcType="INTEGER" property="vcpuWeight" />
+    <result column="rxtx_factor" jdbcType="REAL" property="rxtxFactor" />
+    <result column="root_gb" jdbcType="INTEGER" property="rootGb" />
+    <result column="ephemeral_gb" jdbcType="INTEGER" property="ephemeralGb" />
+    <result column="disabled" jdbcType="SMALLINT" property="disabled" />
+    <result column="is_public" jdbcType="SMALLINT" property="isPublic" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="ee_bp" jdbcType="VARCHAR" property="eeBp" />
+    <result column="ee_user" jdbcType="VARCHAR" property="eeUser" />
+    <result column="ee_status" jdbcType="INTEGER" property="eeStatus" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    cloud_id, flavorid, created_at, updated_at, name, id, memory_mb, vcpus, swap, vcpu_weight, 
+    rxtx_factor, root_gb, ephemeral_gb, disabled, is_public, description, ee_bp, ee_user, 
+    ee_status
+  </sql>
+  <select id="selectByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsFlavorsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_cmp_os_flavors
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsFlavorsKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_cmp_os_flavors
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and flavorid = #{flavorid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsFlavorsKey">
+    delete from tbl_cmp_os_flavors
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and flavorid = #{flavorid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsFlavorsExample">
+    delete from tbl_cmp_os_flavors
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsFlavors">
+    insert into tbl_cmp_os_flavors (cloud_id, flavorid, created_at, 
+      updated_at, name, id, 
+      memory_mb, vcpus, swap, 
+      vcpu_weight, rxtx_factor, root_gb, 
+      ephemeral_gb, disabled, is_public, 
+      description, ee_bp, ee_user, 
+      ee_status)
+    values (#{cloudId,jdbcType=VARCHAR}, #{flavorid,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP}, 
+      #{updatedAt,jdbcType=TIMESTAMP}, #{name,jdbcType=VARCHAR}, #{id,jdbcType=INTEGER}, 
+      #{memoryMb,jdbcType=INTEGER}, #{vcpus,jdbcType=INTEGER}, #{swap,jdbcType=INTEGER}, 
+      #{vcpuWeight,jdbcType=INTEGER}, #{rxtxFactor,jdbcType=REAL}, #{rootGb,jdbcType=INTEGER}, 
+      #{ephemeralGb,jdbcType=INTEGER}, #{disabled,jdbcType=SMALLINT}, #{isPublic,jdbcType=SMALLINT}, 
+      #{description,jdbcType=VARCHAR}, #{eeBp,jdbcType=VARCHAR}, #{eeUser,jdbcType=VARCHAR}, 
+      #{eeStatus,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsFlavors">
+    insert into tbl_cmp_os_flavors
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cloudId != null">
+        cloud_id,
+      </if>
+      <if test="flavorid != null">
+        flavorid,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedAt != null">
+        updated_at,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="id != null">
+        id,
+      </if>
+      <if test="memoryMb != null">
+        memory_mb,
+      </if>
+      <if test="vcpus != null">
+        vcpus,
+      </if>
+      <if test="swap != null">
+        swap,
+      </if>
+      <if test="vcpuWeight != null">
+        vcpu_weight,
+      </if>
+      <if test="rxtxFactor != null">
+        rxtx_factor,
+      </if>
+      <if test="rootGb != null">
+        root_gb,
+      </if>
+      <if test="ephemeralGb != null">
+        ephemeral_gb,
+      </if>
+      <if test="disabled != null">
+        disabled,
+      </if>
+      <if test="isPublic != null">
+        is_public,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="eeBp != null">
+        ee_bp,
+      </if>
+      <if test="eeUser != null">
+        ee_user,
+      </if>
+      <if test="eeStatus != null">
+        ee_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cloudId != null">
+        #{cloudId,jdbcType=VARCHAR},
+      </if>
+      <if test="flavorid != null">
+        #{flavorid,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="memoryMb != null">
+        #{memoryMb,jdbcType=INTEGER},
+      </if>
+      <if test="vcpus != null">
+        #{vcpus,jdbcType=INTEGER},
+      </if>
+      <if test="swap != null">
+        #{swap,jdbcType=INTEGER},
+      </if>
+      <if test="vcpuWeight != null">
+        #{vcpuWeight,jdbcType=INTEGER},
+      </if>
+      <if test="rxtxFactor != null">
+        #{rxtxFactor,jdbcType=REAL},
+      </if>
+      <if test="rootGb != null">
+        #{rootGb,jdbcType=INTEGER},
+      </if>
+      <if test="ephemeralGb != null">
+        #{ephemeralGb,jdbcType=INTEGER},
+      </if>
+      <if test="disabled != null">
+        #{disabled,jdbcType=SMALLINT},
+      </if>
+      <if test="isPublic != null">
+        #{isPublic,jdbcType=SMALLINT},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="eeBp != null">
+        #{eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="eeUser != null">
+        #{eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="eeStatus != null">
+        #{eeStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsFlavorsExample" resultType="java.lang.Long">
+    select count(*) from tbl_cmp_os_flavors
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_cmp_os_flavors
+    <set>
+      <if test="record.cloudId != null">
+        cloud_id = #{record.cloudId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.flavorid != null">
+        flavorid = #{record.flavorid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdAt != null">
+        created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedAt != null">
+        updated_at = #{record.updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.memoryMb != null">
+        memory_mb = #{record.memoryMb,jdbcType=INTEGER},
+      </if>
+      <if test="record.vcpus != null">
+        vcpus = #{record.vcpus,jdbcType=INTEGER},
+      </if>
+      <if test="record.swap != null">
+        swap = #{record.swap,jdbcType=INTEGER},
+      </if>
+      <if test="record.vcpuWeight != null">
+        vcpu_weight = #{record.vcpuWeight,jdbcType=INTEGER},
+      </if>
+      <if test="record.rxtxFactor != null">
+        rxtx_factor = #{record.rxtxFactor,jdbcType=REAL},
+      </if>
+      <if test="record.rootGb != null">
+        root_gb = #{record.rootGb,jdbcType=INTEGER},
+      </if>
+      <if test="record.ephemeralGb != null">
+        ephemeral_gb = #{record.ephemeralGb,jdbcType=INTEGER},
+      </if>
+      <if test="record.disabled != null">
+        disabled = #{record.disabled,jdbcType=SMALLINT},
+      </if>
+      <if test="record.isPublic != null">
+        is_public = #{record.isPublic,jdbcType=SMALLINT},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeBp != null">
+        ee_bp = #{record.eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeUser != null">
+        ee_user = #{record.eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeStatus != null">
+        ee_status = #{record.eeStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_cmp_os_flavors
+    set cloud_id = #{record.cloudId,jdbcType=VARCHAR},
+      flavorid = #{record.flavorid,jdbcType=VARCHAR},
+      created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{record.updatedAt,jdbcType=TIMESTAMP},
+      name = #{record.name,jdbcType=VARCHAR},
+      id = #{record.id,jdbcType=INTEGER},
+      memory_mb = #{record.memoryMb,jdbcType=INTEGER},
+      vcpus = #{record.vcpus,jdbcType=INTEGER},
+      swap = #{record.swap,jdbcType=INTEGER},
+      vcpu_weight = #{record.vcpuWeight,jdbcType=INTEGER},
+      rxtx_factor = #{record.rxtxFactor,jdbcType=REAL},
+      root_gb = #{record.rootGb,jdbcType=INTEGER},
+      ephemeral_gb = #{record.ephemeralGb,jdbcType=INTEGER},
+      disabled = #{record.disabled,jdbcType=SMALLINT},
+      is_public = #{record.isPublic,jdbcType=SMALLINT},
+      description = #{record.description,jdbcType=VARCHAR},
+      ee_bp = #{record.eeBp,jdbcType=VARCHAR},
+      ee_user = #{record.eeUser,jdbcType=VARCHAR},
+      ee_status = #{record.eeStatus,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsFlavors">
+    update tbl_cmp_os_flavors
+    <set>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null">
+        id = #{id,jdbcType=INTEGER},
+      </if>
+      <if test="memoryMb != null">
+        memory_mb = #{memoryMb,jdbcType=INTEGER},
+      </if>
+      <if test="vcpus != null">
+        vcpus = #{vcpus,jdbcType=INTEGER},
+      </if>
+      <if test="swap != null">
+        swap = #{swap,jdbcType=INTEGER},
+      </if>
+      <if test="vcpuWeight != null">
+        vcpu_weight = #{vcpuWeight,jdbcType=INTEGER},
+      </if>
+      <if test="rxtxFactor != null">
+        rxtx_factor = #{rxtxFactor,jdbcType=REAL},
+      </if>
+      <if test="rootGb != null">
+        root_gb = #{rootGb,jdbcType=INTEGER},
+      </if>
+      <if test="ephemeralGb != null">
+        ephemeral_gb = #{ephemeralGb,jdbcType=INTEGER},
+      </if>
+      <if test="disabled != null">
+        disabled = #{disabled,jdbcType=SMALLINT},
+      </if>
+      <if test="isPublic != null">
+        is_public = #{isPublic,jdbcType=SMALLINT},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="eeBp != null">
+        ee_bp = #{eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="eeUser != null">
+        ee_user = #{eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="eeStatus != null">
+        ee_status = #{eeStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and flavorid = #{flavorid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsFlavors">
+    update tbl_cmp_os_flavors
+    set created_at = #{createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      name = #{name,jdbcType=VARCHAR},
+      id = #{id,jdbcType=INTEGER},
+      memory_mb = #{memoryMb,jdbcType=INTEGER},
+      vcpus = #{vcpus,jdbcType=INTEGER},
+      swap = #{swap,jdbcType=INTEGER},
+      vcpu_weight = #{vcpuWeight,jdbcType=INTEGER},
+      rxtx_factor = #{rxtxFactor,jdbcType=REAL},
+      root_gb = #{rootGb,jdbcType=INTEGER},
+      ephemeral_gb = #{ephemeralGb,jdbcType=INTEGER},
+      disabled = #{disabled,jdbcType=SMALLINT},
+      is_public = #{isPublic,jdbcType=SMALLINT},
+      description = #{description,jdbcType=VARCHAR},
+      ee_bp = #{eeBp,jdbcType=VARCHAR},
+      ee_user = #{eeUser,jdbcType=VARCHAR},
+      ee_status = #{eeStatus,jdbcType=INTEGER}
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and flavorid = #{flavorid,jdbcType=VARCHAR}
+  </update>
+
+  <select id="getFlavorIds" resultType="String">
+    select flavorid from tbl_cmp_os_flavors
+    where cloud_id = #{cloudId} and ee_status != -1
+  </select>
+</mapper>

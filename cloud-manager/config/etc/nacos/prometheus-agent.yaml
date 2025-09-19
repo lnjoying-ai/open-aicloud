@@ -1,0 +1,53 @@
+global:
+  scrape_interval:     15s
+  evaluation_interval: 15s
+
+
+rule_files:
+#- "alert.rules"
+
+scrape_configs:
+  - job_name: 'node'
+    file_sd_configs:
+      - files:
+          - /root/monitor/target_files/LIGHT_NODE/*.json
+        refresh_interval: 1m
+
+  - job_name: 'cadvisor'
+    file_sd_configs:
+      - files:
+          - /root/monitor/target_files/CADVISOR/*.json
+        refresh_interval: 1m
+    metric_relabel_configs:
+      - source_labels: [ id ]
+        regex: /docker/([a-f0-9]+)$
+        target_label: container_ref_id
+        replacement: $1
+
+  - job_name: 'prometheus-agent'
+    scrape_interval: 10s
+    static_configs:
+      - targets: ['localhost:9090']
+
+
+remote_write:
+  - url: "http://localhost:19090/api/v1/write"
+    remote_timeout: 30s
+    basic_auth:
+      username: admin
+      password: admin
+    follow_redirects: true
+    queue_config:
+      capacity: 2500
+      max_shards: 200
+      min_shards: 1
+      max_samples_per_send: 500
+      batch_send_deadline: 5s
+      min_backoff: 30ms
+      max_backoff: 5s
+    metadata_config:
+      send: true
+      send_interval: 1m
+      max_samples_per_send: 500
+
+

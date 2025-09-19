@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.ims.db.mapper.TblImsRegistryPreDownloadMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.ims.db.model.TblImsRegistryPreDownload">
+    <!--@mbg.generated-->
+    <!--@Table tbl_ims_registry_pre_download-->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="registry_id" jdbcType="VARCHAR" property="registryId" />
+    <result column="node_id" jdbcType="VARCHAR" property="nodeId" />
+    <result column="repos" jdbcType="VARCHAR" property="repos" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="bp_id" jdbcType="VARCHAR" property="bpId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="bp_name" jdbcType="VARCHAR" property="bpName" />
+  </resultMap>
+
+  <resultMap id="ExtendResultMap"  extends="BaseResultMap" type="com.lnjoying.justice.ims.domain.model.ImageDownloadInfo">
+    <association property="registryName" javaType="java.lang.String"  select="com.lnjoying.justice.ims.db.mapper.TblImsRegistryPreDownloadMapper.selectRegistryNameByRegistryId" column="registry_id"></association>
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, registry_id, node_id, repos, "status", user_id, bp_id, create_time, update_time,
+    user_name, bp_name
+  </sql>
+
+  <sql id="Extend_Column_List">
+    <!--@mbg.generated-->
+    id, registry_id, node_id, repos, "status", user_id, bp_id, create_time, update_time,
+    user_name, bp_name, registry_name
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_ims_registry_pre_download
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from tbl_ims_registry_pre_download
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.lnjoying.justice.ims.db.model.TblImsRegistryPreDownload" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into tbl_ims_registry_pre_download (registry_id, node_id, repos, 
+      "status", user_id, bp_id, 
+      create_time, update_time, user_name, 
+      bp_name)
+    values (#{registryId,jdbcType=VARCHAR}, #{nodeId,jdbcType=VARCHAR}, #{repos,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{bpId,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{userName,jdbcType=VARCHAR}, 
+      #{bpName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective"  parameterType="com.lnjoying.justice.ims.db.model.TblImsRegistryPreDownload" >
+    <!--@mbg.generated-->
+    insert into tbl_ims_registry_pre_download
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        id,
+      </if>
+      <if test="registryId != null and registryId != ''">
+        registry_id,
+      </if>
+      <if test="nodeId != null and nodeId != ''">
+        node_id,
+      </if>
+      <if test="repos != null and repos != ''">
+        repos,
+      </if>
+      <if test="status != null">
+        "status",
+      </if>
+      <if test="userId != null and userId != ''">
+        user_id,
+      </if>
+      <if test="bpId != null and bpId != ''">
+        bp_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="userName != null and userName != ''">
+        user_name,
+      </if>
+      <if test="bpName != null and bpName != ''">
+        bp_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="registryId != null and registryId != ''">
+        #{registryId,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeId != null and nodeId != ''">
+        #{nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="repos != null and repos != ''">
+        #{repos,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null and userId != ''">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="bpId != null and bpId != ''">
+        #{bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userName != null and userName != ''">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="bpName != null and bpName != ''">
+        #{bpName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.ims.db.model.TblImsRegistryPreDownload">
+    <!--@mbg.generated-->
+    update tbl_ims_registry_pre_download
+    <set>
+      <if test="registryId != null and registryId != ''">
+        registry_id = #{registryId,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeId != null and nodeId != ''">
+        node_id = #{nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="repos != null and repos != ''">
+        repos = #{repos,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        "status" = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null and userId != ''">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="bpId != null and bpId != ''">
+        bp_id = #{bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userName != null and userName != ''">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="bpName != null and bpName != ''">
+        bp_name = #{bpName,jdbcType=VARCHAR}
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.ims.db.model.TblImsRegistryPreDownload">
+    <!--@mbg.generated-->
+    update tbl_ims_registry_pre_download
+    set registry_id = #{registryId,jdbcType=VARCHAR},
+      node_id = #{nodeId,jdbcType=VARCHAR},
+      repos = #{repos,jdbcType=VARCHAR},
+      "status" = #{status,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=VARCHAR},
+      bp_id = #{bpId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      user_name = #{userName,jdbcType=VARCHAR},
+      bp_name = #{bpName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <insert id="batchInsert">
+    INSERT INTO tbl_ims_registry_pre_download(
+    id,
+    registry_id,
+    node_id,
+    repos,
+    status,
+    user_id,
+    bp_id,
+    create_time,
+    update_time,
+    user_name,
+    bp_name
+    )VALUES
+    <foreach collection="list" item="element" index="index" separator=",">
+      (
+      #{element.id,jdbcType=VARCHAR},
+      #{element.registryId,jdbcType=VARCHAR},
+      #{element.nodeId,jdbcType=VARCHAR},
+      #{element.repos,jdbcType=VARCHAR},
+      #{element.status,jdbcType=INTEGER},
+      #{element.userId,jdbcType=VARCHAR},
+      #{element.bpId,jdbcType=VARCHAR},
+      #{element.createTime,jdbcType=TIMESTAMP},
+      #{element.updateTime,jdbcType=TIMESTAMP},
+      #{element.userName,jdbcType=VARCHAR},
+      #{element.bpName,jdbcType=VARCHAR}
+      )
+    </foreach>
+  </insert>
+
+  <select id="selectAll" resultMap="ExtendResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tbl_ims_registry_pre_download
+    <where>
+      <if test="registryId != null and registryId != ''">
+        and registry_id=#{registryId,jdbcType=VARCHAR}
+      </if>
+      <if test="likeRepos != null and likeRepos != ''">
+        and repos like concat('%',#{likeRepos,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="nodeId != null and nodeId != ''">
+        and node_id  = #{nodeId,jdbcType=VARCHAR}
+      </if>
+      <if test="bpId != null and bpId != ''">
+        and bp_id=#{bpId,jdbcType=VARCHAR}
+      </if>
+      <if test="userId != null and userId != ''">
+        and user_id=#{userId,jdbcType=VARCHAR}
+      </if>
+    </where>
+    order by  create_time desc
+  </select>
+  <select id="selectRegistryNameByRegistryId"  parameterType="java.lang.String" resultType="java.lang.String">
+    SELECT
+            t1.registry_name
+    FROM
+            ( SELECT registry_name FROM tbl_ims_registry WHERE registry_id = #{registry_id,jdbcType=VARCHAR}
+              UNION ALL SELECT registry_name FROM tbl_ims_registry_3rd WHERE registry_id = #{registry_id,jdbcType=VARCHAR} ) t1
+    LIMIT 1
+  </select>
+
+  <delete id="deleteByIdList">
+    delete from tbl_ims_registry_pre_download
+    <where>
+      <if test="idList != null and idList.size() != 0">
+        and id in
+        <foreach collection="idList" item="element" index="index" separator="," open="(" close=")">
+          #{element,jdbcType=VARCHAR}
+        </foreach>
+      </if>
+    </where>
+  </delete>
+</mapper>

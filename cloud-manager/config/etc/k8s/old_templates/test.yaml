@@ -1,0 +1,7 @@
+tolerations:
+  -
+    effect: vmaf
+    value: lllfs
+    tolerationSeconds: 0
+    key: ppvv
+    operator: equal

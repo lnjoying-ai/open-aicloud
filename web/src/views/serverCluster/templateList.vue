@@ -1,0 +1,667 @@
+<template>
+  <div class="warpMain">
+    <div>
+      <el-form
+        :inline="true"
+        size="small"
+        :model="queryData"
+        class="demo-form-inline"
+      >
+        <el-form-item>
+          <div slot="label">{{ $t("form.name") }}</div>
+          <el-input
+            v-model="queryData.name"
+            :placeholder="$t('form.pleaseInput')"
+            style="width: 180px"
+          />
+        </el-form-item>
+        <el-form-item>
+          <div slot="label">{{ $t("form.clusterName") }}</div>
+          <el-select
+            v-model="queryData.cluster_id"
+            :placeholder="$t('form.pleaseSelect')"
+            style="width: 180px"
+            @change="changeColonyName"
+          >
+            <el-option
+              v-for="(item, index) in clustersList"
+              :key="index"
+              :value="item.id"
+              :label="item.name"
+            />
+          </el-select>
+        </el-form-item>
+        <el-form-item>
+          <div slot="label">{{ $t("form.owner") }}</div>
+          <el-select
+            v-model="queryData.owner"
+            filterable
+            style="width: 100%"
+            :placeholder="$t('form.pleaseSelect')"
+            @change="handleChangeUser"
+          >
+            <el-option
+              v-for="(item, index) in userData"
+              :key="index"
+              :label="item.name"
+              :value="item.id"
+            />
+          </el-select>
+        </el-form-item>
+        <el-form-item>
+          <el-button
+            icon="el-icon-search"
+            class="add_search"
+            type="primary"
+            @click="handleCurrentChange(1)"
+            >{{ $t("form.search") }}
+          </el-button>
+        </el-form-item>
+        <el-form-item>
+          <el-button class="add_search" @click="searchinit()">{{
+            $t("form.reset")
+          }}</el-button>
+        </el-form-item>
+        <el-form-item style="float: right">
+          <el-button size="small" type="primary" @click="clickAddBtn">{{
+            $t("form.add")
+          }}</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
+    <el-table
+      ref="multipleTable"
+      :data="tableData.templates"
+      stripe
+      tooltip-effect="dark"
+      style="width: 100%"
+      :default-sort="{ prop: 'date', order: 'descending' }"
+    >
+      <el-table-column prop="name" :label="$t('form.name')">
+        <template slot-scope="scope">
+          <a style="color: #409eff" @click="changeInformation(scope.row)">
+            {{ scope.row.name }}
+          </a>
+        </template>
+      </el-table-column>
+      <el-table-column prop="type" :label="$t('form.type')">
+        <template slot-scope="scope">
+          <div v-if="scope.row.type == 0">{{ $t("form.create") }}</div>
+          <div v-if="scope.row.type == 1">{{ $t("form.export") }}</div>
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="version_num"
+        sortable
+        :label="$t('form.versionNumber')"
+      />
+      <el-table-column prop="cluster_type" :label="$t('form.clusterType')" />
+      <el-table-column
+        prop="owner_name"
+        :label="$t('form.owner')"
+        width="125"
+      />
+      <el-table-column
+        prop="create_time"
+        sortable
+        :label="$t('form.createTime')"
+      />
+      <el-table-column
+        prop="update_time"
+        sortable
+        :label="$t('form.updateTime')"
+      />
+      <el-table-column :label="$t('form.operation')" width="100">
+        <template slot-scope="scope">
+          <div class="czlb">
+            <el-popover placement="bottom" width="140" trigger="click">
+              <div class="icon_cz" @click="clickEditBtn(scope.row)">
+                <i class="el-icon-edit" />
+                {{ $t("form.edit") }}
+              </div>
+              <div class="icon_cz" @click="clickDelBtn(scope.row)">
+                <i class="el-icon-delete" />
+                {{ $t("form.delete") }}
+              </div>
+              <div class="icon_cz" @click="clickAddVersionBtn(scope.row)">
+                <i class="el-icon-circle-plus-outline" />
+                {{ $t("form.addVersion") }}
+              </div>
+              <el-button
+                slot="reference"
+                icon="el-icon-more"
+                class="czbtn right_czbtn"
+              />
+            </el-popover>
+          </div>
+        </template>
+      </el-table-column>
+    </el-table>
+    <div class="flex justify-end mt-4 px-4">
+      <el-pagination
+        :current-page="queryData.page_num"
+        :page-sizes="[5, 10, 20, 50, 100]"
+        :page-size="queryData.page_size"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="tableData.total_num"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+      />
+    </div>
+    <!--模板修改弹框开始-->
+    <el-dialog
+      :title="$t('cluster.templateEdit')"
+      :visible.sync="dialogVisible"
+      width="800px"
+      :before-close="handleClose"
+      :close-on-click-modal="false"
+    >
+      <div class="text item">
+        <!-- 集群信息开始 -->
+        <el-form ref="editform" :model="templateForm" label-width="80px">
+          <el-form-item
+            :label="$t('cluster.templateName') + ':'"
+            prop="name"
+            :rules="[
+              {
+                required: true,
+                validator: validate.k8sName,
+                trigger: ['blur', 'change'],
+              },
+            ]"
+          >
+            <el-input
+              v-model="templateForm.name"
+              size="small"
+              :placeholder="$t('form.pleaseInput')"
+            />
+          </el-form-item>
+          <el-form-item :label="$t('cluster.templateDesc') + ':'">
+            <el-input
+              v-model="templateForm.desc"
+              size="small"
+              type="textarea"
+              maxlength="255"
+              show-word-limit
+              :placeholder="$t('form.pleaseInput')"
+            />
+          </el-form-item>
+        </el-form>
+        <div />
+        <div style="margin-bottom: 20px; font-weight: bold">
+          {{ $t("cluster.identifier") }}
+        </div>
+        <span style="margin-bottom: 20px">
+          <el-form ref="form" :model="templateForm">
+            <el-form-item>
+              <el-tag
+                v-for="tag in templateForm.tags"
+                :key="tag"
+                closable
+                :disable-transitions="false"
+                style="margin-right: 30px"
+                @close="handleClosetags(tag)"
+              >
+                {{ tag }}
+              </el-tag>
+              <el-input
+                v-if="inputVisible"
+                ref="saveTagInput"
+                v-model="inputValue"
+                class="input-new-tag"
+                size="small"
+                style="display: inline-block; width: 15%"
+                @keyup.enter.native="handleInputConfirm"
+                @blur="handleInputConfirm"
+              />
+              <el-button
+                v-else
+                class="button-new-tag"
+                size="small"
+                @click="showInput"
+                >{{ $t("form.newTag") }}</el-button
+              >
+            </el-form-item>
+          </el-form>
+        </span>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="text" size="small" @click="dialogVisible = false">{{
+          $t("form.cancel")
+        }}</el-button>
+        <el-button
+          type="primary"
+          :loading="loading"
+          size="small"
+          @click="reviseTemplates"
+          >{{ $t("form.confirm") }}</el-button
+        >
+      </span>
+    </el-dialog>
+    <!--模板修改弹框结束-->
+    <!--模板修改弹框开始-->
+    <el-dialog
+      :title="$t('cluster.templateAddType')"
+      :visible.sync="templateVisible"
+      width="800px"
+      :before-close="handleCloseTemplate"
+      :close-on-click-modal="false"
+    >
+      <div class="text item">
+        <el-row>
+          <el-col :span="12">
+            <div style="margin-right: 8%">
+              <div class="mt-4 ml-4 mb-2">
+                {{ $t("cluster.createK8SClusterTemplate") }}
+              </div>
+              <div
+                class="ml-4 cursor-pointer w-80 h-24 flex justify-start items-center border border-gray-300 rounded"
+                @click="createClusterTemplate"
+              >
+                <div style="display: inline-block; line-height: 1">
+                  <span style="margin-left: 18px; margin-right: 5px">
+                    <span>
+                      <svg
+                        t="1662123523513"
+                        class="icon"
+                        viewBox="0 0 1024 1024"
+                        version="1.1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        p-id="971"
+                        width="50"
+                        height="50"
+                      >
+                        <path
+                          d="M798.856 493.33c-14.526 0-26.757 8.464-33.195 20.441h-70.614c-3.191-37.755-17.72-71.974-40.512-99.645l23.617-23.634c1.23 0.16 2.321 0.73 3.596 0.73 16.017 0 29.052-13.059 29.052-29.052s-13.036-29.052-29.052-29.052-29.052 13.059-29.052 29.052c0 1.109 0.515 2.052 0.636 3.132l-23.818 23.833c-27.689-22.753-61.908-37.247-99.651-40.399V281.29c11.986-6.441 20.441-18.684 20.441-33.198 0-21.008-17.105-38.137-38.137-38.137s-38.137 17.129-38.137 38.137c0 14.514 8.455 26.757 20.441 33.198v67.991c-36.969 4.199-70.35 19.249-97.214 42.277l-24.229-24.214c0.127-1.094 0.645-2.058 0.645-3.185 0-15.993-13.036-29.052-29.052-29.052-16.017 0-29.052 13.059-29.052 29.052s13.036 29.052 29.052 29.052c1.269 0 2.357-0.568 3.584-0.727l24.566 24.554c-21.446 27.157-35.035 60.308-38.113 96.735h-75.96c-6.438-11.977-18.669-20.441-33.195-20.441-21.032 0-38.137 17.129-38.137 38.137s17.105 38.137 38.137 38.137c14.526 0 26.757-8.464 33.195-20.441h76.469c4.019 35.718 18.169 68.059 39.873 94.47l-28.094 28.076c-0.807-0.068-1.499-0.47-2.324-0.47-16.017 0-29.052 13.059-29.052 29.052s13.036 29.052 29.052 29.052c16.017 0 29.052-13.059 29.052-29.052 0-1.573-0.657-2.934-0.899-4.442l27.234-27.219c26.397 21.751 58.737 35.952 94.464 40.009v75.561c-11.986 6.441-20.441 18.684-20.441 33.198 0 21.008 17.105 38.137 38.137 38.137s38.137-17.128 38.137-38.137c0-14.514-8.455-26.757-20.441-33.198v-75.017c36.487-3.049 69.694-16.644 96.892-38.119l26.157 26.172c-0.015 0.376-0.216 0.689-0.216 1.068 0 15.993 13.036 29.052 29.052 29.052s29.052-13.059 29.052-29.052-13.036-29.052-29.052-29.052c-2.005 0-3.768 0.757-5.66 1.147l-23.833-23.847c23.058-26.905 38.113-60.349 42.283-97.389h71.122c6.438 11.977 18.669 20.441 33.195 20.441 21.032 0 38.137-17.129 38.137-38.137-0.001-21.011-17.106-38.139-38.138-38.139z m-268.733-25.871c28.05 7.026 49.304 31.282 49.304 61.499 0 9.04-1.922 17.611-5.285 25.427l-44.019-29.957v-56.969z m-17.365 87.95l37.939 25.82c-10.395 7.163-22.28 12.317-35.833 12.317-13.955 0-26.187-5.385-36.756-12.929l34.65-25.208z m-57.513-1.887c-3.135-7.585-4.968-15.854-4.968-24.563 0-28.49 18.814-51.95 44.454-60.515v56.351l-39.486 28.727z m-66.503 48.384c-12.521-21.559-20.228-46.261-20.228-72.947 0-73.825 55.097-134.396 126.216-144.315v46.373c-45.509 9.342-79.846 49.712-79.846 97.942 0 16.493 4.397 31.832 11.501 45.56l-37.643 27.387z m126.122 73.402c-41.301 0-78.495-17.344-105.128-44.951l38.113-27.727c17.77 16.179 41.15 26.308 67.015 26.308 25.915 0 49.345-10.17 67.124-26.417l39.036 26.568c-26.699 28.304-64.268 46.219-106.16 46.219z m126.914-74.896l-38.35-26.098c7.038-13.677 11.391-28.946 11.391-45.356 0-49.895-36.862-91.016-84.696-98.436v-46.37c73.447 7.751 131.066 69.31 131.066 144.806 0 26.081-7.414 50.23-19.411 71.454z m229.59-352.56L512.167 74.911 152.988 247.852 64.27 636.556l248.576 311.72H711.51l248.553-311.72-88.695-388.704zM694.476 912.883H329.88L102.549 627.85l81.148-355.488 328.47-158.178L840.66 272.362l81.124 355.488-227.308 285.033z"
+                          fill="#606266"
+                          p-id="972"
+                        />
+                      </svg>
+                    </span>
+                  </span>
+                  <span>
+                    {{ $t("cluster.customK8SClusterTemplate") }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </el-col>
+          <el-col :span="12">
+            <div style="margin-right: 8%">
+              <div class="mt-4 ml-4 mb-2">
+                {{ $t("cluster.createK3SClusterTemplate") }}
+              </div>
+
+              <div
+                class="ml-4 cursor-pointer w-80 h-24 flex justify-start items-center border border-gray-300 rounded"
+                @click="createK3SClusterTemplate"
+              >
+                <div style="display: inline-block; line-height: 1">
+                  <span style="margin-left: 18px; margin-right: 5px">
+                    <span>
+                      <svg
+                        t="1656155840373"
+                        class="icon"
+                        viewBox="0 0 1024 1024"
+                        version="1.1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        p-id="2205"
+                        width="50"
+                        height="50"
+                      >
+                        <path
+                          d="M646.376988 934.978501l-0.005117 0c-16.305361-0.005117-32.157397-6.747681-42.395576-18.043958-13.947663-15.292288-58.142212-55.05899-94.319156-55.05899-35.927257 0-80.808444 39.997969-93.696985 54.004985-10.213619 11.105942-25.953092 17.735943-42.103934 17.735943-7.695263 0-14.951527-1.475608-21.579481-4.387937l-1.161453-0.509606-109.959368-61.492516-1.092891-0.76134c-20.018939-14.012132-27.637454-41.422412-17.7165-63.755046 0.076748-0.171915 10.143011-23.399943 10.143011-44.578288 0-64.269769-52.29197-116.561739-116.560716-116.561739l-3.89982 0c-0.237407 0.005117-0.474814 0.011256-0.706081 0.011256-18.412348 0-33.402761-16.355503-38.193881-41.665958-0.381693-2.028193-9.381671-50.03558-9.381671-87.86107 0-37.827537 8.999978-85.839017 9.381671-87.866187 4.847401-25.631774 20.165272-42.097794 38.899962-41.655725l3.89982 0c64.268746 0 116.560716-52.29197 116.560716-116.560716 0-21.173229-10.061147-44.396139-10.16757-44.62843-9.906627-22.312168-2.237971-49.717332 17.866926-63.684438l1.13894-0.789992L357.374852 93.123934l1.208525-0.512676c6.537903-2.788509 13.69286-4.198625 21.273513-4.198625 16.117073 0 31.885198 6.484691 42.193984 17.34811 13.736862 14.380522 57.150628 51.783387 92.290963 51.783387 34.80776 0 77.959559-36.660968 91.650373-50.79078 10.248412-10.641361 25.908066-17.015535 41.86141-17.015535 7.735172 0 15.026228 1.461281 21.666462 4.349051l1.173732 0.514723 112.086821 62.268182 1.103124 0.776689c20.054755 13.991666 27.693736 41.402969 17.766642 63.748906-0.075725 0.170892-10.143011 23.400966-10.143011 44.578288 0 64.268746 52.292993 116.560716 116.560716 116.560716l3.900843 0c18.708084-0.417509 34.046421 16.017812 38.898939 41.655725 0.38374 2.02717 9.382695 50.034557 9.382695 87.86107 0 37.826514-8.998955 85.837994-9.387811 87.866187-4.846378 25.631774-20.185738 42.038442-38.898939 41.654702l-3.895727 0c-64.268746 0-116.560716 52.292993-116.560716 116.561739 0 21.172205 10.06217 44.391023 10.163477 44.62229 9.901511 22.296819 2.252297 49.707099-17.816784 63.689554l-1.124614 0.786922-113.975844 62.99473-1.189082 0.511653C661.045059 933.552012 653.915685 934.978501 646.376988 934.978501L646.376988 934.978501zM642.915144 881.279485c0.509606 0.332575 1.950422 0.89744 3.461845 0.89744 0.061398 0 0.121773 0 0.171915-0.005117l106.488313-58.853409c-2.569522-5.970992-14.325263-34.95614-14.325263-65.180512 0-90.406033 71.207785-164.497495 160.478971-169.130002 1.285273-7.095605 8.258081-47.007617 8.258081-76.952626 0-29.938869-6.972808-69.837578-8.258081-76.952626-89.271186-4.635577-160.478971-78.724992-160.478971-169.130002 0-30.273491 11.790534-59.291384 14.340613-65.217351l-104.760972-58.202587c-0.119727-0.005117-0.267083-0.014326-0.437975-0.014326-1.783623 0-3.451612 0.649799-4.006244 1.023306-1.75804 1.808182-16.944927 17.20587-38.757722 32.550347-32.28838 22.714328-62.818721 34.233686-90.747817 34.233686-28.202319 0-58.977229-11.745509-91.475388-34.908044-21.945825-15.640212-37.201274-31.336706-38.963407-33.175587-0.557702-0.3776-2.24718-1.048889-4.047176-1.048889-0.140193 0-0.267083 0.00614-0.372483 0.011256L270.975063 200.821795c2.601244 6.046716 14.310937 34.978652 14.310937 65.150836 0 90.405009-71.207785 164.494425-160.478971 169.130002-1.284249 7.099698-8.258081 47.00864-8.258081 76.952626 0 29.940916 6.972808 69.832462 8.263198 76.94751 89.26607 4.637624 160.473855 78.724992 160.473855 169.130002 0 30.333866-11.836583 59.401902-14.354939 65.252143l102.697987 57.423851c0.066515 0.007163 0.143263 0.007163 0.228197 0.007163 1.50119 0 2.922563-0.548492 3.430122-0.87595 1.921769-2.060939 17.259082-18.295692 39.35431-34.490535 32.93204-24.137747 64.228837-36.374442 93.016487-36.374442 29.061896 0 60.594053 12.471033 93.719498 37.068244C625.598756 862.646102 641.000538 879.183753 642.915144 881.279485L642.915144 881.279485zM510.032694 666.695245c-85.591377 0-155.225317-69.635987-155.225317-155.230434 0-85.5924 69.63394-155.226341 155.225317-155.226341 85.59547 0 155.23555 69.634963 155.23555 155.226341C665.268244 597.059258 595.627141 666.695245 510.032694 666.695245L510.032694 666.695245zM510.032694 409.038c-56.479339 0-102.425787 45.946448-102.425787 102.426811 0 56.480362 45.946448 102.434997 102.425787 102.434997 56.480362 0 102.434997-45.953611 102.434997-102.434997C612.467691 454.984449 566.518173 409.038 510.032694 409.038L510.032694 409.038zM510.032694 409.038"
+                          p-id="2206"
+                          fill="#606266"
+                        />
+                      </svg>
+                    </span>
+                  </span>
+                  <span>
+                    {{ $t("cluster.customK3SClusterTemplate") }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </el-col>
+        </el-row>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="text" size="small" @click="templateVisible = false">{{
+          $t("form.cancel")
+        }}</el-button>
+      </span>
+    </el-dialog>
+    <!--模板修改弹框结束-->
+  </div>
+</template>
+
+<script>
+import { mapGetters } from "vuex";
+import {
+  getUsers,
+  getClusters,
+  deleteTemplates,
+  k8stemplates,
+  deleteTemplatesVersions,
+  exportClusterTemplates,
+  reviseTemplates,
+} from "@/api/mainApi";
+import initData from "@/mixins/initData";
+import validate from "@/utils/validate";
+export default {
+  components: {},
+  mixins: [initData],
+  data() {
+    return {
+      loading: false,
+      validate: validate,
+      // 添加类型
+      templateType: "",
+      // 模板添加弹框
+      templateVisible: false,
+      // 集群名称下拉框
+      clustersList: [],
+      // 修改
+      dialogVisible: false,
+      // 集群ID
+      cluster_id: "",
+      // 列表传参
+      queryData: {
+        page_size: 10,
+        page_num: 1,
+        // 名称
+        name: "",
+        // 集群名称
+        colonyName: "",
+        // 拥有者姓名
+        owner: "",
+        // 集群ID
+        cluster_id: "",
+        total_num: "",
+      },
+      // 集群模板数据
+      tableData: [],
+      // 用户数据
+      userData: [],
+      // 集群信息
+      templateForm: {
+        name: "",
+        desc: "",
+        // 标识
+        tags: [],
+      },
+      // 集群信息tags显示
+      inputVisible: false,
+      inputValue: "",
+      // 修改时集群ID
+      template_id: "",
+    };
+  },
+  computed: {
+    ...mapGetters(["kind", "userInfo"]),
+  },
+  created() {
+    this.init();
+    this.getClusters();
+    this.userinit();
+  },
+  mounted() {},
+
+  methods: {
+    createClusterTemplate() {
+      this.$router.push("/serverCluster/templateAdd/k8s/add");
+    },
+    // K3s 集群模板创建
+    createK3SClusterTemplate() {
+      this.$router.push("/serverCluster/templateAdd/k3s/add");
+    },
+    // 添加模板关闭
+    handleCloseTemplate() {
+      this.templateVisible = false;
+    },
+    async userinit() {
+      var list = await getUsers();
+      this.userData = list.users;
+    },
+    // 请求集群名称
+    async getClusters() {
+      const list = await getClusters();
+      this.clustersList = list.clusters;
+    },
+    // 集群名称改变触发
+    changeColonyName(value) {
+      this.queryData.cluster_id = value;
+      this.init();
+    },
+    handleChangeUser(value) {
+      this.queryData.owner = value;
+      this.init();
+    },
+    handleSizeChange(val) {
+      this.queryData.page_size = val;
+      this.init();
+    },
+    handleCurrentChange(val) {
+      this.queryData.page_num = val;
+      this.init();
+    },
+    // 模板列表
+    async init() {
+      for (var key in this.queryData) {
+        if (this.queryData[key] === undefined || this.queryData[key] === "") {
+          delete this.queryData[key];
+        }
+      }
+      const list = await k8stemplates(this.queryData);
+      this.tableData = list;
+      // if (list.templates != undefined && list.templates.length > 0) {
+      //   for (var i = 0; i < list.templates.length; i++) {
+      //     for (var j = 0; j < list.templates[i].versions.length; j++) {
+      //       if (list.templates[i].versions[j].tags != null) {
+      //         list.templates[i].versions[j].tags = eval(
+      //           "(" + list.templates[i].versions[j].tags + ")"
+      //         );
+      //       }
+      //     }
+      //   }
+      // }
+    },
+    // 修改模板调用
+    reviseTemplates() {
+      this.$refs["editform"].validate(async (valid) => {
+        if (valid) {
+          this.loading = true;
+          await reviseTemplates(this.template_id, this.templateForm)
+            .then((res) => {
+              this.$notify({
+                title: this.$t("message.modifySuccess"),
+                type: "success",
+                duration: 2500,
+              });
+              this.loading = false;
+              this.dialogVisible = false;
+              this.searchinit();
+            })
+            .catch((err) => {
+              this.templateForm = {
+                name: "",
+                desc: "",
+                // 标识
+                tags: [],
+              };
+              this.loading = false;
+              this.dialogVisible = false;
+            });
+        }
+      });
+    },
+
+    // 关闭模板修改
+    handleClose() {
+      this.dialogVisible = false;
+      this.templateForm = {
+        name: "",
+        desc: "",
+        // 标识
+        tags: [],
+        // 共享成员
+        members: [{ user_id: "", user_name: "", access_role: "" }],
+      };
+    },
+    // 模板修改tags
+    showInput() {
+      this.inputVisible = true;
+      this.$nextTick((_) => {
+        this.$refs.saveTagInput.$refs.input.focus();
+      });
+    },
+    handleClosetags(tag) {
+      this.templateForm.tags.splice(this.templateForm.tags.indexOf(tag), 1);
+    },
+    handleInputConfirm() {
+      const inputValue = this.inputValue;
+      if (inputValue) {
+        this.templateForm.tags.push(inputValue);
+      }
+      this.inputVisible = false;
+      this.inputValue = "";
+    },
+    // 删除模板
+    clickDelBtn(value) {
+      this.$confirm(this.$t("cluster.deleteTemplate"), this.$t("message.tip"), {
+        confirmButtonText: this.$t("form.confirm"),
+        cancelButtonText: this.$t("form.cancel"),
+        type: "warning",
+      })
+        .then(() => {
+          deleteTemplates(value.id)
+            .then((res) => {
+              this.$notify({
+                title: this.$t("message.deleteSuccess"),
+                type: "success",
+                duration: 2500,
+              });
+              this.init();
+            })
+            .catch((err) => {
+              console.error(err.response.data.message);
+            });
+        })
+        .catch(() => {});
+    },
+    // 删除模板版本
+    clickDelVersionBtn(value) {
+      this.$confirm(
+        this.$t("cluster.deleteTemplateVersion"),
+        this.$t("message.tip"),
+        {
+          confirmButtonText: this.$t("form.confirm"),
+          cancelButtonText: this.$t("form.cancel"),
+          type: "warning",
+        }
+      )
+        .then(() => {
+          deleteTemplatesVersions(value.id)
+            .then((res) => {
+              this.$notify({
+                title: this.$t("message.deleteSuccess"),
+                type: "success",
+                duration: 2500,
+              });
+              this.init();
+            })
+            .catch((err) => {
+              console.error(err.response.data.message);
+            });
+        })
+        .catch(() => {});
+    },
+    // 添加调用的方法
+    clickAddBtn() {
+      this.templateVisible = true;
+    },
+    // 修改调用的方法
+    clickEditBtn(value) {
+      this.template_id = value.id;
+      this.templateForm.name = value.name;
+      this.templateForm.desc = value.desc;
+      this.templateForm.tags = value.tags
+        ? JSON.parse(JSON.stringify(value.tags))
+        : [];
+      this.dialogVisible = true;
+    },
+
+    // 导出模板调用的方法
+    clickExportBtn(item) {
+      var obj = {
+        template_name: "",
+        template_desc: "",
+        template_version: "v1",
+        overwrite: false,
+      };
+      for (var n = 0; n < this.tableData.templates.length; n++) {
+        if (this.tableData.templates[n].id == item.template_id) {
+          this.cluster_id = this.tableData.templates[n].cluster_id;
+          obj.template_name = this.tableData.templates[n].name;
+          obj.template_desc = this.tableData.templates[n].desc;
+        }
+      }
+      this.$confirm(
+        this.$t("cluster.isExportClusterTemplate"),
+        this.$t("message.tip"),
+        {
+          confirmButtonText: this.$t("form.confirm"),
+          cancelButtonText: this.$t("form.cancel"),
+          type: "warning",
+        }
+      )
+        .then(() => {
+          exportClusterTemplates(this.cluster_id, obj)
+            .then((res) => {
+              this.$notify({
+                title: this.$t("message.exportSuccess"),
+                type: "success",
+                duration: 2500,
+              });
+              this.init();
+            })
+            .catch((err) => {
+              console.error(err.response.data.message);
+            });
+        })
+        .catch(() => {});
+    },
+    // 新增模板版本调用
+    clickAddVersionBtn(item) {
+      this.$router.push(
+        "/serverCluster/templateAdd/" + item.cluster_type + "/" + item.id
+      );
+    },
+    // 带参数跳转到模板信息
+    changeInformation(message) {
+      this.$router.push("/serverCluster/templateInformation/" + message.id);
+    },
+
+    searchinit() {
+      this.queryData = {
+        page_size: 10,
+        page_num: 1,
+        // 名称
+        name: "",
+        // 集群名称
+        colonyName: "",
+        // 拥有者姓名
+        owner: "",
+      };
+      this.handleCurrentChange(1);
+    },
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+svg {
+  display: inline-block;
+}
+</style>

@@ -1,0 +1,561 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.cmp.db.mapper.TblCmpBaremetalDeviceMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.cmp.db.model.TblCmpBaremetalDevice">
+    <id column="cloud_id" jdbcType="VARCHAR" property="cloudId" />
+    <id column="device_id" jdbcType="VARCHAR" property="deviceId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="phase_status" jdbcType="INTEGER" property="phaseStatus" />
+    <result column="cluster_id" jdbcType="VARCHAR" property="clusterId" />
+    <result column="device_spec_id" jdbcType="VARCHAR" property="deviceSpecId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="address_type" jdbcType="SMALLINT" property="addressType" />
+    <result column="ipmi_ip" jdbcType="VARCHAR" property="ipmiIp" />
+    <result column="ipmi_port" jdbcType="SMALLINT" property="ipmiPort" />
+    <result column="ipmi_username" jdbcType="VARCHAR" property="ipmiUsername" />
+    <result column="ipmi_password" jdbcType="VARCHAR" property="ipmiPassword" />
+    <result column="bmctype" jdbcType="VARCHAR" property="bmctype" />
+    <result column="ipmi_mac" jdbcType="VARCHAR" property="ipmiMac" />
+    <result column="device_id_from_agent" jdbcType="VARCHAR" property="deviceIdFromAgent" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="ee_bp" jdbcType="VARCHAR" property="eeBp" />
+    <result column="ee_user" jdbcType="VARCHAR" property="eeUser" />
+    <result column="ee_status" jdbcType="INTEGER" property="eeStatus" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    cloud_id, device_id, name, phase_status, cluster_id, device_spec_id, user_id, address_type, 
+    ipmi_ip, ipmi_port, ipmi_username, ipmi_password, bmctype, ipmi_mac, device_id_from_agent, 
+    description, create_time, update_time, ee_bp, ee_user, ee_status
+  </sql>
+  <select id="selectByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpBaremetalDeviceExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_cmp_baremetal_device
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpBaremetalDeviceKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_cmp_baremetal_device
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and device_id = #{deviceId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpBaremetalDeviceKey">
+    delete from tbl_cmp_baremetal_device
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and device_id = #{deviceId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpBaremetalDeviceExample">
+    delete from tbl_cmp_baremetal_device
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpBaremetalDevice">
+    insert into tbl_cmp_baremetal_device (cloud_id, device_id, name, 
+      phase_status, cluster_id, device_spec_id, 
+      user_id, address_type, ipmi_ip, 
+      ipmi_port, ipmi_username, ipmi_password, 
+      bmctype, ipmi_mac, device_id_from_agent, 
+      description, create_time, update_time, 
+      ee_bp, ee_user, ee_status
+      )
+    values (#{cloudId,jdbcType=VARCHAR}, #{deviceId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{phaseStatus,jdbcType=INTEGER}, #{clusterId,jdbcType=VARCHAR}, #{deviceSpecId,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=VARCHAR}, #{addressType,jdbcType=SMALLINT}, #{ipmiIp,jdbcType=VARCHAR}, 
+      #{ipmiPort,jdbcType=SMALLINT}, #{ipmiUsername,jdbcType=VARCHAR}, #{ipmiPassword,jdbcType=VARCHAR}, 
+      #{bmctype,jdbcType=VARCHAR}, #{ipmiMac,jdbcType=VARCHAR}, #{deviceIdFromAgent,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{eeBp,jdbcType=VARCHAR}, #{eeUser,jdbcType=VARCHAR}, #{eeStatus,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpBaremetalDevice">
+    insert into tbl_cmp_baremetal_device
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cloudId != null">
+        cloud_id,
+      </if>
+      <if test="deviceId != null">
+        device_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="phaseStatus != null">
+        phase_status,
+      </if>
+      <if test="clusterId != null">
+        cluster_id,
+      </if>
+      <if test="deviceSpecId != null">
+        device_spec_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="addressType != null">
+        address_type,
+      </if>
+      <if test="ipmiIp != null">
+        ipmi_ip,
+      </if>
+      <if test="ipmiPort != null">
+        ipmi_port,
+      </if>
+      <if test="ipmiUsername != null">
+        ipmi_username,
+      </if>
+      <if test="ipmiPassword != null">
+        ipmi_password,
+      </if>
+      <if test="bmctype != null">
+        bmctype,
+      </if>
+      <if test="ipmiMac != null">
+        ipmi_mac,
+      </if>
+      <if test="deviceIdFromAgent != null">
+        device_id_from_agent,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="eeBp != null">
+        ee_bp,
+      </if>
+      <if test="eeUser != null">
+        ee_user,
+      </if>
+      <if test="eeStatus != null">
+        ee_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cloudId != null">
+        #{cloudId,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null">
+        #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phaseStatus != null">
+        #{phaseStatus,jdbcType=INTEGER},
+      </if>
+      <if test="clusterId != null">
+        #{clusterId,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceSpecId != null">
+        #{deviceSpecId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="addressType != null">
+        #{addressType,jdbcType=SMALLINT},
+      </if>
+      <if test="ipmiIp != null">
+        #{ipmiIp,jdbcType=VARCHAR},
+      </if>
+      <if test="ipmiPort != null">
+        #{ipmiPort,jdbcType=SMALLINT},
+      </if>
+      <if test="ipmiUsername != null">
+        #{ipmiUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="ipmiPassword != null">
+        #{ipmiPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="bmctype != null">
+        #{bmctype,jdbcType=VARCHAR},
+      </if>
+      <if test="ipmiMac != null">
+        #{ipmiMac,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceIdFromAgent != null">
+        #{deviceIdFromAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="eeBp != null">
+        #{eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="eeUser != null">
+        #{eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="eeStatus != null">
+        #{eeStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpBaremetalDeviceExample" resultType="java.lang.Long">
+    select count(*) from tbl_cmp_baremetal_device
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_cmp_baremetal_device
+    <set>
+      <if test="record.cloudId != null">
+        cloud_id = #{record.cloudId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceId != null">
+        device_id = #{record.deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phaseStatus != null">
+        phase_status = #{record.phaseStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.clusterId != null">
+        cluster_id = #{record.clusterId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceSpecId != null">
+        device_spec_id = #{record.deviceSpecId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addressType != null">
+        address_type = #{record.addressType,jdbcType=SMALLINT},
+      </if>
+      <if test="record.ipmiIp != null">
+        ipmi_ip = #{record.ipmiIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ipmiPort != null">
+        ipmi_port = #{record.ipmiPort,jdbcType=SMALLINT},
+      </if>
+      <if test="record.ipmiUsername != null">
+        ipmi_username = #{record.ipmiUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ipmiPassword != null">
+        ipmi_password = #{record.ipmiPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bmctype != null">
+        bmctype = #{record.bmctype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ipmiMac != null">
+        ipmi_mac = #{record.ipmiMac,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceIdFromAgent != null">
+        device_id_from_agent = #{record.deviceIdFromAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.eeBp != null">
+        ee_bp = #{record.eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeUser != null">
+        ee_user = #{record.eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeStatus != null">
+        ee_status = #{record.eeStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_cmp_baremetal_device
+    set cloud_id = #{record.cloudId,jdbcType=VARCHAR},
+      device_id = #{record.deviceId,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      phase_status = #{record.phaseStatus,jdbcType=INTEGER},
+      cluster_id = #{record.clusterId,jdbcType=VARCHAR},
+      device_spec_id = #{record.deviceSpecId,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      address_type = #{record.addressType,jdbcType=SMALLINT},
+      ipmi_ip = #{record.ipmiIp,jdbcType=VARCHAR},
+      ipmi_port = #{record.ipmiPort,jdbcType=SMALLINT},
+      ipmi_username = #{record.ipmiUsername,jdbcType=VARCHAR},
+      ipmi_password = #{record.ipmiPassword,jdbcType=VARCHAR},
+      bmctype = #{record.bmctype,jdbcType=VARCHAR},
+      ipmi_mac = #{record.ipmiMac,jdbcType=VARCHAR},
+      device_id_from_agent = #{record.deviceIdFromAgent,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      ee_bp = #{record.eeBp,jdbcType=VARCHAR},
+      ee_user = #{record.eeUser,jdbcType=VARCHAR},
+      ee_status = #{record.eeStatus,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpBaremetalDevice">
+    update tbl_cmp_baremetal_device
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phaseStatus != null">
+        phase_status = #{phaseStatus,jdbcType=INTEGER},
+      </if>
+      <if test="clusterId != null">
+        cluster_id = #{clusterId,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceSpecId != null">
+        device_spec_id = #{deviceSpecId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="addressType != null">
+        address_type = #{addressType,jdbcType=SMALLINT},
+      </if>
+      <if test="ipmiIp != null">
+        ipmi_ip = #{ipmiIp,jdbcType=VARCHAR},
+      </if>
+      <if test="ipmiPort != null">
+        ipmi_port = #{ipmiPort,jdbcType=SMALLINT},
+      </if>
+      <if test="ipmiUsername != null">
+        ipmi_username = #{ipmiUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="ipmiPassword != null">
+        ipmi_password = #{ipmiPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="bmctype != null">
+        bmctype = #{bmctype,jdbcType=VARCHAR},
+      </if>
+      <if test="ipmiMac != null">
+        ipmi_mac = #{ipmiMac,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceIdFromAgent != null">
+        device_id_from_agent = #{deviceIdFromAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="eeBp != null">
+        ee_bp = #{eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="eeUser != null">
+        ee_user = #{eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="eeStatus != null">
+        ee_status = #{eeStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and device_id = #{deviceId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpBaremetalDevice">
+    update tbl_cmp_baremetal_device
+    set name = #{name,jdbcType=VARCHAR},
+      phase_status = #{phaseStatus,jdbcType=INTEGER},
+      cluster_id = #{clusterId,jdbcType=VARCHAR},
+      device_spec_id = #{deviceSpecId,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      address_type = #{addressType,jdbcType=SMALLINT},
+      ipmi_ip = #{ipmiIp,jdbcType=VARCHAR},
+      ipmi_port = #{ipmiPort,jdbcType=SMALLINT},
+      ipmi_username = #{ipmiUsername,jdbcType=VARCHAR},
+      ipmi_password = #{ipmiPassword,jdbcType=VARCHAR},
+      bmctype = #{bmctype,jdbcType=VARCHAR},
+      ipmi_mac = #{ipmiMac,jdbcType=VARCHAR},
+      device_id_from_agent = #{deviceIdFromAgent,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      ee_bp = #{eeBp,jdbcType=VARCHAR},
+      ee_user = #{eeUser,jdbcType=VARCHAR},
+      ee_status = #{eeStatus,jdbcType=INTEGER}
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and device_id = #{deviceId,jdbcType=VARCHAR}
+  </update>
+  <resultMap id="DeviceInfoResultMap" type="com.lnjoying.justice.cmp.domain.info.baremetal.BaremetalDeviceInfo">
+    <id column="device_id" jdbcType="VARCHAR" property="deviceId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="phase_status" jdbcType="INTEGER" property="phaseStatus" />
+    <result column="cluster_id" jdbcType="VARCHAR" property="clusterId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="ipmi_ip" jdbcType="VARCHAR" property="ipmiIp" />
+    <result column="ipmi_port" jdbcType="SMALLINT" property="ipmiPort" />
+    <result column="architecture" jdbcType="VARCHAR" property="architecture" />
+    <result column="cpu_frequency" jdbcType="DOUBLE" property="cpuFrequency" />
+    <result column="cpu_num" jdbcType="INTEGER" property="cpuNum" />
+    <result column="mem_total" jdbcType="BIGINT" property="memTotal" />
+    <result column="disk_total" jdbcType="BIGINT" property="diskTotal" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+
+  <select id="selectByPhasesUserId" resultMap="DeviceInfoResultMap">
+    select distinct device_id, tbl_cmp_baremetal_device.name, tbl_cmp_baremetal_device.phase_status, cluster_id, tbl_cmp_baremetal_device.ee_user as user_id,
+    tbl_cmp_baremetal_device_spec.architecture, ipmi_ip, ipmi_port, cpu_num, cpu_frequency, mem_total,
+    disk_total, tbl_cmp_baremetal_device.create_time, tbl_cmp_baremetal_device.update_time as update_time
+    from tbl_cmp_baremetal_device
+    LEFT JOIN tbl_cmp_baremetal_device_spec on tbl_cmp_baremetal_device.device_spec_id = tbl_cmp_baremetal_device_spec.device_spec_id
+    LEFT JOIN tbl_cmp_nic_spec on tbl_cmp_baremetal_device.device_spec_id = tbl_cmp_nic_spec.device_spec_id
+    <where>
+      <if test="baremetalDevicePhaseStatus !=null">
+        and tbl_cmp_baremetal_device.phase_status = #{baremetalDevicePhaseStatus}
+      </if>
+      <if test="nicSpecPhaseStatus != null">
+        and tbl_cmp_nic_spec.phase_status = #{nicSpecPhaseStatus}
+      </if>
+      <if test="cpuNum != null">
+        and tbl_cmp_baremetal_device_spec.cpu_num = #{cpuNum}
+      </if>
+      <if test="memTotal != null">
+        and tbl_cmp_baremetal_device_spec.mem_total = #{memTotal}
+      </if>
+      <if test="cloudId != null">
+        and tbl_cmp_baremetal_device.cloud_id = #{cloudId}
+      </if>
+      and tbl_cmp_baremetal_device.ee_status != -1
+      <choose>
+        <when test="userId != null and userId!=''">
+          and tbl_cmp_baremetal_device.ee_user = #{userId}
+        </when>
+        <when test="userId==''">
+          and tbl_cmp_baremetal_device.ee_user is null
+          or tbl_cmp_baremetal_device.ee_user = ''
+        </when>
+        <otherwise />
+      </choose>
+    </where>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null and pageSize != null and pageSize != 0">
+      limit #{pageSize} offset #{startRow}
+    </if>
+  </select>
+  <select id="countByPhasesUserId" resultType="java.lang.Long">
+    select count(distinct device_id) from tbl_cmp_baremetal_device
+    LEFT JOIN tbl_cmp_baremetal_device_spec on tbl_cmp_baremetal_device.device_spec_id = tbl_cmp_baremetal_device_spec.device_spec_id
+    LEFT JOIN tbl_cmp_nic_spec on tbl_cmp_baremetal_device.device_spec_id = tbl_cmp_nic_spec.device_spec_id
+    <where>
+      <if test="baremetalDevicePhaseStatus != null">
+        tbl_cmp_baremetal_device.phase_status = #{baremetalDevicePhaseStatus}
+      </if>
+      <if test="nicSpecPhaseStatus != null">
+        and tbl_cmp_nic_spec.phase_status = #{nicSpecPhaseStatus}
+      </if>
+      <if test="cpuNum != null">
+        and tbl_cmp_baremetal_device_spec.cpu_num = #{cpuNum}
+      </if>
+      <if test="memTotal != null">
+        and tbl_cmp_baremetal_device_spec.mem_total = #{memTotal}
+      </if>
+      <if test="cloudId != null">
+        and tbl_cmp_baremetal_device.cloud_id = #{cloudId}
+      </if>
+      and tbl_cmp_baremetal_device.ee_status != -1
+      <choose>
+        <when test="userId != null and userId != ''">
+          and tbl_cmp_baremetal_device.ee_user = #{userId}
+        </when>
+        <when test="userId==''">
+          and tbl_cmp_baremetal_device.ee_user is null
+          or tbl_cmp_baremetal_device.ee_user = ''
+        </when>
+        <otherwise />
+      </choose>
+    </where>
+  </select>
+  <select id="getBaremetalDeviceIds" resultType="String">
+    select device_id from tbl_cmp_baremetal_device
+    where cloud_id = #{cloudId} and ee_status != -1
+  </select>
+</mapper>

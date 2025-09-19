@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.servicemanager.db.mapper.TblServiceGatewayPortInfoMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.servicemanager.db.model.TblServiceGatewayPortInfo">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="service_gateway_id" jdbcType="VARCHAR" property="serviceGatewayId" />
+    <result column="internal_ip" jdbcType="VARCHAR" property="internalIp" />
+    <result column="external_ip" jdbcType="VARCHAR" property="externalIp" />
+    <result column="port_range_min" jdbcType="INTEGER" property="portRangeMin" />
+    <result column="port_range_max" jdbcType="INTEGER" property="portRangeMax" />
+    <result column="listen_port_range_min" jdbcType="INTEGER" property="listenPortRangeMin" />
+    <result column="listen_port_range_max" jdbcType="INTEGER" property="listenPortRangeMax" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="total" jdbcType="INTEGER" property="total" />
+    <result column="left" jdbcType="INTEGER" property="left" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, service_gateway_id, internal_ip, external_ip, port_range_min, port_range_max, 
+    listen_port_range_min, listen_port_range_max, description, total, "left", status, create_time,
+    update_time
+  </sql>
+  <select id="selectByExample" parameterType="com.lnjoying.justice.servicemanager.db.model.TblServiceGatewayPortInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_service_gateway_port_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_service_gateway_port_info
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tbl_service_gateway_port_info
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lnjoying.justice.servicemanager.db.model.TblServiceGatewayPortInfoExample">
+    delete from tbl_service_gateway_port_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.servicemanager.db.model.TblServiceGatewayPortInfo">
+    insert into tbl_service_gateway_port_info (id, service_gateway_id, internal_ip, 
+      external_ip, port_range_min, port_range_max, 
+      listen_port_range_min, listen_port_range_max, 
+      description, total, "left",
+      status, create_time, update_time
+      )
+    values (#{id,jdbcType=VARCHAR}, #{serviceGatewayId,jdbcType=VARCHAR}, #{internalIp,jdbcType=VARCHAR}, 
+      #{externalIp,jdbcType=VARCHAR}, #{portRangeMin,jdbcType=INTEGER}, #{portRangeMax,jdbcType=INTEGER}, 
+      #{listenPortRangeMin,jdbcType=INTEGER}, #{listenPortRangeMax,jdbcType=INTEGER}, 
+      #{description,jdbcType=VARCHAR}, #{total,jdbcType=INTEGER}, #{left,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.servicemanager.db.model.TblServiceGatewayPortInfo">
+    insert into tbl_service_gateway_port_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="serviceGatewayId != null">
+        service_gateway_id,
+      </if>
+      <if test="internalIp != null">
+        internal_ip,
+      </if>
+      <if test="externalIp != null">
+        external_ip,
+      </if>
+      <if test="portRangeMin != null">
+        port_range_min,
+      </if>
+      <if test="portRangeMax != null">
+        port_range_max,
+      </if>
+      <if test="listenPortRangeMin != null">
+        listen_port_range_min,
+      </if>
+      <if test="listenPortRangeMax != null">
+        listen_port_range_max,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="total != null">
+        total,
+      </if>
+      <if test="left != null">
+        "left",
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceGatewayId != null">
+        #{serviceGatewayId,jdbcType=VARCHAR},
+      </if>
+      <if test="internalIp != null">
+        #{internalIp,jdbcType=VARCHAR},
+      </if>
+      <if test="externalIp != null">
+        #{externalIp,jdbcType=VARCHAR},
+      </if>
+      <if test="portRangeMin != null">
+        #{portRangeMin,jdbcType=INTEGER},
+      </if>
+      <if test="portRangeMax != null">
+        #{portRangeMax,jdbcType=INTEGER},
+      </if>
+      <if test="listenPortRangeMin != null">
+        #{listenPortRangeMin,jdbcType=INTEGER},
+      </if>
+      <if test="listenPortRangeMax != null">
+        #{listenPortRangeMax,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="total != null">
+        #{total,jdbcType=INTEGER},
+      </if>
+      <if test="left != null">
+        #{left,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lnjoying.justice.servicemanager.db.model.TblServiceGatewayPortInfoExample" resultType="java.lang.Long">
+    select count(*) from tbl_service_gateway_port_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_service_gateway_port_info
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceGatewayId != null">
+        service_gateway_id = #{record.serviceGatewayId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.internalIp != null">
+        internal_ip = #{record.internalIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.externalIp != null">
+        external_ip = #{record.externalIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.portRangeMin != null">
+        port_range_min = #{record.portRangeMin,jdbcType=INTEGER},
+      </if>
+      <if test="record.portRangeMax != null">
+        port_range_max = #{record.portRangeMax,jdbcType=INTEGER},
+      </if>
+      <if test="record.listenPortRangeMin != null">
+        listen_port_range_min = #{record.listenPortRangeMin,jdbcType=INTEGER},
+      </if>
+      <if test="record.listenPortRangeMax != null">
+        listen_port_range_max = #{record.listenPortRangeMax,jdbcType=INTEGER},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.total != null">
+        total = #{record.total,jdbcType=INTEGER},
+      </if>
+      <if test="record.left != null">
+        "left" = #{record.left,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_service_gateway_port_info
+    set id = #{record.id,jdbcType=VARCHAR},
+      service_gateway_id = #{record.serviceGatewayId,jdbcType=VARCHAR},
+      internal_ip = #{record.internalIp,jdbcType=VARCHAR},
+      external_ip = #{record.externalIp,jdbcType=VARCHAR},
+      port_range_min = #{record.portRangeMin,jdbcType=INTEGER},
+      port_range_max = #{record.portRangeMax,jdbcType=INTEGER},
+      listen_port_range_min = #{record.listenPortRangeMin,jdbcType=INTEGER},
+      listen_port_range_max = #{record.listenPortRangeMax,jdbcType=INTEGER},
+      description = #{record.description,jdbcType=VARCHAR},
+      total = #{record.total,jdbcType=INTEGER},
+      "left" = #{record.left,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.servicemanager.db.model.TblServiceGatewayPortInfo">
+    update tbl_service_gateway_port_info
+    <set>
+      <if test="serviceGatewayId != null">
+        service_gateway_id = #{serviceGatewayId,jdbcType=VARCHAR},
+      </if>
+      <if test="internalIp != null">
+        internal_ip = #{internalIp,jdbcType=VARCHAR},
+      </if>
+      <if test="externalIp != null">
+        external_ip = #{externalIp,jdbcType=VARCHAR},
+      </if>
+      <if test="portRangeMin != null">
+        port_range_min = #{portRangeMin,jdbcType=INTEGER},
+      </if>
+      <if test="portRangeMax != null">
+        port_range_max = #{portRangeMax,jdbcType=INTEGER},
+      </if>
+      <if test="listenPortRangeMin != null">
+        listen_port_range_min = #{listenPortRangeMin,jdbcType=INTEGER},
+      </if>
+      <if test="listenPortRangeMax != null">
+        listen_port_range_max = #{listenPortRangeMax,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="total != null">
+        total = #{total,jdbcType=INTEGER},
+      </if>
+      <if test="left != null">
+        "left" = #{left,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.servicemanager.db.model.TblServiceGatewayPortInfo">
+    update tbl_service_gateway_port_info
+    set service_gateway_id = #{serviceGatewayId,jdbcType=VARCHAR},
+      internal_ip = #{internalIp,jdbcType=VARCHAR},
+      external_ip = #{externalIp,jdbcType=VARCHAR},
+      port_range_min = #{portRangeMin,jdbcType=INTEGER},
+      port_range_max = #{portRangeMax,jdbcType=INTEGER},
+      listen_port_range_min = #{listenPortRangeMin,jdbcType=INTEGER},
+      listen_port_range_max = #{listenPortRangeMax,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
+      total = #{total,jdbcType=INTEGER},
+      "left" = #{left,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

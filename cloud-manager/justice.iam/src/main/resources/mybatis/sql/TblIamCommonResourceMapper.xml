@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.iam.db.mapper.TblIamCommonResourceMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.iam.db.model.TblIamCommonResource">
+    <!--@mbg.generated-->
+    <!--@Table tbl_iam_common_resource-->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="service_id" jdbcType="VARCHAR" property="serviceId" />
+    <result column="project_id" jdbcType="VARCHAR" property="projectId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="lrn" jdbcType="VARCHAR" property="lrn" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+
+  <resultMap extends="BaseResultMap" id="ExtendResultMap" type="com.lnjoying.justice.iam.domain.dto.response.resource.TblIamCommonResourceDetail">
+    <association column="id" javaType="java.util.List" property="actions" select="com.lnjoying.justice.iam.db.mapper.TblIamActionMapper.selectAllByResourceId" />
+    <association column="id" javaType="java.util.List" property="attrs" select="com.lnjoying.justice.iam.db.mapper.TblIamResourceAttrMapper.selectByResourceId" />
+    <association column="id" javaType="java.util.List" property="conditions" select="com.lnjoying.justice.iam.db.mapper.TblIamConditionKeyMapper.selectAllByResourceId" />
+    <association column="id" javaType="java.lang.Integer" property="actionTotal" select="com.lnjoying.justice.iam.db.mapper.TblIamActionMapper.countByResourceId" />
+    <association column="id" javaType="java.lang.Integer" property="attrTotal" select="com.lnjoying.justice.iam.db.mapper.TblIamResourceAttrMapper.countByResourceId" />
+    <association column="id" javaType="java.lang.Integer" property="conditionTotal" select="com.lnjoying.justice.iam.db.mapper.TblIamConditionKeyMapper.countByResourceId" />
+    <association column="service_id" javaType="java.lang.String" property="serviceName" select="com.lnjoying.justice.iam.db.mapper.TblIamServiceMapper.selectNameById" />
+    <association column="service_id" javaType="java.lang.String" property="serviceDisplayName" select="com.lnjoying.justice.iam.db.mapper.TblIamServiceMapper.selectDisplayNameById" />
+    <association column="service_id" javaType="java.lang.String" property="serviceIamCode" select="com.lnjoying.justice.iam.db.mapper.TblIamServiceMapper.selectIamCodeById" />
+    <association column="project_id" javaType="java.lang.String" property="projectName" select="com.lnjoying.justice.iam.db.mapper.TblIamProjectMapper.selectNameById" />
+    <association column="project_id" javaType="java.lang.String" property="projectDisplayName" select="com.lnjoying.justice.iam.db.mapper.TblIamProjectMapper.selectDisplayNameById" />
+  </resultMap>
+
+  <resultMap extends="BaseResultMap" id="ExtendSummaryResultMap" type="com.lnjoying.justice.iam.domain.dto.response.resource.TblIamCommonResourceSummary">
+    <association column="id" javaType="java.lang.Integer" property="actionTotal" select="com.lnjoying.justice.iam.db.mapper.TblIamActionMapper.countByResourceId" />
+    <association column="id" javaType="java.lang.Integer" property="attrTotal" select="com.lnjoying.justice.iam.db.mapper.TblIamResourceAttrMapper.countByResourceId" />
+    <association column="id" javaType="java.lang.Integer" property="conditionTotal" select="com.lnjoying.justice.iam.db.mapper.TblIamConditionKeyMapper.countByResourceId" />
+    <association column="service_id" javaType="java.lang.String" property="serviceName" select="com.lnjoying.justice.iam.db.mapper.TblIamServiceMapper.selectNameById" />
+    <association column="service_id" javaType="java.lang.String" property="serviceDisplayName" select="com.lnjoying.justice.iam.db.mapper.TblIamServiceMapper.selectDisplayNameById" />
+    <association column="service_id" javaType="java.lang.String" property="serviceIamCode" select="com.lnjoying.justice.iam.db.mapper.TblIamServiceMapper.selectIamCodeById" />
+    <association column="project_id" javaType="java.lang.String" property="projectName" select="com.lnjoying.justice.iam.db.mapper.TblIamProjectMapper.selectNameById" />
+    <association column="project_id" javaType="java.lang.String" property="projectDisplayName" select="com.lnjoying.justice.iam.db.mapper.TblIamProjectMapper.selectDisplayNameById" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, service_id, project_id, "name", description, lrn, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_iam_common_resource
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from tbl_iam_common_resource
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.iam.db.model.TblIamCommonResource">
+    <!--@mbg.generated-->
+    insert into tbl_iam_common_resource (id, service_id, project_id, 
+      "name", description, lrn, 
+      create_time, update_time)
+    values (#{id,jdbcType=VARCHAR}, #{serviceId,jdbcType=VARCHAR}, #{projectId,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{lrn,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.iam.db.model.TblIamCommonResource">
+    <!--@mbg.generated-->
+    insert into tbl_iam_common_resource
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        id,
+      </if>
+      <if test="serviceId != null and serviceId != ''">
+        service_id,
+      </if>
+      <if test="projectId != null and projectId != ''">
+        project_id,
+      </if>
+      <if test="name != null and name != ''">
+        "name",
+      </if>
+      <if test="description != null and description != ''">
+        description,
+      </if>
+      <if test="lrn != null and lrn != ''">
+        lrn,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceId != null and serviceId != ''">
+        #{serviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null and projectId != ''">
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null and name != ''">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null and description != ''">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="lrn != null and lrn != ''">
+        #{lrn,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.iam.db.model.TblIamCommonResource">
+    <!--@mbg.generated-->
+    update tbl_iam_common_resource
+    <set>
+      <if test="serviceId != null and serviceId != ''">
+        service_id = #{serviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null and projectId != ''">
+        project_id = #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null and name != ''">
+        "name" = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null and description != ''">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="lrn != null and lrn != ''">
+        lrn = #{lrn,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.iam.db.model.TblIamCommonResource">
+    <!--@mbg.generated-->
+    update tbl_iam_common_resource
+    set service_id = #{serviceId,jdbcType=VARCHAR},
+      project_id = #{projectId,jdbcType=VARCHAR},
+      "name" = #{name,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      lrn = #{lrn,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectAllByName" resultMap="ExtendSummaryResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tbl_iam_common_resource
+        <where>
+            <if test="name != null and name != ''">
+                and "name" like concat('%',#{name,jdbcType=VARCHAR},'%')
+            </if>
+        </where>
+        order by service_id asc, update_time desc, create_time desc
+    </select>
+
+  <select id="selectById" resultMap="ExtendResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tbl_iam_common_resource
+        <where>
+            <if test="id != null and id != ''">
+                and id=#{id,jdbcType=VARCHAR}
+            </if>
+        </where>
+        limit 1
+    </select>
+
+  <select id="selectByServiceIdAndName" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tbl_iam_common_resource
+        <where>
+            <if test="serviceId != null and serviceId != ''">
+                and service_id=#{serviceId,jdbcType=VARCHAR}
+            </if>
+            <if test="name != null and name != ''">
+                and "name"=#{name,jdbcType=VARCHAR}
+            </if>
+        </where>
+        limit 1
+    </select>
+
+  <select id="selectAll" resultMap="ExtendSummaryResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tbl_iam_common_resource
+  </select>
+</mapper>

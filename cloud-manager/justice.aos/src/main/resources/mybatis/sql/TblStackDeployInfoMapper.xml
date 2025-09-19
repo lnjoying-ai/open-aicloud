@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.aos.db.mapper.TblStackDeployInfoMapper">
+    <resultMap id="BaseResultMap" type="com.lnjoying.justice.aos.domain.model.StackDeployInfo">
+        <id column="spec_id" jdbcType="VARCHAR" property="id" />
+        <result column="spec_name" jdbcType="VARCHAR" property="name" />
+        <result column="image_names" jdbcType="VARCHAR" property="imageNames" />
+        <result column="replica_num" jdbcType="VARCHAR" property="replicaNum" />
+        <result column="available_num" jdbcType="VARCHAR" property="availableNum" />
+        <result column="ready_num" jdbcType="VARCHAR" property="readyNum" />
+        <result column="progressing_num" jdbcType="VARCHAR" property="processingNum" />
+        <result column="failed_num" jdbcType="VARCHAR" property="failedNum" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="user_id" jdbcType="VARCHAR" property="userId" />
+        <result column="bp_id" jdbcType="VARCHAR" property="bpId" />
+        <result column="stack_type" jdbcType="VARCHAR" property="stackType" />
+        <association property="stackSpecInfo"  select="com.lnjoying.justice.aos.db.mapper.TblStackSpecInfoMapper.selectByPrimaryKey" column="spec_id">
+        </association>
+    </resultMap>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT
+        spec_id,
+        spec_name,
+        image_names,
+        replica_num,
+        available_num,
+        ready_num,
+        progressing_num,
+        failed_num,
+        create_time,
+        update_time,
+        user_id,
+        bp_id,
+        stack_type
+        FROM
+        (SELECT
+                t2.spec_id,
+                t2.spec_name,
+                t2.image_names,
+                COALESCE ( t3.replicaNum, 0 ) AS replica_num,
+                COALESCE ( t3.availableNum, 0 ) AS available_num,
+                COALESCE ( t3.readyNum, 0 ) AS ready_num,
+                COALESCE ( t3.progressingNum, 0 ) AS progressing_num,
+                COALESCE ( t3.failedNum, 0 ) AS failed_num,
+                t2.create_time,
+                t2.update_time,
+                t2.user_id,
+                t2.bp_id,
+                t2.stack_type
+        FROM
+                ( SELECT spec_id, spec_name, image_names, replica_num, user_id, bp_id, stack_type, create_time, update_time FROM tbl_stack_spec_info
+                        <where>
+                            <if test="statusExcludeCollection != null and statusExcludeCollection.size() > 0">
+                                and "status" not in
+                                <foreach item="item" index="index" collection="statusExcludeCollection"
+                                         open="(" separator="," close=")">
+                                    #{item,jdbcType=INTEGER}
+                                </foreach>
+                            </if>
+                            <if test=" userId != null and userId != ''">
+                                AND user_id = #{userId,jdbcType=VARCHAR}
+                            </if>
+                            <if test=" bpId != null and bpId != ''">
+                                AND bp_id = #{bpId,jdbcType=VARCHAR}
+                            </if>
+                            <if test=" name != null and name != ''">
+                                AND spec_name like concat('%',#{name,jdbcType=VARCHAR},'%')
+                            </if>
+                            <if test=" stackType != null and stackType != ''">
+                                AND stack_type = #{stackType,jdbcType=VARCHAR}
+                            </if>
+                        </where>
+                        ) t2
+        LEFT JOIN (
+                        SELECT
+        spec_id,
+        count(*) as replicaNum,
+        <if test="progressingStageCollection != null and progressingStageCollection.size() > 0">
+            SUM ( CASE WHEN t1.status in
+            <foreach item="item" index="index" collection="progressingStageCollection"
+                     open="(" separator="," close=")">
+                #{item,jdbcType=INTEGER}
+            </foreach>
+            THEN 1 ELSE 0 END ) AS progressingNum,
+        </if>
+        <if test="availableStageCollection != null and availableStageCollection.size() > 0">
+            SUM ( CASE WHEN t1.status in
+            <foreach item="item" index="index" collection="availableStageCollection"
+                     open="(" separator="," close=")">
+                #{item,jdbcType=INTEGER}
+            </foreach>
+            THEN 1 ELSE 0 END ) AS availableNum,
+        </if>
+        <if test="readyStageCollection != null and readyStageCollection.size() > 0">
+            SUM ( CASE WHEN t1.status in
+            <foreach item="item" index="index" collection="readyStageCollection"
+                     open="(" separator="," close=")">
+                #{item,jdbcType=INTEGER}
+            </foreach>
+            THEN 1 ELSE 0 END ) AS readyNum,
+        </if>
+        <if test="failedStageCollection != null and failedStageCollection.size() > 0">
+            SUM ( CASE WHEN t1.status in
+            <foreach item="item" index="index" collection="failedStageCollection"
+                     open="(" separator="," close=")">
+                #{item,jdbcType=INTEGER}
+            </foreach>
+            THEN 1 ELSE 0 END ) AS failedNum
+        </if>
+        FROM
+        tbl_stack_info t1
+        <where>
+            <if test="true">
+                AND spec_id IS NOT NULL
+            </if>
+            <if test="statusExcludeCollection != null and statusExcludeCollection.size() > 0">
+                and "status" not in
+                <foreach item="item" index="index" collection="statusExcludeCollection"
+                         open="(" separator="," close=")">
+                    #{item,jdbcType=INTEGER}
+                </foreach>
+            </if>
+           <!-- <if test="(regionId != null and regionId != '') || (siteId != null and siteId != '') || (nodeId != null and nodeId != '')">
+                and dst_node <![CDATA[@> ]]>
+                <trim prefix="'{" suffix="}'" suffixOverrides=",">
+                    <if test="regionId != null and regionId != ''">
+                        "dstRegionId": "${regionId}",
+                    </if>
+                    <if test="siteId != null and siteId != ''">
+                        "dstSiteId": "${siteId}",
+                    </if>
+                    <if test="nodeId != null and nodeId != ''">
+                        "dstNodeId": "${nodeId}"
+                    </if>
+                </trim>
+            </if>-->
+        </where>
+        GROUP BY
+        spec_id
+        ) t3 ON t2.spec_id = t3.spec_id) t4
+        <where>
+            <!--progressing status-->
+            <if test="status != null  and status == 1100">
+                progressing_num > 0
+            </if>
+            <!--complete status-->
+            <if test="status != null  and status == 1101">
+                replica_num= ready_num
+            </if>
+            <!--failed status-->
+            <if test="status != null  and status == 1102">
+                replica_num= failed_num  or (ready_num = 0 and progressing_num = 0)
+            </if>
+        </where>
+        order by create_time desc
+        <if test="startRow != null and pageSize != null and pageSize != 0">
+            offset #{startRow} limit #{pageSize}
+        </if>
+    </select>
+
+    <select id="countAll" resultType="java.lang.Integer">
+        SELECT
+         count(*)
+        FROM
+        ( SELECT
+            t2.spec_id,
+            t2.spec_name,
+            t2.image_names,
+            t2.replica_num,
+            COALESCE ( t3.availableNum, 0 ) AS available_num,
+            COALESCE ( t3.readyNum, 0 ) AS ready_num,
+            COALESCE ( t3.progressingNum, 0 ) AS progressing_num,
+            COALESCE ( t3.failedNum, 0 ) AS failed_num,
+            t2.create_time,
+            t2.update_time,
+            t2.user_id,
+            t2.bp_id,
+            t2.stack_type
+        FROM
+        ( SELECT spec_id, spec_name, image_names, replica_num, user_id, bp_id, stack_type, create_time, update_time
+          FROM tbl_stack_spec_info
+        <where>
+            <if test="statusExcludeCollection != null and statusExcludeCollection.size() > 0">
+                and "status" not in
+                <foreach item="item" index="index" collection="statusExcludeCollection"
+                         open="(" separator="," close=")">
+                    #{item,jdbcType=INTEGER}
+                </foreach>
+            </if>
+            <if test=" userId != null and userId != ''">
+                AND user_id = #{userId,jdbcType=VARCHAR}
+            </if>
+            <if test=" bpId != null and bpId != ''">
+                AND bp_id = #{bpId,jdbcType=VARCHAR}
+            </if>
+            <if test=" name != null and name != ''">
+                AND spec_name like concat('%',#{name,jdbcType=VARCHAR},'%')
+            </if>
+            <if test=" stackType != null and stackType != ''">
+                AND stack_type = #{stackType,jdbcType=VARCHAR}
+            </if>
+        </where>
+        ) t2
+        LEFT JOIN (
+        SELECT
+        spec_id,
+        <if test="progressingStageCollection != null and progressingStageCollection.size() > 0">
+            SUM ( CASE WHEN t1.status in
+            <foreach item="item" index="index" collection="progressingStageCollection"
+                     open="(" separator="," close=")">
+                #{item,jdbcType=INTEGER}
+            </foreach>
+            THEN 1 ELSE 0 END ) AS progressingNum,
+        </if>
+        <if test="availableStageCollection != null and availableStageCollection.size() > 0">
+            SUM ( CASE WHEN t1.status in
+            <foreach item="item" index="index" collection="availableStageCollection"
+                     open="(" separator="," close=")">
+                #{item,jdbcType=INTEGER}
+            </foreach>
+            THEN 1 ELSE 0 END ) AS availableNum,
+        </if>
+        <if test="readyStageCollection != null and readyStageCollection.size() > 0">
+            SUM ( CASE WHEN t1.status in
+            <foreach item="item" index="index" collection="readyStageCollection"
+                     open="(" separator="," close=")">
+                #{item,jdbcType=INTEGER}
+            </foreach>
+            THEN 1 ELSE 0 END ) AS readyNum,
+        </if>
+        <if test="failedStageCollection != null and failedStageCollection.size() > 0">
+            SUM ( CASE WHEN t1.status in
+            <foreach item="item" index="index" collection="failedStageCollection"
+                     open="(" separator="," close=")">
+                #{item,jdbcType=INTEGER}
+            </foreach>
+            THEN 1 ELSE 0 END ) AS failedNum
+        </if>
+        FROM
+        tbl_stack_info t1
+        <where>
+            <if test="true">
+                AND spec_id IS NOT NULL
+            </if>
+            <if test="statusExcludeCollection != null and statusExcludeCollection.size() > 0">
+                and "status" not in
+                <foreach item="item" index="index" collection="statusExcludeCollection"
+                         open="(" separator="," close=")">
+                    #{item,jdbcType=INTEGER}
+                </foreach>
+            </if>
+           <!-- <if test="(regionId != null and regionId != '') || (siteId != null and siteId != '') || (nodeId != null and nodeId != '')">
+                and dst_node <![CDATA[@> ]]>
+                <trim prefix="'{" suffix="}'" suffixOverrides=",">
+                    <if test="regionId != null and regionId != ''">
+                        "dstRegionId": "${regionId}",
+                    </if>
+                    <if test="siteId != null and siteId != ''">
+                        "dstSiteId": "${siteId}",
+                    </if>
+                    <if test="nodeId != null and nodeId != ''">
+                        "dstNodeId": "${nodeId}"
+                    </if>
+                </trim>
+            </if>-->
+        </where>
+        GROUP BY
+        spec_id
+        ) t3 ON t2.spec_id = t3.spec_id) t4
+        <where>
+            <!--progressing status-->
+            <if test="status != null  and status == 1100">
+                progressing_num > 0
+            </if>
+            <!--complete status-->
+            <if test="status != null  and status == 1101">
+                replica_num= ready_num
+            </if>
+            <!--failed status-->
+            <if test="status != null  and status == 1102">
+                replica_num= failed_num  or (ready_num = 0 and progressing_num = 0)
+            </if>
+        </where>
+    </select>
+
+    <select id="selectBySpecId" resultMap="BaseResultMap">
+        SELECT
+        t2.spec_id,
+        t2.spec_name,
+        t2.image_names,
+        COALESCE ( t3.replicaNum, 0 ) AS replica_num,
+        COALESCE ( t3.availableNum, 0 ) AS available_num,
+        COALESCE ( t3.readyNum, 0 ) AS ready_num,
+        COALESCE ( t3.progressingNum, 0 ) AS progressing_num,
+        COALESCE ( t3.failedNum, 0 ) AS failed_num,
+        t2.create_time,
+        t2.update_time,
+        t2.user_id,
+        t2.bp_id,
+        t2.stack_type
+        FROM
+        ( SELECT spec_id, spec_name, image_names, replica_num, user_id, bp_id, stack_type, create_time, update_time FROM tbl_stack_spec_info
+        <where>
+            <if test=" specId != null and specId != ''">
+                AND spec_id = #{specId,jdbcType=VARCHAR}
+            </if>
+        </where>
+        ) t2
+        LEFT JOIN (
+        SELECT
+        spec_id,
+        count(*) as replicaNum,
+        <if test="progressingStageCollection != null and progressingStageCollection.size() > 0">
+            SUM ( CASE WHEN t1.status in
+            <foreach item="item" index="index" collection="progressingStageCollection"
+                     open="(" separator="," close=")">
+                #{item,jdbcType=INTEGER}
+            </foreach>
+            THEN 1 ELSE 0 END ) AS progressingNum,
+        </if>
+        <if test="availableStageCollection != null and availableStageCollection.size() > 0">
+            SUM ( CASE WHEN t1.status in
+            <foreach item="item" index="index" collection="availableStageCollection"
+                     open="(" separator="," close=")">
+                #{item,jdbcType=INTEGER}
+            </foreach>
+            THEN 1 ELSE 0 END ) AS availableNum,
+        </if>
+        <if test="readyStageCollection != null and readyStageCollection.size() > 0">
+            SUM ( CASE WHEN t1.status in
+            <foreach item="item" index="index" collection="readyStageCollection"
+                     open="(" separator="," close=")">
+                #{item,jdbcType=INTEGER}
+            </foreach>
+            THEN 1 ELSE 0 END ) AS readyNum,
+        </if>
+        <if test="failedStageCollection != null and failedStageCollection.size() > 0">
+            SUM ( CASE WHEN t1.status in
+            <foreach item="item" index="index" collection="failedStageCollection"
+                     open="(" separator="," close=")">
+                #{item,jdbcType=INTEGER}
+            </foreach>
+            THEN 1 ELSE 0 END ) AS failedNum
+        </if>
+        FROM
+        tbl_stack_info t1
+        <where>
+            <if test=" specId != null and specId != ''">
+                AND spec_id = #{specId,jdbcType=VARCHAR}
+            </if>
+            <if test="statusExcludeCollection != null and statusExcludeCollection.size() > 0">
+                and "status" not in
+                <foreach item="item" index="index" collection="statusExcludeCollection"
+                         open="(" separator="," close=")">
+                    #{item,jdbcType=INTEGER}
+                </foreach>
+            </if>
+        </where>
+        GROUP BY
+        spec_id
+        ) t3 ON t2.spec_id = t3.spec_id
+    </select>
+</mapper>

@@ -1,0 +1,760 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.ecrm.db.mapper.TblEdgeComputeInfoMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.ecrm.db.model.TblEdgeComputeInfo">
+    <id column="node_id" jdbcType="VARCHAR" property="nodeId" />
+    <result column="node_name" jdbcType="VARCHAR" property="nodeName" />
+    <result column="site_id" jdbcType="VARCHAR" property="siteId" />
+    <result column="region_id" jdbcType="VARCHAR" property="regionId" />
+    <result column="host_name" jdbcType="VARCHAR" property="hostName" />
+    <result column="network" jdbcType="VARCHAR" property="network" />
+    <result column="active_status" jdbcType="INTEGER" property="activeStatus" />
+    <result column="online_status" jdbcType="INTEGER" property="onlineStatus" />
+    <result column="cpu_limit" jdbcType="INTEGER" property="cpuLimit" />
+    <result column="mem_limit" jdbcType="BIGINT" property="memLimit" />
+    <result column="disk_limit" jdbcType="BIGINT" property="diskLimit" />
+    <result column="vender" jdbcType="VARCHAR" property="vender" />
+    <result column="uuid" jdbcType="VARCHAR" property="uuid" />
+    <result column="product" jdbcType="VARCHAR" property="product" />
+    <result column="sn" jdbcType="VARCHAR" property="sn" />
+    <result column="cpu_logic_num" jdbcType="INTEGER" property="cpuLogicNum" />
+    <result column="cpu_physical_num" jdbcType="INTEGER" property="cpuPhysicalNum" />
+    <result column="cpu_model" jdbcType="VARCHAR" property="cpuModel" />
+    <result column="cpu_frequency" jdbcType="DOUBLE" property="cpuFrequency" />
+    <result column="cpu_num" jdbcType="INTEGER" property="cpuNum" />
+    <result column="mem_total" jdbcType="BIGINT" property="memTotal" />
+    <result column="disk_total" jdbcType="BIGINT" property="diskTotal" />
+    <result column="disk_type" jdbcType="VARCHAR" property="diskType" />
+    <result column="disk_detail" jdbcType="VARCHAR" property="diskDetail" />
+    <result column="os" jdbcType="VARCHAR" property="os" />
+    <result column="core_version" jdbcType="VARCHAR" property="coreVersion" />
+    <result column="software_version" jdbcType="VARCHAR" property="softwareVersion" />
+    <result column="software_map" jdbcType="VARCHAR" property="softwareMap" />
+    <result column="scope" jdbcType="CHAR" property="scope" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="bp_id" jdbcType="VARCHAR" property="bpId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    node_id, node_name, site_id, region_id, host_name, network, active_status, online_status, 
+    cpu_limit, mem_limit, disk_limit, vender, uuid, product, sn, cpu_logic_num, cpu_physical_num, 
+    cpu_model, cpu_frequency, cpu_num, mem_total, disk_total, disk_type, disk_detail, os,
+    core_version, software_version, software_map, scope, user_id, bp_id, create_time, update_time
+  </sql>
+  <select id="selectByExample" parameterType="com.lnjoying.justice.ecrm.db.model.TblEdgeComputeInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_edge_compute_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null and pageSize != null and pageSize != 0">
+      limit #{pageSize} offset #{startRow}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_edge_compute_info
+    where node_id = #{nodeId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tbl_edge_compute_info
+    where node_id = #{nodeId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lnjoying.justice.ecrm.db.model.TblEdgeComputeInfoExample">
+    delete from tbl_edge_compute_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.ecrm.db.model.TblEdgeComputeInfo">
+    insert into tbl_edge_compute_info (node_id, node_name, site_id, 
+      region_id, host_name, network, 
+      active_status, online_status, cpu_limit, 
+      mem_limit, disk_limit, vender, 
+      uuid, product, sn, 
+      cpu_logic_num, cpu_physical_num, cpu_model, 
+      cpu_frequency, cpu_num, mem_total,
+      disk_total, disk_type, disk_detail,
+      os, core_version, software_version,
+      software_map, scope, user_id,
+      bp_id, create_time, update_time)
+    values (#{nodeId,jdbcType=VARCHAR}, #{nodeName,jdbcType=VARCHAR}, #{siteId,jdbcType=VARCHAR}, 
+      #{regionId,jdbcType=VARCHAR}, #{hostName,jdbcType=VARCHAR}, #{network,jdbcType=VARCHAR}, 
+      #{activeStatus,jdbcType=INTEGER}, #{onlineStatus,jdbcType=INTEGER}, #{cpuLimit,jdbcType=INTEGER}, 
+      #{memLimit,jdbcType=BIGINT}, #{diskLimit,jdbcType=BIGINT}, #{vender,jdbcType=VARCHAR}, 
+      #{uuid,jdbcType=VARCHAR}, #{product,jdbcType=VARCHAR}, #{sn,jdbcType=VARCHAR}, 
+      #{cpuLogicNum,jdbcType=INTEGER}, #{cpuPhysicalNum,jdbcType=INTEGER}, #{cpuModel,jdbcType=VARCHAR}, 
+      #{cpuFrequency,jdbcType=DOUBLE}, #{cpuNum,jdbcType=INTEGER}, #{memTotal,jdbcType=BIGINT},
+      #{diskTotal,jdbcType=BIGINT}, #{diskType,jdbcType=VARCHAR}, #{diskDetail,jdbcType=VARCHAR},
+      #{os,jdbcType=VARCHAR}, #{coreVersion,jdbcType=VARCHAR}, #{softwareVersion,jdbcType=VARCHAR},
+      #{softwareMap,jdbcType=VARCHAR}, #{scope,jdbcType=CHAR}, #{userId,jdbcType=VARCHAR},
+      #{bpId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.ecrm.db.model.TblEdgeComputeInfo">
+    insert into tbl_edge_compute_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="nodeId != null">
+        node_id,
+      </if>
+      <if test="nodeName != null">
+        node_name,
+      </if>
+      <if test="siteId != null">
+        site_id,
+      </if>
+      <if test="regionId != null">
+        region_id,
+      </if>
+      <if test="hostName != null">
+        host_name,
+      </if>
+      <if test="network != null">
+        network,
+      </if>
+      <if test="activeStatus != null">
+        active_status,
+      </if>
+      <if test="onlineStatus != null">
+        online_status,
+      </if>
+      <if test="cpuLimit != null">
+        cpu_limit,
+      </if>
+      <if test="memLimit != null">
+        mem_limit,
+      </if>
+      <if test="diskLimit != null">
+        disk_limit,
+      </if>
+      <if test="vender != null">
+        vender,
+      </if>
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="product != null">
+        product,
+      </if>
+      <if test="sn != null">
+        sn,
+      </if>
+      <if test="cpuLogicNum != null">
+        cpu_logic_num,
+      </if>
+      <if test="cpuPhysicalNum != null">
+        cpu_physical_num,
+      </if>
+      <if test="cpuModel != null">
+        cpu_model,
+      </if>
+      <if test="cpuFrequency != null">
+        cpu_frequency,
+      </if>
+      <if test="cpuNum != null">
+        cpu_num,
+      </if>
+      <if test="memTotal != null">
+        mem_total,
+      </if>
+      <if test="diskTotal != null">
+        disk_total,
+      </if>
+      <if test="diskType != null">
+        disk_type,
+      </if>
+      <if test="diskDetail != null">
+        disk_detail,
+      </if>
+      <if test="os != null">
+        os,
+      </if>
+      <if test="coreVersion != null">
+        core_version,
+      </if>
+      <if test="softwareVersion != null">
+        software_version,
+      </if>
+      <if test="softwareMap != null">
+        software_map,
+      </if>
+      <if test="scope != null">
+        scope,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="bpId != null">
+        bp_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="nodeId != null">
+        #{nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeName != null">
+        #{nodeName,jdbcType=VARCHAR},
+      </if>
+      <if test="siteId != null">
+        #{siteId,jdbcType=VARCHAR},
+      </if>
+      <if test="regionId != null">
+        #{regionId,jdbcType=VARCHAR},
+      </if>
+      <if test="hostName != null">
+        #{hostName,jdbcType=VARCHAR},
+      </if>
+      <if test="network != null">
+        #{network,jdbcType=VARCHAR},
+      </if>
+      <if test="activeStatus != null">
+        #{activeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="onlineStatus != null">
+        #{onlineStatus,jdbcType=INTEGER},
+      </if>
+      <if test="cpuLimit != null">
+        #{cpuLimit,jdbcType=INTEGER},
+      </if>
+      <if test="memLimit != null">
+        #{memLimit,jdbcType=BIGINT},
+      </if>
+      <if test="diskLimit != null">
+        #{diskLimit,jdbcType=BIGINT},
+      </if>
+      <if test="vender != null">
+        #{vender,jdbcType=VARCHAR},
+      </if>
+      <if test="uuid != null">
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="product != null">
+        #{product,jdbcType=VARCHAR},
+      </if>
+      <if test="sn != null">
+        #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="cpuLogicNum != null">
+        #{cpuLogicNum,jdbcType=INTEGER},
+      </if>
+      <if test="cpuPhysicalNum != null">
+        #{cpuPhysicalNum,jdbcType=INTEGER},
+      </if>
+      <if test="cpuModel != null">
+        #{cpuModel,jdbcType=VARCHAR},
+      </if>
+      <if test="cpuFrequency != null">
+        #{cpuFrequency,jdbcType=DOUBLE},
+      </if>
+      <if test="cpuNum != null">
+        #{cpuNum,jdbcType=INTEGER},
+      </if>
+      <if test="memTotal != null">
+        #{memTotal,jdbcType=BIGINT},
+      </if>
+      <if test="diskTotal != null">
+        #{diskTotal,jdbcType=BIGINT},
+      </if>
+      <if test="diskType != null">
+        #{diskType,jdbcType=VARCHAR},
+      </if>
+      <if test="diskDetail != null">
+        #{diskDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="os != null">
+        #{os,jdbcType=VARCHAR},
+      </if>
+      <if test="coreVersion != null">
+        #{coreVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="softwareVersion != null">
+        #{softwareVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="softwareMap != null">
+        #{softwareMap,jdbcType=VARCHAR},
+      </if>
+      <if test="scope != null">
+        #{scope,jdbcType=CHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="bpId != null">
+        #{bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lnjoying.justice.ecrm.db.model.TblEdgeComputeInfoExample" resultType="java.lang.Long">
+    select count(*) from tbl_edge_compute_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_edge_compute_info
+    <set>
+      <if test="record.nodeId != null">
+        node_id = #{record.nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nodeName != null">
+        node_name = #{record.nodeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.siteId != null">
+        site_id = #{record.siteId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regionId != null">
+        region_id = #{record.regionId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hostName != null">
+        host_name = #{record.hostName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.network != null">
+        network = #{record.network,jdbcType=VARCHAR},
+      </if>
+      <if test="record.activeStatus != null">
+        active_status = #{record.activeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.onlineStatus != null">
+        online_status = #{record.onlineStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.cpuLimit != null">
+        cpu_limit = #{record.cpuLimit,jdbcType=INTEGER},
+      </if>
+      <if test="record.memLimit != null">
+        mem_limit = #{record.memLimit,jdbcType=BIGINT},
+      </if>
+      <if test="record.diskLimit != null">
+        disk_limit = #{record.diskLimit,jdbcType=BIGINT},
+      </if>
+      <if test="record.vender != null">
+        vender = #{record.vender,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uuid != null">
+        uuid = #{record.uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.product != null">
+        product = #{record.product,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sn != null">
+        sn = #{record.sn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cpuLogicNum != null">
+        cpu_logic_num = #{record.cpuLogicNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.cpuPhysicalNum != null">
+        cpu_physical_num = #{record.cpuPhysicalNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.cpuModel != null">
+        cpu_model = #{record.cpuModel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cpuFrequency != null">
+        cpu_frequency = #{record.cpuFrequency,jdbcType=DOUBLE},
+      </if>
+      <if test="record.cpuNum != null">
+        cpu_num = #{record.cpuNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.memTotal != null">
+        mem_total = #{record.memTotal,jdbcType=BIGINT},
+      </if>
+      <if test="record.diskTotal != null">
+        disk_total = #{record.diskTotal,jdbcType=BIGINT},
+      </if>
+      <if test="record.diskType != null">
+        disk_type = #{record.diskType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.diskDetail != null">
+        disk_detail = #{record.diskDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.os != null">
+        os = #{record.os,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coreVersion != null">
+        core_version = #{record.coreVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.softwareVersion != null">
+        software_version = #{record.softwareVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.softwareMap != null">
+        software_map = #{record.softwareMap,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scope != null">
+        scope = #{record.scope,jdbcType=CHAR},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bpId != null">
+        bp_id = #{record.bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_edge_compute_info
+    set node_id = #{record.nodeId,jdbcType=VARCHAR},
+      node_name = #{record.nodeName,jdbcType=VARCHAR},
+      site_id = #{record.siteId,jdbcType=VARCHAR},
+      region_id = #{record.regionId,jdbcType=VARCHAR},
+      host_name = #{record.hostName,jdbcType=VARCHAR},
+      network = #{record.network,jdbcType=VARCHAR},
+      active_status = #{record.activeStatus,jdbcType=INTEGER},
+      online_status = #{record.onlineStatus,jdbcType=INTEGER},
+      cpu_limit = #{record.cpuLimit,jdbcType=INTEGER},
+      mem_limit = #{record.memLimit,jdbcType=BIGINT},
+      disk_limit = #{record.diskLimit,jdbcType=BIGINT},
+      vender = #{record.vender,jdbcType=VARCHAR},
+      uuid = #{record.uuid,jdbcType=VARCHAR},
+      product = #{record.product,jdbcType=VARCHAR},
+      sn = #{record.sn,jdbcType=VARCHAR},
+      cpu_logic_num = #{record.cpuLogicNum,jdbcType=INTEGER},
+      cpu_physical_num = #{record.cpuPhysicalNum,jdbcType=INTEGER},
+      cpu_model = #{record.cpuModel,jdbcType=VARCHAR},
+      cpu_frequency = #{record.cpuFrequency,jdbcType=DOUBLE},
+      cpu_num = #{record.cpuNum,jdbcType=DOUBLE},
+      mem_total = #{record.memTotal,jdbcType=BIGINT},
+      disk_total = #{record.diskTotal,jdbcType=BIGINT},
+      disk_type = #{record.diskType,jdbcType=VARCHAR},
+      disk_detail = #{record.diskDetail,jdbcType=VARCHAR},
+      os = #{record.os,jdbcType=VARCHAR},
+      core_version = #{record.coreVersion,jdbcType=VARCHAR},
+      software_version = #{record.softwareVersion,jdbcType=VARCHAR},
+      software_map = #{record.softwareMap,jdbcType=VARCHAR},
+      scope = #{record.scope,jdbcType=CHAR},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      bp_id = #{record.bpId,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.ecrm.db.model.TblEdgeComputeInfo">
+    update tbl_edge_compute_info
+    <set>
+      <if test="nodeName != null">
+        node_name = #{nodeName,jdbcType=VARCHAR},
+      </if>
+      <if test="siteId != null">
+        site_id = #{siteId,jdbcType=VARCHAR},
+      </if>
+      <if test="regionId != null">
+        region_id = #{regionId,jdbcType=VARCHAR},
+      </if>
+      <if test="hostName != null">
+        host_name = #{hostName,jdbcType=VARCHAR},
+      </if>
+      <if test="network != null">
+        network = #{network,jdbcType=VARCHAR},
+      </if>
+      <if test="activeStatus != null">
+        active_status = #{activeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="onlineStatus != null">
+        online_status = #{onlineStatus,jdbcType=INTEGER},
+      </if>
+      <if test="cpuLimit != null">
+        cpu_limit = #{cpuLimit,jdbcType=INTEGER},
+      </if>
+      <if test="memLimit != null">
+        mem_limit = #{memLimit,jdbcType=BIGINT},
+      </if>
+      <if test="diskLimit != null">
+        disk_limit = #{diskLimit,jdbcType=BIGINT},
+      </if>
+      <if test="vender != null">
+        vender = #{vender,jdbcType=VARCHAR},
+      </if>
+      <if test="uuid != null">
+        uuid = #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="product != null">
+        product = #{product,jdbcType=VARCHAR},
+      </if>
+      <if test="sn != null">
+        sn = #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="cpuLogicNum != null">
+        cpu_logic_num = #{cpuLogicNum,jdbcType=INTEGER},
+      </if>
+      <if test="cpuPhysicalNum != null">
+        cpu_physical_num = #{cpuPhysicalNum,jdbcType=INTEGER},
+      </if>
+      <if test="cpuModel != null">
+        cpu_model = #{cpuModel,jdbcType=VARCHAR},
+      </if>
+      <if test="cpuFrequency != null">
+        cpu_frequency = #{cpuFrequency,jdbcType=DOUBLE},
+      </if>
+      <if test="cpuNum != null">
+        cpu_num = #{cpuNum,jdbcType=INTEGER},
+      </if>
+      <if test="memTotal != null">
+        mem_total = #{memTotal,jdbcType=BIGINT},
+      </if>
+      <if test="diskTotal != null">
+        disk_total = #{diskTotal,jdbcType=BIGINT},
+      </if>
+      <if test="diskType != null">
+        disk_type = #{diskType,jdbcType=VARCHAR},
+      </if>
+      <if test="diskDetail != null">
+        disk_detail = #{diskDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="os != null">
+        os = #{os,jdbcType=VARCHAR},
+      </if>
+      <if test="coreVersion != null">
+        core_version = #{coreVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="softwareVersion != null">
+        software_version = #{softwareVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="softwareMap != null">
+        software_map = #{softwareMap,jdbcType=VARCHAR},
+      </if>
+      <if test="scope != null">
+        scope = #{scope,jdbcType=CHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="bpId != null">
+        bp_id = #{bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where node_id = #{nodeId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.ecrm.db.model.TblEdgeComputeInfo">
+    update tbl_edge_compute_info
+    set node_name = #{nodeName,jdbcType=VARCHAR},
+      site_id = #{siteId,jdbcType=VARCHAR},
+      region_id = #{regionId,jdbcType=VARCHAR},
+      host_name = #{hostName,jdbcType=VARCHAR},
+      network = #{network,jdbcType=VARCHAR},
+      active_status = #{activeStatus,jdbcType=INTEGER},
+      online_status = #{onlineStatus,jdbcType=INTEGER},
+      cpu_limit = #{cpuLimit,jdbcType=INTEGER},
+      mem_limit = #{memLimit,jdbcType=BIGINT},
+      disk_limit = #{diskLimit,jdbcType=BIGINT},
+      vender = #{vender,jdbcType=VARCHAR},
+      uuid = #{uuid,jdbcType=VARCHAR},
+      product = #{product,jdbcType=VARCHAR},
+      sn = #{sn,jdbcType=VARCHAR},
+      cpu_logic_num = #{cpuLogicNum,jdbcType=INTEGER},
+      cpu_physical_num = #{cpuPhysicalNum,jdbcType=INTEGER},
+      cpu_model = #{cpuModel,jdbcType=VARCHAR},
+      cpu_frequency = #{cpuFrequency,jdbcType=DOUBLE},
+      cpu_num = #{cpuNum,jdbcType=INTEGER},
+      mem_total = #{memTotal,jdbcType=BIGINT},
+      disk_total = #{diskTotal,jdbcType=BIGINT},
+      disk_type = #{diskType,jdbcType=VARCHAR},
+      disk_detail = #{diskDetail,jdbcType=VARCHAR},
+      os = #{os,jdbcType=VARCHAR},
+      core_version = #{coreVersion,jdbcType=VARCHAR},
+      software_version = #{softwareVersion,jdbcType=VARCHAR},
+      software_map = #{softwareMap,jdbcType=VARCHAR},
+      scope = #{scope,jdbcType=CHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      bp_id = #{bpId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where node_id = #{nodeId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectByNodeId" resultType="com.lnjoying.justice.schema.service.ecrm.RegionResourceService$NodeInfo">
+    SELECT
+    t1.node_id as nodeId,
+    t1.node_name as nodeName,
+    t2.site_id as siteId,
+    t2.site_name  as siteName,
+    t3.region_id as regionId,
+    t3.region_name as regionName
+    FROM
+    ( SELECT node_id, node_name, site_id, region_id FROM tbl_edge_compute_info
+    where node_id = #{nodeId,jdbcType=VARCHAR}) t1
+    LEFT JOIN tbl_site_info t2 ON t1.site_id = t2.site_id
+    LEFT JOIN tbl_region_info t3 ON t1.region_id = t3.region_id  limit 1
+  </select>
+
+  <select id="countByBpIdAndUserId" resultType="java.lang.Integer">
+    SELECT COUNT
+    ( DISTINCT ( t1.node_id ) )
+    FROM
+    ( SELECT node_id FROM tbl_edge_compute_info
+    <where>
+      <if test="true">
+        and active_status != -1
+      </if>
+    </where>
+  ) t1
+    <if test="bpId != null and bpId != ''">
+      JOIN ( SELECT * FROM tbl_edge_compute_label_info
+      <where>
+        <if test="bpId != null and bpId != ''">
+          ( label_key = 'com.justice.node/bpId' AND label_value = #{bpId,jdbcType=VARCHAR})
+        </if>
+        <if test="bpId != null and bpId != '' and userId != null and userId != ''">
+          OR
+        </if>
+        <if test="userId != null and userId != ''">
+          ( label_key = 'com.justice.node/owner' AND label_value = #{userId,jdbcType=VARCHAR} )
+        </if>
+      </where>
+      ) t2
+      ON t1.node_id = t2.node_id
+    </if>
+  </select>
+  <select id="selectByPrimaryKeyWithLabelValue" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    t1.node_id, node_name, site_id, region_id, host_name, network, active_status, online_status,
+    cpu_limit, mem_limit, disk_limit, vender, uuid, product, sn, cpu_logic_num, cpu_physical_num,
+    cpu_model, cpu_frequency, cpu_num, mem_total, disk_total, disk_type, disk_detail, os,
+    core_version, software_version, software_map, scope, t2.user_id, t3.bp_id, create_time, update_time
+    from tbl_edge_compute_info t1
+        left join (SELECT node_id, label_value as user_id FROM tbl_edge_compute_label_info WHERE node_id = #{nodeId,jdbcType=VARCHAR} AND label_key = 'com.justice.node/owner') t2 on t1.node_id = t2.node_id
+        left join (SELECT node_id, label_value as bp_id FROM tbl_edge_compute_label_info WHERE node_id = #{nodeId,jdbcType=VARCHAR} AND label_key = 'com.justice.node/bpId') t3 on t1.node_id = t3.node_id
+    where t1.node_id = #{nodeId,jdbcType=VARCHAR}
+  </select>
+
+  <resultMap id="GetStatusMetricsRsp" type="com.lnjoying.justice.schema.entity.stat.StatusMetrics">
+    <result column="online_status" jdbcType="VARCHAR" property="status" />
+    <result column="count" jdbcType="VARCHAR" property="count" />
+  </resultMap>
+  <select id="getEdgeStatusMetrics" resultMap="GetStatusMetricsRsp">
+    SELECT online_status, COUNT(*) as count
+    FROM
+    <if test="(bpId != null and bpId != '') or (userId != null and userId != '')">
+    ( SELECT DISTINCT node_id FROM tbl_edge_compute_label_info
+      <where>
+        <if test="bpId != null and bpId != ''">
+          ( label_key = 'com.justice.node/bpId' AND label_value = #{bpId,jdbcType=VARCHAR})
+        </if>
+        <if test="bpId != null and bpId != '' and userId != null and userId != ''">
+          OR
+        </if>
+        <if test="userId != null and userId != ''">
+          ( label_key = 'com.justice.node/owner' AND label_value = #{userId,jdbcType=VARCHAR})
+        </if>
+      </where>
+      ) t1
+      LEFT JOIN
+    </if>
+    ( SELECT online_status, node_id FROM tbl_edge_compute_info
+    WHERE active_status != -1
+    ) t2
+    <if test="(bpId != null and bpId != '') or (userId != null and userId != '')">
+    ON t1.node_id = t2.node_id
+    </if>
+    GROUP BY online_status
+  </select>
+
+  <select id="countByOnlineStatus" resultType="com.lnjoying.justice.ecrm.domain.EdgeStatusCounts">
+    SELECT
+      t1.online_status as onlineStatusCode,
+      t2.bp_id as bpId,
+      t3.user_id as userId,
+      COUNT ( t1.node_id ) AS total
+    FROM
+      (
+          ( SELECT * FROM tbl_edge_compute_info ) t1
+          LEFT JOIN ( SELECT node_id, label_value AS bp_id FROM tbl_edge_compute_label_info WHERE label_key = 'com.justice.node/bpId' ) t2 ON t1.node_id = t2.node_id
+          LEFT JOIN ( SELECT node_id, label_value AS user_id FROM tbl_edge_compute_label_info WHERE label_key = 'com.justice.node/owner' ) t3 ON t1.node_id = t3.node_id
+        )
+    GROUP BY
+      t1.online_status,
+      t2.bp_id,
+      t3.user_id
+  </select>
+</mapper>

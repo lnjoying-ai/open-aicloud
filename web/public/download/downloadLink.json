@@ -1,0 +1,14 @@
+{
+  "winx64": {
+    "name": "edgeturbo.win.x64.5.1.1.exe",
+    "link": "edgeturbo.win.x64.5.1.1.exe",
+    "description": "edgeturbo.win.x64.5.1.1.exe",
+    "hidden": true
+  },
+  "mac": {
+    "name": "edgeturbo.universal.5.1.1.pkg",
+    "link": "edgeturbo.universal.5.1.1.pkg",
+    "description": "edgeturbo.universal.5.1.1.pkg",
+    "hidden": true
+  }
+}

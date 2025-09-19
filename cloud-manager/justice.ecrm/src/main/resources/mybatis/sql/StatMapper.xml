@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.ecrm.db.mapper.StatMapper">
+  <resultMap id="NodesStatusMetricsMap" type="com.lnjoying.justice.schema.entity.stat.NodeStatusMetrics">
+    <result column="active_num" jdbcType="INTEGER" property="activeNum" />
+    <result column="inactive_num" jdbcType="INTEGER" property="inactiveNum" />
+    <result column="upgrade_num" jdbcType="INTEGER" property="upgradeNum" />
+    <result column="online_num" jdbcType="INTEGER" property="onlineNum" />
+    <result column="offline_num" jdbcType="INTEGER" property="offlineNum" />
+    <result column="core_num" jdbcType="INTEGER" property="coreNum" />
+  </resultMap>
+
+  <resultMap id="SiteNodeMetricsMap" type="com.lnjoying.justice.schema.entity.stat.SiteNodeMetrics">
+    <result column="site_id" jdbcType="VARCHAR" property="id" />
+    <result column="site_name" jdbcType="VARCHAR" property="name" />
+    <result column="active_num" jdbcType="INTEGER" property="nodeStatusMetrics.activeNum" />
+    <result column="inactive_num" jdbcType="INTEGER" property="nodeStatusMetrics.inactiveNum" />
+    <result column="upgrade_num" jdbcType="INTEGER" property="nodeStatusMetrics.upgradeNum" />
+    <result column="online_num" jdbcType="INTEGER" property="nodeStatusMetrics.onlineNum" />
+    <result column="offline_num" jdbcType="INTEGER" property="nodeStatusMetrics.offlineNum" />
+    <result column="core_num" jdbcType="INTEGER" property="nodeStatusMetrics.coreNum" />
+  </resultMap>
+
+  <resultMap id="RegionNodeMetricsMap" type="com.lnjoying.justice.schema.entity.stat.RegionNodeMetrics">
+    <result column="region_id" jdbcType="VARCHAR" property="id" />
+    <result column="region_name" jdbcType="VARCHAR" property="name" />
+    <result column="active_num" jdbcType="INTEGER" property="nodeStatusMetrics.activeNum" />
+    <result column="inactive_num" jdbcType="INTEGER" property="nodeStatusMetrics.inactiveNum" />
+    <result column="upgrade_num" jdbcType="INTEGER" property="nodeStatusMetrics.upgradeNum" />
+    <result column="online_num" jdbcType="INTEGER" property="nodeStatusMetrics.onlineNum" />
+    <result column="offline_num" jdbcType="INTEGER" property="nodeStatusMetrics.offlineNum" />
+    <result column="core_num" jdbcType="INTEGER" property="nodeStatusMetrics.coreNum" />
+  </resultMap>
+
+  <select id="getAllNodeStatusMetrics" resultMap="NodesStatusMetricsMap">
+    select
+      sum ( case when active_status = -1 then 1 else 0 end ) as remove_num
+      <foreach collection="categories" item="category">
+          <if test="null != category and category == 'active'">
+              ,coalesce(sum ( case when active_status = 1 then 1 else 0 end ),0) as active_num
+              ,coalesce(sum ( case when active_status = 1 then cpu_logic_num else 0 end ),0 ) as core_num
+          </if>
+          <if test="null != category and category == 'inactive'">
+              ,coalesce(sum ( case when active_status = 0 then 1 else 0 end ),0) as inactive_num
+              ,coalesce(sum ( case when active_status = 0 then cpu_logic_num else 0 end ),0 ) as core_num
+          </if>
+          <if test="null != category and category == 'upgrade'">
+              ,coalesce(sum ( case when active_status = 2 then 1 else 0 end ),0) as upgrade_num
+              ,coalesce(sum ( case when active_status = 2 then cpu_logic_num else 0 end ),0 ) as core_num
+          </if>
+          <if test="null != category and category == 'online'">
+              ,coalesce(sum ( case when online_status = 1 and active_status != -1 then 1 else 0 end ),0) as online_num
+              ,coalesce(sum ( case when online_status = 1 and active_status != -1 then cpu_logic_num else 0 end ),0) as core_num
+          </if>
+          <if test="null != category and category == 'offline'">
+              ,coalesce(sum ( case when online_status = 0 and active_status != -1 then 1 else 0 end ),0) as offline_num
+              ,coalesce(sum ( case when online_status = 0 and active_status != -1 then cpu_logic_num else 0 end ),0) as core_num
+          </if>
+          <if test="null != category and (category == 'active:online' or category == 'online:active')">
+              ,coalesce(sum ( case when active_status = 1 and online_status = 1 then 1 else 0 end ),0) as online_num
+              ,coalesce(sum ( case when active_status = 1 and online_status = 1 then cpu_logic_num else 0 end ),0) as core_num
+          </if>
+          <if test="null != category and (category == 'active:offline' or category == 'offline:active')">
+              ,coalesce(sum ( case when active_status = 1 and online_status = 0 then 1 else 0 end ),0) as offline_num
+              ,coalesce(sum ( case when active_status = 1 and online_status = 0 then cpu_logic_num else 0 end ),0) as core_num
+          </if>
+          <if test="null != category and (category == 'inactive:online' or category == 'online:inactive')">
+              ,coalesce(sum ( case when active_status = 0 and online_status = 1 then 1 else 0 end ),0) as online_num
+              ,coalesce(sum ( case when active_status = 0 and online_status = 1 then cpu_logic_num else 0 end ),0) as core_num
+          </if>
+          <if test="null != category and (category == 'inactive:offline' or category == 'offline:inactive')">
+              ,coalesce(sum ( case when active_status = 0 and online_status = 0 then 1 else 0 end ),0) as offline_num
+              ,coalesce(sum ( case when active_status = 0 and online_status = 0 then cpu_logic_num else 0 end ),0) as core_num
+          </if>
+          <if test="null != category and (category == 'upgrade:online' or category == 'online:upgrade')">
+              ,coalesce(sum ( case when active_status = 2 and online_status = 1 then 1 else 0 end ),0) as online_num
+              ,coalesce(sum ( case when active_status = 2 and online_status = 1 then cpu_logic_num else 0 end ),0) as core_num
+          </if>
+          <if test="null != category and (category == 'upgrade:offline' or category == 'offline:upgrade')">
+              ,coalesce(sum ( case when active_status = 2 and online_status = 1 then 1 else 0 end ),0) as offline_num
+              ,coalesce(sum ( case when active_status = 2 and online_status = 1 then cpu_logic_num else 0 end ),0) as core_num
+          </if>
+      </foreach>
+    from tbl_edge_compute_info
+      <if test="null != bpId or null != userId ">
+          where node_id in (
+          <if test="null != bpId">
+              select node_id
+              from tbl_edge_compute_label_info where label_key = #{bpLabel} and #{bpId} = ANY(string_to_array(label_value,','))
+          </if>
+          <if test="null != bpId and null != userId">
+              union
+          </if>
+          <if test="null != userId">
+              (select node_id
+              from tbl_edge_compute_label_info where label_key = #{userLabel} and #{userId} = ANY(string_to_array(label_value,',')))
+          </if> )
+      </if>
+  </select>
+
+  <select id="getSiteStatusMetrics" resultMap="SiteNodeMetricsMap">
+    select
+           t1.site_id,site_name
+          <foreach collection="categories" item="category">
+              <if test="null != category and category == 'active'">
+                  , active_num
+                  , core_num
+              </if>
+              <if test="null != category and category == 'inactive'">
+                  , inactive_num
+                  , core_num
+              </if>
+              <if test="null != category and category == 'upgrade'">
+                  , upgrade_num
+                  , core_num
+              </if>
+              <if test="null != category and (category == 'online' or category == 'active:online' or category == 'online:active' or category == 'inactive:online' or category == 'online:inactive' or category == 'upgrade:online' or category == 'online:upgrade')">
+                  , online_num
+                  , core_num
+              </if>
+              <if test="null != category and (category == 'offline' or category == 'active:offline' or category == 'offline:active' or category == 'inactive:offline' or category == 'offline:inactive' or category == 'upgrade:offline' or category == 'offline:upgrade')">
+                  , offline_num
+                  , core_num
+              </if>
+          </foreach>
+    from (
+        select
+               site_id
+              <foreach collection="categories" item="category">
+                  <if test="null != category and category == 'active'">
+                      ,coalesce(sum ( case when active_status = 1 then 1 else 0 end ),0) as active_num,
+                      ,coalesce(sum ( case when active_status = 1 then cpu_logic_num else 0 end ),0) as core_num
+                  </if>
+                  <if test="null != category and category == 'inactive'">
+                      ,coalesce(sum ( case when active_status = 0 then 1 else 0 end ),0) as inactive_num
+                      ,coalesce(sum ( case when active_status = 0 then cpu_logic_num else 0 end ),0) as core_num
+                  </if>
+                  <if test="null != category and category == 'upgrade'">
+                      ,coalesce(sum ( case when active_status = 2 then 1 else 0 end ),0) as upgrade_num
+                      ,coalesce(sum ( case when active_status = 2 then cpu_logic_num else 0 end ),0) as core_num
+                  </if>
+                  <if test="null != category and category == 'online'">
+                      ,coalesce(sum ( case when online_status = 1 and active_status != -1 then 1 else 0 end ),0) as online_num
+                      ,coalesce(sum ( case when online_status = 1 and active_status != -1 then cpu_logic_num else 0 end ),0) as core_num
+                  </if>
+                  <if test="null != category and category == 'offline'">
+                      ,coalesce(sum ( case when online_status = 0 and active_status != -1 then 1 else 0 end ),0) as offline_num
+                      ,coalesce(sum ( case when online_status = 0 and active_status != -1 then cpu_logic_num else 0 end ),0) as core_num
+                  </if>
+                  <if test="null != category and (category == 'active:online' or category == 'online:active')">
+                      ,coalesce(sum ( case when active_status = 1 and online_status = 1 then 1 else 0 end ),0) as online_num
+                      ,coalesce(sum ( case when active_status = 1 and online_status = 1 then cpu_logic_num else 0 end ),0) as core_num
+                  </if>
+                  <if test="null != category and (category == 'active:offline' or category == 'offline:active')">
+                      ,coalesce(sum ( case when active_status = 1 and online_status = 0 then 1 else 0 end ),0) as offline_num
+                      ,coalesce(sum ( case when active_status = 1 and online_status = 0 then cpu_logic_num else 0 end ),0) as core_num
+                  </if>
+                  <if test="null != category and (category == 'inactive:online' or category == 'online:inactive')">
+                      ,coalesce(sum ( case when active_status = 0 and online_status = 1 then 1 else 0 end ),0) as online_num
+                      ,coalesce(sum ( case when active_status = 0 and online_status = 1 then cpu_logic_num else 0 end ),0) as core_num
+                  </if>
+                  <if test="null != category and (category == 'inactive:offline' or category == 'offline:inactive')">
+                      ,coalesce(sum ( case when active_status = 0 and online_status = 0 then 1 else 0 end ),0) as offline_num
+                      ,coalesce(sum ( case when active_status = 0 and online_status = 0 then cpu_logic_num else 0 end ),0) as core_num
+                  </if>
+                  <if test="null != category and (category == 'upgrade:online' or category == 'online:upgrade')">
+                      ,coalesce(sum ( case when active_status = 2 and online_status = 1 then 1 else 0 end ),0) as online_num
+                      ,coalesce(sum ( case when active_status = 2 and online_status = 1 then cpu_logic_num else 0 end ),0) as core_num
+                  </if>
+                  <if test="null != category and (category == 'upgrade:offline' or category == 'offline:upgrade')">
+                      ,coalesce(sum ( case when active_status = 2 and online_status = 1 then 1 else 0 end ),0) as offline_num
+                      ,coalesce(sum ( case when active_status = 2 and online_status = 1 then cpu_logic_num else 0 end ),0) as core_num
+                  </if>
+              </foreach>
+        from tbl_edge_compute_info
+        where site_id in
+              <foreach item="item" index="index" collection="siteIds" open="(" separator="," close=")">
+              #{item}
+              </foreach>
+      <if test="null != bpId or null != userId ">
+          and node_id in
+          <if test="null != bpId">
+              (select node_id
+              from tbl_edge_compute_label_info where label_key = #{bpLabel} and #{bpId} = ANY(string_to_array(label_value,',')))
+          </if>
+          <if test="null != bpId and null != userId ">
+              union
+          </if>
+          <if test="null != userId">
+              (select node_id
+              from tbl_edge_compute_label_info where label_key = #{userLabel} and #{userId} = ANY(string_to_array(label_value,',')))
+          </if>
+      </if>
+        group by site_id
+    ) t1
+    left join tbl_site_info on t1.site_id = tbl_site_info.site_id
+  </select>
+
+  <select id="getRegionStatusMetrics" resultMap="RegionNodeMetricsMap">
+    select
+           t1.region_id,region_name
+          <foreach collection="categories" item="category">
+              <if test="null != category and category == 'active'">
+                  , active_num
+                  , core_num
+              </if>
+              <if test="null != category and category == 'inactive'">
+                  , inactive_num
+                  , core_num
+              </if>
+              <if test="null != category and category == 'upgrade'">
+                  , upgrade_num
+                  , core_num
+              </if>
+              <if test="null != category and (category == 'online' or category == 'active:online' or category == 'online:active' or category == 'inactive:online' or category == 'online:inactive' or category == 'upgrade:online' or category == 'online:upgrade')">
+                  , online_num
+                  , core_num
+              </if>
+              <if test="null != category and (category == 'offline' or category == 'active:offline' or category == 'offline:active' or category == 'inactive:offline' or category == 'offline:inactive' or category == 'upgrade:offline' or category == 'offline:upgrade')">
+                  , offline_num
+                  , core_num
+              </if>
+          </foreach>
+    from (
+        select
+               region_id
+              <foreach collection="categories" item="category">
+                  <if test="null != category and category == 'active'">
+                      ,coalesce(sum ( case when active_status = 1 then 1 else 0 end ),0) as active_num
+                      ,coalesce(sum ( case when active_status = 1 then cpu_logic_num else 0 end ),0) as core_num
+                  </if>
+                  <if test="null != category and category == 'inactive'">
+                      ,coalesce(sum ( case when active_status = 0 then 1 else 0 end ),0) as inactive_num
+                      ,coalesce(sum ( case when active_status = 0 then cpu_logic_num else 0 end ),0) as core_num
+                  </if>
+                  <if test="null != category and category == 'upgrade'">
+                      ,coalesce(sum ( case when active_status = 2 then 1 else 0 end ),0) as upgrade_num
+                      ,coalesce(sum ( case when active_status = 2 then cpu_logic_num else 0 end ),0) as core_num
+                  </if>
+                  <if test="null != category and category == 'online'">
+                      ,coalesce(sum ( case when online_status = 1 and active_status != -1 then 1 else 0 end ),0) as online_num
+                      ,coalesce(sum ( case when online_status = 1 and active_status != -1 then cpu_logic_num else 0 end ),0) as core_num
+                  </if>
+                  <if test="null != category and category == 'offline'">
+                      ,coalesce(sum ( case when online_status = 0 and active_status != -1 then 1 else 0 end ),0) as offline_num
+                      ,coalesce(sum ( case when online_status = 0 and active_status != -1 then cpu_logic_num else 0 end ),0) as core_num
+                  </if>
+                  <if test="null != category and (category == 'active:online' or category == 'online:active')">
+                      ,coalesce(sum ( case when active_status = 1 and online_status = 1 then 1 else 0 end ),0) as online_num
+                      ,coalesce(sum ( case when active_status = 1 and online_status = 1 then cpu_logic_num else 0 end ),0) as core_num
+                  </if>
+                  <if test="null != category and (category == 'active:offline' or category == 'offline:active')">
+                      ,coalesce(sum ( case when active_status = 1 and online_status = 0 then 1 else 0 end ),0) as offline_num
+                      ,coalesce(sum ( case when active_status = 1 and online_status = 0 then cpu_logic_num else 0 end ),0) as core_num
+                  </if>
+                  <if test="null != category and (category == 'inactive:online' or category == 'online:inactive')">
+                      ,coalesce(sum ( case when active_status = 0 and online_status = 1 then 1 else 0 end ),0) as online_num
+                      ,coalesce(sum ( case when active_status = 0 and online_status = 1 then cpu_logic_num else 0 end ),0) as core_num
+                  </if>
+                  <if test="null != category and (category == 'inactive:offline' or category == 'offline:inactive')">
+                      ,coalesce(sum ( case when active_status = 0 and online_status = 0 then 1 else 0 end ),0) as offline_num
+                      ,coalesce(sum ( case when active_status = 0 and online_status = 0 then cpu_logic_num else 0 end ),0) as core_num
+                  </if>
+                  <if test="null != category and (category == 'upgrade:online' or category == 'online:upgrade')">
+                      ,coalesce(sum ( case when active_status = 2 and online_status = 1 then 1 else 0 end ),0) as online_num
+                      ,coalesce(sum ( case when active_status = 2 and online_status = 1 then cpu_logic_num else 0 end ),0) as core_num
+                  </if>
+                  <if test="null != category and (category == 'upgrade:offline' or category == 'offline:upgrade')">
+                      ,coalesce(sum ( case when active_status = 2 and online_status = 1 then 1 else 0 end ),0) as offline_num
+                      ,coalesce(sum ( case when active_status = 2 and online_status = 1 then cpu_logic_num else 0 end ),0) as core_num
+                  </if>
+              </foreach>
+        from tbl_edge_compute_info
+        where region_id in
+              <foreach item="item" index="index" collection="regionIds" open="(" separator="," close=")">
+               #{item}
+              </foreach>
+      <if test="null != bpId or null != userId ">
+          and node_id in
+          <if test="null != bpId">
+              (select node_id
+              from tbl_edge_compute_label_info where label_key = #{bpLabel} and #{bpId} = ANY(string_to_array(label_value,',')))
+          </if>
+          <if test="null != bpId and null != userId ">
+              union
+          </if>
+          <if test="null != userId">
+              (select node_id
+              from tbl_edge_compute_label_info where label_key = #{userLabel} and #{userId} = ANY(string_to_array(label_value,',')))
+          </if>
+      </if>
+        group by region_id
+    ) t1
+    left join tbl_region_info on t1.region_id = tbl_region_info.region_id
+  </select>
+</mapper>

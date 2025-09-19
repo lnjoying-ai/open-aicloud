@@ -1,0 +1,12 @@
+version: "3.4"
+services:
+  nginx-exporter:
+    image: bitnami/nginx-exporter:latest
+    restart: always
+    container_name: nginx-exporter
+    command:
+      - '--nginx.scrape-uri=http://${CLOUD_INTERNAL_IP}:9080/stub_status'
+    ports:
+      - 9113:9113
+
+#grafana id 12708

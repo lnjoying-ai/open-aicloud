@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.cmp.db.mapper.TblCmpOsSnapshotsMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.cmp.db.model.TblCmpOsSnapshots">
+    <id column="cloud_id" jdbcType="VARCHAR" property="cloudId" />
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+    <result column="deleted_at" jdbcType="TIMESTAMP" property="deletedAt" />
+    <result column="deleted" jdbcType="SMALLINT" property="deleted" />
+    <result column="volume_id" jdbcType="VARCHAR" property="volumeId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="project_id" jdbcType="VARCHAR" property="projectId" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="progress" jdbcType="VARCHAR" property="progress" />
+    <result column="volume_size" jdbcType="INTEGER" property="volumeSize" />
+    <result column="scheduled_at" jdbcType="TIMESTAMP" property="scheduledAt" />
+    <result column="display_name" jdbcType="VARCHAR" property="displayName" />
+    <result column="display_description" jdbcType="VARCHAR" property="displayDescription" />
+    <result column="provider_location" jdbcType="VARCHAR" property="providerLocation" />
+    <result column="encryption_key_id" jdbcType="VARCHAR" property="encryptionKeyId" />
+    <result column="volume_type_id" jdbcType="VARCHAR" property="volumeTypeId" />
+    <result column="cgsnapshot_id" jdbcType="VARCHAR" property="cgsnapshotId" />
+    <result column="provider_id" jdbcType="VARCHAR" property="providerId" />
+    <result column="provider_auth" jdbcType="VARCHAR" property="providerAuth" />
+    <result column="group_snapshot_id" jdbcType="VARCHAR" property="groupSnapshotId" />
+    <result column="ee_status" jdbcType="INTEGER" property="eeStatus" />
+    <result column="ee_bp" jdbcType="VARCHAR" property="eeBp" />
+    <result column="ee_user" jdbcType="VARCHAR" property="eeUser" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    cloud_id, id, created_at, updated_at, deleted_at, deleted, volume_id, user_id, project_id, 
+    status, progress, volume_size, scheduled_at, display_name, display_description, provider_location, 
+    encryption_key_id, volume_type_id, cgsnapshot_id, provider_id, provider_auth, group_snapshot_id, 
+    ee_status, ee_bp, ee_user
+  </sql>
+  <select id="selectByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsSnapshotsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_cmp_os_snapshots
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsSnapshotsKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_cmp_os_snapshots
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsSnapshotsKey">
+    delete from tbl_cmp_os_snapshots
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsSnapshotsExample">
+    delete from tbl_cmp_os_snapshots
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsSnapshots">
+    insert into tbl_cmp_os_snapshots (cloud_id, id, created_at, 
+      updated_at, deleted_at, deleted, 
+      volume_id, user_id, project_id, 
+      status, progress, volume_size, 
+      scheduled_at, display_name, display_description, 
+      provider_location, encryption_key_id, volume_type_id, 
+      cgsnapshot_id, provider_id, provider_auth, 
+      group_snapshot_id, ee_status, ee_bp, 
+      ee_user)
+    values (#{cloudId,jdbcType=VARCHAR}, #{id,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP}, 
+      #{updatedAt,jdbcType=TIMESTAMP}, #{deletedAt,jdbcType=TIMESTAMP}, #{deleted,jdbcType=SMALLINT}, 
+      #{volumeId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{projectId,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{progress,jdbcType=VARCHAR}, #{volumeSize,jdbcType=INTEGER}, 
+      #{scheduledAt,jdbcType=TIMESTAMP}, #{displayName,jdbcType=VARCHAR}, #{displayDescription,jdbcType=VARCHAR}, 
+      #{providerLocation,jdbcType=VARCHAR}, #{encryptionKeyId,jdbcType=VARCHAR}, #{volumeTypeId,jdbcType=VARCHAR}, 
+      #{cgsnapshotId,jdbcType=VARCHAR}, #{providerId,jdbcType=VARCHAR}, #{providerAuth,jdbcType=VARCHAR}, 
+      #{groupSnapshotId,jdbcType=VARCHAR}, #{eeStatus,jdbcType=INTEGER}, #{eeBp,jdbcType=VARCHAR}, 
+      #{eeUser,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsSnapshots">
+    insert into tbl_cmp_os_snapshots
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cloudId != null">
+        cloud_id,
+      </if>
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedAt != null">
+        updated_at,
+      </if>
+      <if test="deletedAt != null">
+        deleted_at,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+      <if test="volumeId != null">
+        volume_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="progress != null">
+        progress,
+      </if>
+      <if test="volumeSize != null">
+        volume_size,
+      </if>
+      <if test="scheduledAt != null">
+        scheduled_at,
+      </if>
+      <if test="displayName != null">
+        display_name,
+      </if>
+      <if test="displayDescription != null">
+        display_description,
+      </if>
+      <if test="providerLocation != null">
+        provider_location,
+      </if>
+      <if test="encryptionKeyId != null">
+        encryption_key_id,
+      </if>
+      <if test="volumeTypeId != null">
+        volume_type_id,
+      </if>
+      <if test="cgsnapshotId != null">
+        cgsnapshot_id,
+      </if>
+      <if test="providerId != null">
+        provider_id,
+      </if>
+      <if test="providerAuth != null">
+        provider_auth,
+      </if>
+      <if test="groupSnapshotId != null">
+        group_snapshot_id,
+      </if>
+      <if test="eeStatus != null">
+        ee_status,
+      </if>
+      <if test="eeBp != null">
+        ee_bp,
+      </if>
+      <if test="eeUser != null">
+        ee_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cloudId != null">
+        #{cloudId,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletedAt != null">
+        #{deletedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=SMALLINT},
+      </if>
+      <if test="volumeId != null">
+        #{volumeId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="progress != null">
+        #{progress,jdbcType=VARCHAR},
+      </if>
+      <if test="volumeSize != null">
+        #{volumeSize,jdbcType=INTEGER},
+      </if>
+      <if test="scheduledAt != null">
+        #{scheduledAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="displayName != null">
+        #{displayName,jdbcType=VARCHAR},
+      </if>
+      <if test="displayDescription != null">
+        #{displayDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="providerLocation != null">
+        #{providerLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="encryptionKeyId != null">
+        #{encryptionKeyId,jdbcType=VARCHAR},
+      </if>
+      <if test="volumeTypeId != null">
+        #{volumeTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="cgsnapshotId != null">
+        #{cgsnapshotId,jdbcType=VARCHAR},
+      </if>
+      <if test="providerId != null">
+        #{providerId,jdbcType=VARCHAR},
+      </if>
+      <if test="providerAuth != null">
+        #{providerAuth,jdbcType=VARCHAR},
+      </if>
+      <if test="groupSnapshotId != null">
+        #{groupSnapshotId,jdbcType=VARCHAR},
+      </if>
+      <if test="eeStatus != null">
+        #{eeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="eeBp != null">
+        #{eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="eeUser != null">
+        #{eeUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsSnapshotsExample" resultType="java.lang.Long">
+    select count(*) from tbl_cmp_os_snapshots
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_cmp_os_snapshots
+    <set>
+      <if test="record.cloudId != null">
+        cloud_id = #{record.cloudId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdAt != null">
+        created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedAt != null">
+        updated_at = #{record.updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deletedAt != null">
+        deleted_at = #{record.deletedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deleted != null">
+        deleted = #{record.deleted,jdbcType=SMALLINT},
+      </if>
+      <if test="record.volumeId != null">
+        volume_id = #{record.volumeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.projectId != null">
+        project_id = #{record.projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.progress != null">
+        progress = #{record.progress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.volumeSize != null">
+        volume_size = #{record.volumeSize,jdbcType=INTEGER},
+      </if>
+      <if test="record.scheduledAt != null">
+        scheduled_at = #{record.scheduledAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.displayName != null">
+        display_name = #{record.displayName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.displayDescription != null">
+        display_description = #{record.displayDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.providerLocation != null">
+        provider_location = #{record.providerLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.encryptionKeyId != null">
+        encryption_key_id = #{record.encryptionKeyId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.volumeTypeId != null">
+        volume_type_id = #{record.volumeTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cgsnapshotId != null">
+        cgsnapshot_id = #{record.cgsnapshotId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.providerId != null">
+        provider_id = #{record.providerId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.providerAuth != null">
+        provider_auth = #{record.providerAuth,jdbcType=VARCHAR},
+      </if>
+      <if test="record.groupSnapshotId != null">
+        group_snapshot_id = #{record.groupSnapshotId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeStatus != null">
+        ee_status = #{record.eeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.eeBp != null">
+        ee_bp = #{record.eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeUser != null">
+        ee_user = #{record.eeUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_cmp_os_snapshots
+    set cloud_id = #{record.cloudId,jdbcType=VARCHAR},
+      id = #{record.id,jdbcType=VARCHAR},
+      created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{record.updatedAt,jdbcType=TIMESTAMP},
+      deleted_at = #{record.deletedAt,jdbcType=TIMESTAMP},
+      deleted = #{record.deleted,jdbcType=SMALLINT},
+      volume_id = #{record.volumeId,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      project_id = #{record.projectId,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      progress = #{record.progress,jdbcType=VARCHAR},
+      volume_size = #{record.volumeSize,jdbcType=INTEGER},
+      scheduled_at = #{record.scheduledAt,jdbcType=TIMESTAMP},
+      display_name = #{record.displayName,jdbcType=VARCHAR},
+      display_description = #{record.displayDescription,jdbcType=VARCHAR},
+      provider_location = #{record.providerLocation,jdbcType=VARCHAR},
+      encryption_key_id = #{record.encryptionKeyId,jdbcType=VARCHAR},
+      volume_type_id = #{record.volumeTypeId,jdbcType=VARCHAR},
+      cgsnapshot_id = #{record.cgsnapshotId,jdbcType=VARCHAR},
+      provider_id = #{record.providerId,jdbcType=VARCHAR},
+      provider_auth = #{record.providerAuth,jdbcType=VARCHAR},
+      group_snapshot_id = #{record.groupSnapshotId,jdbcType=VARCHAR},
+      ee_status = #{record.eeStatus,jdbcType=INTEGER},
+      ee_bp = #{record.eeBp,jdbcType=VARCHAR},
+      ee_user = #{record.eeUser,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsSnapshots">
+    update tbl_cmp_os_snapshots
+    <set>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletedAt != null">
+        deleted_at = #{deletedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=SMALLINT},
+      </if>
+      <if test="volumeId != null">
+        volume_id = #{volumeId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="progress != null">
+        progress = #{progress,jdbcType=VARCHAR},
+      </if>
+      <if test="volumeSize != null">
+        volume_size = #{volumeSize,jdbcType=INTEGER},
+      </if>
+      <if test="scheduledAt != null">
+        scheduled_at = #{scheduledAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="displayName != null">
+        display_name = #{displayName,jdbcType=VARCHAR},
+      </if>
+      <if test="displayDescription != null">
+        display_description = #{displayDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="providerLocation != null">
+        provider_location = #{providerLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="encryptionKeyId != null">
+        encryption_key_id = #{encryptionKeyId,jdbcType=VARCHAR},
+      </if>
+      <if test="volumeTypeId != null">
+        volume_type_id = #{volumeTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="cgsnapshotId != null">
+        cgsnapshot_id = #{cgsnapshotId,jdbcType=VARCHAR},
+      </if>
+      <if test="providerId != null">
+        provider_id = #{providerId,jdbcType=VARCHAR},
+      </if>
+      <if test="providerAuth != null">
+        provider_auth = #{providerAuth,jdbcType=VARCHAR},
+      </if>
+      <if test="groupSnapshotId != null">
+        group_snapshot_id = #{groupSnapshotId,jdbcType=VARCHAR},
+      </if>
+      <if test="eeStatus != null">
+        ee_status = #{eeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="eeBp != null">
+        ee_bp = #{eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="eeUser != null">
+        ee_user = #{eeUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsSnapshots">
+    update tbl_cmp_os_snapshots
+    set created_at = #{createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      deleted_at = #{deletedAt,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=SMALLINT},
+      volume_id = #{volumeId,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      project_id = #{projectId,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      progress = #{progress,jdbcType=VARCHAR},
+      volume_size = #{volumeSize,jdbcType=INTEGER},
+      scheduled_at = #{scheduledAt,jdbcType=TIMESTAMP},
+      display_name = #{displayName,jdbcType=VARCHAR},
+      display_description = #{displayDescription,jdbcType=VARCHAR},
+      provider_location = #{providerLocation,jdbcType=VARCHAR},
+      encryption_key_id = #{encryptionKeyId,jdbcType=VARCHAR},
+      volume_type_id = #{volumeTypeId,jdbcType=VARCHAR},
+      cgsnapshot_id = #{cgsnapshotId,jdbcType=VARCHAR},
+      provider_id = #{providerId,jdbcType=VARCHAR},
+      provider_auth = #{providerAuth,jdbcType=VARCHAR},
+      group_snapshot_id = #{groupSnapshotId,jdbcType=VARCHAR},
+      ee_status = #{eeStatus,jdbcType=INTEGER},
+      ee_bp = #{eeBp,jdbcType=VARCHAR},
+      ee_user = #{eeUser,jdbcType=VARCHAR}
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="getSnapshotIds" resultType="String">
+    select id from tbl_cmp_os_snapshots
+    where cloud_id = #{cloudId} and ee_status != -1
+  </select>
+</mapper>

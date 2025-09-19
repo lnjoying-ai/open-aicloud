@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.aos.db.mapper.TblCfgdataStackInfoMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.aos.db.model.TblCfgdataStackInfo">
+    <id column="cfg_volume_id" jdbcType="VARCHAR" property="cfgVolumeId" />
+    <result column="data_id" jdbcType="VARCHAR" property="dataId" />
+    <result column="data_group" jdbcType="VARCHAR" property="dataGroup" />
+    <result column="data_hash" jdbcType="VARCHAR" property="dataHash" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="node_id" jdbcType="VARCHAR" property="nodeId" />
+    <result column="stack_id" jdbcType="VARCHAR" property="stackId" />
+    <result column="sync_state" jdbcType="INTEGER" property="syncState" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    cfg_volume_id, data_id, data_group, data_hash, user_id, node_id, stack_id, sync_state, 
+    create_time, update_time
+  </sql>
+  <select id="selectByExample" parameterType="com.lnjoying.justice.aos.db.model.TblCfgdataStackInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_cfgdata_stack_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_cfgdata_stack_info
+    where cfg_volume_id = #{cfgVolumeId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tbl_cfgdata_stack_info
+    where cfg_volume_id = #{cfgVolumeId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lnjoying.justice.aos.db.model.TblCfgdataStackInfoExample">
+    delete from tbl_cfgdata_stack_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.aos.db.model.TblCfgdataStackInfo">
+    insert into tbl_cfgdata_stack_info (cfg_volume_id, data_id, data_group, 
+      data_hash, user_id, node_id, 
+      stack_id, sync_state, create_time, 
+      update_time)
+    values (#{cfgVolumeId,jdbcType=VARCHAR}, #{dataId,jdbcType=VARCHAR}, #{dataGroup,jdbcType=VARCHAR}, 
+      #{dataHash,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{nodeId,jdbcType=VARCHAR}, 
+      #{stackId,jdbcType=VARCHAR}, #{syncState,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.aos.db.model.TblCfgdataStackInfo">
+    insert into tbl_cfgdata_stack_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cfgVolumeId != null">
+        cfg_volume_id,
+      </if>
+      <if test="dataId != null">
+        data_id,
+      </if>
+      <if test="dataGroup != null">
+        data_group,
+      </if>
+      <if test="dataHash != null">
+        data_hash,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="nodeId != null">
+        node_id,
+      </if>
+      <if test="stackId != null">
+        stack_id,
+      </if>
+      <if test="syncState != null">
+        sync_state,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cfgVolumeId != null">
+        #{cfgVolumeId,jdbcType=VARCHAR},
+      </if>
+      <if test="dataId != null">
+        #{dataId,jdbcType=VARCHAR},
+      </if>
+      <if test="dataGroup != null">
+        #{dataGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="dataHash != null">
+        #{dataHash,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeId != null">
+        #{nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="stackId != null">
+        #{stackId,jdbcType=VARCHAR},
+      </if>
+      <if test="syncState != null">
+        #{syncState,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lnjoying.justice.aos.db.model.TblCfgdataStackInfoExample" resultType="java.lang.Long">
+    select count(*) from tbl_cfgdata_stack_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_cfgdata_stack_info
+    <set>
+      <if test="record.cfgVolumeId != null">
+        cfg_volume_id = #{record.cfgVolumeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dataId != null">
+        data_id = #{record.dataId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dataGroup != null">
+        data_group = #{record.dataGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dataHash != null">
+        data_hash = #{record.dataHash,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nodeId != null">
+        node_id = #{record.nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stackId != null">
+        stack_id = #{record.stackId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.syncState != null">
+        sync_state = #{record.syncState,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_cfgdata_stack_info
+    set cfg_volume_id = #{record.cfgVolumeId,jdbcType=VARCHAR},
+      data_id = #{record.dataId,jdbcType=VARCHAR},
+      data_group = #{record.dataGroup,jdbcType=VARCHAR},
+      data_hash = #{record.dataHash,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      node_id = #{record.nodeId,jdbcType=VARCHAR},
+      stack_id = #{record.stackId,jdbcType=VARCHAR},
+      sync_state = #{record.syncState,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.aos.db.model.TblCfgdataStackInfo">
+    update tbl_cfgdata_stack_info
+    <set>
+      <if test="dataId != null">
+        data_id = #{dataId,jdbcType=VARCHAR},
+      </if>
+      <if test="dataGroup != null">
+        data_group = #{dataGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="dataHash != null">
+        data_hash = #{dataHash,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeId != null">
+        node_id = #{nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="stackId != null">
+        stack_id = #{stackId,jdbcType=VARCHAR},
+      </if>
+      <if test="syncState != null">
+        sync_state = #{syncState,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where cfg_volume_id = #{cfgVolumeId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.aos.db.model.TblCfgdataStackInfo">
+    update tbl_cfgdata_stack_info
+    set data_id = #{dataId,jdbcType=VARCHAR},
+      data_group = #{dataGroup,jdbcType=VARCHAR},
+      data_hash = #{dataHash,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      node_id = #{nodeId,jdbcType=VARCHAR},
+      stack_id = #{stackId,jdbcType=VARCHAR},
+      sync_state = #{syncState,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where cfg_volume_id = #{cfgVolumeId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectCfgStacks" resultMap="com.lnjoying.justice.aos.db.mapper.TblStackInfoMapper.BaseResultMap">
+    select
+    tsi.stack_id, tsi.spec_id, tsi.name, tsi.bp_id, tsi.user_id, tsi.create_user_id, tsi.status,  tsi.dst_node,
+    tsi.labels,  tsi.dev_need_info, tsi.auto_run, tsi.create_time, tsi.update_time, tsi.send_create_num,
+    tsi.start_num, tsi.fail_num, tsi.event_type, tsi.report_time, tsi.always_online
+    from tbl_cfgdata_stack_info tcsi left join tbl_stack_info tsi
+    on tcsi.stack_id = tsi.stack_id
+    <if test="userId != null and userId != ''">
+      and tcsi.user_id = #{userId,jdbcType=VARCHAR}
+    </if>
+    <if test="dataId != null and dataId != ''">
+      and tcsi.data_id = #{dataId,jdbcType=VARCHAR}
+    </if>
+    <if test="group != null and group != ''">
+      and tcsi.data_group = #{group,jdbcType=VARCHAR}
+    </if>
+    <where>
+        <if test="notInStatusCollection != null or notInStatusCollection.size() == 0">
+        and tsi."status" not in
+        <foreach item="item" index="index" collection="notInStatusCollection"
+                 open="(" separator="," close=")">
+            #{item,jdbcType=INTEGER}
+        </foreach>
+        </if>
+    </where>
+  </select>
+</mapper>

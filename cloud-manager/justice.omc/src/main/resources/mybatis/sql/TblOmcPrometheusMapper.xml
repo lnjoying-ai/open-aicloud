@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.omc.db.mapper.TblOmcPrometheusMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.omc.db.model.TblOmcPrometheus">
+    <!--@mbg.generated-->
+    <!--@Table tbl_omc_prometheus-->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="lables" jdbcType="OTHER" property="lables" typeHandler="com.lnjoying.justice.omc.handler.JsonbTypeHandler" />
+    <result column="auth" jdbcType="OTHER" property="auth" typeHandler="com.lnjoying.justice.omc.handler.JsonbTypeHandler" />
+    <result column="region_id" jdbcType="VARCHAR" property="regionId" />
+    <result column="site_id" jdbcType="VARCHAR" property="siteId" />
+    <result column="node_id" jdbcType="VARCHAR" property="nodeId" />
+    <result column="is_global" jdbcType="BOOLEAN" property="global" />
+    <result column="system_default" jdbcType="BOOLEAN" property="systemDefault" />
+    <result column="extra" jdbcType="OTHER" property="extra" />
+    <result column="bp_id" jdbcType="VARCHAR" property="bpId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="internal_endpoint_url " jdbcType="VARCHAR" property="internalEndpointUrl" />
+    <result column="external_endpoint_url " jdbcType="VARCHAR" property="externalEndpointUrl" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, "name", "type", "status", lables, auth, region_id, site_id, node_id, is_global, 
+    system_default, extra, bp_id, user_id, create_time, update_time, "internal_endpoint_url ", 
+    "external_endpoint_url "
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_omc_prometheus
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from tbl_omc_prometheus
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.omc.db.model.TblOmcPrometheus">
+    <!--@mbg.generated-->
+    insert into tbl_omc_prometheus (id, "name", "type", 
+      "status", lables, 
+      auth, 
+      region_id, site_id, node_id, 
+      is_global, system_default, extra, 
+      bp_id, user_id, create_time, 
+      update_time, "internal_endpoint_url ", "external_endpoint_url "
+      )
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{lables,jdbcType=OTHER,typeHandler=com.lnjoying.justice.omc.handler.JsonbTypeHandler}, 
+      #{auth,jdbcType=OTHER,typeHandler=com.lnjoying.justice.omc.handler.JsonbTypeHandler}, 
+      #{regionId,jdbcType=VARCHAR}, #{siteId,jdbcType=VARCHAR}, #{nodeId,jdbcType=VARCHAR}, 
+      #{global,jdbcType=BOOLEAN}, #{systemDefault,jdbcType=BOOLEAN}, #{extra,jdbcType=OTHER}, 
+      #{bpId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{internalEndpointUrl,jdbcType=VARCHAR}, #{externalEndpointUrl,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.omc.db.model.TblOmcPrometheus">
+    <!--@mbg.generated-->
+    insert into tbl_omc_prometheus
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        id,
+      </if>
+      <if test="name != null and name != ''">
+        "name",
+      </if>
+      <if test="type != null">
+        "type",
+      </if>
+      <if test="status != null">
+        "status",
+      </if>
+      <if test="lables != null">
+        lables,
+      </if>
+      <if test="auth != null">
+        auth,
+      </if>
+      <if test="regionId != null and regionId != ''">
+        region_id,
+      </if>
+      <if test="siteId != null and siteId != ''">
+        site_id,
+      </if>
+      <if test="nodeId != null and nodeId != ''">
+        node_id,
+      </if>
+      <if test="global != null">
+        is_global,
+      </if>
+      <if test="systemDefault != null">
+        system_default,
+      </if>
+      <if test="extra != null">
+        extra,
+      </if>
+      <if test="bpId != null and bpId != ''">
+        bp_id,
+      </if>
+      <if test="userId != null and userId != ''">
+        user_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="internalEndpointUrl != null and internalEndpointUrl != ''">
+        "internal_endpoint_url ",
+      </if>
+      <if test="externalEndpointUrl != null and externalEndpointUrl != ''">
+        "external_endpoint_url ",
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null and name != ''">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="lables != null">
+        #{lables,jdbcType=OTHER,typeHandler=com.lnjoying.justice.omc.handler.JsonbTypeHandler},
+      </if>
+      <if test="auth != null">
+        #{auth,jdbcType=OTHER,typeHandler=com.lnjoying.justice.omc.handler.JsonbTypeHandler},
+      </if>
+      <if test="regionId != null and regionId != ''">
+        #{regionId,jdbcType=VARCHAR},
+      </if>
+      <if test="siteId != null and siteId != ''">
+        #{siteId,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeId != null and nodeId != ''">
+        #{nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="global != null">
+        #{global,jdbcType=BOOLEAN},
+      </if>
+      <if test="systemDefault != null">
+        #{systemDefault,jdbcType=BOOLEAN},
+      </if>
+      <if test="extra != null">
+        #{extra,jdbcType=OTHER},
+      </if>
+      <if test="bpId != null and bpId != ''">
+        #{bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null and userId != ''">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="internalEndpointUrl != null and internalEndpointUrl != ''">
+        #{internalEndpointUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="externalEndpointUrl != null and externalEndpointUrl != ''">
+        #{externalEndpointUrl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.omc.db.model.TblOmcPrometheus">
+    <!--@mbg.generated-->
+    update tbl_omc_prometheus
+    <set>
+      <if test="name != null and name != ''">
+        "name" = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        "type" = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        "status" = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="lables != null">
+        lables = #{lables,jdbcType=OTHER,typeHandler=com.lnjoying.justice.omc.handler.JsonbTypeHandler},
+      </if>
+      <if test="auth != null">
+        auth = #{auth,jdbcType=OTHER,typeHandler=com.lnjoying.justice.omc.handler.JsonbTypeHandler},
+      </if>
+      <if test="regionId != null and regionId != ''">
+        region_id = #{regionId,jdbcType=VARCHAR},
+      </if>
+      <if test="siteId != null and siteId != ''">
+        site_id = #{siteId,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeId != null and nodeId != ''">
+        node_id = #{nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="global != null">
+        is_global = #{global,jdbcType=BOOLEAN},
+      </if>
+      <if test="systemDefault != null">
+        system_default = #{systemDefault,jdbcType=BOOLEAN},
+      </if>
+      <if test="extra != null">
+        extra = #{extra,jdbcType=OTHER},
+      </if>
+      <if test="bpId != null and bpId != ''">
+        bp_id = #{bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null and userId != ''">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="internalEndpointUrl != null and internalEndpointUrl != ''">
+        "internal_endpoint_url " = #{internalEndpointUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="externalEndpointUrl != null and externalEndpointUrl != ''">
+        "external_endpoint_url " = #{externalEndpointUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.omc.db.model.TblOmcPrometheus">
+    <!--@mbg.generated-->
+    update tbl_omc_prometheus
+    set "name" = #{name,jdbcType=VARCHAR},
+      "type" = #{type,jdbcType=INTEGER},
+      "status" = #{status,jdbcType=INTEGER},
+      lables = #{lables,jdbcType=OTHER,typeHandler=com.lnjoying.justice.omc.handler.JsonbTypeHandler},
+      auth = #{auth,jdbcType=OTHER,typeHandler=com.lnjoying.justice.omc.handler.JsonbTypeHandler},
+      region_id = #{regionId,jdbcType=VARCHAR},
+      site_id = #{siteId,jdbcType=VARCHAR},
+      node_id = #{nodeId,jdbcType=VARCHAR},
+      is_global = #{global,jdbcType=BOOLEAN},
+      system_default = #{systemDefault,jdbcType=BOOLEAN},
+      extra = #{extra,jdbcType=OTHER},
+      bp_id = #{bpId,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      "internal_endpoint_url " = #{internalEndpointUrl,jdbcType=VARCHAR},
+      "external_endpoint_url " = #{externalEndpointUrl,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tbl_omc_prometheus
+    <where>
+      <if test="id != null and id != ''">
+        and id=#{id,jdbcType=VARCHAR}
+      </if>
+      <if test="bpId != null and bpId != ''">
+        and bp_id=#{bpId,jdbcType=VARCHAR}
+      </if>
+      <if test="status != null and status != ''">
+        and "status"=#{status,jdbcType=VARCHAR}
+      </if>
+      <if test="name != null and name != ''">
+        and "name" like concat('%',#{name,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="type != null">
+        and "type"=#{type,jdbcType=INTEGER}
+      </if>
+      <if test="siteId != null and siteId != ''">
+        and "site_id"=#{siteId,jdbcType=VARCHAR}
+      </if>
+      <if test="true">
+        and status != -1
+      </if>
+    </where>
+    order by create_time desc
+  </select>
+</mapper>

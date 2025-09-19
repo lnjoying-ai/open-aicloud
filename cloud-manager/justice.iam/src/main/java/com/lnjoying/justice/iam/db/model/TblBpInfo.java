@@ -1,0 +1,115 @@
+package com.lnjoying.justice.iam.db.model;
+
+import com.lnjoying.justice.commonweb.handler.aspect.annotation.ResourceInstanceName;
+import io.swagger.annotations.ApiModel;
+
+import java.io.Serializable;
+import java.util.Date;
+
+@ApiModel(value = "tbl_bp_info")
+public class TblBpInfo implements Serializable {
+    private String bpId;
+
+    @ResourceInstanceName
+    private String bpName;
+
+    private String description;
+
+    private String website;
+
+    private String licenseId;
+
+    private String masterUser;
+
+    private Integer status;
+
+    private String contactInfo;
+
+    private Date createTime;
+
+    private Date updateTime;
+
+    private static final long serialVersionUID = 1L;
+
+    public String getBpId() {
+        return bpId;
+    }
+
+    public void setBpId(String bpId) {
+        this.bpId = bpId == null ? null : bpId.trim();
+    }
+
+    public String getBpName() {
+        return bpName;
+    }
+
+    public void setBpName(String bpName) {
+        this.bpName = bpName == null ? null : bpName.trim();
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website == null ? null : website.trim();
+    }
+
+    public String getLicenseId() {
+        return licenseId;
+    }
+
+    public void setLicenseId(String licenseId) {
+        this.licenseId = licenseId == null ? null : licenseId.trim();
+    }
+
+    public String getMasterUser() {
+        return masterUser;
+    }
+
+    public void setMasterUser(String masterUser) {
+        this.masterUser = masterUser == null ? null : masterUser.trim();
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public String getContactInfo() {
+        return contactInfo;
+    }
+
+    public void setContactInfo(String contactInfo) {
+        this.contactInfo = contactInfo == null ? null : contactInfo.trim();
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public String getDescription()
+    {
+        return description;
+    }
+
+    public void setDescription(String description)
+    {
+        this.description = description;
+    }
+}

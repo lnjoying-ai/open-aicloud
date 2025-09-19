@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.omc.db.mapper.TblOmcMonitorTaskMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.omc.db.model.TblOmcMonitorTask">
+    <!--@mbg.generated-->
+    <!--@Table tbl_omc_monitor_task-->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="task_type" jdbcType="INTEGER" property="taskType" />
+    <result column="data_source_id" jdbcType="VARCHAR" property="dataSourceId" />
+    <result column="configs" jdbcType="OTHER" property="configs" typeHandler="com.lnjoying.justice.omc.handler.JsonbTypeHandler" />
+    <result column="deployment_status" jdbcType="INTEGER" property="deploymentStatus" />
+    <result column="target_type" jdbcType="INTEGER" property="targetType" />
+    <result column="targets" jdbcType="OTHER" property="targets" typeHandler="com.lnjoying.justice.omc.handler.JsonbTypeHandler" />
+    <result column="start_time" jdbcType="DATE" property="startTime" />
+    <result column="completion_time" jdbcType="DATE" property="completionTime" />
+    <result column="params" jdbcType="OTHER" property="params" typeHandler="com.lnjoying.justice.omc.handler.JsonbTypeHandler" />
+    <result column="stack_ids" jdbcType="OTHER" property="stackIds" typeHandler="com.lnjoying.justice.omc.handler.JsonbTypeHandler" />
+    <result column="bp_id" jdbcType="VARCHAR" property="bpId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="stack_params" jdbcType="OTHER" property="stackParams" typeHandler="com.lnjoying.justice.omc.handler.JsonbTypeHandler" />
+    <result column="custom_params" jdbcType="OTHER" property="customParams" />
+    <result column="stack_template_version_id" jdbcType="VARCHAR" property="stackTemplateVersionId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, "name", description, task_type, data_source_id, configs, deployment_status, target_type, 
+    targets, start_time, completion_time, params, stack_ids, bp_id, user_id, create_time, 
+    update_time, stack_params, custom_params, stack_template_version_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_omc_monitor_task
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from tbl_omc_monitor_task
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.omc.db.model.TblOmcMonitorTask">
+    <!--@mbg.generated-->
+    insert into tbl_omc_monitor_task (id, "name", description, 
+      task_type, data_source_id, configs, 
+      deployment_status, target_type, targets, 
+      start_time, completion_time, params, 
+      stack_ids, 
+      bp_id, user_id, create_time, 
+      update_time, stack_params, 
+      custom_params, stack_template_version_id)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{taskType,jdbcType=INTEGER}, #{dataSourceId,jdbcType=VARCHAR}, #{configs,jdbcType=OTHER,typeHandler=com.lnjoying.justice.omc.handler.JsonbTypeHandler}, 
+      #{deploymentStatus,jdbcType=INTEGER}, #{targetType,jdbcType=INTEGER}, #{targets,jdbcType=OTHER,typeHandler=com.lnjoying.justice.omc.handler.JsonbTypeHandler}, 
+      #{startTime,jdbcType=DATE}, #{completionTime,jdbcType=DATE}, #{params,jdbcType=OTHER,typeHandler=com.lnjoying.justice.omc.handler.JsonbTypeHandler}, 
+      #{stackIds,jdbcType=OTHER,typeHandler=com.lnjoying.justice.omc.handler.JsonbTypeHandler}, 
+      #{bpId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{stackParams,jdbcType=OTHER,typeHandler=com.lnjoying.justice.omc.handler.JsonbTypeHandler}, 
+      #{customParams,jdbcType=OTHER}, #{stackTemplateVersionId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.omc.db.model.TblOmcMonitorTask">
+    <!--@mbg.generated-->
+    insert into tbl_omc_monitor_task
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        id,
+      </if>
+      <if test="name != null and name != ''">
+        "name",
+      </if>
+      <if test="description != null and description != ''">
+        description,
+      </if>
+      <if test="taskType != null">
+        task_type,
+      </if>
+      <if test="dataSourceId != null and dataSourceId != ''">
+        data_source_id,
+      </if>
+      <if test="configs != null">
+        configs,
+      </if>
+      <if test="deploymentStatus != null">
+        deployment_status,
+      </if>
+      <if test="targetType != null">
+        target_type,
+      </if>
+      <if test="targets != null">
+        targets,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="completionTime != null">
+        completion_time,
+      </if>
+      <if test="params != null">
+        params,
+      </if>
+      <if test="stackIds != null">
+        stack_ids,
+      </if>
+      <if test="bpId != null and bpId != ''">
+        bp_id,
+      </if>
+      <if test="userId != null and userId != ''">
+        user_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="stackParams != null">
+        stack_params,
+      </if>
+      <if test="customParams != null">
+        custom_params,
+      </if>
+      <if test="stackTemplateVersionId != null and stackTemplateVersionId != ''">
+        stack_template_version_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null and name != ''">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null and description != ''">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="taskType != null">
+        #{taskType,jdbcType=INTEGER},
+      </if>
+      <if test="dataSourceId != null and dataSourceId != ''">
+        #{dataSourceId,jdbcType=VARCHAR},
+      </if>
+      <if test="configs != null">
+        #{configs,jdbcType=OTHER,typeHandler=com.lnjoying.justice.omc.handler.JsonbTypeHandler},
+      </if>
+      <if test="deploymentStatus != null">
+        #{deploymentStatus,jdbcType=INTEGER},
+      </if>
+      <if test="targetType != null">
+        #{targetType,jdbcType=INTEGER},
+      </if>
+      <if test="targets != null">
+        #{targets,jdbcType=OTHER,typeHandler=com.lnjoying.justice.omc.handler.JsonbTypeHandler},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=DATE},
+      </if>
+      <if test="completionTime != null">
+        #{completionTime,jdbcType=DATE},
+      </if>
+      <if test="params != null">
+        #{params,jdbcType=OTHER,typeHandler=com.lnjoying.justice.omc.handler.JsonbTypeHandler},
+      </if>
+      <if test="stackIds != null">
+        #{stackIds,jdbcType=OTHER,typeHandler=com.lnjoying.justice.omc.handler.JsonbTypeHandler},
+      </if>
+      <if test="bpId != null and bpId != ''">
+        #{bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null and userId != ''">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stackParams != null">
+        #{stackParams,jdbcType=OTHER,typeHandler=com.lnjoying.justice.omc.handler.JsonbTypeHandler},
+      </if>
+      <if test="customParams != null">
+        #{customParams,jdbcType=OTHER},
+      </if>
+      <if test="stackTemplateVersionId != null and stackTemplateVersionId != ''">
+        #{stackTemplateVersionId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.omc.db.model.TblOmcMonitorTask">
+    <!--@mbg.generated-->
+    update tbl_omc_monitor_task
+    <set>
+      <if test="name != null and name != ''">
+        "name" = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null and description != ''">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="taskType != null">
+        task_type = #{taskType,jdbcType=INTEGER},
+      </if>
+      <if test="dataSourceId != null and dataSourceId != ''">
+        data_source_id = #{dataSourceId,jdbcType=VARCHAR},
+      </if>
+      <if test="configs != null">
+        configs = #{configs,jdbcType=OTHER,typeHandler=com.lnjoying.justice.omc.handler.JsonbTypeHandler},
+      </if>
+      <if test="deploymentStatus != null">
+        deployment_status = #{deploymentStatus,jdbcType=INTEGER},
+      </if>
+      <if test="targetType != null">
+        target_type = #{targetType,jdbcType=INTEGER},
+      </if>
+      <if test="targets != null">
+        targets = #{targets,jdbcType=OTHER,typeHandler=com.lnjoying.justice.omc.handler.JsonbTypeHandler},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=DATE},
+      </if>
+      <if test="completionTime != null">
+        completion_time = #{completionTime,jdbcType=DATE},
+      </if>
+      <if test="params != null">
+        params = #{params,jdbcType=OTHER,typeHandler=com.lnjoying.justice.omc.handler.JsonbTypeHandler},
+      </if>
+      <if test="stackIds != null">
+        stack_ids = #{stackIds,jdbcType=OTHER,typeHandler=com.lnjoying.justice.omc.handler.JsonbTypeHandler},
+      </if>
+      <if test="bpId != null and bpId != ''">
+        bp_id = #{bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null and userId != ''">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stackParams != null">
+        stack_params = #{stackParams,jdbcType=OTHER,typeHandler=com.lnjoying.justice.omc.handler.JsonbTypeHandler},
+      </if>
+      <if test="customParams != null">
+        custom_params = #{customParams,jdbcType=OTHER},
+      </if>
+      <if test="stackTemplateVersionId != null and stackTemplateVersionId != ''">
+        stack_template_version_id = #{stackTemplateVersionId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.omc.db.model.TblOmcMonitorTask">
+    <!--@mbg.generated-->
+    update tbl_omc_monitor_task
+    set "name" = #{name,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      task_type = #{taskType,jdbcType=INTEGER},
+      data_source_id = #{dataSourceId,jdbcType=VARCHAR},
+      configs = #{configs,jdbcType=OTHER,typeHandler=com.lnjoying.justice.omc.handler.JsonbTypeHandler},
+      deployment_status = #{deploymentStatus,jdbcType=INTEGER},
+      target_type = #{targetType,jdbcType=INTEGER},
+      targets = #{targets,jdbcType=OTHER,typeHandler=com.lnjoying.justice.omc.handler.JsonbTypeHandler},
+      start_time = #{startTime,jdbcType=DATE},
+      completion_time = #{completionTime,jdbcType=DATE},
+      params = #{params,jdbcType=OTHER,typeHandler=com.lnjoying.justice.omc.handler.JsonbTypeHandler},
+      stack_ids = #{stackIds,jdbcType=OTHER,typeHandler=com.lnjoying.justice.omc.handler.JsonbTypeHandler},
+      bp_id = #{bpId,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      stack_params = #{stackParams,jdbcType=OTHER,typeHandler=com.lnjoying.justice.omc.handler.JsonbTypeHandler},
+      custom_params = #{customParams,jdbcType=OTHER},
+      stack_template_version_id = #{stackTemplateVersionId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+
+  <select id="selectAllByDeploymentStatus" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tbl_omc_monitor_task
+    <where>
+      <if test="deploymentStatus != null">
+        and deployment_status=#{deploymentStatus,jdbcType=INTEGER}
+      </if>
+    </where>
+  </select>
+
+  <select id="selectIdByDeploymentStatus" resultType="java.lang.String">
+    select id
+    from tbl_omc_monitor_task
+    <where>
+      <if test="deploymentStatus != null">
+        and deployment_status=#{deploymentStatus,jdbcType=INTEGER}
+      </if>
+    </where>
+  </select>
+</mapper>

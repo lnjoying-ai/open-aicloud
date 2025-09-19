@@ -1,0 +1,3 @@
+ws:
+  port: 7867
+  urlPrefix: ws://27.221.79.185:9080/wss/

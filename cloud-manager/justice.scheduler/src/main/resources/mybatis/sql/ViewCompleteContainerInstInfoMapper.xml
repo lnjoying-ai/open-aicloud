@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.scheduler.db.mapper.ViewCompleteContainerInstInfoMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.scheduler.db.model.ViewCompleteContainerInstInfo">
+    <id column="inst_id" jdbcType="VARCHAR" property="instId" />
+    <result column="ref_id" jdbcType="VARCHAR" property="refId" />
+    <result column="spec_id" jdbcType="VARCHAR" property="specId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="bp_id" jdbcType="VARCHAR" property="bpId" />
+    <result column="node_id" jdbcType="VARCHAR" property="nodeId" />
+    <result column="region_id" jdbcType="VARCHAR" property="regionId" />
+    <result column="site_id" jdbcType="VARCHAR" property="siteId" />
+    <result column="container_name" jdbcType="VARCHAR" property="containerName" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="container_params" jdbcType="VARCHAR" property="containerParams" />
+    <result column="inspet_container_params" jdbcType="VARCHAR" property="inspetContainerParams" />
+    <result column="image_name" jdbcType="VARCHAR" property="imageName" />
+    <result column="cmd" jdbcType="VARCHAR" property="cmd" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="cpu_num" jdbcType="INTEGER" property="cpuNum" />
+    <result column="mem_limit" jdbcType="BIGINT" property="memLimit" />
+    <result column="disk_limit" jdbcType="BIGINT" property="diskLimit" />
+    <result column="transmit_band_limit" jdbcType="INTEGER" property="transmitBandLimit" />
+    <result column="recv_band_limit" jdbcType="INTEGER" property="recvBandLimit" />
+    <result column="gpu_num" jdbcType="INTEGER" property="gpuNum" />
+    <result column="dev_need_info" jdbcType="VARCHAR" property="devNeedInfo" />
+    <result column="auto_run" jdbcType="BIT" property="autoRun" />
+    <result column="replica_num" jdbcType="INTEGER" property="replicaNum" />
+    <result column="send_create_num" jdbcType="INTEGER" property="sendCreateNum" />
+    <result column="start_num" jdbcType="BIGINT" property="startNum" />
+    <result column="fail_num" jdbcType="BIGINT" property="failNum" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="remove_time" jdbcType="TIMESTAMP" property="removeTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ci.inst_id, ci.ref_id, ci.spec_id, ci.user_id, ci.bp_id, ci.node_id, ci.region_id, ci.site_id, ci.container_name,
+    ci.status, cs.container_params, ci.inspet_container_params, ci.image_name, ci.cmd, ci.ip, cs.cpu_num, cs.mem_limit,
+    cs.disk_limit, cs.transmit_band_limit, cs.recv_band_limit, cs.gpu_num, cs.dev_need_info, cs.auto_run, cs.replica_num,
+    ci.send_create_num, ci.start_num, ci.fail_num, ci.create_time, ci.update_time, ci.remove_time
+  </sql>
+  <select id="selectByExample" parameterType="com.lnjoying.justice.scheduler.db.model.ViewCompleteContainerInstInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_container_inst_info ci left join tbl_container_spec_info cs on ci.spec_id = cs.spec_id
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_container_inst_info ci left join tbl_container_spec_info cs on ci.spec_id = cs.spec_id
+    where inst_id = #{instId,jdbcType=VARCHAR}
+  </select>
+  <select id="countByExample" parameterType="com.lnjoying.justice.scheduler.db.model.ViewCompleteContainerInstInfoExample" resultType="java.lang.Long">
+    select count(*) from tbl_container_inst_info ci left join tbl_container_spec_info cs on ci.spec_id = cs.spec_id
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+</mapper>

@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.aos.db.mapper.TblStackServiceInfoMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.aos.db.model.TblStackServiceInfo">
+    <id column="service_id" jdbcType="VARCHAR" property="serviceId" />
+    <result column="stack_id" jdbcType="VARCHAR" property="stackId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="stack_name" jdbcType="VARCHAR" property="stackName" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="dst_node" jdbcType="VARCHAR" property="dstNode" />
+    <result column="auto_run" jdbcType="BIT" property="autoRun" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="image_name" jdbcType="VARCHAR" property="imageName" />
+    <result column="image_id" jdbcType="VARCHAR" property="imageId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    service_id, stack_id, name, stack_name, description, dst_node, auto_run, status,
+    user_id, image_name, image_id, create_time, update_time
+  </sql>
+  <sql id="Custom_Column_List">
+    ${alias}.service_id , ${alias}.stack_id , ${alias}.name, ${alias}.stack_name, ${alias}.description, ${alias}.dst_node, ${alias}.auto_run, ${alias}.status,
+    ${alias}.user_id, ${alias}.image_name, ${alias}.image_id, ${alias}.create_time, ${alias}.update_time
+  </sql>
+  <select id="selectByExample" parameterType="com.lnjoying.justice.aos.db.model.TblStackServiceInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_stack_service_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null and pageSize != null and pageSize != 0">
+      limit #{pageSize} offset #{startRow}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_stack_service_info
+    where service_id = #{serviceId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tbl_stack_service_info
+    where service_id = #{serviceId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lnjoying.justice.aos.db.model.TblStackServiceInfoExample">
+    delete from tbl_stack_service_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.aos.db.model.TblStackServiceInfo">
+    insert into tbl_stack_service_info (service_id, stack_id, name, 
+      stack_name, description, dst_node,
+      auto_run, status, user_id, 
+      image_name, image_id, create_time, 
+      update_time)
+    values (#{serviceId,jdbcType=VARCHAR}, #{stackId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{stackName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, (#{dstNode,jdbcType=VARCHAR})::jsonb,
+      #{autoRun,jdbcType=BIT}, #{status,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, 
+      #{imageName,jdbcType=VARCHAR}, #{imageId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.aos.db.model.TblStackServiceInfo">
+    insert into tbl_stack_service_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="serviceId != null">
+        service_id,
+      </if>
+      <if test="stackId != null">
+        stack_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="stackName != null">
+        stack_name,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="dstNode != null">
+        dst_node,
+      </if>
+      <if test="autoRun != null">
+        auto_run,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="imageName != null">
+        image_name,
+      </if>
+      <if test="imageId != null">
+        image_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="serviceId != null">
+        #{serviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="stackId != null">
+        #{stackId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="stackName != null">
+        #{stackName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="dstNode != null">
+        (#{dstNode,jdbcType=VARCHAR})::jsonb,
+      </if>
+      <if test="autoRun != null">
+        #{autoRun,jdbcType=BIT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="imageName != null">
+        #{imageName,jdbcType=VARCHAR},
+      </if>
+      <if test="imageId != null">
+        #{imageId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lnjoying.justice.aos.db.model.TblStackServiceInfoExample" resultType="java.lang.Long">
+    select count(*) from tbl_stack_service_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_stack_service_info
+    <set>
+      <if test="record.serviceId != null">
+        service_id = #{record.serviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stackId != null">
+        stack_id = #{record.stackId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stackName != null">
+        stack_name = #{record.stackName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dstNode != null">
+        dst_node = (#{record.dstNode,jdbcType=VARCHAR})::jsonb,
+      </if>
+      <if test="record.autoRun != null">
+        auto_run = #{record.autoRun,jdbcType=BIT},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imageName != null">
+        image_name = #{record.imageName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imageId != null">
+        image_id = #{record.imageId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_stack_service_info
+    set service_id = #{record.serviceId,jdbcType=VARCHAR},
+      stack_id = #{record.stackId,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      stack_name = #{record.stackName,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      dst_node = (#{record.dstNode,jdbcType=VARCHAR})::jsonb,
+      auto_run = #{record.autoRun,jdbcType=BIT},
+      status = #{record.status,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      image_name = #{record.imageName,jdbcType=VARCHAR},
+      image_id = #{record.imageId,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.aos.db.model.TblStackServiceInfo">
+    update tbl_stack_service_info
+    <set>
+      <if test="stackId != null">
+        stack_id = #{stackId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="stackName != null">
+        stack_name = #{stackName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="dstNode != null">
+        dst_node = (#{dstNode,jdbcType=VARCHAR})::jsonb,
+      </if>
+      <if test="autoRun != null">
+        auto_run = #{autoRun,jdbcType=BIT},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="imageName != null">
+        image_name = #{imageName,jdbcType=VARCHAR},
+      </if>
+      <if test="imageId != null">
+        image_id = #{imageId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where service_id = #{serviceId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.aos.db.model.TblStackServiceInfo">
+    update tbl_stack_service_info
+    set stack_id = #{stackId,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      stack_name = #{stackName,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      dst_node = (#{dstNode,jdbcType=VARCHAR})::jsonb,
+      auto_run = #{autoRun,jdbcType=BIT},
+      status = #{status,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=VARCHAR},
+      image_name = #{imageName,jdbcType=VARCHAR},
+      image_id = #{imageId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where service_id = #{serviceId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectAllService" resultMap="BaseResultMap">
+    select <include refid="Custom_Column_List">
+    <property name="alias" value="t1" />
+  </include> from
+    (select
+    <include refid="Base_Column_List"/>
+    from tbl_stack_service_info
+    <where>
+      <if test="stackName != null and stackName != ''">
+        and stack_name like concat('%', #{stackName,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="serviceName != null and serviceName != ''">
+        and name like concat('%', #{serviceName,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="userId != null and userId != ''">
+        and user_id=#{userId,jdbcType=VARCHAR}
+      </if>
+      <if test="statusCollection != null and statusCollection.size() > 0">
+        and "status" in
+        <foreach item="item" index="index" collection="statusCollection"
+                 open="(" separator="," close=")">
+          #{item,jdbcType=INTEGER}
+        </foreach>
+      </if>
+      <if test="statusCollection == null or statusCollection.size() == 0">
+        and "status" not in
+        <foreach item="item" index="index" collection="notInStatusCollection"
+                 open="(" separator="," close=")">
+          #{item,jdbcType=INTEGER}
+        </foreach>
+      </if>
+    </where>) t1  join
+    (select stack_id from tbl_stack_info
+    <where>
+      <if test="(region != null and region != '') || (site != null and site != '') || (nodeId != null and nodeId != '')">
+        and dst_node <![CDATA[@> ]]>
+        <trim prefix="'{" suffix="}'" suffixOverrides=",">
+          <if test="region != null and region != ''">
+            "dstRegionId": "${region}",
+          </if>
+          <if test="site != null and site != ''">
+            "dstSiteId": "${site}",
+          </if>
+          <if test="nodeId != null and nodeId != ''">
+            "dstNodeId": "${nodeId}"
+          </if>
+        </trim>
+      </if>
+    </where>
+    )t2
+    on t1.stack_id = t2.stack_id
+    ORDER BY t1.create_time desc
+    <if test="startRow != null and pageSize != null and pageSize != 0">
+      limit #{pageSize} offset #{startRow}
+    </if>
+  </select>
+
+  <select id="countAllService" resultType="java.lang.Integer">
+    select  count(*) from (
+    select
+    *
+    from tbl_stack_service_info
+    <where>
+      <if test="stackName != null and stackName != ''">
+        and stack_name like concat('%', #{stackName,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="serviceName != null and serviceName != ''">
+        and name like concat('%', #{serviceName,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="userId != null and userId != ''">
+        and user_id=#{userId,jdbcType=VARCHAR}
+      </if>
+      <if test="statusCollection != null and statusCollection.size() > 0">
+        and "status" in
+        <foreach item="item" index="index" collection="statusCollection"
+                 open="(" separator="," close=")">
+          #{item,jdbcType=INTEGER}
+        </foreach>
+      </if>
+      <if test="statusCollection == null or statusCollection.size() == 0">
+        and "status" not in
+        <foreach item="item" index="index" collection="notInStatusCollection"
+                 open="(" separator="," close=")">
+          #{item,jdbcType=INTEGER}
+        </foreach>
+      </if>
+    </where>) t1  join
+    (select stack_id from tbl_stack_info
+    <where>
+      <if test="(region != null and region != '') || (site != null and site != '') || (nodeId != null and nodeId != '')">
+        and dst_node <![CDATA[@> ]]>
+        <trim prefix="'{" suffix="}'" suffixOverrides=",">
+          <if test="region != null and region != ''">
+            "dstRegionId": "${region}",
+          </if>
+          <if test="site != null and site != ''">
+            "dstSiteId": "${site}",
+          </if>
+          <if test="nodeId != null and nodeId != ''">
+            "dstNodeId": "${nodeId}"
+          </if>
+        </trim>
+      </if>
+    </where>
+    )t2
+    on t1.stack_id = t2.stack_id
+  </select>
+</mapper>

@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.cmp.db.mapper.TblCmpDiskSpecMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.cmp.db.model.TblCmpDiskSpec">
+    <result column="cloud_id" jdbcType="VARCHAR" property="cloudId" />
+    <result column="disk_spec_id" jdbcType="VARCHAR" property="diskSpecId" />
+    <result column="device_spec_id" jdbcType="VARCHAR" property="deviceSpecId" />
+    <result column="disk_type" jdbcType="VARCHAR" property="diskType" />
+    <result column="vendor" jdbcType="VARCHAR" property="vendor" />
+    <result column="model" jdbcType="VARCHAR" property="model" />
+    <result column="size" jdbcType="BIGINT" property="size" />
+    <result column="trans_speed" jdbcType="BIGINT" property="transSpeed" />
+    <result column="ee_bp" jdbcType="VARCHAR" property="eeBp" />
+    <result column="ee_user" jdbcType="VARCHAR" property="eeUser" />
+    <result column="ee_status" jdbcType="INTEGER" property="eeStatus" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    cloud_id, disk_spec_id, device_spec_id, disk_type, vendor, model, size, trans_speed, 
+    ee_bp, ee_user, ee_status
+  </sql>
+  <select id="selectByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpDiskSpecExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_cmp_disk_spec
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpDiskSpecExample">
+    delete from tbl_cmp_disk_spec
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpDiskSpec">
+    insert into tbl_cmp_disk_spec (cloud_id, disk_spec_id, device_spec_id, 
+      disk_type, vendor, model, 
+      size, trans_speed, ee_bp, 
+      ee_user, ee_status)
+    values (#{cloudId,jdbcType=VARCHAR}, #{diskSpecId,jdbcType=VARCHAR}, #{deviceSpecId,jdbcType=VARCHAR}, 
+      #{diskType,jdbcType=VARCHAR}, #{vendor,jdbcType=VARCHAR}, #{model,jdbcType=VARCHAR}, 
+      #{size,jdbcType=BIGINT}, #{transSpeed,jdbcType=BIGINT}, #{eeBp,jdbcType=VARCHAR}, 
+      #{eeUser,jdbcType=VARCHAR}, #{eeStatus,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpDiskSpec">
+    insert into tbl_cmp_disk_spec
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cloudId != null">
+        cloud_id,
+      </if>
+      <if test="diskSpecId != null">
+        disk_spec_id,
+      </if>
+      <if test="deviceSpecId != null">
+        device_spec_id,
+      </if>
+      <if test="diskType != null">
+        disk_type,
+      </if>
+      <if test="vendor != null">
+        vendor,
+      </if>
+      <if test="model != null">
+        model,
+      </if>
+      <if test="size != null">
+        size,
+      </if>
+      <if test="transSpeed != null">
+        trans_speed,
+      </if>
+      <if test="eeBp != null">
+        ee_bp,
+      </if>
+      <if test="eeUser != null">
+        ee_user,
+      </if>
+      <if test="eeStatus != null">
+        ee_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cloudId != null">
+        #{cloudId,jdbcType=VARCHAR},
+      </if>
+      <if test="diskSpecId != null">
+        #{diskSpecId,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceSpecId != null">
+        #{deviceSpecId,jdbcType=VARCHAR},
+      </if>
+      <if test="diskType != null">
+        #{diskType,jdbcType=VARCHAR},
+      </if>
+      <if test="vendor != null">
+        #{vendor,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null">
+        #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        #{size,jdbcType=BIGINT},
+      </if>
+      <if test="transSpeed != null">
+        #{transSpeed,jdbcType=BIGINT},
+      </if>
+      <if test="eeBp != null">
+        #{eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="eeUser != null">
+        #{eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="eeStatus != null">
+        #{eeStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpDiskSpecExample" resultType="java.lang.Long">
+    select count(*) from tbl_cmp_disk_spec
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_cmp_disk_spec
+    <set>
+      <if test="record.cloudId != null">
+        cloud_id = #{record.cloudId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.diskSpecId != null">
+        disk_spec_id = #{record.diskSpecId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceSpecId != null">
+        device_spec_id = #{record.deviceSpecId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.diskType != null">
+        disk_type = #{record.diskType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vendor != null">
+        vendor = #{record.vendor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.model != null">
+        model = #{record.model,jdbcType=VARCHAR},
+      </if>
+      <if test="record.size != null">
+        size = #{record.size,jdbcType=BIGINT},
+      </if>
+      <if test="record.transSpeed != null">
+        trans_speed = #{record.transSpeed,jdbcType=BIGINT},
+      </if>
+      <if test="record.eeBp != null">
+        ee_bp = #{record.eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeUser != null">
+        ee_user = #{record.eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeStatus != null">
+        ee_status = #{record.eeStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_cmp_disk_spec
+    set cloud_id = #{record.cloudId,jdbcType=VARCHAR},
+      disk_spec_id = #{record.diskSpecId,jdbcType=VARCHAR},
+      device_spec_id = #{record.deviceSpecId,jdbcType=VARCHAR},
+      disk_type = #{record.diskType,jdbcType=VARCHAR},
+      vendor = #{record.vendor,jdbcType=VARCHAR},
+      model = #{record.model,jdbcType=VARCHAR},
+      size = #{record.size,jdbcType=BIGINT},
+      trans_speed = #{record.transSpeed,jdbcType=BIGINT},
+      ee_bp = #{record.eeBp,jdbcType=VARCHAR},
+      ee_user = #{record.eeUser,jdbcType=VARCHAR},
+      ee_status = #{record.eeStatus,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

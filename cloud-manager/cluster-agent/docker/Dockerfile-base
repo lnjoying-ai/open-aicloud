@@ -1,0 +1,11 @@
+FROM openjdk:8u201-jdk-alpine
+
+RUN apk add --no-cache tzdata
+ENV TZ=Asia/Shanghai
+ENV ENV="/etc/profile"
+RUN mkdir -p /usr/local/lnjoying
+#ADD com.justice.agent.jar /usr/local/lnjoying
+
+
+#ORKDIR  /usr/local/lnjoying
+#ENTRYPOINT ["java", "-jar","com.justice.agent.jar"]

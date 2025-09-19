@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.servicemanager.db.mapper.TblServicePortTargetServiceInfoMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.servicemanager.db.model.TblServicePortTargetServiceInfo">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="service_port_id" jdbcType="VARCHAR" property="servicePortId" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="port_allocation_id" jdbcType="VARCHAR" property="portAllocationId" />
+    <result column="svc_node" jdbcType="VARCHAR" property="svcNode" />
+    <result column="svc_ip" jdbcType="VARCHAR" property="svcIp" />
+    <result column="svc_port" jdbcType="INTEGER" property="svcPort" />
+    <result column="target_svc_node" jdbcType="VARCHAR" property="targetSvcNode" />
+    <result column="target_svc_port" jdbcType="INTEGER" property="targetSvcPort" />
+    <result column="protocol" jdbcType="VARCHAR" property="protocol" />
+    <result column="site" jdbcType="VARCHAR" property="site" />
+    <result column="service" jdbcType="VARCHAR" property="service" />
+    <result column="target_ip" jdbcType="VARCHAR" property="targetIp" />
+    <result column="target_port" jdbcType="INTEGER" property="targetPort" />
+    <result column="cert" jdbcType="VARCHAR" property="cert" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, service_port_id, description, port_allocation_id, svc_node, svc_ip, svc_port, 
+    target_svc_node, target_svc_port, protocol, site, service, target_ip, target_port, 
+    cert, status, create_time, update_time
+  </sql>
+  <select id="selectByExample" parameterType="com.lnjoying.justice.servicemanager.db.model.TblServicePortTargetServiceInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_service_port_target_service_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_service_port_target_service_info
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tbl_service_port_target_service_info
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lnjoying.justice.servicemanager.db.model.TblServicePortTargetServiceInfoExample">
+    delete from tbl_service_port_target_service_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.servicemanager.db.model.TblServicePortTargetServiceInfo">
+    insert into tbl_service_port_target_service_info (id, service_port_id, description, 
+      port_allocation_id, svc_node, svc_ip, 
+      svc_port, target_svc_node, target_svc_port, 
+      protocol, site, service, 
+      target_ip, target_port, cert, 
+      status, create_time, update_time
+      )
+    values (#{id,jdbcType=VARCHAR}, #{servicePortId,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{portAllocationId,jdbcType=VARCHAR}, #{svcNode,jdbcType=VARCHAR}, #{svcIp,jdbcType=VARCHAR}, 
+      #{svcPort,jdbcType=INTEGER}, #{targetSvcNode,jdbcType=VARCHAR}, #{targetSvcPort,jdbcType=INTEGER}, 
+      #{protocol,jdbcType=VARCHAR}, #{site,jdbcType=VARCHAR}, #{service,jdbcType=VARCHAR}, 
+      #{targetIp,jdbcType=VARCHAR}, #{targetPort,jdbcType=INTEGER}, #{cert,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.servicemanager.db.model.TblServicePortTargetServiceInfo">
+    insert into tbl_service_port_target_service_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="servicePortId != null">
+        service_port_id,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="portAllocationId != null">
+        port_allocation_id,
+      </if>
+      <if test="svcNode != null">
+        svc_node,
+      </if>
+      <if test="svcIp != null">
+        svc_ip,
+      </if>
+      <if test="svcPort != null">
+        svc_port,
+      </if>
+      <if test="targetSvcNode != null">
+        target_svc_node,
+      </if>
+      <if test="targetSvcPort != null">
+        target_svc_port,
+      </if>
+      <if test="protocol != null">
+        protocol,
+      </if>
+      <if test="site != null">
+        site,
+      </if>
+      <if test="service != null">
+        service,
+      </if>
+      <if test="targetIp != null">
+        target_ip,
+      </if>
+      <if test="targetPort != null">
+        target_port,
+      </if>
+      <if test="cert != null">
+        cert,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePortId != null">
+        #{servicePortId,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="portAllocationId != null">
+        #{portAllocationId,jdbcType=VARCHAR},
+      </if>
+      <if test="svcNode != null">
+        #{svcNode,jdbcType=VARCHAR},
+      </if>
+      <if test="svcIp != null">
+        #{svcIp,jdbcType=VARCHAR},
+      </if>
+      <if test="svcPort != null">
+        #{svcPort,jdbcType=INTEGER},
+      </if>
+      <if test="targetSvcNode != null">
+        #{targetSvcNode,jdbcType=VARCHAR},
+      </if>
+      <if test="targetSvcPort != null">
+        #{targetSvcPort,jdbcType=INTEGER},
+      </if>
+      <if test="protocol != null">
+        #{protocol,jdbcType=VARCHAR},
+      </if>
+      <if test="site != null">
+        #{site,jdbcType=VARCHAR},
+      </if>
+      <if test="service != null">
+        #{service,jdbcType=VARCHAR},
+      </if>
+      <if test="targetIp != null">
+        #{targetIp,jdbcType=VARCHAR},
+      </if>
+      <if test="targetPort != null">
+        #{targetPort,jdbcType=INTEGER},
+      </if>
+      <if test="cert != null">
+        #{cert,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lnjoying.justice.servicemanager.db.model.TblServicePortTargetServiceInfoExample" resultType="java.lang.Long">
+    select count(*) from tbl_service_port_target_service_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_service_port_target_service_info
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.servicePortId != null">
+        service_port_id = #{record.servicePortId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.portAllocationId != null">
+        port_allocation_id = #{record.portAllocationId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.svcNode != null">
+        svc_node = #{record.svcNode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.svcIp != null">
+        svc_ip = #{record.svcIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.svcPort != null">
+        svc_port = #{record.svcPort,jdbcType=INTEGER},
+      </if>
+      <if test="record.targetSvcNode != null">
+        target_svc_node = #{record.targetSvcNode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.targetSvcPort != null">
+        target_svc_port = #{record.targetSvcPort,jdbcType=INTEGER},
+      </if>
+      <if test="record.protocol != null">
+        protocol = #{record.protocol,jdbcType=VARCHAR},
+      </if>
+      <if test="record.site != null">
+        site = #{record.site,jdbcType=VARCHAR},
+      </if>
+      <if test="record.service != null">
+        service = #{record.service,jdbcType=VARCHAR},
+      </if>
+      <if test="record.targetIp != null">
+        target_ip = #{record.targetIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.targetPort != null">
+        target_port = #{record.targetPort,jdbcType=INTEGER},
+      </if>
+      <if test="record.cert != null">
+        cert = #{record.cert,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_service_port_target_service_info
+    set id = #{record.id,jdbcType=VARCHAR},
+      service_port_id = #{record.servicePortId,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      port_allocation_id = #{record.portAllocationId,jdbcType=VARCHAR},
+      svc_node = #{record.svcNode,jdbcType=VARCHAR},
+      svc_ip = #{record.svcIp,jdbcType=VARCHAR},
+      svc_port = #{record.svcPort,jdbcType=INTEGER},
+      target_svc_node = #{record.targetSvcNode,jdbcType=VARCHAR},
+      target_svc_port = #{record.targetSvcPort,jdbcType=INTEGER},
+      protocol = #{record.protocol,jdbcType=VARCHAR},
+      site = #{record.site,jdbcType=VARCHAR},
+      service = #{record.service,jdbcType=VARCHAR},
+      target_ip = #{record.targetIp,jdbcType=VARCHAR},
+      target_port = #{record.targetPort,jdbcType=INTEGER},
+      cert = #{record.cert,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.servicemanager.db.model.TblServicePortTargetServiceInfo">
+    update tbl_service_port_target_service_info
+    <set>
+      <if test="servicePortId != null">
+        service_port_id = #{servicePortId,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="portAllocationId != null">
+        port_allocation_id = #{portAllocationId,jdbcType=VARCHAR},
+      </if>
+      <if test="svcNode != null">
+        svc_node = #{svcNode,jdbcType=VARCHAR},
+      </if>
+      <if test="svcIp != null">
+        svc_ip = #{svcIp,jdbcType=VARCHAR},
+      </if>
+      <if test="svcPort != null">
+        svc_port = #{svcPort,jdbcType=INTEGER},
+      </if>
+      <if test="targetSvcNode != null">
+        target_svc_node = #{targetSvcNode,jdbcType=VARCHAR},
+      </if>
+      <if test="targetSvcPort != null">
+        target_svc_port = #{targetSvcPort,jdbcType=INTEGER},
+      </if>
+      <if test="protocol != null">
+        protocol = #{protocol,jdbcType=VARCHAR},
+      </if>
+      <if test="site != null">
+        site = #{site,jdbcType=VARCHAR},
+      </if>
+      <if test="service != null">
+        service = #{service,jdbcType=VARCHAR},
+      </if>
+      <if test="targetIp != null">
+        target_ip = #{targetIp,jdbcType=VARCHAR},
+      </if>
+      <if test="targetPort != null">
+        target_port = #{targetPort,jdbcType=INTEGER},
+      </if>
+      <if test="cert != null">
+        cert = #{cert,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.servicemanager.db.model.TblServicePortTargetServiceInfo">
+    update tbl_service_port_target_service_info
+    set service_port_id = #{servicePortId,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      port_allocation_id = #{portAllocationId,jdbcType=VARCHAR},
+      svc_node = #{svcNode,jdbcType=VARCHAR},
+      svc_ip = #{svcIp,jdbcType=VARCHAR},
+      svc_port = #{svcPort,jdbcType=INTEGER},
+      target_svc_node = #{targetSvcNode,jdbcType=VARCHAR},
+      target_svc_port = #{targetSvcPort,jdbcType=INTEGER},
+      protocol = #{protocol,jdbcType=VARCHAR},
+      site = #{site,jdbcType=VARCHAR},
+      service = #{service,jdbcType=VARCHAR},
+      target_ip = #{targetIp,jdbcType=VARCHAR},
+      target_port = #{targetPort,jdbcType=INTEGER},
+      cert = #{cert,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

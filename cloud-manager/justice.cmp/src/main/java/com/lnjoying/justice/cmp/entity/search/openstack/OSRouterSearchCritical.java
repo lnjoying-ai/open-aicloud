@@ -1,0 +1,59 @@
+package com.lnjoying.justice.cmp.entity.search.openstack;
+
+import com.lnjoying.justice.cmp.entity.search.CmpSearchCritical;
+import io.swagger.annotations.ApiParam;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
+
+@EqualsAndHashCode(callSuper = true)
+@Data
+@NoArgsConstructor
+public class OSRouterSearchCritical extends CmpSearchCritical
+{
+    private String id;
+    private String tenantId;
+    private String projectId;
+    private String name;
+    private String description;
+    private Boolean adminStateUp;
+    private Integer revisionNumber;
+    private String sortDir;
+    private String sortKey;
+    private String tags;
+    private String tagsAny;
+    private String notTags;
+    private String notTagsAny;
+    private String fields;
+
+    private Integer pageNum = 1;
+    private Integer pageSize = 100;
+    private String status;
+
+    public OSRouterSearchCritical(String id, String tenantId, String projectId, String name, String description, Boolean adminStateUp,
+                                  Integer revisionNumber, String sortDir, String sortKey, String tags, String tagsAny, String notTags,
+                                  String notTagsAny, String fields, Integer pageNum, Integer pageSize, String status)
+    {
+        this.id = id;
+        this.tenantId = tenantId;
+        this.projectId = projectId;
+        this.name = name;
+        this.description = description;
+        this.adminStateUp = adminStateUp;
+        this.revisionNumber = revisionNumber;
+        this.sortDir = sortDir;
+        this.sortKey = sortKey;
+        this.tags = tags;
+        this.tagsAny = tagsAny;
+        this.notTags = notTags;
+        this.notTagsAny = notTagsAny;
+        this.fields = fields;
+
+        if (pageNum != null) this.pageNum = pageNum;
+        if (pageSize != null) this.pageSize = pageSize;
+        this.status = status;
+    }
+}

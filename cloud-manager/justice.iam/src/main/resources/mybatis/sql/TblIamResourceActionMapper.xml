@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.iam.db.mapper.TblIamResourceActionMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.iam.db.model.TblIamResourceAction">
+    <!--@mbg.generated-->
+    <!--@Table tbl_iam_resource_action-->
+    <result column="action_id" jdbcType="VARCHAR" property="actionId" />
+    <result column="resource_id" jdbcType="VARCHAR" property="resourceId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    action_id, resource_id
+  </sql>
+  <insert id="insert" parameterType="com.lnjoying.justice.iam.db.model.TblIamResourceAction">
+    <!--@mbg.generated-->
+    insert into tbl_iam_resource_action (action_id, resource_id)
+    values (#{actionId,jdbcType=VARCHAR}, #{resourceId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.iam.db.model.TblIamResourceAction">
+    <!--@mbg.generated-->
+    insert into tbl_iam_resource_action
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="actionId != null and actionId != ''">
+        action_id,
+      </if>
+      <if test="resourceId != null and resourceId != ''">
+        resource_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="actionId != null and actionId != ''">
+        #{actionId,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceId != null and resourceId != ''">
+        #{resourceId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+
+</mapper>

@@ -1,0 +1,2 @@
+ # harbor registry install shell path
+harbor.registry.install.path: http://lnjoying.io:9080/image/

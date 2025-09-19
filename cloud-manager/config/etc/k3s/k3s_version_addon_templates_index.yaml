@@ -1,0 +1,59 @@
+v1.17.17:
+  calico: calico-v1.17-privileged
+  canal: canal-v1.17-privileged-calico3134
+  coredns: coredns-v1.17
+  flannel: flannel-v1.16
+  kube-dns: kubedns-v1.16
+  metrics-server: metricsserver-v1.8
+  nginx: nginxingress-v1.15.12
+  nodelocal: nodelocal-v1.15
+
+v1.18.20:
+  calico: calico-v1.17-privileged
+  canal: canal-v1.17-privileged-calico3134
+  coredns: coredns-v1.17
+  flannel: flannel-v1.16
+  kube-dns: kubedns-v1.16
+  metrics-server: metricsserver-v1.8
+  nginx: nginxingress-v1.15.12
+  nodelocal: nodelocal-v1.15
+
+v1.19.13:
+  calico: calico-v3.16.5
+  canal: canal-v3.16.5
+  coredns: coredns-v1.17
+  flannel: flannel-v1.16
+  kube-dns: kubedns-v1.16
+  metrics-server: metricsserver-v1.8
+  nginx: nginxingress-v1.15.12
+  nodelocal: nodelocal-v1.15
+
+v1.19.15:
+  calico: calico-v3.16.5
+  canal: canal-v3.16.5
+  coredns: coredns-v1.17
+  flannel: flannel-v1.16
+  kube-dns: kubedns-v1.16
+  metrics-server: metricsserver-v1.8
+  nginx: nginxingress-v1.15.12
+  nodelocal: nodelocal-v1.15
+
+v1.20.9:
+  calico: calico-v3.17.1
+  canal: canal-v3.17.1
+  coredns: coredns-v1.17
+  flannel: flannel-v1.16
+  kube-dns: kubedns-v1.16
+  metrics-server: metricsserver-v1.20
+  nginx: nginxingress-v1.15.12
+  nodelocal: nodelocal-v1.15
+
+v1.21.3:
+  calico: calico-v3.19.0
+  canal: canal-v3.19.0
+  coredns: coredns-v1.8.3
+  flannel: flannel-v0.14.0
+  kube-dns: kubedns-v1.16
+  metrics-server: metricsserver-v0.5.0
+  nginx: nginxingress-v0.48.1
+  nodelocal: nodelocal-v1.21

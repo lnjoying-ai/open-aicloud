@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.cis.db.mapper.TblCfgdataContainerInfoMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.cis.db.model.TblCfgdataContainerInfo">
+    <!--@mbg.generated-->
+    <!--@Table tbl_cfgdata_container_info-->
+    <id column="cfg_volume_id" jdbcType="VARCHAR" property="cfgVolumeId" />
+    <result column="data_id" jdbcType="VARCHAR" property="dataId" />
+    <result column="data_group" jdbcType="VARCHAR" property="dataGroup" />
+    <result column="data_hash" jdbcType="VARCHAR" property="dataHash" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="node_id" jdbcType="VARCHAR" property="nodeId" />
+    <result column="container_id" jdbcType="VARCHAR" property="containerId" />
+    <result column="sync_state" jdbcType="INTEGER" property="syncState" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    cfg_volume_id, data_id, data_group, data_hash, user_id, node_id, container_id, sync_state, 
+    create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_cfgdata_container_info
+    where cfg_volume_id = #{cfgVolumeId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from tbl_cfgdata_container_info
+    where cfg_volume_id = #{cfgVolumeId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.cis.db.model.TblCfgdataContainerInfo">
+    <!--@mbg.generated-->
+    insert into tbl_cfgdata_container_info (cfg_volume_id, data_id, data_group, 
+      data_hash, user_id, node_id, 
+      container_id, sync_state, create_time, 
+      update_time)
+    values (#{cfgVolumeId,jdbcType=VARCHAR}, #{dataId,jdbcType=VARCHAR}, #{dataGroup,jdbcType=VARCHAR}, 
+      #{dataHash,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{nodeId,jdbcType=VARCHAR}, 
+      #{containerId,jdbcType=VARCHAR}, #{syncState,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.cis.db.model.TblCfgdataContainerInfo">
+    <!--@mbg.generated-->
+    insert into tbl_cfgdata_container_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cfgVolumeId != null and cfgVolumeId != ''">
+        cfg_volume_id,
+      </if>
+      <if test="dataId != null and dataId != ''">
+        data_id,
+      </if>
+      <if test="dataGroup != null and dataGroup != ''">
+        data_group,
+      </if>
+      <if test="dataHash != null and dataHash != ''">
+        data_hash,
+      </if>
+      <if test="userId != null and userId != ''">
+        user_id,
+      </if>
+      <if test="nodeId != null and nodeId != ''">
+        node_id,
+      </if>
+      <if test="containerId != null and containerId != ''">
+        container_id,
+      </if>
+      <if test="syncState != null">
+        sync_state,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cfgVolumeId != null and cfgVolumeId != ''">
+        #{cfgVolumeId,jdbcType=VARCHAR},
+      </if>
+      <if test="dataId != null and dataId != ''">
+        #{dataId,jdbcType=VARCHAR},
+      </if>
+      <if test="dataGroup != null and dataGroup != ''">
+        #{dataGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="dataHash != null and dataHash != ''">
+        #{dataHash,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null and userId != ''">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeId != null and nodeId != ''">
+        #{nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="containerId != null and containerId != ''">
+        #{containerId,jdbcType=VARCHAR},
+      </if>
+      <if test="syncState != null">
+        #{syncState,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.cis.db.model.TblCfgdataContainerInfo">
+    <!--@mbg.generated-->
+    update tbl_cfgdata_container_info
+    <set>
+      <if test="dataId != null and dataId != ''">
+        data_id = #{dataId,jdbcType=VARCHAR},
+      </if>
+      <if test="dataGroup != null and dataGroup != ''">
+        data_group = #{dataGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="dataHash != null and dataHash != ''">
+        data_hash = #{dataHash,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null and userId != ''">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeId != null and nodeId != ''">
+        node_id = #{nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="containerId != null and containerId != ''">
+        container_id = #{containerId,jdbcType=VARCHAR},
+      </if>
+      <if test="syncState != null">
+        sync_state = #{syncState,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where cfg_volume_id = #{cfgVolumeId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.cis.db.model.TblCfgdataContainerInfo">
+    <!--@mbg.generated-->
+    update tbl_cfgdata_container_info
+    set data_id = #{dataId,jdbcType=VARCHAR},
+      data_group = #{dataGroup,jdbcType=VARCHAR},
+      data_hash = #{dataHash,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      node_id = #{nodeId,jdbcType=VARCHAR},
+      container_id = #{containerId,jdbcType=VARCHAR},
+      sync_state = #{syncState,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where cfg_volume_id = #{cfgVolumeId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectContainersByUserIdAndDatagroupAndDataId" resultMap="com.lnjoying.justice.cis.db.mapper.TblContainerInstInfoMapper.BaseResultMap">
+    select
+    t1.*
+    from
+    tbl_container_inst_info t1
+    right join (SELECT container_id  FROM tbl_cfgdata_container_info
+    <where>
+      <if test="userId != null and userId != ''">
+        and user_id=#{userId,jdbcType=VARCHAR}
+      </if>
+      <if test="dataGroup != null and dataGroup != ''">
+        and data_group=#{dataGroup,jdbcType=VARCHAR}
+      </if>
+      <if test="dataId != null and dataId != ''">
+        and data_id=#{dataId,jdbcType=VARCHAR}
+      </if>
+    </where>
+    ) t2 ON t1.inst_id = t2.container_id
+    <where>
+      <if test="statusExcludeCollection != null and statusExcludeCollection.size() > 0">
+        and t1."status" not in
+        <foreach item="item" index="index" collection="statusExcludeCollection"
+                 open="(" separator="," close=")">
+          #{item,jdbcType=INTEGER}
+        </foreach>
+      </if>
+    </where>
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tbl_cfgdata_container_info
+        <where>
+            <if test="userId != null and userId != ''">
+                and user_id=#{userId,jdbcType=VARCHAR}
+            </if>
+            <if test="dataGroup != null and dataGroup != ''">
+                and data_group=#{dataGroup,jdbcType=VARCHAR}
+            </if>
+            <if test="dataId != null and dataId != ''">
+                and data_id=#{dataId,jdbcType=VARCHAR}
+            </if>
+            <if test="containerIdCollection != null and containerIdCollection.size() > 0">
+                and container_id in
+                <foreach item="item" index="index" collection="containerIdCollection"
+                         open="(" separator="," close=")">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+  <select id="selectByContainerId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tbl_cfgdata_container_info
+        <where>
+            <if test="containerId != null and containerId != ''">
+                and container_id=#{containerId,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
+  <delete id="deleteByContainerId">
+        delete from tbl_cfgdata_container_info
+        where container_id=#{containerId,jdbcType=VARCHAR}
+    </delete>
+</mapper>

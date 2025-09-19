@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.iam.db.mapper.TblIamServiceMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.iam.db.model.TblIamService">
+    <!--@mbg.generated-->
+    <!--@Table tbl_iam_service-->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="display_name" jdbcType="VARCHAR" property="displayName" />
+    <result column="iam_code" jdbcType="VARCHAR" property="iamCode" />
+    <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
+    <result column="lrn_format" jdbcType="VARCHAR" property="lrnFormat" />
+    <result column="lrn_regex" jdbcType="VARCHAR" property="lrnRegex" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="enable" jdbcType="INTEGER" property="enable" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, "name", display_name, iam_code, parent_id, lrn_format, lrn_regex, "status", "enable", 
+    description, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_iam_service
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from tbl_iam_service
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.iam.db.model.TblIamService">
+    <!--@mbg.generated-->
+    insert into tbl_iam_service (id, "name", display_name, 
+      iam_code, parent_id, lrn_format, 
+      lrn_regex, "status", "enable", 
+      description, create_time, update_time
+      )
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{displayName,jdbcType=VARCHAR}, 
+      #{iamCode,jdbcType=VARCHAR}, #{parentId,jdbcType=VARCHAR}, #{lrnFormat,jdbcType=VARCHAR}, 
+      #{lrnRegex,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{enable,jdbcType=INTEGER}, 
+      #{description,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.iam.db.model.TblIamService">
+    <!--@mbg.generated-->
+    insert into tbl_iam_service
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        id,
+      </if>
+      <if test="name != null and name != ''">
+        "name",
+      </if>
+      <if test="displayName != null and displayName != ''">
+        display_name,
+      </if>
+      <if test="iamCode != null and iamCode != ''">
+        iam_code,
+      </if>
+      <if test="parentId != null and parentId != ''">
+        parent_id,
+      </if>
+      <if test="lrnFormat != null and lrnFormat != ''">
+        lrn_format,
+      </if>
+      <if test="lrnRegex != null and lrnRegex != ''">
+        lrn_regex,
+      </if>
+      <if test="status != null">
+        "status",
+      </if>
+      <if test="enable != null">
+        "enable",
+      </if>
+      <if test="description != null and description != ''">
+        description,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null and name != ''">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="displayName != null and displayName != ''">
+        #{displayName,jdbcType=VARCHAR},
+      </if>
+      <if test="iamCode != null and iamCode != ''">
+        #{iamCode,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null and parentId != ''">
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="lrnFormat != null and lrnFormat != ''">
+        #{lrnFormat,jdbcType=VARCHAR},
+      </if>
+      <if test="lrnRegex != null and lrnRegex != ''">
+        #{lrnRegex,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="enable != null">
+        #{enable,jdbcType=INTEGER},
+      </if>
+      <if test="description != null and description != ''">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.iam.db.model.TblIamService">
+    <!--@mbg.generated-->
+    update tbl_iam_service
+    <set>
+      <if test="name != null and name != ''">
+        "name" = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="displayName != null and displayName != ''">
+        display_name = #{displayName,jdbcType=VARCHAR},
+      </if>
+      <if test="iamCode != null and iamCode != ''">
+        iam_code = #{iamCode,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null and parentId != ''">
+        parent_id = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="lrnFormat != null and lrnFormat != ''">
+        lrn_format = #{lrnFormat,jdbcType=VARCHAR},
+      </if>
+      <if test="lrnRegex != null and lrnRegex != ''">
+        lrn_regex = #{lrnRegex,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        "status" = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="enable != null">
+        "enable" = #{enable,jdbcType=INTEGER},
+      </if>
+      <if test="description != null and description != ''">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.iam.db.model.TblIamService">
+    <!--@mbg.generated-->
+    update tbl_iam_service
+    set "name" = #{name,jdbcType=VARCHAR},
+      display_name = #{displayName,jdbcType=VARCHAR},
+      iam_code = #{iamCode,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=VARCHAR},
+      lrn_format = #{lrnFormat,jdbcType=VARCHAR},
+      lrn_regex = #{lrnRegex,jdbcType=VARCHAR},
+      "status" = #{status,jdbcType=INTEGER},
+      "enable" = #{enable,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="countByName" resultType="java.lang.Integer">
+        select count(1)
+        from tbl_iam_service
+        <where>
+            <if test="name != null and name != ''">
+                and "name"=#{name,jdbcType=VARCHAR}
+            </if>
+          <if test="true">
+            and "status" = 1
+          </if>
+        </where>
+    </select>
+
+  <select id="countById" resultType="java.lang.Integer">
+    select count(1)
+    from tbl_iam_service
+    <where>
+      <if test="id != null and id != ''">
+        and id=#{id,jdbcType=VARCHAR}
+      </if>
+      <if test="true">
+        and "status" = 1
+      </if>
+    </where>
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tbl_iam_service
+    <where>
+      <if test="name != null and name != ''">
+        and "display_name" like concat('%',#{name,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="enable != null">
+        and "enable"=#{enable,jdbcType=INTEGER}
+      </if>
+      <if test="true">
+        and "status" = 1
+      </if>
+    </where>
+  </select>
+
+  <select id="selectNameById" resultType="java.lang.String">
+    select "name"
+    from tbl_iam_service
+    <where>
+      <if test="id != null and id != ''">
+        and id=#{id,jdbcType=VARCHAR}
+      </if>
+    </where>
+    limit 1
+  </select>
+
+  <select id="selectDisplayNameById" resultType="java.lang.String">
+    select display_name
+    from tbl_iam_service
+    <where>
+      <if test="id != null and id != ''">
+        and id=#{id,jdbcType=VARCHAR}
+      </if>
+    </where>
+    limit 1
+  </select>
+
+  <select id="selectIdByName" resultType="java.lang.String">
+        select id
+        from tbl_iam_service
+        <where>
+            <if test="name != null and name != ''">
+                and "name"=#{name,jdbcType=VARCHAR}
+            </if>
+        </where>
+        limit 1
+    </select>
+
+  <select id="selectIamCodeById" resultType="java.lang.String">
+    select iam_code
+    from tbl_iam_service
+    <where>
+      <if test="id != null and id != ''">
+        and id=#{id,jdbcType=VARCHAR}
+      </if>
+    </where>
+    limit 1
+  </select>
+
+  <select id="selectByIamCode" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tbl_iam_service
+        <where>
+            <if test="iamCode != null and iamCode != ''">
+                and iam_code=#{iamCode,jdbcType=VARCHAR}
+            </if>
+        </where>
+        limit 1
+    </select>
+
+  <select id="countByIamCode" resultType="java.lang.Integer">
+        select count(1)
+        from tbl_iam_service
+        <where>
+            <if test="iamCode != null and iamCode != ''">
+                and iam_code=#{iamCode,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+</mapper>

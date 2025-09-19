@@ -1,0 +1,11 @@
+# the directory mapped inside the container
+prometheus.setting.rule.path: /root/monitor/prometheus/rules
+prometheus.server.internal.address: https://localhost:19090
+prometheus.server.external.address: https://localhost:19090
+prometheus.server.username: admin
+prometheus.server.password: admin
+monitor.admin.username: admin
+monitor.admin.password: admin
+grafana.address: http://localhost:13000/omc/v1/dashboards
+send.sms: false
+send.email: true

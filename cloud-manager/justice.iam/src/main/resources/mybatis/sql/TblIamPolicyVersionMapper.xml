@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.iam.db.mapper.TblIamPolicyVersionMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.iam.db.model.TblIamPolicyVersion">
+    <!--@mbg.generated-->
+    <!--@Table tbl_iam_policy_version-->
+    <result column="policy_id" jdbcType="VARCHAR" property="policyId" />
+    <result column="version_id" jdbcType="VARCHAR" property="versionId" />
+    <result column="document" jdbcType="VARCHAR" property="document" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    policy_id, version_id, document, create_time, update_time, description
+  </sql>
+  <insert id="insert" parameterType="com.lnjoying.justice.iam.db.model.TblIamPolicyVersion">
+    <!--@mbg.generated-->
+    insert into tbl_iam_policy_version (policy_id, version_id, document, 
+      create_time, update_time, description
+      )
+    values (#{policyId,jdbcType=VARCHAR}, #{versionId,jdbcType=VARCHAR}, #{document,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.iam.db.model.TblIamPolicyVersion">
+    <!--@mbg.generated-->
+    insert into tbl_iam_policy_version
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="policyId != null and policyId != ''">
+        policy_id,
+      </if>
+      <if test="versionId != null and versionId != ''">
+        version_id,
+      </if>
+      <if test="document != null and document != ''">
+        document,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="description != null and description != ''">
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="policyId != null and policyId != ''">
+        #{policyId,jdbcType=VARCHAR},
+      </if>
+      <if test="versionId != null and versionId != ''">
+        #{versionId,jdbcType=VARCHAR},
+      </if>
+      <if test="document != null and document != ''">
+        #{document,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null and description != ''">
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="selectByPolicyId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from tbl_iam_policy_version
+        <where>
+            <if test="policyId != null and policyId != ''">
+                and policy_id=#{policyId,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
+  <select id="selectByPolicyIdAndVersionId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tbl_iam_policy_version
+    <where>
+      <if test="policyId != null and policyId != ''">
+        and policy_id=#{policyId,jdbcType=VARCHAR}
+      </if>
+      <if test="versionId != null and versionId != ''">
+        and version_id=#{versionId,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+
+  <delete id="deleteByPolicyIdAndVersionId">
+    delete from tbl_iam_policy_version
+    <where>
+      <if test="policyId != null and policyId != ''">
+        and policy_id=#{policyId,jdbcType=VARCHAR}
+      </if>
+      <if test="versionId != null and versionId != ''">
+        and version_id=#{versionId,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </delete>
+
+  <select id="countByPolicyIdAndVersionId" resultType="java.lang.Integer">
+    select count(1)
+    from
+    (select policy_id from
+    tbl_iam_policy_version
+    <where>
+      <if test="policyId != null and policyId != ''">
+        and policy_id=#{policyId,jdbcType=VARCHAR}
+      </if>
+      <if test="versionId != null and versionId != ''">
+        and version_id=#{versionId,jdbcType=VARCHAR}
+      </if>
+    </where>) t1
+    join
+    (select id from
+    tbl_iam_policy
+    <where>
+      <if test="policyId != null and policyId != ''">
+        and id=#{policyId,jdbcType=VARCHAR}
+      </if>
+    </where>) t2
+    on t1.policy_id = t2.id
+  </select>
+
+
+  <select id="selectDocumentByMap" parameterType="java.util.Map" resultType="java.lang.String">
+    select
+        document
+    from tbl_iam_policy_version
+    <where>
+      <if test="policyId != null and policyId != ''">
+        and policy_id=#{policyId,jdbcType=VARCHAR}
+      </if>
+      <if test="versionId != null and versionId != ''">
+        and version_id=#{versionId,jdbcType=VARCHAR}
+      </if>
+    </where>
+    limit 1
+  </select>
+
+  <select id="selectLatestVersionIdByPolicyId" resultType="java.lang.String">
+    select version_id
+    from tbl_iam_policy_version
+    <where>
+      <if test="policyId != null and policyId != ''">
+        and policy_id=#{policyId,jdbcType=VARCHAR}
+      </if>
+    </where>
+    order by CAST(substring(version_id FROM '[0-9]+$') AS INTEGER) desc
+    limit 1
+  </select>
+
+  <update id="updateByPolicyIdAndVersionId">
+    update tbl_iam_policy_version
+    <set>
+      <if test="updated.policyId != null and updated.policyId != ''">
+        policy_id = #{updated.policyId,jdbcType=VARCHAR},
+      </if>
+      <if test="updated.versionId != null and updated.versionId != ''">
+        version_id = #{updated.versionId,jdbcType=VARCHAR},
+      </if>
+      <if test="updated.document != null and updated.document != ''">
+        document = #{updated.document,jdbcType=VARCHAR},
+      </if>
+      <if test="updated.createTime != null">
+        create_time = #{updated.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated.updateTime != null">
+        update_time = #{updated.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated.description != null and updated.description != ''">
+        description = #{updated.description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <where>
+      <if test="policyId != null and policyId != ''">
+        and policy_id=#{policyId,jdbcType=VARCHAR}
+      </if>
+      <if test="versionId != null and versionId != ''">
+        and version_id=#{versionId,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </update>
+
+  <select id="countByPolicyId" resultType="java.lang.Integer">
+    select count(1)
+    from tbl_iam_policy_version
+    <where>
+      <if test="policyId != null and policyId != ''">
+        and policy_id=#{policyId,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+</mapper>

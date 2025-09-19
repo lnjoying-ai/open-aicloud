@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.omc.db.mapper.TblOmcRuleResourceMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.omc.db.model.TblOmcRuleResource">
+    <!--@mbg.generated-->
+    <!--@Table tbl_omc_rule_resource-->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="resource_type" jdbcType="VARCHAR" property="resourceType" />
+    <result column="resource_type_id" jdbcType="VARCHAR" property="resourceTypeId" />
+    <result column="resource_id" jdbcType="VARCHAR" property="resourceId" />
+    <result column="alarm_data_type" jdbcType="VARCHAR" property="alarmDataType" />
+    <result column="bp_id" jdbcType="VARCHAR" property="bpId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, resource_type, resource_type_id, resource_id, alarm_data_type, bp_id, user_id, 
+    create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_omc_rule_resource
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from tbl_omc_rule_resource
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.omc.db.model.TblOmcRuleResource">
+    <!--@mbg.generated-->
+    insert into tbl_omc_rule_resource (id, resource_type, resource_type_id, 
+      resource_id, alarm_data_type, bp_id, 
+      user_id, create_time, update_time
+      )
+    values (#{id,jdbcType=VARCHAR}, #{resourceType,jdbcType=VARCHAR}, #{resourceTypeId,jdbcType=VARCHAR}, 
+      #{resourceId,jdbcType=VARCHAR}, #{alarmDataType,jdbcType=VARCHAR}, #{bpId,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.omc.db.model.TblOmcRuleResource">
+    <!--@mbg.generated-->
+    insert into tbl_omc_rule_resource
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        id,
+      </if>
+      <if test="resourceType != null and resourceType != ''">
+        resource_type,
+      </if>
+      <if test="resourceTypeId != null and resourceTypeId != ''">
+        resource_type_id,
+      </if>
+      <if test="resourceId != null and resourceId != ''">
+        resource_id,
+      </if>
+      <if test="alarmDataType != null and alarmDataType != ''">
+        alarm_data_type,
+      </if>
+      <if test="bpId != null and bpId != ''">
+        bp_id,
+      </if>
+      <if test="userId != null and userId != ''">
+        user_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceType != null and resourceType != ''">
+        #{resourceType,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceTypeId != null and resourceTypeId != ''">
+        #{resourceTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceId != null and resourceId != ''">
+        #{resourceId,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmDataType != null and alarmDataType != ''">
+        #{alarmDataType,jdbcType=VARCHAR},
+      </if>
+      <if test="bpId != null and bpId != ''">
+        #{bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null and userId != ''">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.omc.db.model.TblOmcRuleResource">
+    <!--@mbg.generated-->
+    update tbl_omc_rule_resource
+    <set>
+      <if test="resourceType != null and resourceType != ''">
+        resource_type = #{resourceType,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceTypeId != null and resourceTypeId != ''">
+        resource_type_id = #{resourceTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceId != null and resourceId != ''">
+        resource_id = #{resourceId,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmDataType != null and alarmDataType != ''">
+        alarm_data_type = #{alarmDataType,jdbcType=VARCHAR},
+      </if>
+      <if test="bpId != null and bpId != ''">
+        bp_id = #{bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null and userId != ''">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.omc.db.model.TblOmcRuleResource">
+    <!--@mbg.generated-->
+    update tbl_omc_rule_resource
+    set resource_type = #{resourceType,jdbcType=VARCHAR},
+      resource_type_id = #{resourceTypeId,jdbcType=VARCHAR},
+      resource_id = #{resourceId,jdbcType=VARCHAR},
+      alarm_data_type = #{alarmDataType,jdbcType=VARCHAR},
+      bp_id = #{bpId,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

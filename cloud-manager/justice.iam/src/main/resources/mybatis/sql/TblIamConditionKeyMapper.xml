@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.iam.db.mapper.TblIamConditionKeyMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.iam.db.model.TblIamConditionKey">
+    <!--@mbg.generated-->
+    <!--@Table tbl_iam_condition_key-->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="project_id" jdbcType="VARCHAR" property="projectId" />
+    <result column="condition_name" jdbcType="VARCHAR" property="conditionName" />
+    <result column="fixed_condition_name" jdbcType="BOOLEAN" property="fixedConditionName" />
+    <result column="condition_type" jdbcType="VARCHAR" property="conditionType" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="is_global" jdbcType="BOOLEAN" property="global" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="service_id" jdbcType="VARCHAR" property="serviceId" />
+    <result column="resource_id" jdbcType="VARCHAR" property="resourceId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, project_id, condition_name, fixed_condition_name, condition_type, description, 
+    is_global, create_time, update_time, service_id, resource_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_iam_condition_key
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from tbl_iam_condition_key
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.iam.db.model.TblIamConditionKey">
+    <!--@mbg.generated-->
+    insert into tbl_iam_condition_key (id, project_id, condition_name, 
+      fixed_condition_name, condition_type, description, 
+      is_global, create_time, update_time, 
+      service_id, resource_id)
+    values (#{id,jdbcType=VARCHAR}, #{projectId,jdbcType=VARCHAR}, #{conditionName,jdbcType=VARCHAR}, 
+      #{fixedConditionName,jdbcType=BOOLEAN}, #{conditionType,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{global,jdbcType=BOOLEAN}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{serviceId,jdbcType=VARCHAR}, #{resourceId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.iam.db.model.TblIamConditionKey">
+    <!--@mbg.generated-->
+    insert into tbl_iam_condition_key
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        id,
+      </if>
+      <if test="projectId != null and projectId != ''">
+        project_id,
+      </if>
+      <if test="conditionName != null and conditionName != ''">
+        condition_name,
+      </if>
+      <if test="fixedConditionName != null">
+        fixed_condition_name,
+      </if>
+      <if test="conditionType != null and conditionType != ''">
+        condition_type,
+      </if>
+      <if test="description != null and description != ''">
+        description,
+      </if>
+      <if test="global != null">
+        is_global,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="serviceId != null and serviceId != ''">
+        service_id,
+      </if>
+      <if test="resourceId != null and resourceId != ''">
+        resource_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null and projectId != ''">
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="conditionName != null and conditionName != ''">
+        #{conditionName,jdbcType=VARCHAR},
+      </if>
+      <if test="fixedConditionName != null">
+        #{fixedConditionName,jdbcType=BOOLEAN},
+      </if>
+      <if test="conditionType != null and conditionType != ''">
+        #{conditionType,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null and description != ''">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="global != null">
+        #{global,jdbcType=BOOLEAN},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="serviceId != null and serviceId != ''">
+        #{serviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceId != null and resourceId != ''">
+        #{resourceId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.iam.db.model.TblIamConditionKey">
+    <!--@mbg.generated-->
+    update tbl_iam_condition_key
+    <set>
+      <if test="projectId != null and projectId != ''">
+        project_id = #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="conditionName != null and conditionName != ''">
+        condition_name = #{conditionName,jdbcType=VARCHAR},
+      </if>
+      <if test="fixedConditionName != null">
+        fixed_condition_name = #{fixedConditionName,jdbcType=BOOLEAN},
+      </if>
+      <if test="conditionType != null and conditionType != ''">
+        condition_type = #{conditionType,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null and description != ''">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="global != null">
+        is_global = #{global,jdbcType=BOOLEAN},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="serviceId != null and serviceId != ''">
+        service_id = #{serviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceId != null and resourceId != ''">
+        resource_id = #{resourceId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.iam.db.model.TblIamConditionKey">
+    <!--@mbg.generated-->
+    update tbl_iam_condition_key
+    set project_id = #{projectId,jdbcType=VARCHAR},
+      condition_name = #{conditionName,jdbcType=VARCHAR},
+      fixed_condition_name = #{fixedConditionName,jdbcType=BOOLEAN},
+      condition_type = #{conditionType,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      is_global = #{global,jdbcType=BOOLEAN},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      service_id = #{serviceId,jdbcType=VARCHAR},
+      resource_id = #{resourceId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectAllByServiceId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tbl_iam_condition_key
+    <where>
+      <if test="serviceId != null and serviceId != ''">
+        and service_id=#{serviceId,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+
+  <select id="selectAllByResourceId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tbl_iam_condition_key
+    <where>
+      <if test="resourceId != null and resourceId != ''">
+        and resource_id=#{resourceId,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+
+  <select id="countByResourceId" resultType="java.lang.Integer">
+    select count(1)
+    from tbl_iam_condition_key
+    <where>
+      <if test="resourceId != null and resourceId != ''">
+        and resource_id=#{resourceId,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+</mapper>

@@ -1,0 +1,14 @@
+install:
+  installScriptUrl: edge.lnjoying.com:9080/lnjoying/v12/edge_cloud/agent/main.sh
+  cloudAddr: 27.221.89.120:9188
+  gw:
+    localPort: 31107
+    restPort: 41107
+    image: lnjoying/edge-gw:v0.10.4
+  agent:
+    restPort: 41107
+    image: lnjoying/edge-agent:v0.12.1
+version:
+  agentVersions: '[]'
+service_agent:
+  image: lnjoying/aicloud-cluster-agent:v1.0.0

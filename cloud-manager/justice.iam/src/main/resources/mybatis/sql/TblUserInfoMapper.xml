@@ -1,0 +1,564 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.iam.db.mapper.TblUserInfoMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.iam.db.model.TblUserInfo">
+    <id column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="bp_id" jdbcType="VARCHAR" property="bpId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" typeHandler="com.lnjoying.justice.iam.handler.EncryptTypeHandler"/>
+    <result column="email" jdbcType="VARCHAR" property="email" typeHandler="com.lnjoying.justice.iam.handler.EncryptTypeHandler"/>
+    <result column="address" jdbcType="VARCHAR" property="address" typeHandler="com.lnjoying.justice.iam.handler.EncryptTypeHandler"/>
+    <result column="is_allowed" jdbcType="BIT" property="isAllowed" />
+    <result column="gender" jdbcType="INTEGER" property="gender" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="kind" jdbcType="INTEGER" property="kind" />
+    <result column="level" jdbcType="INTEGER" property="level" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="weixin" jdbcType="VARCHAR" property="weixin" />
+    <result column="access_from" jdbcType="INTEGER" property="accessFrom" />
+  </resultMap>
+
+  <resultMap id="UserMetaResultMap" type="com.lnjoying.justice.schema.common.UserMetaDTO">
+    <result column="userId" jdbcType="VARCHAR" property="userId" />
+    <result column="bpId" jdbcType="VARCHAR" property="bpId" />
+    <result column="userName" jdbcType="VARCHAR" property="userName" />
+    <result column="bpName" jdbcType="VARCHAR" property="bpName" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" typeHandler="com.lnjoying.justice.iam.handler.EncryptTypeHandler"/>
+    <result column="email" jdbcType="VARCHAR" property="email" typeHandler="com.lnjoying.justice.iam.handler.EncryptTypeHandler"/>
+    <result column="registrationTime" jdbcType="TIMESTAMP" property="registrationTime" />
+  </resultMap>
+
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    user_id, bp_id, user_name, password, phone, email, address, is_allowed, gender, status, 
+    kind, level, create_time, update_time, weixin, access_from, invitation_code, inviter
+  </sql>
+  <select id="selectByExample" parameterType="com.lnjoying.justice.iam.db.model.TblUserInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_user_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null and pageSize != null and pageSize != 0">
+      limit #{pageSize} offset #{startRow}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_user_info
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tbl_user_info
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lnjoying.justice.iam.db.model.TblUserInfoExample">
+    delete from tbl_user_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.iam.db.model.TblUserInfo">
+    insert into tbl_user_info (user_id, bp_id, user_name, 
+      password, phone, email, 
+      address, is_allowed, gender, 
+      status, kind, level,
+      create_time, update_time, weixin,
+      access_from, invitation_code, inviter
+      )
+    values (#{userId,jdbcType=VARCHAR}, #{bpId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR,typeHandler=com.lnjoying.justice.iam.handler.EncryptTypeHandler}, #{email,jdbcType=VARCHAR,typeHandler=com.lnjoying.justice.iam.handler.EncryptTypeHandler},
+      #{address,jdbcType=VARCHAR,typeHandler=com.lnjoying.justice.iam.handler.EncryptTypeHandler}, #{isAllowed,jdbcType=BIT}, #{gender,jdbcType=INTEGER},
+      #{status,jdbcType=INTEGER}, #{kind,jdbcType=INTEGER}, #{level,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{weixin,jdbcType=VARCHAR},
+      #{accessFrom,jdbcType=INTEGER}, #{invitationCode,jdbcType=VARCHAR}, #{inviter,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.iam.db.model.TblUserInfo">
+    insert into tbl_user_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="bpId != null">
+        bp_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="isAllowed != null">
+        is_allowed,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="kind != null">
+        kind,
+      </if>
+      <if test="level != null">
+        level,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="weixin != null">
+        weixin,
+      </if>
+      <if test="accessFrom != null">
+        access_from,
+      </if>
+      <if test="invitationCode != null">
+        invitation_code,
+      </if>
+      <if test="inviter != null">
+        inviter,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="bpId != null">
+        #{bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR,typeHandler=com.lnjoying.justice.iam.handler.EncryptTypeHandler},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR,typeHandler=com.lnjoying.justice.iam.handler.EncryptTypeHandler},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR,typeHandler=com.lnjoying.justice.iam.handler.EncryptTypeHandler},
+      </if>
+      <if test="isAllowed != null">
+        #{isAllowed,jdbcType=BIT},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="kind != null">
+        #{kind,jdbcType=INTEGER},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="weixin != null">
+        #{weixin,jdbcType=VARCHAR},
+      </if>
+      <if test="accessFrom != null">
+        #{accessFrom,jdbcType=INTEGER},
+      </if>
+      <if test="invitationCode != null">
+        #{invitationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="inviter != null">
+        #{inviter,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lnjoying.justice.iam.db.model.TblUserInfoExample" resultType="java.lang.Long">
+    select count(*) from tbl_user_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_user_info
+    <set>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bpId != null">
+        bp_id = #{record.bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null">
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR,typeHandler=com.lnjoying.justice.iam.handler.EncryptTypeHandler},
+      </if>
+      <if test="record.email != null">
+        email = #{record.email,jdbcType=VARCHAR,typeHandler=com.lnjoying.justice.iam.handler.EncryptTypeHandler},
+      </if>
+      <if test="record.address != null">
+        address = #{record.address,jdbcType=VARCHAR,typeHandler=com.lnjoying.justice.iam.handler.EncryptTypeHandler},
+      </if>
+      <if test="record.isAllowed != null">
+        is_allowed = #{record.isAllowed,jdbcType=BIT},
+      </if>
+      <if test="record.gender != null">
+        gender = #{record.gender,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.kind != null">
+        kind = #{record.kind,jdbcType=INTEGER},
+      </if>
+      <if test="record.level != null">
+        level = #{record.level,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.weixin != null">
+        weixin = #{record.weixin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accessFrom != null">
+        access_from = #{record.accessFrom,jdbcType=INTEGER},
+      </if>
+      <if test="record.invitationCode != null">
+        invitation_code = #{record.invitationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inviter != null">
+        inviter = #{record.inviter,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_user_info
+    set user_id = #{record.userId,jdbcType=VARCHAR},
+      bp_id = #{record.bpId,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR,typeHandler=com.lnjoying.justice.iam.handler.EncryptTypeHandler},
+      email = #{record.email,jdbcType=VARCHAR,typeHandler=com.lnjoying.justice.iam.handler.EncryptTypeHandler},
+      address = #{record.address,jdbcType=VARCHAR,typeHandler=com.lnjoying.justice.iam.handler.EncryptTypeHandler},
+      is_allowed = #{record.isAllowed,jdbcType=BIT},
+      gender = #{record.gender,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      kind = #{record.kind,jdbcType=INTEGER},
+      level = #{record.level,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      weixin = #{record.weixin,jdbcType=VARCHAR},
+      access_from = #{record.accessFrom,jdbcType=INTEGER},
+      invitation_code = #{record.invitationCode,jdbcType=VARCHAR},
+      inviter = #{record.inviter,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.iam.db.model.TblUserInfo">
+    update tbl_user_info
+    <set>
+      <if test="bpId != null">
+        bp_id = #{bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR,typeHandler=com.lnjoying.justice.iam.handler.EncryptTypeHandler},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR,typeHandler=com.lnjoying.justice.iam.handler.EncryptTypeHandler},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR,typeHandler=com.lnjoying.justice.iam.handler.EncryptTypeHandler},
+      </if>
+      <if test="isAllowed != null">
+        is_allowed = #{isAllowed,jdbcType=BIT},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="kind != null">
+        kind = #{kind,jdbcType=INTEGER},
+      </if>
+      <if test="level != null">
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="weixin != null">
+        weixin = #{weixin,jdbcType=VARCHAR},
+      </if>
+      <if test="accessFrom != null">
+        access_from = #{accessFrom,jdbcType=INTEGER},
+      </if>
+      <if test="invitationCode != null">
+        invitation_code = #{invitationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="inviter != null">
+        inviter = #{inviter,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.iam.db.model.TblUserInfo">
+    update tbl_user_info
+    set bp_id = #{bpId,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR,typeHandler=com.lnjoying.justice.iam.handler.EncryptTypeHandler},
+      email = #{email,jdbcType=VARCHAR,typeHandler=com.lnjoying.justice.iam.handler.EncryptTypeHandler},
+      address = #{address,jdbcType=VARCHAR,typeHandler=com.lnjoying.justice.iam.handler.EncryptTypeHandler},
+      is_allowed = #{isAllowed,jdbcType=BIT},
+      gender = #{gender,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      kind = #{kind,jdbcType=INTEGER},
+      level = #{level,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      weixin = #{weixin,jdbcType=VARCHAR},
+      access_from = #{accessFrom,jdbcType=INTEGER},
+      invitation_code = #{invitationCode,jdbcType=VARCHAR},
+      inviter = #{inviter,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectByWeixin" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tbl_user_info
+    where weixin=#{weixin,jdbcType=VARCHAR}
+    limit 1
+  </select>
+
+  <select id="selectUserNameByUserId" parameterType="java.lang.String" resultType="java.lang.String">
+    select user_name
+    from tbl_user_info
+    <where>
+      <if test="userId != null and userId != ''">
+        and user_id=#{userId,jdbcType=VARCHAR}
+      </if>
+    </where>
+    limit 1
+  </select>
+
+  <select id="selectBpNameByUserId" parameterType="java.lang.String" resultType="java.lang.String">
+    SELECT
+    bp_name
+    FROM
+    tbl_bp_info
+    WHERE
+    bp_id = (
+    select bp_id
+    from tbl_user_info
+    <where>
+      <if test="userId != null and userId != ''">
+        and user_id=#{userId,jdbcType=VARCHAR}
+      </if>
+    </where>
+    LIMIT 1 )
+  </select>
+
+  <select id="selectAllByUserIdIn" resultType="com.lnjoying.justice.iam.domain.dto.response.authz.AttachmentEntitiesRsp$User">
+    select t1.*, t2.bp_name as bpName from (
+    select
+            user_id as userId,
+            user_name as userName,
+            email,
+            phone,
+            bp_id as bpId,
+            create_time as createTime,
+            update_time as updateTime
+        from tbl_user_info
+        <where>
+            <if test="userIdCollection != null and userIdCollection.size() > 0">
+                and user_id in
+                <foreach item="item" index="index" collection="userIdCollection"
+                         open="(" separator="," close=")">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+        </where>) t1 join tbl_bp_info t2 on t1.bpId = t2.bp_id
+    </select>
+
+  <select id="selectByBpId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tbl_user_info
+        <where>
+            <if test="bpId != null and bpId != ''">
+                and bp_id=#{bpId,jdbcType=VARCHAR}
+            </if>
+            <if test="true">
+              and status = -1
+            </if>
+        </where>
+    </select>
+
+  <select id="countByBpId" resultType="java.lang.Integer">
+    select count(1)
+    from tbl_user_info
+    <where>
+      <if test="bpId != null and bpId != ''">
+        and bp_id=#{bpId,jdbcType=VARCHAR}
+      </if>
+      <if test="true">
+        and status != -1
+      </if>
+    </where>
+
+  </select>
+
+  <select id="selectByBpIdAndCreateTimeBetween" resultMap="UserMetaResultMap">
+    SELECT
+    t2.bp_id as bpId,
+    t2.user_id as userId,
+    t2.user_name as userName,
+    t2.bp_name as bpName,
+    t2.email as email,
+    t2.phone as phone,
+    t2.create_time as registrationTime
+    FROM
+     (
+    select t3.*, t4.bp_name from (
+    SELECT * FROM tbl_user_info
+    <where>
+      <if test="true">
+        and kind = 2
+      </if>
+      <if test="bpIds != null and bpIds.size() > 0 ">
+        and bp_id in
+        <foreach collection="bpIds" item="bpId" index="index" open="(" close=")" separator=",">
+          #{bpId}
+        </foreach>
+      </if>
+      <if test="userIds != null and userIds.size() > 0 ">
+        and user_id in
+        <foreach collection="userIds" item="userId" index="index" open="(" close=")" separator=",">
+          #{userId}
+        </foreach>
+      </if>
+      <if test="userId != null and userId != ''">
+        and user_id = #{userId,jdbcType=VARCHAR}
+      </if>
+      <if test="userName != null and userName != ''">
+        and user_name like concat('%',#{userName,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="minCreateTime != null">
+        and create_time <![CDATA[>]]> #{minCreateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="maxCreateTime != null">
+        and create_time <![CDATA[<]]> #{maxCreateTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+    ) t3 join (select * from tbl_bp_info) t4 on t3.user_name = t4.master_user and t3.bp_id = t4.bp_id
+    ) t2
+    ORDER BY registrationTime ${sortDirection}
+  </select>
+
+
+</mapper>

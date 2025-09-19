@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.omc.db.mapper.TblOmcAlertLogProcessMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.omc.db.model.TblOmcAlertLogProcess">
+    <!--@mbg.generated-->
+    <!--@Table tbl_omc_alert_log_process-->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="alert_log_id" jdbcType="VARCHAR" property="alertLogId" />
+    <result column="process_status" jdbcType="VARCHAR" property="processStatus" />
+    <result column="process_time" jdbcType="DATE" property="processTime" />
+    <result column="processor" jdbcType="VARCHAR" property="processor" />
+    <result column="bp_id" jdbcType="VARCHAR" property="bpId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="message" jdbcType="VARCHAR" property="message" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, alert_log_id, process_status, process_time, processor, bp_id, user_id, create_time, 
+    update_time, message
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_omc_alert_log_process
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from tbl_omc_alert_log_process
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.omc.db.model.TblOmcAlertLogProcess">
+    <!--@mbg.generated-->
+    insert into tbl_omc_alert_log_process (id, alert_log_id, process_status, 
+      process_time, processor, bp_id, 
+      user_id, create_time, update_time, 
+      message)
+    values (#{id,jdbcType=VARCHAR}, #{alertLogId,jdbcType=VARCHAR}, #{processStatus,jdbcType=VARCHAR}, 
+      #{processTime,jdbcType=DATE}, #{processor,jdbcType=VARCHAR}, #{bpId,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{message,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.omc.db.model.TblOmcAlertLogProcess">
+    <!--@mbg.generated-->
+    insert into tbl_omc_alert_log_process
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        id,
+      </if>
+      <if test="alertLogId != null and alertLogId != ''">
+        alert_log_id,
+      </if>
+      <if test="processStatus != null and processStatus != ''">
+        process_status,
+      </if>
+      <if test="processTime != null">
+        process_time,
+      </if>
+      <if test="processor != null and processor != ''">
+        processor,
+      </if>
+      <if test="bpId != null and bpId != ''">
+        bp_id,
+      </if>
+      <if test="userId != null and userId != ''">
+        user_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="message != null and message != ''">
+        message,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="alertLogId != null and alertLogId != ''">
+        #{alertLogId,jdbcType=VARCHAR},
+      </if>
+      <if test="processStatus != null and processStatus != ''">
+        #{processStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="processTime != null">
+        #{processTime,jdbcType=DATE},
+      </if>
+      <if test="processor != null and processor != ''">
+        #{processor,jdbcType=VARCHAR},
+      </if>
+      <if test="bpId != null and bpId != ''">
+        #{bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null and userId != ''">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="message != null and message != ''">
+        #{message,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.omc.db.model.TblOmcAlertLogProcess">
+    <!--@mbg.generated-->
+    update tbl_omc_alert_log_process
+    <set>
+      <if test="alertLogId != null and alertLogId != ''">
+        alert_log_id = #{alertLogId,jdbcType=VARCHAR},
+      </if>
+      <if test="processStatus != null and processStatus != ''">
+        process_status = #{processStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="processTime != null">
+        process_time = #{processTime,jdbcType=DATE},
+      </if>
+      <if test="processor != null and processor != ''">
+        processor = #{processor,jdbcType=VARCHAR},
+      </if>
+      <if test="bpId != null and bpId != ''">
+        bp_id = #{bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null and userId != ''">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="message != null and message != ''">
+        message = #{message,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.omc.db.model.TblOmcAlertLogProcess">
+    <!--@mbg.generated-->
+    update tbl_omc_alert_log_process
+    set alert_log_id = #{alertLogId,jdbcType=VARCHAR},
+      process_status = #{processStatus,jdbcType=VARCHAR},
+      process_time = #{processTime,jdbcType=DATE},
+      processor = #{processor,jdbcType=VARCHAR},
+      bp_id = #{bpId,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      message = #{message,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectByAlertLogId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tbl_omc_alert_log_process
+    <where>
+      <if test="alertLogId != null and alertLogId != ''">
+        and alert_log_id=#{alertLogId,jdbcType=VARCHAR}
+      </if>
+    </where>
+    order by update_time desc
+  </select>
+</mapper>

@@ -1,0 +1,2 @@
+# For issues where fix @ApiOperation does not work on class
+com.lnjoying.justice.commonweb.swagger.ApiOperationPostProcessor

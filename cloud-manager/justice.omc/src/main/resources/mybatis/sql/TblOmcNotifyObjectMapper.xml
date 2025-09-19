@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.omc.db.mapper.TblOmcNotifyObjectMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.omc.db.model.TblOmcNotifyObject">
+    <!--@mbg.generated-->
+    <!--@Table tbl_omc_notify_object-->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="receiver_id" jdbcType="VARCHAR" property="receiverId" />
+    <result column="notify_rule_id" jdbcType="VARCHAR" property="notifyRuleId" />
+    <result column="notify_channels" jdbcType="VARCHAR" property="notifyChannels" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, receiver_id, notify_rule_id, notify_channels
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_omc_notify_object
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from tbl_omc_notify_object
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.omc.db.model.TblOmcNotifyObject">
+    <!--@mbg.generated-->
+    insert into tbl_omc_notify_object (id, receiver_id, notify_rule_id, 
+      notify_channels)
+    values (#{id,jdbcType=VARCHAR}, #{receiverId,jdbcType=VARCHAR}, #{notifyRuleId,jdbcType=VARCHAR}, 
+      #{notifyChannels,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.omc.db.model.TblOmcNotifyObject">
+    <!--@mbg.generated-->
+    insert into tbl_omc_notify_object
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        id,
+      </if>
+      <if test="receiverId != null and receiverId != ''">
+        receiver_id,
+      </if>
+      <if test="notifyRuleId != null and notifyRuleId != ''">
+        notify_rule_id,
+      </if>
+      <if test="notifyChannels != null and notifyChannels != ''">
+        notify_channels,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverId != null and receiverId != ''">
+        #{receiverId,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyRuleId != null and notifyRuleId != ''">
+        #{notifyRuleId,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyChannels != null and notifyChannels != ''">
+        #{notifyChannels,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.omc.db.model.TblOmcNotifyObject">
+    <!--@mbg.generated-->
+    update tbl_omc_notify_object
+    <set>
+      <if test="receiverId != null and receiverId != ''">
+        receiver_id = #{receiverId,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyRuleId != null and notifyRuleId != ''">
+        notify_rule_id = #{notifyRuleId,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyChannels != null and notifyChannels != ''">
+        notify_channels = #{notifyChannels,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.omc.db.model.TblOmcNotifyObject">
+    <!--@mbg.generated-->
+    update tbl_omc_notify_object
+    set receiver_id = #{receiverId,jdbcType=VARCHAR},
+      notify_rule_id = #{notifyRuleId,jdbcType=VARCHAR},
+      notify_channels = #{notifyChannels,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <insert id="batchInsert">
+        INSERT INTO tbl_omc_notify_object(
+        id,
+        receiver_id,
+        notify_rule_id,
+        notify_channels
+        )VALUES
+        <foreach collection="list" item="element" index="index" separator=",">
+            (
+            #{element.id,jdbcType=VARCHAR},
+            #{element.receiverId,jdbcType=VARCHAR},
+            #{element.notifyRuleId,jdbcType=VARCHAR},
+            #{element.notifyChannels,jdbcType=VARCHAR}
+            )
+        </foreach>
+    </insert>
+
+  <delete id="deleteByNotifyRuleId">
+    delete from tbl_omc_notify_object
+    <where>
+      <if test="notifyRuleId != null and notifyRuleId != ''">
+        and notify_rule_id=#{notifyRuleId,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </delete>
+
+  <select id="selectByAlarmId" resultMap="BaseResultMap">
+      SELECT
+      t2.*
+      FROM
+      ( SELECT * FROM tbl_omc_notify_rule
+    <where>
+      <if test="alarmId != null and alarmId != ''">
+        and alarm_id=#{alarmId,jdbcType=VARCHAR}
+      </if>
+    </where>
+      ) t1
+      JOIN tbl_omc_notify_object t2 ON t1.ID = t2.notify_rule_id
+    </select>
+
+  <select id="selectByNotifyRuleId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tbl_omc_notify_object
+    <where>
+      <if test="notifyRuleId != null and notifyRuleId != ''">
+        and notify_rule_id=#{notifyRuleId,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+</mapper>

@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.servicemanager.db.mapper.TblServiceGatewayPortAllocationMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.servicemanager.db.model.TblServiceGatewayPortAllocation">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="port_range_id" jdbcType="VARCHAR" property="portRangeId" />
+    <result column="external_ip" jdbcType="VARCHAR" property="externalIp" />
+    <result column="internal_ip" jdbcType="VARCHAR" property="internalIp" />
+    <result column="port" jdbcType="INTEGER" property="port" />
+    <result column="listen_port" jdbcType="INTEGER" property="listenPort" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="service_port_target_service_id" jdbcType="VARCHAR" property="servicePortTargetServiceId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, port_range_id, external_ip, internal_ip, port, listen_port, status, service_port_target_service_id, 
+    create_time, update_time
+  </sql>
+  <select id="selectByExample" parameterType="com.lnjoying.justice.servicemanager.db.model.TblServiceGatewayPortAllocationExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_service_gateway_port_allocation
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_service_gateway_port_allocation
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tbl_service_gateway_port_allocation
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lnjoying.justice.servicemanager.db.model.TblServiceGatewayPortAllocationExample">
+    delete from tbl_service_gateway_port_allocation
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.servicemanager.db.model.TblServiceGatewayPortAllocation">
+    insert into tbl_service_gateway_port_allocation (id, port_range_id, external_ip, 
+      internal_ip, port, listen_port, 
+      status, service_port_target_service_id, create_time, 
+      update_time)
+    values (#{id,jdbcType=VARCHAR}, #{portRangeId,jdbcType=VARCHAR}, #{externalIp,jdbcType=VARCHAR}, 
+      #{internalIp,jdbcType=VARCHAR}, #{port,jdbcType=INTEGER}, #{listenPort,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{servicePortTargetServiceId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.servicemanager.db.model.TblServiceGatewayPortAllocation">
+    insert into tbl_service_gateway_port_allocation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="portRangeId != null">
+        port_range_id,
+      </if>
+      <if test="externalIp != null">
+        external_ip,
+      </if>
+      <if test="internalIp != null">
+        internal_ip,
+      </if>
+      <if test="port != null">
+        port,
+      </if>
+      <if test="listenPort != null">
+        listen_port,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="servicePortTargetServiceId != null">
+        service_port_target_service_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="portRangeId != null">
+        #{portRangeId,jdbcType=VARCHAR},
+      </if>
+      <if test="externalIp != null">
+        #{externalIp,jdbcType=VARCHAR},
+      </if>
+      <if test="internalIp != null">
+        #{internalIp,jdbcType=VARCHAR},
+      </if>
+      <if test="port != null">
+        #{port,jdbcType=INTEGER},
+      </if>
+      <if test="listenPort != null">
+        #{listenPort,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="servicePortTargetServiceId != null">
+        #{servicePortTargetServiceId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lnjoying.justice.servicemanager.db.model.TblServiceGatewayPortAllocationExample" resultType="java.lang.Long">
+    select count(*) from tbl_service_gateway_port_allocation
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_service_gateway_port_allocation
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.portRangeId != null">
+        port_range_id = #{record.portRangeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.externalIp != null">
+        external_ip = #{record.externalIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.internalIp != null">
+        internal_ip = #{record.internalIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.port != null">
+        port = #{record.port,jdbcType=INTEGER},
+      </if>
+      <if test="record.listenPort != null">
+        listen_port = #{record.listenPort,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.servicePortTargetServiceId != null">
+        service_port_target_service_id = #{record.servicePortTargetServiceId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_service_gateway_port_allocation
+    set id = #{record.id,jdbcType=VARCHAR},
+      port_range_id = #{record.portRangeId,jdbcType=VARCHAR},
+      external_ip = #{record.externalIp,jdbcType=VARCHAR},
+      internal_ip = #{record.internalIp,jdbcType=VARCHAR},
+      port = #{record.port,jdbcType=INTEGER},
+      listen_port = #{record.listenPort,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      service_port_target_service_id = #{record.servicePortTargetServiceId,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.servicemanager.db.model.TblServiceGatewayPortAllocation">
+    update tbl_service_gateway_port_allocation
+    <set>
+      <if test="portRangeId != null">
+        port_range_id = #{portRangeId,jdbcType=VARCHAR},
+      </if>
+      <if test="externalIp != null">
+        external_ip = #{externalIp,jdbcType=VARCHAR},
+      </if>
+      <if test="internalIp != null">
+        internal_ip = #{internalIp,jdbcType=VARCHAR},
+      </if>
+      <if test="port != null">
+        port = #{port,jdbcType=INTEGER},
+      </if>
+      <if test="listenPort != null">
+        listen_port = #{listenPort,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="servicePortTargetServiceId != null">
+        service_port_target_service_id = #{servicePortTargetServiceId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.servicemanager.db.model.TblServiceGatewayPortAllocation">
+    update tbl_service_gateway_port_allocation
+    set port_range_id = #{portRangeId,jdbcType=VARCHAR},
+      external_ip = #{externalIp,jdbcType=VARCHAR},
+      internal_ip = #{internalIp,jdbcType=VARCHAR},
+      port = #{port,jdbcType=INTEGER},
+      listen_port = #{listenPort,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      service_port_target_service_id = #{servicePortTargetServiceId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectByServiceGatewayId" resultMap="BaseResultMap">
+    select
+      id, port_range_id, external_ip, internal_ip, port, listen_port, status, service_port_target_service_id,
+      create_time, update_time
+    from tbl_service_gateway_port_allocation
+    where port_range_id in (select id from tbl_service_gateway_port_info where service_gateway_id = #{serviceGatewayId,jdbcType=VARCHAR})
+    and status != 99
+  </select>
+
+  <sql id="Base_Column_List_With_Table">
+    tbl_service_gateway_port_allocation.id, tbl_service_gateway_port_allocation.port_range_id, tbl_service_gateway_port_allocation.external_ip,
+    tbl_service_gateway_port_allocation.internal_ip, tbl_service_gateway_port_allocation.port, tbl_service_gateway_port_allocation.listen_port,
+    tbl_service_gateway_port_allocation.status, tbl_service_gateway_port_allocation.service_port_target_service_id,
+    tbl_service_gateway_port_allocation.create_time, tbl_service_gateway_port_allocation.update_time
+  </sql>
+
+  <select id="selectByExampleLeftJoinPortRange" parameterType="com.lnjoying.justice.servicemanager.db.model.TblServiceGatewayPortAllocationExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List_With_Table" />
+    from tbl_service_gateway_port_allocation left join tbl_service_gateway_port_info on tbl_service_gateway_port_allocation.port_range_id = tbl_service_gateway_port_info.id
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

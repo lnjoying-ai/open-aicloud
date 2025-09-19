@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.ecrm.db.mapper.TblServiceAgentInfoMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.ecrm.db.model.TblServiceAgentInfo">
+    <id column="agent_id" jdbcType="VARCHAR" property="agentId" />
+    <result column="target_nodes" jdbcType="VARCHAR" property="targetNodes" />
+    <result column="image" jdbcType="VARCHAR" property="image" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="online_status" jdbcType="INTEGER" property="onlineStatus" />
+    <result column="core_version" jdbcType="VARCHAR" property="coreVersion" />
+    <result column="region_id" jdbcType="VARCHAR" property="regionId" />
+    <result column="site_id" jdbcType="VARCHAR" property="siteId" />
+    <result column="node_id" jdbcType="VARCHAR" property="nodeId" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="worker_id" jdbcType="VARCHAR" property="workerId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    agent_id, target_nodes, image, type, description, online_status, core_version, region_id, 
+    site_id, node_id, status, worker_id, create_time, update_time
+  </sql>
+  <select id="selectByExample" parameterType="com.lnjoying.justice.ecrm.db.model.TblServiceAgentInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_service_agent_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_service_agent_info
+    where agent_id = #{agentId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tbl_service_agent_info
+    where agent_id = #{agentId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lnjoying.justice.ecrm.db.model.TblServiceAgentInfoExample">
+    delete from tbl_service_agent_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.ecrm.db.model.TblServiceAgentInfo">
+    insert into tbl_service_agent_info (agent_id, target_nodes, image, 
+      type, description, online_status, 
+      core_version, region_id, site_id, 
+      node_id, status, worker_id, 
+      create_time, update_time)
+    values (#{agentId,jdbcType=VARCHAR}, #{targetNodes,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{onlineStatus,jdbcType=INTEGER}, 
+      #{coreVersion,jdbcType=VARCHAR}, #{regionId,jdbcType=VARCHAR}, #{siteId,jdbcType=VARCHAR}, 
+      #{nodeId,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{workerId,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.ecrm.db.model.TblServiceAgentInfo">
+    insert into tbl_service_agent_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="agentId != null">
+        agent_id,
+      </if>
+      <if test="targetNodes != null">
+        target_nodes,
+      </if>
+      <if test="image != null">
+        image,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="onlineStatus != null">
+        online_status,
+      </if>
+      <if test="coreVersion != null">
+        core_version,
+      </if>
+      <if test="regionId != null">
+        region_id,
+      </if>
+      <if test="siteId != null">
+        site_id,
+      </if>
+      <if test="nodeId != null">
+        node_id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="workerId != null">
+        worker_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="agentId != null">
+        #{agentId,jdbcType=VARCHAR},
+      </if>
+      <if test="targetNodes != null">
+        #{targetNodes,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null">
+        #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="onlineStatus != null">
+        #{onlineStatus,jdbcType=INTEGER},
+      </if>
+      <if test="coreVersion != null">
+        #{coreVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="regionId != null">
+        #{regionId,jdbcType=VARCHAR},
+      </if>
+      <if test="siteId != null">
+        #{siteId,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeId != null">
+        #{nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="workerId != null">
+        #{workerId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lnjoying.justice.ecrm.db.model.TblServiceAgentInfoExample" resultType="java.lang.Long">
+    select count(*) from tbl_service_agent_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_service_agent_info
+    <set>
+      <if test="record.agentId != null">
+        agent_id = #{record.agentId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.targetNodes != null">
+        target_nodes = #{record.targetNodes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.image != null">
+        image = #{record.image,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.onlineStatus != null">
+        online_status = #{record.onlineStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.coreVersion != null">
+        core_version = #{record.coreVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regionId != null">
+        region_id = #{record.regionId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.siteId != null">
+        site_id = #{record.siteId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nodeId != null">
+        node_id = #{record.nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.workerId != null">
+        worker_id = #{record.workerId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_service_agent_info
+    set agent_id = #{record.agentId,jdbcType=VARCHAR},
+      target_nodes = #{record.targetNodes,jdbcType=VARCHAR},
+      image = #{record.image,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      online_status = #{record.onlineStatus,jdbcType=INTEGER},
+      core_version = #{record.coreVersion,jdbcType=VARCHAR},
+      region_id = #{record.regionId,jdbcType=VARCHAR},
+      site_id = #{record.siteId,jdbcType=VARCHAR},
+      node_id = #{record.nodeId,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      worker_id = #{record.workerId,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.ecrm.db.model.TblServiceAgentInfo">
+    update tbl_service_agent_info
+    <set>
+      <if test="targetNodes != null">
+        target_nodes = #{targetNodes,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null">
+        image = #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="onlineStatus != null">
+        online_status = #{onlineStatus,jdbcType=INTEGER},
+      </if>
+      <if test="coreVersion != null">
+        core_version = #{coreVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="regionId != null">
+        region_id = #{regionId,jdbcType=VARCHAR},
+      </if>
+      <if test="siteId != null">
+        site_id = #{siteId,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeId != null">
+        node_id = #{nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="workerId != null">
+        worker_id = #{workerId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where agent_id = #{agentId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.ecrm.db.model.TblServiceAgentInfo">
+    update tbl_service_agent_info
+    set target_nodes = #{targetNodes,jdbcType=VARCHAR},
+      image = #{image,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      online_status = #{onlineStatus,jdbcType=INTEGER},
+      core_version = #{coreVersion,jdbcType=VARCHAR},
+      region_id = #{regionId,jdbcType=VARCHAR},
+      site_id = #{siteId,jdbcType=VARCHAR},
+      node_id = #{nodeId,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      worker_id = #{workerId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where agent_id = #{agentId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectAgentIdBySiteId" resultType="java.lang.String">
+    select worker_id
+    from tbl_service_agent_info
+    <where>
+      <if test="siteId != null and siteId != ''">
+        and site_id=#{siteId,jdbcType=VARCHAR}
+      </if>
+    </where>
+    ORDER BY online_status desc
+    limit 1
+  </select>
+</mapper>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.ims.db.mapper.TblImsRegistryRegionMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.ims.db.model.TblImsRegistryRegion">
+    <!--@mbg.generated-->
+    <!--@Table tbl_ims_registry_region-->
+    <id column="registry_id" jdbcType="VARCHAR" property="registryId" />
+    <id column="region_id" jdbcType="VARCHAR" property="regionId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    registry_id, region_id
+  </sql>
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    <!--@mbg.generated-->
+    delete from tbl_ims_registry_region
+    where registry_id = #{registryId,jdbcType=VARCHAR}
+      and region_id = #{regionId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.ims.db.model.TblImsRegistryRegion">
+    <!--@mbg.generated-->
+    insert into tbl_ims_registry_region (registry_id, region_id)
+    values (#{registryId,jdbcType=VARCHAR}, #{regionId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.ims.db.model.TblImsRegistryRegion">
+    <!--@mbg.generated-->
+    insert into tbl_ims_registry_region
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="registryId != null">
+        registry_id,
+      </if>
+      <if test="regionId != null">
+        region_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="registryId != null">
+        #{registryId,jdbcType=VARCHAR},
+      </if>
+      <if test="regionId != null">
+        #{regionId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <insert id="batchInsert">
+        INSERT INTO tbl_ims_registry_region(
+        registry_id,
+        region_id
+        )VALUES
+        <foreach collection="list" item="element" index="index" separator=",">
+            (
+            #{element.registryId,jdbcType=VARCHAR},
+            #{element.regionId,jdbcType=VARCHAR}
+            )
+        </foreach>
+    </insert>
+
+  <select id="selectByRegionIdLike" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tbl_ims_registry_region
+    <where>
+      <if test="likeRegionId != null and likeRegionId != ''">
+        and region_id like concat(#{likeRegionId,jdbcType=VARCHAR},'%')
+      </if>
+    </where>
+  </select>
+
+  <delete id="deleteByRegistryId">
+    delete from tbl_ims_registry_region where registry_id = #{registryId,jdbcType=VARCHAR}
+  </delete>
+
+  <select id="selectByRegistryId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tbl_ims_registry_region
+    <where>
+      <if test="registryId != null and registryId != ''">
+        and registry_id=#{registryId,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+
+  <select id="selectOne" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tbl_ims_registry
+        where status = 6
+        limit 1
+    </select>
+
+  <delete id="deleteByRegionIds">
+        delete from tbl_ims_registry_region
+        <where>
+            <if test="regionIds != null and regionIds.size() != 0">
+                and region_id in
+                <foreach collection="regionIds" item="element" index="index" separator="," open="(" close=")">
+                     #{element,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+        </where>
+    </delete>
+
+    <select id="selectAllEnableRegistryRegions" resultMap="BaseResultMap">
+        SELECT
+                t1.region_id as region_id, t1.registry_id as registry_id
+        FROM
+                tbl_ims_registry_region t1
+        JOIN ( SELECT * FROM tbl_ims_registry WHERE status = 6 ) t2
+        ON t1.registry_id = t2.registry_id
+    </select>
+</mapper>

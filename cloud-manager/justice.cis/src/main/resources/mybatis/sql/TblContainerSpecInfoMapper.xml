@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.cis.db.mapper.TblContainerSpecInfoMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.cis.db.model.TblContainerSpecInfo">
+    <id column="spec_id" jdbcType="VARCHAR" property="specId" />
+    <result column="spec_name" jdbcType="VARCHAR" property="specName" />
+    <result column="image_name" jdbcType="VARCHAR" property="imageName" />
+    <result column="registry_id" jdbcType="VARCHAR" property="registryId" />
+    <result column="cmd" jdbcType="VARCHAR" property="cmd" />
+    <result column="scheduling_strategy" jdbcType="VARCHAR" property="schedulingStrategy" />
+    <result column="cpu_num" jdbcType="INTEGER" property="cpuNum" />
+    <result column="mem_limit" jdbcType="BIGINT" property="memLimit" />
+    <result column="disk_limit" jdbcType="BIGINT" property="diskLimit" />
+    <result column="transmit_band_limit" jdbcType="INTEGER" property="transmitBandLimit" />
+    <result column="recv_band_limit" jdbcType="INTEGER" property="recvBandLimit" />
+    <result column="gpu_num" jdbcType="INTEGER" property="gpuNum" />
+    <result column="dev_need_info" jdbcType="VARCHAR" property="devNeedInfo" />
+    <result column="container_params" jdbcType="VARCHAR" property="containerParams" />
+    <result column="auto_run" jdbcType="BIT" property="autoRun" />
+    <result column="replica_num" jdbcType="INTEGER" property="replicaNum" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="bp_id" jdbcType="VARCHAR" property="bpId" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="extra_params" jdbcType="VARCHAR" property="extraParams" />
+    <result column="restart_policy" jdbcType="VARCHAR" property="restartPolicy" />
+    <result column="failover_policy" jdbcType="VARCHAR" property="failoverPolicy" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    spec_id, spec_name, image_name, registry_id, cmd, scheduling_strategy, cpu_num, mem_limit, 
+    disk_limit, transmit_band_limit, recv_band_limit, gpu_num, dev_need_info, container_params, 
+    auto_run, replica_num, user_id, bp_id, status, create_time, update_time, extra_params,
+    restart_policy, failover_policy
+  </sql>
+  <select id="selectByExample" parameterType="com.lnjoying.justice.cis.db.model.TblContainerSpecInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_container_spec_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_container_spec_info
+    where spec_id = #{specId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tbl_container_spec_info
+    where spec_id = #{specId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lnjoying.justice.cis.db.model.TblContainerSpecInfoExample">
+    delete from tbl_container_spec_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.cis.db.model.TblContainerSpecInfo">
+    insert into tbl_container_spec_info (spec_id, spec_name, image_name, 
+      registry_id, cmd, scheduling_strategy, 
+      cpu_num, mem_limit, disk_limit, 
+      transmit_band_limit, recv_band_limit, gpu_num, 
+      dev_need_info, container_params, auto_run, 
+      replica_num, user_id, bp_id, 
+      status, create_time, update_time,
+      extra_params, restart_policy, failover_policy
+      )
+    values (#{specId,jdbcType=VARCHAR}, #{specName,jdbcType=VARCHAR}, #{imageName,jdbcType=VARCHAR}, 
+      #{registryId,jdbcType=VARCHAR}, #{cmd,jdbcType=VARCHAR}, #{schedulingStrategy,jdbcType=VARCHAR}, 
+      #{cpuNum,jdbcType=INTEGER}, #{memLimit,jdbcType=BIGINT}, #{diskLimit,jdbcType=BIGINT}, 
+      #{transmitBandLimit,jdbcType=INTEGER}, #{recvBandLimit,jdbcType=INTEGER}, #{gpuNum,jdbcType=INTEGER}, 
+      #{devNeedInfo,jdbcType=VARCHAR}, #{containerParams,jdbcType=VARCHAR}, #{autoRun,jdbcType=BIT}, 
+      #{replicaNum,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{bpId,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
+      (#{extraParams,jdbcType=VARCHAR})::jsonb, #{restartPolicy,jdbcType=VARCHAR}, #{failoverPolicy,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.cis.db.model.TblContainerSpecInfo">
+    insert into tbl_container_spec_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="specId != null">
+        spec_id,
+      </if>
+      <if test="specName != null">
+        spec_name,
+      </if>
+      <if test="imageName != null">
+        image_name,
+      </if>
+      <if test="registryId != null">
+        registry_id,
+      </if>
+      <if test="cmd != null">
+        cmd,
+      </if>
+      <if test="schedulingStrategy != null">
+        scheduling_strategy,
+      </if>
+      <if test="cpuNum != null">
+        cpu_num,
+      </if>
+      <if test="memLimit != null">
+        mem_limit,
+      </if>
+      <if test="diskLimit != null">
+        disk_limit,
+      </if>
+      <if test="transmitBandLimit != null">
+        transmit_band_limit,
+      </if>
+      <if test="recvBandLimit != null">
+        recv_band_limit,
+      </if>
+      <if test="gpuNum != null">
+        gpu_num,
+      </if>
+      <if test="devNeedInfo != null">
+        dev_need_info,
+      </if>
+      <if test="containerParams != null">
+        container_params,
+      </if>
+      <if test="autoRun != null">
+        auto_run,
+      </if>
+      <if test="replicaNum != null">
+        replica_num,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="bpId != null">
+        bp_id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="extraParams != null">
+        extra_params,
+      </if>
+      <if test="restartPolicy != null">
+        restart_policy,
+      </if>
+      <if test="failoverPolicy != null">
+        failover_policy,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="specId != null">
+        #{specId,jdbcType=VARCHAR},
+      </if>
+      <if test="specName != null">
+        #{specName,jdbcType=VARCHAR},
+      </if>
+      <if test="imageName != null">
+        #{imageName,jdbcType=VARCHAR},
+      </if>
+      <if test="registryId != null">
+        #{registryId,jdbcType=VARCHAR},
+      </if>
+      <if test="cmd != null">
+        #{cmd,jdbcType=VARCHAR},
+      </if>
+      <if test="schedulingStrategy != null">
+        #{schedulingStrategy,jdbcType=VARCHAR},
+      </if>
+      <if test="cpuNum != null">
+        #{cpuNum,jdbcType=INTEGER},
+      </if>
+      <if test="memLimit != null">
+        #{memLimit,jdbcType=BIGINT},
+      </if>
+      <if test="diskLimit != null">
+        #{diskLimit,jdbcType=BIGINT},
+      </if>
+      <if test="transmitBandLimit != null">
+        #{transmitBandLimit,jdbcType=INTEGER},
+      </if>
+      <if test="recvBandLimit != null">
+        #{recvBandLimit,jdbcType=INTEGER},
+      </if>
+      <if test="gpuNum != null">
+        #{gpuNum,jdbcType=INTEGER},
+      </if>
+      <if test="devNeedInfo != null">
+        #{devNeedInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="containerParams != null">
+        #{containerParams,jdbcType=VARCHAR},
+      </if>
+      <if test="autoRun != null">
+        #{autoRun,jdbcType=BIT},
+      </if>
+      <if test="replicaNum != null">
+        #{replicaNum,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="bpId != null">
+        #{bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="extraParams != null">
+        (#{extraParams,jdbcType=VARCHAR})::jsonb,
+      </if>
+      <if test="restartPolicy != null">
+        #{restartPolicy,jdbcType=VARCHAR},
+      </if>
+      <if test="failoverPolicy != null">
+        #{failoverPolicy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lnjoying.justice.cis.db.model.TblContainerSpecInfoExample" resultType="java.lang.Long">
+    select count(*) from tbl_container_spec_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_container_spec_info
+    <set>
+      <if test="record.specId != null">
+        spec_id = #{record.specId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.specName != null">
+        spec_name = #{record.specName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imageName != null">
+        image_name = #{record.imageName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.registryId != null">
+        registry_id = #{record.registryId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmd != null">
+        cmd = #{record.cmd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.schedulingStrategy != null">
+        scheduling_strategy = #{record.schedulingStrategy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cpuNum != null">
+        cpu_num = #{record.cpuNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.memLimit != null">
+        mem_limit = #{record.memLimit,jdbcType=BIGINT},
+      </if>
+      <if test="record.diskLimit != null">
+        disk_limit = #{record.diskLimit,jdbcType=BIGINT},
+      </if>
+      <if test="record.transmitBandLimit != null">
+        transmit_band_limit = #{record.transmitBandLimit,jdbcType=INTEGER},
+      </if>
+      <if test="record.recvBandLimit != null">
+        recv_band_limit = #{record.recvBandLimit,jdbcType=INTEGER},
+      </if>
+      <if test="record.gpuNum != null">
+        gpu_num = #{record.gpuNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.devNeedInfo != null">
+        dev_need_info = #{record.devNeedInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containerParams != null">
+        container_params = #{record.containerParams,jdbcType=VARCHAR},
+      </if>
+      <if test="record.autoRun != null">
+        auto_run = #{record.autoRun,jdbcType=BIT},
+      </if>
+      <if test="record.replicaNum != null">
+        replica_num = #{record.replicaNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bpId != null">
+        bp_id = #{record.bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.extraParams != null">
+        extra_params =  (#{record.extraParams,jdbcType=VARCHAR})::jsonb,
+      </if>
+      <if test="record.restartPolicy != null">
+        restart_policy = #{record.restartPolicy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.failoverPolicy != null">
+        failover_policy = #{record.failoverPolicy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_container_spec_info
+    set spec_id = #{record.specId,jdbcType=VARCHAR},
+      spec_name = #{record.specName,jdbcType=VARCHAR},
+      image_name = #{record.imageName,jdbcType=VARCHAR},
+      registry_id = #{record.registryId,jdbcType=VARCHAR},
+      cmd = #{record.cmd,jdbcType=VARCHAR},
+      scheduling_strategy = #{record.schedulingStrategy,jdbcType=VARCHAR},
+      cpu_num = #{record.cpuNum,jdbcType=INTEGER},
+      mem_limit = #{record.memLimit,jdbcType=BIGINT},
+      disk_limit = #{record.diskLimit,jdbcType=BIGINT},
+      transmit_band_limit = #{record.transmitBandLimit,jdbcType=INTEGER},
+      recv_band_limit = #{record.recvBandLimit,jdbcType=INTEGER},
+      gpu_num = #{record.gpuNum,jdbcType=INTEGER},
+      dev_need_info = #{record.devNeedInfo,jdbcType=VARCHAR},
+      container_params = #{record.containerParams,jdbcType=VARCHAR},
+      auto_run = #{record.autoRun,jdbcType=BIT},
+      replica_num = #{record.replicaNum,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      bp_id = #{record.bpId,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      extra_params = (#{record.extraParams,jdbcType=VARCHAR})::jsonb,
+      restart_policy = #{record.restartPolicy,jdbcType=VARCHAR},
+      failover_policy = #{record.failoverPolicy,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.cis.db.model.TblContainerSpecInfo">
+    update tbl_container_spec_info
+    <set>
+      <if test="specName != null">
+        spec_name = #{specName,jdbcType=VARCHAR},
+      </if>
+      <if test="imageName != null">
+        image_name = #{imageName,jdbcType=VARCHAR},
+      </if>
+      <if test="registryId != null">
+        registry_id = #{registryId,jdbcType=VARCHAR},
+      </if>
+      <if test="cmd != null">
+        cmd = #{cmd,jdbcType=VARCHAR},
+      </if>
+      <if test="schedulingStrategy != null">
+        scheduling_strategy = #{schedulingStrategy,jdbcType=VARCHAR},
+      </if>
+      <if test="cpuNum != null">
+        cpu_num = #{cpuNum,jdbcType=INTEGER},
+      </if>
+      <if test="memLimit != null">
+        mem_limit = #{memLimit,jdbcType=BIGINT},
+      </if>
+      <if test="diskLimit != null">
+        disk_limit = #{diskLimit,jdbcType=BIGINT},
+      </if>
+      <if test="transmitBandLimit != null">
+        transmit_band_limit = #{transmitBandLimit,jdbcType=INTEGER},
+      </if>
+      <if test="recvBandLimit != null">
+        recv_band_limit = #{recvBandLimit,jdbcType=INTEGER},
+      </if>
+      <if test="gpuNum != null">
+        gpu_num = #{gpuNum,jdbcType=INTEGER},
+      </if>
+      <if test="devNeedInfo != null">
+        dev_need_info = #{devNeedInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="containerParams != null">
+        container_params = #{containerParams,jdbcType=VARCHAR},
+      </if>
+      <if test="autoRun != null">
+        auto_run = #{autoRun,jdbcType=BIT},
+      </if>
+      <if test="replicaNum != null">
+        replica_num = #{replicaNum,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="bpId != null">
+        bp_id = #{bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="extraParams != null">
+        extra_params = (#{extraParams,jdbcType=VARCHAR})::jsonb,
+      </if>
+      <if test="restartPolicy != null">
+        restart_policy = #{restartPolicy,jdbcType=VARCHAR},
+      </if>
+      <if test="failoverPolicy != null">
+        failover_policy = #{failoverPolicy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where spec_id = #{specId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.cis.db.model.TblContainerSpecInfo">
+    update tbl_container_spec_info
+    set spec_name = #{specName,jdbcType=VARCHAR},
+      image_name = #{imageName,jdbcType=VARCHAR},
+      registry_id = #{registryId,jdbcType=VARCHAR},
+      cmd = #{cmd,jdbcType=VARCHAR},
+      scheduling_strategy = #{schedulingStrategy,jdbcType=VARCHAR},
+      cpu_num = #{cpuNum,jdbcType=INTEGER},
+      mem_limit = #{memLimit,jdbcType=BIGINT},
+      disk_limit = #{diskLimit,jdbcType=BIGINT},
+      transmit_band_limit = #{transmitBandLimit,jdbcType=INTEGER},
+      recv_band_limit = #{recvBandLimit,jdbcType=INTEGER},
+      gpu_num = #{gpuNum,jdbcType=INTEGER},
+      dev_need_info = #{devNeedInfo,jdbcType=VARCHAR},
+      container_params = #{containerParams,jdbcType=VARCHAR},
+      auto_run = #{autoRun,jdbcType=BIT},
+      replica_num = #{replicaNum,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=VARCHAR},
+      bp_id = #{bpId,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      extra_params = (#{extraParams,jdbcType=VARCHAR})::jsonb,
+      restart_policy = #{restartPolicy,jdbcType=VARCHAR},
+      failover_policy = #{failoverPolicy,jdbcType=VARCHAR}
+    where spec_id = #{specId,jdbcType=VARCHAR}
+  </update>
+</mapper>

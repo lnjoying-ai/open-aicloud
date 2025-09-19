@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.cluster.manager.db.mapper.TblClusterNodeInfoMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.cluster.manager.db.model.TblClusterNodeInfo">
+    <result column="cluster_id" jdbcType="VARCHAR" property="clusterId" />
+    <result column="region_id" jdbcType="VARCHAR" property="regionId" />
+    <result column="site_id" jdbcType="VARCHAR" property="siteId" />
+    <result column="node_id" jdbcType="VARCHAR" property="nodeId" />
+    <result column="node_name" jdbcType="VARCHAR" property="nodeName" />
+    <result column="cluster_roles" jdbcType="VARCHAR" property="clusterRoles" />
+    <result column="internal_address" jdbcType="VARCHAR" property="internalAddress" />
+    <result column="external_address" jdbcType="VARCHAR" property="externalAddress" />
+    <result column="docker_info" jdbcType="VARCHAR" property="dockerInfo" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="labels" jdbcType="VARCHAR" property="labels" />
+    <result column="taints" jdbcType="VARCHAR" property="taints" />
+    <result column="annotations" jdbcType="VARCHAR" property="annotations" />
+    <result column="deploy_plan" jdbcType="VARCHAR" property="deployPlan" />
+    <result column="undeploy_plan" jdbcType="VARCHAR" property="undeployPlan" />
+    <result column="monitor_plan" jdbcType="VARCHAR" property="monitorPlan" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    cluster_id, region_id, site_id, node_id, node_name, cluster_roles, internal_address, 
+    external_address, docker_info, status, labels, taints, annotations, deploy_plan, 
+    undeploy_plan, monitor_plan, create_time, update_time
+  </sql>
+  <select id="selectByExample" parameterType="com.lnjoying.justice.cluster.manager.db.model.TblClusterNodeInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_cluster_node_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.lnjoying.justice.cluster.manager.db.model.TblClusterNodeInfoExample">
+    delete from tbl_cluster_node_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.cluster.manager.db.model.TblClusterNodeInfo">
+    insert into tbl_cluster_node_info (cluster_id, region_id, site_id, 
+      node_id, node_name, cluster_roles, 
+      internal_address, external_address, docker_info, 
+      status, labels, taints, 
+      annotations, deploy_plan, undeploy_plan,
+      monitor_plan, create_time, update_time)
+    values (#{clusterId,jdbcType=VARCHAR}, #{regionId,jdbcType=VARCHAR}, #{siteId,jdbcType=VARCHAR}, 
+      #{nodeId,jdbcType=VARCHAR}, #{nodeName,jdbcType=VARCHAR}, #{clusterRoles,jdbcType=VARCHAR}, 
+      #{internalAddress,jdbcType=VARCHAR}, #{externalAddress,jdbcType=VARCHAR}, #{dockerInfo,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{labels,jdbcType=VARCHAR}, #{taints,jdbcType=VARCHAR}, 
+      #{annotations,jdbcType=VARCHAR}, #{deployPlan,jdbcType=VARCHAR}, #{undeployPlan,jdbcType=VARCHAR},
+      #{monitorPlan,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.cluster.manager.db.model.TblClusterNodeInfo">
+    insert into tbl_cluster_node_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="clusterId != null">
+        cluster_id,
+      </if>
+      <if test="regionId != null">
+        region_id,
+      </if>
+      <if test="siteId != null">
+        site_id,
+      </if>
+      <if test="nodeId != null">
+        node_id,
+      </if>
+      <if test="nodeName != null">
+        node_name,
+      </if>
+      <if test="clusterRoles != null">
+        cluster_roles,
+      </if>
+      <if test="internalAddress != null">
+        internal_address,
+      </if>
+      <if test="externalAddress != null">
+        external_address,
+      </if>
+      <if test="dockerInfo != null">
+        docker_info,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="labels != null">
+        labels,
+      </if>
+      <if test="taints != null">
+        taints,
+      </if>
+      <if test="annotations != null">
+        annotations,
+      </if>
+      <if test="deployPlan != null">
+        deploy_plan,
+      </if>
+      <if test="undeployPlan != null">
+        undeploy_plan,
+      </if>
+      <if test="monitorPlan != null">
+        monitor_plan,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="clusterId != null">
+        #{clusterId,jdbcType=VARCHAR},
+      </if>
+      <if test="regionId != null">
+        #{regionId,jdbcType=VARCHAR},
+      </if>
+      <if test="siteId != null">
+        #{siteId,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeId != null">
+        #{nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeName != null">
+        #{nodeName,jdbcType=VARCHAR},
+      </if>
+      <if test="clusterRoles != null">
+        #{clusterRoles,jdbcType=VARCHAR},
+      </if>
+      <if test="internalAddress != null">
+        #{internalAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="externalAddress != null">
+        #{externalAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="dockerInfo != null">
+        #{dockerInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="labels != null">
+        #{labels,jdbcType=VARCHAR},
+      </if>
+      <if test="taints != null">
+        #{taints,jdbcType=VARCHAR},
+      </if>
+      <if test="annotations != null">
+        #{annotations,jdbcType=VARCHAR},
+      </if>
+      <if test="deployPlan != null">
+        #{deployPlan,jdbcType=VARCHAR},
+      </if>
+      <if test="undeployPlan != null">
+        #{undeployPlan,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorPlan != null">
+        #{monitorPlan,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lnjoying.justice.cluster.manager.db.model.TblClusterNodeInfoExample" resultType="java.lang.Long">
+    select count(*) from tbl_cluster_node_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_cluster_node_info
+    <set>
+      <if test="record.clusterId != null">
+        cluster_id = #{record.clusterId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regionId != null">
+        region_id = #{record.regionId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.siteId != null">
+        site_id = #{record.siteId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nodeId != null">
+        node_id = #{record.nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nodeName != null">
+        node_name = #{record.nodeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clusterRoles != null">
+        cluster_roles = #{record.clusterRoles,jdbcType=VARCHAR},
+      </if>
+      <if test="record.internalAddress != null">
+        internal_address = #{record.internalAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.externalAddress != null">
+        external_address = #{record.externalAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dockerInfo != null">
+        docker_info = #{record.dockerInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.labels != null">
+        labels = #{record.labels,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taints != null">
+        taints = #{record.taints,jdbcType=VARCHAR},
+      </if>
+      <if test="record.annotations != null">
+        annotations = #{record.annotations,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deployPlan != null">
+        deploy_plan = #{record.deployPlan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.undeployPlan != null">
+        undeploy_plan = #{record.undeployPlan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.monitorPlan != null">
+        monitor_plan = #{record.monitorPlan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_cluster_node_info
+    set cluster_id = #{record.clusterId,jdbcType=VARCHAR},
+      region_id = #{record.regionId,jdbcType=VARCHAR},
+      site_id = #{record.siteId,jdbcType=VARCHAR},
+      node_id = #{record.nodeId,jdbcType=VARCHAR},
+      node_name = #{record.nodeName,jdbcType=VARCHAR},
+      cluster_roles = #{record.clusterRoles,jdbcType=VARCHAR},
+      internal_address = #{record.internalAddress,jdbcType=VARCHAR},
+      external_address = #{record.externalAddress,jdbcType=VARCHAR},
+      docker_info = #{record.dockerInfo,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      labels = #{record.labels,jdbcType=VARCHAR},
+      taints = #{record.taints,jdbcType=VARCHAR},
+      annotations = #{record.annotations,jdbcType=VARCHAR},
+      deploy_plan = #{record.deployPlan,jdbcType=VARCHAR},
+      undeploy_plan = #{record.undeployPlan,jdbcType=VARCHAR},
+      monitor_plan = #{record.monitorPlann,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

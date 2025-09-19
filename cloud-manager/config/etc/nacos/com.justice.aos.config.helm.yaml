@@ -1,0 +1,8 @@
+helm:
+  helm_cache_home: /root/helm/.cache
+  helm_config_home: /root/helm/.config
+  helm_data_home: /root/helm/.local/share
+  helm_chart_tar_home: /root/helm/.local/tar/
+  # helm cm-push or push, The latest version of harbor uses push
+  # from 2.8, https://github.com/goharbor/harbor/wiki/Migrate-helm-chart-to-oci-registry-in-Harbor
+  helm_push: false

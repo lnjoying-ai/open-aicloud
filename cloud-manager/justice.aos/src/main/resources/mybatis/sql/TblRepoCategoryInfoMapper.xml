@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.aos.db.mapper.TblRepoCategoryInfoMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.aos.db.model.TblRepoCategoryInfo">
+    <!--@mbg.generated-->
+    <!--@Table tbl_repo_category_info-->
+    <id column="category_id" jdbcType="INTEGER" property="categoryId" />
+    <result column="category" jdbcType="VARCHAR" property="category" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="key_word" jdbcType="VARCHAR" property="keyWord" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+  </resultMap>
+
+  <resultMap id="CategoryStatsInfoResultMap" type="com.lnjoying.justice.aos.domain.model.helm.CategoryInfo">
+    <!--@mbg.generated-->
+    <!--@Table tbl_repo_category_info-->
+    <result column="category_id" jdbcType="INTEGER" property="categoryId" />
+    <result column="category" jdbcType="VARCHAR" property="category" />
+  </resultMap>
+
+  <resultMap id="ExtendResultMap"  extends="BaseResultMap" type="com.lnjoying.justice.aos.domain.model.helm.CategoryStatsInfo">
+    <id column="category_id" jdbcType="INTEGER" property="categoryId" />
+    <id column="app_total" jdbcType="INTEGER" property="appTotal" />
+    <association property="category"
+                 select="com.lnjoying.justice.aos.db.mapper.TblRepoCategoryInfoMapper.selectCategoryInfoByPrimaryKey"
+                 column="category_id">
+    </association>
+
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    category_id, category, "name", key_word, create_time, update_time, description
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_repo_category_info
+    where category_id = #{categoryId,jdbcType=INTEGER}
+  </select>
+  <select id="selectCategoryInfoByPrimaryKey" parameterType="java.lang.Integer" resultMap="CategoryStatsInfoResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from tbl_repo_category_info
+    where category_id = #{categoryId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from tbl_repo_category_info
+    where category_id = #{categoryId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.aos.db.model.TblRepoCategoryInfo">
+    <!--@mbg.generated-->
+    insert into tbl_repo_category_info (category_id, category, "name", 
+      key_word, create_time, update_time, 
+      description)
+    values (#{categoryId,jdbcType=INTEGER}, #{category,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{keyWord,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{description,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.aos.db.model.TblRepoCategoryInfo">
+    <!--@mbg.generated-->
+    insert into tbl_repo_category_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="categoryId != null">
+        category_id,
+      </if>
+      <if test="category != null and category != ''">
+        category,
+      </if>
+      <if test="name != null and name != ''">
+        "name",
+      </if>
+      <if test="keyWord != null and keyWord != ''">
+        key_word,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="description != null and description != ''">
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="categoryId != null">
+        #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="category != null and category != ''">
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null and name != ''">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="keyWord != null and keyWord != ''">
+        #{keyWord,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null and description != ''">
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.aos.db.model.TblRepoCategoryInfo">
+    <!--@mbg.generated-->
+    update tbl_repo_category_info
+    <set>
+      <if test="category != null and category != ''">
+        category = #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null and name != ''">
+        "name" = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="keyWord != null and keyWord != ''">
+        key_word = #{keyWord,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null and description != ''">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where category_id = #{categoryId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.aos.db.model.TblRepoCategoryInfo">
+    <!--@mbg.generated-->
+    update tbl_repo_category_info
+    set category = #{category,jdbcType=VARCHAR},
+      "name" = #{name,jdbcType=VARCHAR},
+      key_word = #{keyWord,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      description = #{description,jdbcType=VARCHAR}
+    where category_id = #{categoryId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectAllChartStats" resultMap="ExtendResultMap">
+    SELECT
+    t3.category_id,
+    COUNT ( t4.app_id) as app_total
+    FROM
+    ( SELECT * FROM tbl_repo_category_info
+    <where>
+      <if test="categoryList != null and categoryList.size() > 0">
+        and category in
+        <foreach collection="categoryList" item="element" index="index" open="(" close=")" separator=",">
+          #{element,jdbcType=VARCHAR}
+        </foreach>
+      </if>
+    </where>
+    ) t3
+    LEFT JOIN (
+    SELECT
+    t1.app_id,
+    t2.category_id
+    FROM
+    ( SELECT * FROM tbl_repo_app_info
+    <where>
+      <if test="repoNameList != null and repoNameList.size() > 0">
+        and repo_name in
+        <foreach collection="repoNameList" item="element" index="index" open="(" close=")" separator=",">
+          #{element,jdbcType=VARCHAR}
+        </foreach>
+      </if>
+    </where>
+    ) t1
+    JOIN ( SELECT * FROM tbl_repo_app_category_bind_info ) t2 ON t1.app_id = t2.app_id
+    ) t4 ON t4.category_id = t3.category_id
+    GROUP BY
+    t3.category_id;
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tbl_repo_category_info
+        <where>
+            <if test="keyWord != null and keyWord != ''">
+                and key_word=#{keyWord,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
+  <select id="selectAllByAppId" resultMap="BaseResultMap">
+    SELECT
+    t1.*
+    FROM
+    tbl_repo_category_info t1
+    JOIN ( SELECT * FROM tbl_repo_app_category_bind_info
+    <where>
+      <if test="appId != null and appId != ''">
+        and app_id=#{appId,jdbcType=VARCHAR}
+      </if>
+    </where>
+    ) t2 ON t1.category_id = t2.category_id
+  </select>
+
+  <select id="selectUncategorizedCategory" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tbl_repo_category_info
+    where category = 'uncategorized'
+  </select>
+</mapper>

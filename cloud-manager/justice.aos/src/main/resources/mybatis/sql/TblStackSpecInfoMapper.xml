@@ -1,0 +1,685 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.aos.db.mapper.TblStackSpecInfoMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.aos.db.model.TblStackSpecInfo">
+    <!--@mbg.generated-->
+    <!--@Table public.tbl_stack_spec_info-->
+    <id column="spec_id" jdbcType="VARCHAR" property="specId" />
+    <result column="spec_name" jdbcType="VARCHAR" property="specName" />
+    <result column="description" jdbcType="LONGVARCHAR" property="description" />
+    <result column="template_id" jdbcType="VARCHAR" property="templateId" />
+    <result column="template_name" jdbcType="VARCHAR" property="templateName" />
+    <result column="template_version" jdbcType="VARCHAR" property="templateVersion" />
+    <result column="bp_id" jdbcType="VARCHAR" property="bpId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="create_user_id" jdbcType="VARCHAR" property="createUserId" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="target_nodes" jdbcType="LONGVARCHAR" property="targetNodes" />
+    <result column="dst_nodes" jdbcType="OTHER" property="dstNodes" typeHandler="com.lnjoying.justice.aos.handler.JsonbTypeHandler"/>
+    <result column="labels" jdbcType="LONGVARCHAR" property="labels" />
+    <result column="stack_compose" jdbcType="LONGVARCHAR" property="stackCompose" />
+    <result column="justice_compose" jdbcType="LONGVARCHAR" property="justiceCompose" />
+    <result column="replica_num" jdbcType="INTEGER" property="replicaNum" />
+    <result column="aos_type" jdbcType="VARCHAR" property="aosType" />
+    <result column="content_type" jdbcType="VARCHAR" property="contentType" />
+    <result column="dev_need_info" jdbcType="LONGVARCHAR" property="devNeedInfo" />
+    <result column="auto_run" jdbcType="BOOLEAN" property="autoRun" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="registry_id" jdbcType="VARCHAR" property="registryId" />
+    <result column="scheduling_strategy" jdbcType="LONGVARCHAR" property="schedulingStrategy" />
+    <result column="extra_params" jdbcType="OTHER" property="extraParams" typeHandler="com.lnjoying.justice.aos.handler.JsonbTypeHandler"/>
+    <result column="image_names" jdbcType="OTHER" property="imageNames" typeHandler="com.lnjoying.justice.aos.handler.JsonbTypeHandler"/>
+    <result column="always_online" jdbcType="BOOLEAN" property="alwaysOnline" />
+    <result column="failover_policy" jdbcType="LONGVARCHAR" property="failoverPolicy" />
+    <result column="stack_type" jdbcType="VARCHAR" property="stackType" />
+    <result column="use_service_penetration" jdbcType="BOOLEAN" property="useServicePenetration" />
+    <result column="deploy_strategy" jdbcType="INTEGER" property="deployStrategy" />
+    <result column="cfgs" jdbcType="LONGVARCHAR" property="cfgs" />
+    <result column="expose_ports" jdbcType="OTHER" property="exposePorts" typeHandler="com.lnjoying.justice.aos.handler.JsonbTypeHandler"/>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <!--@mbg.generated-->
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <!--@mbg.generated-->
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    spec_id, spec_name, description, template_id, template_name, template_version, bp_id, 
+    user_id, create_user_id, "status", target_nodes, dst_nodes, labels, stack_compose, 
+    justice_compose, replica_num, aos_type, content_type, dev_need_info, auto_run, create_time, 
+    update_time, registry_id, scheduling_strategy, extra_params, image_names, always_online, 
+    failover_policy, stack_type, use_service_penetration, deploy_strategy, cfgs, expose_ports
+  </sql>
+  <select id="selectByExample" parameterType="com.lnjoying.justice.aos.db.model.TblStackSpecInfoExample" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from public.tbl_stack_spec_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from public.tbl_stack_spec_info
+    where spec_id = #{specId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from public.tbl_stack_spec_info
+    where spec_id = #{specId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lnjoying.justice.aos.db.model.TblStackSpecInfoExample">
+    <!--@mbg.generated-->
+    delete from public.tbl_stack_spec_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.aos.db.model.TblStackSpecInfo">
+    <!--@mbg.generated-->
+    insert into public.tbl_stack_spec_info (spec_id, spec_name, description, 
+      template_id, template_name, template_version, 
+      bp_id, user_id, create_user_id, 
+      "status", target_nodes, dst_nodes, 
+      labels, stack_compose, justice_compose, 
+      replica_num, aos_type, content_type, 
+      dev_need_info, auto_run, create_time, 
+      update_time, registry_id, scheduling_strategy, 
+      extra_params, image_names, always_online, 
+      failover_policy, stack_type, use_service_penetration, 
+      deploy_strategy, cfgs, expose_ports
+      )
+    values (#{specId,jdbcType=VARCHAR}, #{specName,jdbcType=VARCHAR}, #{description,jdbcType=LONGVARCHAR}, 
+      #{templateId,jdbcType=VARCHAR}, #{templateName,jdbcType=VARCHAR}, #{templateVersion,jdbcType=VARCHAR}, 
+      #{bpId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{createUserId,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{targetNodes,jdbcType=LONGVARCHAR}, #{dstNodes,jdbcType=OTHER,typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler}, 
+      #{labels,jdbcType=LONGVARCHAR}, #{stackCompose,jdbcType=LONGVARCHAR}, #{justiceCompose,jdbcType=LONGVARCHAR}, 
+      #{replicaNum,jdbcType=INTEGER}, #{aosType,jdbcType=VARCHAR}, #{contentType,jdbcType=VARCHAR}, 
+      #{devNeedInfo,jdbcType=LONGVARCHAR}, #{autoRun,jdbcType=BOOLEAN}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{registryId,jdbcType=VARCHAR}, #{schedulingStrategy,jdbcType=LONGVARCHAR}, 
+      #{extraParams,jdbcType=OTHER,typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler}, #{imageNames,jdbcType=OTHER,typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler}, #{alwaysOnline,jdbcType=BOOLEAN}, 
+      #{failoverPolicy,jdbcType=LONGVARCHAR}, #{stackType,jdbcType=VARCHAR}, #{useServicePenetration,jdbcType=BOOLEAN}, 
+      #{deployStrategy,jdbcType=INTEGER}, #{cfgs,jdbcType=LONGVARCHAR}, #{exposePorts,jdbcType=OTHER,typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.aos.db.model.TblStackSpecInfo">
+    <!--@mbg.generated-->
+    insert into public.tbl_stack_spec_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="specId != null">
+        spec_id,
+      </if>
+      <if test="specName != null">
+        spec_name,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="templateId != null">
+        template_id,
+      </if>
+      <if test="templateName != null">
+        template_name,
+      </if>
+      <if test="templateVersion != null">
+        template_version,
+      </if>
+      <if test="bpId != null">
+        bp_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="status != null">
+        "status",
+      </if>
+      <if test="targetNodes != null">
+        target_nodes,
+      </if>
+      <if test="dstNodes != null">
+        dst_nodes,
+      </if>
+      <if test="labels != null">
+        labels,
+      </if>
+      <if test="stackCompose != null">
+        stack_compose,
+      </if>
+      <if test="justiceCompose != null">
+        justice_compose,
+      </if>
+      <if test="replicaNum != null">
+        replica_num,
+      </if>
+      <if test="aosType != null">
+        aos_type,
+      </if>
+      <if test="contentType != null">
+        content_type,
+      </if>
+      <if test="devNeedInfo != null">
+        dev_need_info,
+      </if>
+      <if test="autoRun != null">
+        auto_run,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="registryId != null">
+        registry_id,
+      </if>
+      <if test="schedulingStrategy != null">
+        scheduling_strategy,
+      </if>
+      <if test="extraParams != null">
+        extra_params,
+      </if>
+      <if test="imageNames != null">
+        image_names,
+      </if>
+      <if test="alwaysOnline != null">
+        always_online,
+      </if>
+      <if test="failoverPolicy != null">
+        failover_policy,
+      </if>
+      <if test="stackType != null">
+        stack_type,
+      </if>
+      <if test="useServicePenetration != null">
+        use_service_penetration,
+      </if>
+      <if test="deployStrategy != null">
+        deploy_strategy,
+      </if>
+      <if test="cfgs != null">
+        cfgs,
+      </if>
+      <if test="exposePorts != null">
+        expose_ports,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="specId != null">
+        #{specId,jdbcType=VARCHAR},
+      </if>
+      <if test="specName != null">
+        #{specName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="templateId != null">
+        #{templateId,jdbcType=VARCHAR},
+      </if>
+      <if test="templateName != null">
+        #{templateName,jdbcType=VARCHAR},
+      </if>
+      <if test="templateVersion != null">
+        #{templateVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="bpId != null">
+        #{bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="targetNodes != null">
+        #{targetNodes,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="dstNodes != null">
+        #{dstNodes,jdbcType=OTHER,typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+      </if>
+      <if test="labels != null">
+        #{labels,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="stackCompose != null">
+        #{stackCompose,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="justiceCompose != null">
+        #{justiceCompose,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="replicaNum != null">
+        #{replicaNum,jdbcType=INTEGER},
+      </if>
+      <if test="aosType != null">
+        #{aosType,jdbcType=VARCHAR},
+      </if>
+      <if test="contentType != null">
+        #{contentType,jdbcType=VARCHAR},
+      </if>
+      <if test="devNeedInfo != null">
+        #{devNeedInfo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="autoRun != null">
+        #{autoRun,jdbcType=BOOLEAN},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="registryId != null">
+        #{registryId,jdbcType=VARCHAR},
+      </if>
+      <if test="schedulingStrategy != null">
+        #{schedulingStrategy,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="extraParams != null">
+        #{extraParams,jdbcType=OTHER,typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+      </if>
+      <if test="imageNames != null">
+        #{imageNames,jdbcType=OTHER,typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+      </if>
+      <if test="alwaysOnline != null">
+        #{alwaysOnline,jdbcType=BOOLEAN},
+      </if>
+      <if test="failoverPolicy != null">
+        #{failoverPolicy,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="stackType != null">
+        #{stackType,jdbcType=VARCHAR},
+      </if>
+      <if test="useServicePenetration != null">
+        #{useServicePenetration,jdbcType=BOOLEAN},
+      </if>
+      <if test="deployStrategy != null">
+        #{deployStrategy,jdbcType=INTEGER},
+      </if>
+      <if test="cfgs != null">
+        #{cfgs,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="exposePorts != null">
+        #{exposePorts,jdbcType=OTHER,typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lnjoying.justice.aos.db.model.TblStackSpecInfoExample" resultType="java.lang.Long">
+    <!--@mbg.generated-->
+    select count(*) from public.tbl_stack_spec_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    <!--@mbg.generated-->
+    update public.tbl_stack_spec_info
+    <set>
+      <if test="record.specId != null">
+        spec_id = #{record.specId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.specName != null">
+        spec_name = #{record.specName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.templateId != null">
+        template_id = #{record.templateId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.templateName != null">
+        template_name = #{record.templateName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.templateVersion != null">
+        template_version = #{record.templateVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bpId != null">
+        bp_id = #{record.bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createUserId != null">
+        create_user_id = #{record.createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        "status" = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.targetNodes != null">
+        target_nodes = #{record.targetNodes,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.dstNodes != null">
+        dst_nodes = #{record.dstNodes,jdbcType=OTHER,typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+      </if>
+      <if test="record.labels != null">
+        labels = #{record.labels,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.stackCompose != null">
+        stack_compose = #{record.stackCompose,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.justiceCompose != null">
+        justice_compose = #{record.justiceCompose,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.replicaNum != null">
+        replica_num = #{record.replicaNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.aosType != null">
+        aos_type = #{record.aosType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contentType != null">
+        content_type = #{record.contentType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.devNeedInfo != null">
+        dev_need_info = #{record.devNeedInfo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.autoRun != null">
+        auto_run = #{record.autoRun,jdbcType=BOOLEAN},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.registryId != null">
+        registry_id = #{record.registryId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.schedulingStrategy != null">
+        scheduling_strategy = #{record.schedulingStrategy,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.extraParams != null">
+        extra_params = #{record.extraParams,jdbcType=OTHER,typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+      </if>
+      <if test="record.imageNames != null">
+        image_names = #{record.imageNames,jdbcType=OTHER,typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+      </if>
+      <if test="record.alwaysOnline != null">
+        always_online = #{record.alwaysOnline,jdbcType=BOOLEAN},
+      </if>
+      <if test="record.failoverPolicy != null">
+        failover_policy = #{record.failoverPolicy,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.stackType != null">
+        stack_type = #{record.stackType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useServicePenetration != null">
+        use_service_penetration = #{record.useServicePenetration,jdbcType=BOOLEAN},
+      </if>
+      <if test="record.deployStrategy != null">
+        deploy_strategy = #{record.deployStrategy,jdbcType=INTEGER},
+      </if>
+      <if test="record.cfgs != null">
+        cfgs = #{record.cfgs,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.exposePorts != null">
+        expose_ports = #{record.exposePorts,jdbcType=OTHER,typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    <!--@mbg.generated-->
+    update public.tbl_stack_spec_info
+    set spec_id = #{record.specId,jdbcType=VARCHAR},
+      spec_name = #{record.specName,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=LONGVARCHAR},
+      template_id = #{record.templateId,jdbcType=VARCHAR},
+      template_name = #{record.templateName,jdbcType=VARCHAR},
+      template_version = #{record.templateVersion,jdbcType=VARCHAR},
+      bp_id = #{record.bpId,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      create_user_id = #{record.createUserId,jdbcType=VARCHAR},
+      "status" = #{record.status,jdbcType=INTEGER},
+      target_nodes = #{record.targetNodes,jdbcType=LONGVARCHAR},
+      dst_nodes = #{record.dstNodes,jdbcType=OTHER,typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+      labels = #{record.labels,jdbcType=LONGVARCHAR},
+      stack_compose = #{record.stackCompose,jdbcType=LONGVARCHAR},
+      justice_compose = #{record.justiceCompose,jdbcType=LONGVARCHAR},
+      replica_num = #{record.replicaNum,jdbcType=INTEGER},
+      aos_type = #{record.aosType,jdbcType=VARCHAR},
+      content_type = #{record.contentType,jdbcType=VARCHAR},
+      dev_need_info = #{record.devNeedInfo,jdbcType=LONGVARCHAR},
+      auto_run = #{record.autoRun,jdbcType=BOOLEAN},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      registry_id = #{record.registryId,jdbcType=VARCHAR},
+      scheduling_strategy = #{record.schedulingStrategy,jdbcType=LONGVARCHAR},
+      extra_params = #{record.extraParams,jdbcType=OTHER,typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+      image_names = #{record.imageNames,jdbcType=OTHER,typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+      always_online = #{record.alwaysOnline,jdbcType=BOOLEAN},
+      failover_policy = #{record.failoverPolicy,jdbcType=LONGVARCHAR},
+      stack_type = #{record.stackType,jdbcType=VARCHAR},
+      use_service_penetration = #{record.useServicePenetration,jdbcType=BOOLEAN},
+      deploy_strategy = #{record.deployStrategy,jdbcType=INTEGER},
+      cfgs = #{record.cfgs,jdbcType=LONGVARCHAR},
+      expose_ports = #{record.exposePorts,jdbcType=OTHER,typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.aos.db.model.TblStackSpecInfo">
+    <!--@mbg.generated-->
+    update public.tbl_stack_spec_info
+    <set>
+      <if test="specName != null">
+        spec_name = #{specName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="templateId != null">
+        template_id = #{templateId,jdbcType=VARCHAR},
+      </if>
+      <if test="templateName != null">
+        template_name = #{templateName,jdbcType=VARCHAR},
+      </if>
+      <if test="templateVersion != null">
+        template_version = #{templateVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="bpId != null">
+        bp_id = #{bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        "status" = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="targetNodes != null">
+        target_nodes = #{targetNodes,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="dstNodes != null">
+        dst_nodes = #{dstNodes,jdbcType=OTHER,typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+      </if>
+      <if test="labels != null">
+        labels = #{labels,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="stackCompose != null">
+        stack_compose = #{stackCompose,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="justiceCompose != null">
+        justice_compose = #{justiceCompose,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="replicaNum != null">
+        replica_num = #{replicaNum,jdbcType=INTEGER},
+      </if>
+      <if test="aosType != null">
+        aos_type = #{aosType,jdbcType=VARCHAR},
+      </if>
+      <if test="contentType != null">
+        content_type = #{contentType,jdbcType=VARCHAR},
+      </if>
+      <if test="devNeedInfo != null">
+        dev_need_info = #{devNeedInfo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="autoRun != null">
+        auto_run = #{autoRun,jdbcType=BOOLEAN},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="registryId != null">
+        registry_id = #{registryId,jdbcType=VARCHAR},
+      </if>
+      <if test="schedulingStrategy != null">
+        scheduling_strategy = #{schedulingStrategy,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="extraParams != null">
+        extra_params = #{extraParams,jdbcType=OTHER,typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+      </if>
+      <if test="imageNames != null">
+        image_names = #{imageNames,jdbcType=OTHER,typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+      </if>
+      <if test="alwaysOnline != null">
+        always_online = #{alwaysOnline,jdbcType=BOOLEAN},
+      </if>
+      <if test="failoverPolicy != null">
+        failover_policy = #{failoverPolicy,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="stackType != null">
+        stack_type = #{stackType,jdbcType=VARCHAR},
+      </if>
+      <if test="useServicePenetration != null">
+        use_service_penetration = #{useServicePenetration,jdbcType=BOOLEAN},
+      </if>
+      <if test="deployStrategy != null">
+        deploy_strategy = #{deployStrategy,jdbcType=INTEGER},
+      </if>
+      <if test="cfgs != null">
+        cfgs = #{cfgs,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="exposePorts != null">
+        expose_ports = #{exposePorts,jdbcType=OTHER,typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+      </if>
+    </set>
+    where spec_id = #{specId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.aos.db.model.TblStackSpecInfo">
+    <!--@mbg.generated-->
+    update public.tbl_stack_spec_info
+    set spec_name = #{specName,jdbcType=VARCHAR},
+      description = #{description,jdbcType=LONGVARCHAR},
+      template_id = #{templateId,jdbcType=VARCHAR},
+      template_name = #{templateName,jdbcType=VARCHAR},
+      template_version = #{templateVersion,jdbcType=VARCHAR},
+      bp_id = #{bpId,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      create_user_id = #{createUserId,jdbcType=VARCHAR},
+      "status" = #{status,jdbcType=INTEGER},
+      target_nodes = #{targetNodes,jdbcType=LONGVARCHAR},
+      dst_nodes = #{dstNodes,jdbcType=OTHER,typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+      labels = #{labels,jdbcType=LONGVARCHAR},
+      stack_compose = #{stackCompose,jdbcType=LONGVARCHAR},
+      justice_compose = #{justiceCompose,jdbcType=LONGVARCHAR},
+      replica_num = #{replicaNum,jdbcType=INTEGER},
+      aos_type = #{aosType,jdbcType=VARCHAR},
+      content_type = #{contentType,jdbcType=VARCHAR},
+      dev_need_info = #{devNeedInfo,jdbcType=LONGVARCHAR},
+      auto_run = #{autoRun,jdbcType=BOOLEAN},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      registry_id = #{registryId,jdbcType=VARCHAR},
+      scheduling_strategy = #{schedulingStrategy,jdbcType=LONGVARCHAR},
+      extra_params = #{extraParams,jdbcType=OTHER,typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+      image_names = #{imageNames,jdbcType=OTHER,typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+      always_online = #{alwaysOnline,jdbcType=BOOLEAN},
+      failover_policy = #{failoverPolicy,jdbcType=LONGVARCHAR},
+      stack_type = #{stackType,jdbcType=VARCHAR},
+      use_service_penetration = #{useServicePenetration,jdbcType=BOOLEAN},
+      deploy_strategy = #{deployStrategy,jdbcType=INTEGER},
+      cfgs = #{cfgs,jdbcType=LONGVARCHAR},
+      expose_ports = #{exposePorts,jdbcType=OTHER,typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler}
+    where spec_id = #{specId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="countAlwaysOnline" resultType="java.lang.Long">
+    select count(*) from tbl_stack_spec_info
+    where always_online = true and "status" != -1
+  </select>
+
+  <select id="selectAlwaysOnline" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from tbl_stack_spec_info
+    where always_online = true and "status" != -1
+    limit #{pageSize} offset #{startRow}
+  </select>
+</mapper>

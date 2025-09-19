@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.iam.db.mapper.TblIamPolicyMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.iam.db.model.TblIamPolicy">
+    <!--@mbg.generated-->
+    <!--@Table tbl_iam_policy-->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="display_name" jdbcType="VARCHAR" property="displayName" />
+    <result column="policy_type" jdbcType="INTEGER" property="policyType" />
+    <result column="is_autogen" jdbcType="BOOLEAN" property="autogen" />
+    <result column="default_version" jdbcType="VARCHAR" property="defaultVersion" />
+    <result column="attachment_count" jdbcType="INTEGER" property="attachmentCount" />
+    <result column="is_attachable" jdbcType="BOOLEAN" property="attachable" />
+    <result column="tags" jdbcType="OTHER" property="tags" />
+    <result column="arn" jdbcType="VARCHAR" property="arn" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="bp_id" jdbcType="VARCHAR" property="bpId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="is_base" jdbcType="BOOLEAN" property="base" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, "name", description, display_name, policy_type, is_autogen, default_version, 
+    attachment_count, is_attachable, tags, arn, create_time, update_time, bp_id, user_id, 
+    is_base
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_iam_policy
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from tbl_iam_policy
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.iam.db.model.TblIamPolicy">
+    <!--@mbg.generated-->
+    insert into tbl_iam_policy (id, "name", description, 
+      display_name, policy_type, is_autogen, 
+      default_version, attachment_count, is_attachable, 
+      tags, arn, create_time, 
+      update_time, bp_id, user_id, 
+      is_base)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{displayName,jdbcType=VARCHAR}, #{policyType,jdbcType=INTEGER}, #{autogen,jdbcType=BOOLEAN}, 
+      #{defaultVersion,jdbcType=VARCHAR}, #{attachmentCount,jdbcType=INTEGER}, #{attachable,jdbcType=BOOLEAN}, 
+      #{tags,jdbcType=OTHER}, #{arn,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{bpId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
+      #{base,jdbcType=BOOLEAN})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.iam.db.model.TblIamPolicy">
+    <!--@mbg.generated-->
+    insert into tbl_iam_policy
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        id,
+      </if>
+      <if test="name != null and name != ''">
+        "name",
+      </if>
+      <if test="description != null and description != ''">
+        description,
+      </if>
+      <if test="displayName != null and displayName != ''">
+        display_name,
+      </if>
+      <if test="policyType != null">
+        policy_type,
+      </if>
+      <if test="autogen != null">
+        is_autogen,
+      </if>
+      <if test="defaultVersion != null and defaultVersion != ''">
+        default_version,
+      </if>
+      <if test="attachmentCount != null">
+        attachment_count,
+      </if>
+      <if test="attachable != null">
+        is_attachable,
+      </if>
+      <if test="tags != null">
+        tags,
+      </if>
+      <if test="arn != null and arn != ''">
+        arn,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="bpId != null and bpId != ''">
+        bp_id,
+      </if>
+      <if test="userId != null and userId != ''">
+        user_id,
+      </if>
+      <if test="base != null">
+        is_base,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null and name != ''">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null and description != ''">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="displayName != null and displayName != ''">
+        #{displayName,jdbcType=VARCHAR},
+      </if>
+      <if test="policyType != null">
+        #{policyType,jdbcType=INTEGER},
+      </if>
+      <if test="autogen != null">
+        #{autogen,jdbcType=BOOLEAN},
+      </if>
+      <if test="defaultVersion != null and defaultVersion != ''">
+        #{defaultVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentCount != null">
+        #{attachmentCount,jdbcType=INTEGER},
+      </if>
+      <if test="attachable != null">
+        #{attachable,jdbcType=BOOLEAN},
+      </if>
+      <if test="tags != null">
+        #{tags,jdbcType=OTHER},
+      </if>
+      <if test="arn != null and arn != ''">
+        #{arn,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bpId != null and bpId != ''">
+        #{bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null and userId != ''">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="base != null">
+        #{base,jdbcType=BOOLEAN},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.iam.db.model.TblIamPolicy">
+    <!--@mbg.generated-->
+    update tbl_iam_policy
+    <set>
+      <if test="name != null and name != ''">
+        "name" = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null and description != ''">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="displayName != null and displayName != ''">
+        display_name = #{displayName,jdbcType=VARCHAR},
+      </if>
+      <if test="policyType != null">
+        policy_type = #{policyType,jdbcType=INTEGER},
+      </if>
+      <if test="autogen != null">
+        is_autogen = #{autogen,jdbcType=BOOLEAN},
+      </if>
+      <if test="defaultVersion != null and defaultVersion != ''">
+        default_version = #{defaultVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentCount != null">
+        attachment_count = #{attachmentCount,jdbcType=INTEGER},
+      </if>
+      <if test="attachable != null">
+        is_attachable = #{attachable,jdbcType=BOOLEAN},
+      </if>
+      <if test="tags != null">
+        tags = #{tags,jdbcType=OTHER},
+      </if>
+      <if test="arn != null and arn != ''">
+        arn = #{arn,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bpId != null and bpId != ''">
+        bp_id = #{bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null and userId != ''">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="base != null">
+        is_base = #{base,jdbcType=BOOLEAN},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.iam.db.model.TblIamPolicy">
+    <!--@mbg.generated-->
+    update tbl_iam_policy
+    set "name" = #{name,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      display_name = #{displayName,jdbcType=VARCHAR},
+      policy_type = #{policyType,jdbcType=INTEGER},
+      is_autogen = #{autogen,jdbcType=BOOLEAN},
+      default_version = #{defaultVersion,jdbcType=VARCHAR},
+      attachment_count = #{attachmentCount,jdbcType=INTEGER},
+      is_attachable = #{attachable,jdbcType=BOOLEAN},
+      tags = #{tags,jdbcType=OTHER},
+      arn = #{arn,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      bp_id = #{bpId,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      is_base = #{base,jdbcType=BOOLEAN}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <resultMap extends="BaseResultMap" id="ExtendResultMap" type="com.lnjoying.justice.iam.domain.dto.response.policy.TblIamPolicyDetail">
+    <association column="user_id" javaType="java.lang.String" property="userName" select="com.lnjoying.justice.iam.db.mapper.TblUserInfoMapper.selectUserNameByUserId" />
+    <association column="user_id" javaType="java.lang.String" property="bpName" select="com.lnjoying.justice.iam.db.mapper.TblUserInfoMapper.selectBpNameByUserId">
+    </association>
+    <association column="{policyId=id,versionId=default_version}" javaType="java.lang.String" property="document"
+                 select="com.lnjoying.justice.iam.db.mapper.TblIamPolicyVersionMapper.selectDocumentByMap">
+    </association>
+    <association column="id" javaType="java.lang.Integer" property="versionTotal" select="com.lnjoying.justice.iam.db.mapper.TblIamPolicyVersionMapper.countByPolicyId"></association>
+  </resultMap>
+
+  <select id="selectAll" resultMap="ExtendResultMap">
+    select * from (
+    select
+    <include refid="Base_Column_List"/>
+    from tbl_iam_policy
+    <where>
+      <if test="name != null and name != ''">
+        and "display_name" like concat('%',#{name,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="bpId != null and bpId != ''">
+        and bp_id=#{bpId,jdbcType=VARCHAR}
+      </if>
+      <if test="policyType != null">
+        and policy_type=#{policyType,jdbcType=INTEGER}
+      </if>
+      <if test="autogen != null">
+        and is_autogen=#{autogen,jdbcType=BOOLEAN}
+      </if>
+    </where>
+
+    <if test="bpId != null and bpId != ''">
+      union
+      select
+      <include refid="Base_Column_List"/>
+      from tbl_iam_policy
+      <where>
+        <if test="name != null and name != ''">
+          and "display_name" like concat('%',#{name,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="true">
+          and policy_type= 1
+        </if>
+        <if test="autogen != null">
+          and is_autogen=#{autogen,jdbcType=BOOLEAN}
+        </if>
+      </where>
+    </if>) t1
+    order by t1.create_time desc
+  </select>
+
+  <select id="countByNameAndBpId" resultType="java.lang.Integer">
+    select count(1)
+    from tbl_iam_policy
+    <where>
+      <if test="name != null and name != ''">
+        and "name"=#{name,jdbcType=VARCHAR}
+      </if>
+      <if test="bpId != null and bpId != ''">
+        and bp_id=#{bpId,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+
+  <select id="countByIdAndBpId" resultType="java.lang.Integer">
+    select count(1)
+    from tbl_iam_policy
+    <where>
+      <if test="id != null and id != ''">
+        and id=#{id,jdbcType=VARCHAR}
+      </if>
+      <if test="bpId != null and bpId != ''">
+        and bp_id=#{bpId,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+
+  <select id="selectByIdAndBpId" resultMap="ExtendResultMap">
+    select * from (select
+    <include refid="Base_Column_List"/>
+    from tbl_iam_policy
+    <where>
+      <if test="id != null and id != ''">
+        and id=#{id,jdbcType=VARCHAR}
+      </if>
+      <if test="bpId != null and bpId != ''">
+        and bp_id=#{bpId,jdbcType=VARCHAR}
+      </if>
+    </where>
+    <if test="bpId != null and bpId != ''">
+      union
+      select
+      <include refid="Base_Column_List"/>
+      from tbl_iam_policy
+      <where>
+        <if test="id != null and id != ''">
+          and id=#{id,jdbcType=VARCHAR}
+        </if>
+        <if test="true">
+          and policy_type= 1
+        </if>
+      </where>
+    </if>
+    ) t1
+    limit 1
+  </select>
+
+  <select id="selectByBase" resultType="com.lnjoying.justice.iam.domain.model.IamPolicyDocument">
+    SELECT
+    t1.id as policyId,
+    case when t1.policy_type = 1 then true else false end as system,
+    t1.bp_id as bpId,
+    t2.version_id as versionId,
+    t2."document" as document
+    FROM
+    ( SELECT * FROM tbl_iam_policy
+
+    <where>
+      <if test="base != null">
+        and is_base= #{base,jdbcType=BOOLEAN}
+      </if>
+    </where>) t1
+    LEFT JOIN tbl_iam_policy_version t2 ON t1.ID = t2.policy_id
+    AND t1.default_version = t2.version_id
+  </select>
+
+  <select id="selectByNameAndBase" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tbl_iam_policy
+        <where>
+            <if test="name != null and name != ''">
+                and "name"=#{name,jdbcType=VARCHAR}
+            </if>
+            <if test="base != null">
+                and is_base=#{base,jdbcType=BOOLEAN}
+            </if>
+        </where>
+    </select>
+
+  <select id="countByIdIn" resultType="java.lang.Integer">
+    select count(1)
+    from tbl_iam_policy
+    <where>
+      <if test="idCollection != null and idCollection.size() > 0">
+        and id in
+        <foreach item="item" index="index" collection="idCollection"
+                 open="(" separator="," close=")">
+          #{item,jdbcType=VARCHAR}
+        </foreach>
+      </if>
+    </where>
+  </select>
+
+  <select id="selectLatestNameByName" resultType="java.lang.String">
+        select "name"
+        from tbl_iam_policy
+        <where>
+            <if test="name != null and name != ''">
+                and "name" like concat('%',#{name,jdbcType=VARCHAR},'%')
+            </if>
+        </where>
+        order by CAST(substring(name FROM '[0-9]+$') AS INTEGER) desc
+        limit 1
+    </select>
+</mapper>

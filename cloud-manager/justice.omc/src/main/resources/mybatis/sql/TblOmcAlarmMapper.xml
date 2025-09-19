@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.omc.db.mapper.TblOmcAlarmMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.omc.db.model.TblOmcAlarm">
+    <!--@mbg.generated-->
+    <!--@Table tbl_omc_alarm-->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="alert_group_id" jdbcType="VARCHAR" property="alertGroupId" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="level" jdbcType="INTEGER" property="level" />
+    <result column="bp_id" jdbcType="VARCHAR" property="bpId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="alert_metric_id" jdbcType="VARCHAR" property="alertMetricId" />
+  </resultMap>
+
+
+  <resultMap extends="BaseResultMap" id="ExtendResultMap" type="com.lnjoying.justice.omc.domain.model.Alarm">
+    <result column="rule_type" jdbcType="INTEGER" property="ruleType" />
+    <result column="expr" jdbcType="VARCHAR" property="expr" />
+    <result column="duration_time" jdbcType="INTEGER" property="durationTime" />
+    <result column="data_source_id" jdbcType="VARCHAR" property="dataSourceId" />
+    <result column="labels" jdbcType="OTHER" property="labels" typeHandler="com.lnjoying.justice.omc.handler.JsonbTypeHandler" />
+    <result column="annotations" jdbcType="OTHER" property="annotations" typeHandler="com.lnjoying.justice.omc.handler.JsonbTypeHandler" />
+    <result column="alert_message" jdbcType="VARCHAR" property="alertMessage" />
+  </resultMap>
+
+  <resultMap extends="BaseResultMap" id="ExtendResultMapDetail" type="com.lnjoying.justice.omc.domain.model.AlarmDetail">
+    <result column="rule_type" jdbcType="INTEGER" property="ruleType" />
+    <result column="expr" jdbcType="VARCHAR" property="expr" />
+    <result column="duration_time" jdbcType="INTEGER" property="durationTime" />
+    <result column="data_source_id" jdbcType="VARCHAR" property="dataSourceId" />
+    <result column="labels" jdbcType="OTHER" property="labels" typeHandler="com.lnjoying.justice.omc.handler.JsonbTypeHandler" />
+    <result column="annotations" jdbcType="OTHER" property="annotations" typeHandler="com.lnjoying.justice.omc.handler.JsonbTypeHandler" />
+    <result column="prom_content" jdbcType="VARCHAR" property="promContent" />
+    <result column="alert_condition_contents" jdbcType="VARCHAR" property="alertConditionContents" />
+    <result column="alert_condition_params" jdbcType="VARCHAR" property="alertConditionParams" />
+    <result column="data_condition_contents" jdbcType="VARCHAR" property="dataConditionContents" />
+    <result column="alert_message" jdbcType="VARCHAR" property="alertMessage" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, "name", description, alert_group_id, "status", "level", bp_id, user_id, create_time, 
+    update_time, alert_metric_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_omc_alarm
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from tbl_omc_alarm
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.omc.db.model.TblOmcAlarm">
+    <!--@mbg.generated-->
+    insert into tbl_omc_alarm (id, "name", description, 
+      alert_group_id, "status", "level", 
+      bp_id, user_id, create_time, 
+      update_time, alert_metric_id)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{alertGroupId,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{level,jdbcType=INTEGER}, 
+      #{bpId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{alertMetricId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.omc.db.model.TblOmcAlarm">
+    <!--@mbg.generated-->
+    insert into tbl_omc_alarm
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        id,
+      </if>
+      <if test="name != null and name != ''">
+        "name",
+      </if>
+      <if test="description != null and description != ''">
+        description,
+      </if>
+      <if test="alertGroupId != null and alertGroupId != ''">
+        alert_group_id,
+      </if>
+      <if test="status != null">
+        "status",
+      </if>
+      <if test="level != null">
+        "level",
+      </if>
+      <if test="bpId != null and bpId != ''">
+        bp_id,
+      </if>
+      <if test="userId != null and userId != ''">
+        user_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="alertMetricId != null and alertMetricId != ''">
+        alert_metric_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null and name != ''">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null and description != ''">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="alertGroupId != null and alertGroupId != ''">
+        #{alertGroupId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="bpId != null and bpId != ''">
+        #{bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null and userId != ''">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="alertMetricId != null and alertMetricId != ''">
+        #{alertMetricId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.omc.db.model.TblOmcAlarm">
+    <!--@mbg.generated-->
+    update tbl_omc_alarm
+    <set>
+      <if test="name != null and name != ''">
+        "name" = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null and description != ''">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="alertGroupId != null and alertGroupId != ''">
+        alert_group_id = #{alertGroupId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        "status" = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="level != null">
+        "level" = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="bpId != null and bpId != ''">
+        bp_id = #{bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null and userId != ''">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="alertMetricId != null and alertMetricId != ''">
+        alert_metric_id = #{alertMetricId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.omc.db.model.TblOmcAlarm">
+    <!--@mbg.generated-->
+    update tbl_omc_alarm
+    set "name" = #{name,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      alert_group_id = #{alertGroupId,jdbcType=VARCHAR},
+      "status" = #{status,jdbcType=INTEGER},
+      "level" = #{level,jdbcType=INTEGER},
+      bp_id = #{bpId,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      alert_metric_id = #{alertMetricId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+
+  <select id="selectAll" resultMap="ExtendResultMap">
+     select t1.*, t2.* from (
+        select
+        <include refid="Base_Column_List" />
+        from tbl_omc_alarm
+        <where>
+            <if test="alertGroupId != null and alertGroupId != ''">
+                and alert_group_id=#{alertGroupId,jdbcType=VARCHAR}
+            </if>
+            <if test="bpId != null and bpId != ''">
+                and bp_id=#{bpId,jdbcType=VARCHAR}
+            </if>
+            <if test="userId != null and userId != ''">
+                and user_id=#{userId,jdbcType=VARCHAR}
+            </if>
+            <if test="name != null and name != ''">
+                and "name"=#{name,jdbcType=VARCHAR}
+            </if>
+            <if test="true">
+              and status != -1
+            </if>
+
+        </where>) t1 join
+        (select * from tbl_omc_rule
+        <where>
+          <if test="ruleType != null">
+            rule_type = #{ruleType,jdbcType=INTEGER}
+          </if>
+        </where>
+        ) t2 on t1.id = t2.alarm_id
+        order by t1.update_time desc
+    </select>
+
+  <select id="selectById" resultMap="ExtendResultMapDetail">
+    select t1.*, t2.* from (
+    select
+    <include refid="Base_Column_List" />
+    from tbl_omc_alarm
+    <where>
+      <if test="id != null and id != ''">
+        and id=#{id,jdbcType=VARCHAR}
+      </if>
+    </where>
+    ) t1 join
+    (select * from tbl_omc_rule
+    ) t2 on t1.id = t2.alarm_id
+  </select>
+</mapper>

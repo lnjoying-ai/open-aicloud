@@ -1,0 +1,13 @@
+tolerations:
+  -
+    effect: vmaf
+    value: lllfs
+    tolerationSeconds: 0
+    key: ppvv
+    operator: equal
+  -
+    effect: fvmaf
+    value: lfllfs
+    tolerationSeconds: 0
+    key: fppvv
+    operator: fequal

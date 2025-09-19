@@ -1,0 +1,16 @@
+version: "3.4"
+services:
+  bitnami.postgres-exporter:
+    image: bitnami/postgres-exporter:latest
+    restart: always
+    container_name: postgres-exporter
+    environment:
+      DATA_SOURCE_URI: "${CLOUD_INTERNAL_IP}:5432/justicedb?sslmode=disable"
+      DATA_SOURCE_USER: ${POSTGRES_USERNAME}
+      DATA_SOURCE_PASS: ${POSTGRES_PASSWORD}
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - 9187:9187
+
+#grafana id 9628

@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.cmp.db.mapper.TblCmpOsPortforwardingsMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.cmp.db.model.TblCmpOsPortforwardings">
+    <id column="cloud_id" jdbcType="VARCHAR" property="cloudId" />
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="floatingip_id" jdbcType="VARCHAR" property="floatingipId" />
+    <result column="external_port" jdbcType="INTEGER" property="externalPort" />
+    <result column="internal_neutron_port_id" jdbcType="VARCHAR" property="internalNeutronPortId" />
+    <result column="protocol" jdbcType="VARCHAR" property="protocol" />
+    <result column="socket" jdbcType="VARCHAR" property="socket" />
+    <result column="ee_bp" jdbcType="VARCHAR" property="eeBp" />
+    <result column="ee_user" jdbcType="VARCHAR" property="eeUser" />
+    <result column="ee_status" jdbcType="INTEGER" property="eeStatus" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    cloud_id, id, floatingip_id, external_port, internal_neutron_port_id, protocol, socket, 
+    ee_bp, ee_user, ee_status
+  </sql>
+  <select id="selectByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsPortforwardingsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_cmp_os_portforwardings
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsPortforwardingsKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_cmp_os_portforwardings
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsPortforwardingsKey">
+    delete from tbl_cmp_os_portforwardings
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsPortforwardingsExample">
+    delete from tbl_cmp_os_portforwardings
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsPortforwardings">
+    insert into tbl_cmp_os_portforwardings (cloud_id, id, floatingip_id, 
+      external_port, internal_neutron_port_id, protocol, 
+      socket, ee_bp, ee_user, 
+      ee_status)
+    values (#{cloudId,jdbcType=VARCHAR}, #{id,jdbcType=VARCHAR}, #{floatingipId,jdbcType=VARCHAR}, 
+      #{externalPort,jdbcType=INTEGER}, #{internalNeutronPortId,jdbcType=VARCHAR}, #{protocol,jdbcType=VARCHAR}, 
+      #{socket,jdbcType=VARCHAR}, #{eeBp,jdbcType=VARCHAR}, #{eeUser,jdbcType=VARCHAR}, 
+      #{eeStatus,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsPortforwardings">
+    insert into tbl_cmp_os_portforwardings
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cloudId != null">
+        cloud_id,
+      </if>
+      <if test="id != null">
+        id,
+      </if>
+      <if test="floatingipId != null">
+        floatingip_id,
+      </if>
+      <if test="externalPort != null">
+        external_port,
+      </if>
+      <if test="internalNeutronPortId != null">
+        internal_neutron_port_id,
+      </if>
+      <if test="protocol != null">
+        protocol,
+      </if>
+      <if test="socket != null">
+        socket,
+      </if>
+      <if test="eeBp != null">
+        ee_bp,
+      </if>
+      <if test="eeUser != null">
+        ee_user,
+      </if>
+      <if test="eeStatus != null">
+        ee_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cloudId != null">
+        #{cloudId,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="floatingipId != null">
+        #{floatingipId,jdbcType=VARCHAR},
+      </if>
+      <if test="externalPort != null">
+        #{externalPort,jdbcType=INTEGER},
+      </if>
+      <if test="internalNeutronPortId != null">
+        #{internalNeutronPortId,jdbcType=VARCHAR},
+      </if>
+      <if test="protocol != null">
+        #{protocol,jdbcType=VARCHAR},
+      </if>
+      <if test="socket != null">
+        #{socket,jdbcType=VARCHAR},
+      </if>
+      <if test="eeBp != null">
+        #{eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="eeUser != null">
+        #{eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="eeStatus != null">
+        #{eeStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsPortforwardingsExample" resultType="java.lang.Long">
+    select count(*) from tbl_cmp_os_portforwardings
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_cmp_os_portforwardings
+    <set>
+      <if test="record.cloudId != null">
+        cloud_id = #{record.cloudId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.floatingipId != null">
+        floatingip_id = #{record.floatingipId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.externalPort != null">
+        external_port = #{record.externalPort,jdbcType=INTEGER},
+      </if>
+      <if test="record.internalNeutronPortId != null">
+        internal_neutron_port_id = #{record.internalNeutronPortId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.protocol != null">
+        protocol = #{record.protocol,jdbcType=VARCHAR},
+      </if>
+      <if test="record.socket != null">
+        socket = #{record.socket,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeBp != null">
+        ee_bp = #{record.eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeUser != null">
+        ee_user = #{record.eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeStatus != null">
+        ee_status = #{record.eeStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_cmp_os_portforwardings
+    set cloud_id = #{record.cloudId,jdbcType=VARCHAR},
+      id = #{record.id,jdbcType=VARCHAR},
+      floatingip_id = #{record.floatingipId,jdbcType=VARCHAR},
+      external_port = #{record.externalPort,jdbcType=INTEGER},
+      internal_neutron_port_id = #{record.internalNeutronPortId,jdbcType=VARCHAR},
+      protocol = #{record.protocol,jdbcType=VARCHAR},
+      socket = #{record.socket,jdbcType=VARCHAR},
+      ee_bp = #{record.eeBp,jdbcType=VARCHAR},
+      ee_user = #{record.eeUser,jdbcType=VARCHAR},
+      ee_status = #{record.eeStatus,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsPortforwardings">
+    update tbl_cmp_os_portforwardings
+    <set>
+      <if test="floatingipId != null">
+        floatingip_id = #{floatingipId,jdbcType=VARCHAR},
+      </if>
+      <if test="externalPort != null">
+        external_port = #{externalPort,jdbcType=INTEGER},
+      </if>
+      <if test="internalNeutronPortId != null">
+        internal_neutron_port_id = #{internalNeutronPortId,jdbcType=VARCHAR},
+      </if>
+      <if test="protocol != null">
+        protocol = #{protocol,jdbcType=VARCHAR},
+      </if>
+      <if test="socket != null">
+        socket = #{socket,jdbcType=VARCHAR},
+      </if>
+      <if test="eeBp != null">
+        ee_bp = #{eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="eeUser != null">
+        ee_user = #{eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="eeStatus != null">
+        ee_status = #{eeStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsPortforwardings">
+    update tbl_cmp_os_portforwardings
+    set floatingip_id = #{floatingipId,jdbcType=VARCHAR},
+      external_port = #{externalPort,jdbcType=INTEGER},
+      internal_neutron_port_id = #{internalNeutronPortId,jdbcType=VARCHAR},
+      protocol = #{protocol,jdbcType=VARCHAR},
+      socket = #{socket,jdbcType=VARCHAR},
+      ee_bp = #{eeBp,jdbcType=VARCHAR},
+      ee_user = #{eeUser,jdbcType=VARCHAR},
+      ee_status = #{eeStatus,jdbcType=INTEGER}
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="getPortforwardingIds" resultType="String">
+    select id from tbl_cmp_os_portforwardings
+    where cloud_id = #{cloudId} and ee_status != -1
+  </select>
+</mapper>

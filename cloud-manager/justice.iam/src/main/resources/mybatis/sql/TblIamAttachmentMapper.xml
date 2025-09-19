@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.iam.db.mapper.TblIamAttachmentMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.iam.db.model.TblIamAttachment">
+    <!--@mbg.generated-->
+    <!--@Table tbl_iam_attachment-->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="project_id" jdbcType="VARCHAR" property="projectId" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="principal_id" jdbcType="VARCHAR" property="principalId" />
+    <result column="principal_type" jdbcType="INTEGER" property="principalType" />
+    <result column="target_id" jdbcType="VARCHAR" property="targetId" />
+    <result column="target_type" jdbcType="INTEGER" property="targetType" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="attach_time" jdbcType="TIMESTAMP" property="attachTime" />
+    <result column="bp_id" jdbcType="VARCHAR" property="bpId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+  </resultMap>
+
+  <resultMap extends="BaseResultMap" id="ExtendResultMap" type="com.lnjoying.justice.iam.domain.model.IamPolicyAttachment">
+    <association column="policy_name" javaType="java.lang.String" property="policyName"  />
+    <association column="policy_type" javaType="java.lang.Integer" property="policyType"  />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, project_id, project_name, principal_id, principal_type, target_id, target_type, 
+    description, attach_time, bp_id, user_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_iam_attachment
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from tbl_iam_attachment
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.iam.db.model.TblIamAttachment">
+    <!--@mbg.generated-->
+    insert into tbl_iam_attachment (id, project_id, project_name, 
+      principal_id, principal_type, target_id, 
+      target_type, description, attach_time, 
+      bp_id, user_id)
+    values (#{id,jdbcType=VARCHAR}, #{projectId,jdbcType=VARCHAR}, #{projectName,jdbcType=VARCHAR}, 
+      #{principalId,jdbcType=VARCHAR}, #{principalType,jdbcType=INTEGER}, #{targetId,jdbcType=VARCHAR}, 
+      #{targetType,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, #{attachTime,jdbcType=TIMESTAMP}, 
+      #{bpId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.iam.db.model.TblIamAttachment">
+    <!--@mbg.generated-->
+    insert into tbl_iam_attachment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        id,
+      </if>
+      <if test="projectId != null and projectId != ''">
+        project_id,
+      </if>
+      <if test="projectName != null and projectName != ''">
+        project_name,
+      </if>
+      <if test="principalId != null and principalId != ''">
+        principal_id,
+      </if>
+      <if test="principalType != null">
+        principal_type,
+      </if>
+      <if test="targetId != null and targetId != ''">
+        target_id,
+      </if>
+      <if test="targetType != null">
+        target_type,
+      </if>
+      <if test="description != null and description != ''">
+        description,
+      </if>
+      <if test="attachTime != null">
+        attach_time,
+      </if>
+      <if test="bpId != null and bpId != ''">
+        bp_id,
+      </if>
+      <if test="userId != null and userId != ''">
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null and projectId != ''">
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="projectName != null and projectName != ''">
+        #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="principalId != null and principalId != ''">
+        #{principalId,jdbcType=VARCHAR},
+      </if>
+      <if test="principalType != null">
+        #{principalType,jdbcType=INTEGER},
+      </if>
+      <if test="targetId != null and targetId != ''">
+        #{targetId,jdbcType=VARCHAR},
+      </if>
+      <if test="targetType != null">
+        #{targetType,jdbcType=INTEGER},
+      </if>
+      <if test="description != null and description != ''">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="attachTime != null">
+        #{attachTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bpId != null and bpId != ''">
+        #{bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null and userId != ''">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.iam.db.model.TblIamAttachment">
+    <!--@mbg.generated-->
+    update tbl_iam_attachment
+    <set>
+      <if test="projectId != null and projectId != ''">
+        project_id = #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="projectName != null and projectName != ''">
+        project_name = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="principalId != null and principalId != ''">
+        principal_id = #{principalId,jdbcType=VARCHAR},
+      </if>
+      <if test="principalType != null">
+        principal_type = #{principalType,jdbcType=INTEGER},
+      </if>
+      <if test="targetId != null and targetId != ''">
+        target_id = #{targetId,jdbcType=VARCHAR},
+      </if>
+      <if test="targetType != null">
+        target_type = #{targetType,jdbcType=INTEGER},
+      </if>
+      <if test="description != null and description != ''">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="attachTime != null">
+        attach_time = #{attachTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bpId != null and bpId != ''">
+        bp_id = #{bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null and userId != ''">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.iam.db.model.TblIamAttachment">
+    <!--@mbg.generated-->
+    update tbl_iam_attachment
+    set project_id = #{projectId,jdbcType=VARCHAR},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      principal_id = #{principalId,jdbcType=VARCHAR},
+      principal_type = #{principalType,jdbcType=INTEGER},
+      target_id = #{targetId,jdbcType=VARCHAR},
+      target_type = #{targetType,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
+      attach_time = #{attachTime,jdbcType=TIMESTAMP},
+      bp_id = #{bpId,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <insert id="batchInsert">
+    INSERT INTO tbl_iam_attachment(
+    id,
+    project_id,
+    project_name,
+    principal_id,
+    principal_type,
+    target_id,
+    target_type,
+    description
+    )VALUES
+    <foreach collection="list" index="index" item="element" separator=",">
+      (
+      #{element.id,jdbcType=VARCHAR},
+      #{element.projectId,jdbcType=VARCHAR},
+      #{element.projectName,jdbcType=VARCHAR},
+      #{element.principalId,jdbcType=VARCHAR},
+      #{element.principalType,jdbcType=INTEGER},
+      #{element.targetId,jdbcType=VARCHAR},
+      #{element.targetType,jdbcType=INTEGER},
+      #{element.description,jdbcType=VARCHAR}
+      )
+    </foreach>
+  </insert>
+
+  <select id="selectOne" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tbl_iam_attachment
+    <where>
+      <if test="projectId != null and projectId != ''">
+        and project_id=#{projectId,jdbcType=VARCHAR}
+      </if>
+      <if test="projectId == null or projectId == ''">
+        and (project_id is null or  project_id = '')
+      </if>
+      <if test="principalId != null and principalId != ''">
+        and principal_id=#{principalId,jdbcType=VARCHAR}
+      </if>
+      <if test="principalType != null">
+        and principal_type=#{principalType,jdbcType=INTEGER}
+      </if>
+      <if test="targetId != null and targetId != ''">
+        and target_id=#{targetId,jdbcType=VARCHAR}
+      </if>
+      <if test="targetType != null">
+        and target_type=#{targetType,jdbcType=INTEGER}
+      </if>
+    </where>
+    limit 1
+  </select>
+
+  <delete id="batchDelete">
+    delete from tbl_iam_attachment
+    <where>
+      <if test="list != null and list.size() &gt; 0">
+        and id in
+        <foreach close=")" collection="list" index="index" item="item" open="(" separator=",">
+          #{item,jdbcType=VARCHAR}
+        </foreach>
+      </if>
+    </where>
+  </delete>
+
+  <select id="selectAllPolicyAttachments" resultType="com.lnjoying.justice.iam.domain.model.IamPolicyAttachment">
+    select
+        t1.id as id, t1.project_id as projectId, t1.project_name as projectName, t1.projectDisplayName as projectDisplayName,
+        t1.principal_id as principalId, t1.principal_type as principalType, t1.principal_name AS principalName,t1.target_id as policyId,
+        t1.description as description, t1.attach_time as attachTime, t1.bp_id as bpId, t1.user_id as userId,
+        t2.name as policyName, t2.policy_type as policyType, t2.display_name as policyDisplayName
+    from (
+    select t3.*, t4.display_name as projectDisplayName from
+    (
+      <if test="principalType != null and principalType == 1">
+        SELECT
+        ti1.*,
+        ti2.user_name AS principal_name
+        FROM
+       (select * from tbl_iam_attachment
+        <where>
+          <if test="bpId != null and bpId != ''">
+            and bp_id=#{bpId,jdbcType=VARCHAR}
+          </if>
+          <if test="userId != null and userId != ''">
+            and user_id=#{userId,jdbcType=VARCHAR}
+          </if>
+          <if test="projectId != null and projectId != ''">
+            and project_id=#{projectId,jdbcType=VARCHAR}
+          </if>
+          <if test="principalId != null and principalId != ''">
+            and principal_id=#{principalId,jdbcType=VARCHAR}
+          </if>
+          <if test="true">
+            and principal_type=1
+          </if>
+          <if test="targetId != null and targetId != ''">
+            and target_id=#{targetId,jdbcType=VARCHAR}
+          </if>
+          <if test="true">
+            and target_type=1
+          </if>
+        </where>) ti1
+        LEFT JOIN tbl_user_info ti2 ON ti1.principal_id = ti2.user_id
+        AND ti1.principal_type = 1
+      </if>
+      <if test="principalType != null and principalType == 2">
+        SELECT
+        ti1.*,
+        ti2.user_name AS principal_name
+        FROM
+        (select * from tbl_iam_attachment
+        <where>
+          <if test="bpId != null and bpId != ''">
+            and bp_id=#{bpId,jdbcType=VARCHAR}
+          </if>
+          <if test="userId != null and userId != ''">
+            and user_id=#{userId,jdbcType=VARCHAR}
+          </if>
+          <if test="projectId != null and projectId != ''">
+            and project_id=#{projectId,jdbcType=VARCHAR}
+          </if>
+          <if test="principalId != null and principalId != ''">
+            and principal_id=#{principalId,jdbcType=VARCHAR}
+          </if>
+          <if test="true">
+            and principal_type=1
+          </if>
+          <if test="targetId != null and targetId != ''">
+            and target_id=#{targetId,jdbcType=VARCHAR}
+          </if>
+          <if test="true">
+            and target_type=1
+          </if>
+        </where>) ti1
+        LEFT JOIN tbl_user_info ti2 ON ti1.principal_id = ti2.user_id
+        AND ti1.principal_type = 1
+      </if>
+      <if test="principalType != null and principalType == 3">
+        SELECT
+        ti1.*,
+        ti3.ROLE AS principal_name
+        FROM
+        (select * from tbl_iam_attachment
+        <where>
+          <if test="bpId != null and bpId != ''">
+            and bp_id=#{bpId,jdbcType=VARCHAR}
+          </if>
+          <if test="userId != null and userId != ''">
+            and user_id=#{userId,jdbcType=VARCHAR}
+          </if>
+          <if test="projectId != null and projectId != ''">
+            and project_id=#{projectId,jdbcType=VARCHAR}
+          </if>
+          <if test="principalId != null and principalId != ''">
+            and principal_id=#{principalId,jdbcType=VARCHAR}
+          </if>
+          <if test="true">
+            and principal_type=3
+          </if>
+          <if test="targetId != null and targetId != ''">
+            and target_id=#{targetId,jdbcType=VARCHAR}
+          </if>
+          <if test="true">
+            and target_type=1
+          </if>
+        </where>
+        ) ti1
+        LEFT JOIN tbl_iam_role ti3 ON ti1.principal_id = CAST ( ti3.role_id AS VARCHAR )
+        AND ti1.principal_type = 3
+      </if>
+      <if test="principalType == null">
+        SELECT
+        ti1.*,
+        ti2.user_name AS principal_name
+        FROM
+        (select * from tbl_iam_attachment
+        <where>
+          <if test="bpId != null and bpId != ''">
+            and bp_id=#{bpId,jdbcType=VARCHAR}
+          </if>
+          <if test="userId != null and userId != ''">
+            and user_id=#{userId,jdbcType=VARCHAR}
+          </if>
+          <if test="projectId != null and projectId != ''">
+            and project_id=#{projectId,jdbcType=VARCHAR}
+          </if>
+          <if test="principalId != null and principalId != ''">
+            and principal_id=#{principalId,jdbcType=VARCHAR}
+          </if>
+          <if test="true">
+            and principal_type=1
+          </if>
+          <if test="targetId != null and targetId != ''">
+            and target_id=#{targetId,jdbcType=VARCHAR}
+          </if>
+          <if test="true">
+            and target_type=1
+          </if>
+        </where>) ti1
+        LEFT JOIN tbl_user_info ti2 ON ti1.principal_id = ti2.user_id
+        AND ti1.principal_type = 1
+        UNION ALL
+        SELECT
+        ti1.*,
+        ti3.ROLE AS principal_name
+        FROM
+        (select * from tbl_iam_attachment
+        <where>
+          <if test="bpId != null and bpId != ''">
+            and bp_id=#{bpId,jdbcType=VARCHAR}
+          </if>
+          <if test="userId != null and userId != ''">
+            and user_id=#{userId,jdbcType=VARCHAR}
+          </if>
+          <if test="projectId != null and projectId != ''">
+            and project_id=#{projectId,jdbcType=VARCHAR}
+          </if>
+          <if test="principalId != null and principalId != ''">
+            and principal_id=#{principalId,jdbcType=VARCHAR}
+          </if>
+          <if test="true">
+            and principal_type=3
+          </if>
+          <if test="targetId != null and targetId != ''">
+            and target_id=#{targetId,jdbcType=VARCHAR}
+          </if>
+          <if test="true">
+            and target_type=1
+          </if>
+        </where>
+        ) ti1
+        LEFT JOIN tbl_iam_role ti3 ON ti1.principal_id = CAST ( ti3.role_id AS VARCHAR )
+        AND ti1.principal_type = 3
+      </if>
+   )t3 left join
+    tbl_Iam_project t4 on t3.project_id = t4.id
+    ) t1 join (
+    select * from tbl_iam_policy
+    <where>
+      <if test="policyName != null and policyName != ''">
+        and display_name like concat('%',#{policyName,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="policyType != null">
+        and policy_type=#{policyType,jdbcType=INTEGER}
+      </if>
+    </where>
+    ) t2 on t1.target_id = t2.id
+  </select>
+
+
+  <select id="selectAllRoleAttachments" resultType="com.lnjoying.justice.iam.domain.model.IamRoleAttachment">
+    select
+    t1.id as id, t1.project_id as projectId, t1.project_name as projectName, t1.projectDisplayName as projectDisplayName,
+    t1.principal_id as principalId, t1.principal_type as principalType, t1.target_id as roleId,
+    t1.description as description, t1.attach_time as attachTime, t1.bp_id as bpId, t1.user_id as userId,
+    t2.platform as rolePlatform, t2.role as roleName, t2.role_type as roleType
+    from (
+    select t3.*, t4.display_name as projectDisplayName from
+    (select * from
+    tbl_iam_attachment
+    <where>
+      <if test="bpId != null and bpId != ''">
+        and bp_id=#{bpId,jdbcType=VARCHAR}
+      </if>
+      <if test="userId != null and userId != ''">
+        and user_id=#{userId,jdbcType=VARCHAR}
+      </if>
+      <if test="projectId != null and projectId != ''">
+        and project_id=#{projectId,jdbcType=VARCHAR}
+      </if>
+      <if test="principalId != null and principalId != ''">
+        and principal_id=#{principalId,jdbcType=VARCHAR}
+      </if>
+      <if test="principalType != null">
+        and principal_type=#{principalType,jdbcType=INTEGER}
+      </if>
+      <if test="targetId != null and targetId != ''">
+        and target_id=#{targetId,jdbcType=VARCHAR}
+      </if>
+      <if test="true">
+        and target_type=3
+      </if>
+    </where>)t3 left join
+    tbl_Iam_project t4 on t3.project_id = t4.id
+    ) t1 join (
+    select cast(role_id as VARCHAR) as role_Id, platform,role, project_id, role_type from tbl_iam_role
+    <where>
+      <if test="roleName != null and roleName != ''">
+        and role like concat('%',#{roleName,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="roleType != null">
+        and role_type=#{roleType,jdbcType=INTEGER}
+      </if>
+    </where>
+    ) t2 on t1.target_id = t2.role_id
+  </select>
+
+  <select id="selectByTargetTypeAndTargetIdAndBPId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tbl_iam_attachment
+    <where>
+      <if test="targetType != null">
+        and target_type=#{targetType,jdbcType=INTEGER}
+      </if>
+      <if test="targetId != null and targetId != ''">
+        and target_id=#{targetId,jdbcType=VARCHAR}
+      </if>
+      <if test="bpId != null and bpId != ''">
+        and bp_id=#{bpId,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+
+  <select id="selectAllIamRoleAttachments" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tbl_iam_attachment
+    <where>
+      <if test="projectId != null and projectId != ''">
+        and project_id=#{projectId,jdbcType=VARCHAR}
+      </if>
+      <if test="principalId != null and principalId != ''">
+        and principal_id=#{principalId,jdbcType=VARCHAR}
+      </if>
+      <if test="principalType != null">
+        and principal_type=#{principalType,jdbcType=INTEGER}
+      </if>
+      <if test="targetType != null">
+        and target_type=#{targetType,jdbcType=INTEGER}
+      </if>
+    </where>
+  </select>
+
+  <delete id="deleteByProjectIdAndPrincipalIdAndPrincipalType">
+        delete from tbl_iam_attachment
+        <where>
+            <if test="projectId != null and projectId != ''">
+                and project_id=#{projectId,jdbcType=VARCHAR}
+            </if>
+            <if test="principalId != null and principalId != ''">
+                and principal_id=#{principalId,jdbcType=VARCHAR}
+            </if>
+            <if test="principalType != null">
+                and principal_type=#{principalType,jdbcType=INTEGER}
+            </if>
+        </where>
+    </delete>
+
+  <select id="countByUniqueId" resultType="java.lang.Integer">
+    select count(1)
+    from tbl_iam_attachment
+    <where>
+      <if test="uniqueId != null and uniqueId != ''">
+        and (principal_id=#{uniqueId,jdbcType=VARCHAR} or target_id=#{uniqueId,jdbcType=VARCHAR})
+      </if>
+    </where>
+  </select>
+</mapper>

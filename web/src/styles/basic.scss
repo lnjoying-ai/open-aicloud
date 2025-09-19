@@ -1,0 +1,288 @@
+.el-popover {
+  min-width: 130px !important;
+  padding: 0px !important;
+  border-radius: 10px !important;
+  box-shadow: 0 0px 3px 0 rgba(0, 0, 0, .1) !important;
+}
+
+.tablepopover {
+  min-width: 130px !important;
+  padding: 12px !important;
+}
+
+::v-deep .el-tag--small {
+  min-width: 66px;
+  text-align: center;
+}
+
+::v-deep .el-table thead {
+  color: #909399;
+  font-weight: 500;
+  background: rgba(0, 0, 0, 0.09);
+}
+
+.leading-none {
+  line-height: 1.1 !important;
+}
+
+.small-size {
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.new-small-size{
+  font-size: 12px;
+}
+::v-deep .el-table th {
+  background: rgba(0, 0, 0, 0.09);
+}
+
+.icon_cz {
+  display: block;
+  height: 24px;
+  color: #666666;
+  align-items: center;
+  cursor: pointer;
+  margin-top: 5px;
+    margin-bottom: 5px;
+    line-height: 24px;
+  text-align: center;
+}
+
+.icon_cz:hover {
+  background: #daefff;
+}
+
+.cz_icon {
+  margin-left: 16px;
+  margin-right: 23px;
+}
+
+.czlb {
+  display: flex;
+  align-items: center;
+}
+
+.czbtn {
+  width: 23px;
+  height: 26px;
+  border: 1px solid #d0d0d0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.left_czbtn {
+  border-radius: 3px 0 0 3px;
+  border-right: 0px;
+  cursor: pointer;
+}
+
+.left_czbtn img {
+  height: 11px;
+}
+
+.right_czbtn {
+  border-radius: 3px;
+}
+
+.normalCursor {
+  cursor: pointer;
+}
+
+.weightd {
+  font-size: 30px;
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+
+.error {
+  color: #d1200d;
+
+  &::before {
+    display: inline-block;
+    margin-right: 8px;
+    content: "";
+    width: 8px;
+    height: 8px;
+    background: #d1200d;
+    border-radius: 50%;
+  }
+
+  &:hover {
+    &::before {
+      width: 8.2px;
+      height: 8.2px;
+      box-shadow: 0 0 1px 1px #d1200d;
+    }
+  }
+}
+
+.info {
+  color: #909399;
+
+  &::before {
+    display: inline-block;
+    margin-right: 8px;
+    content: "";
+    width: 8px;
+    height: 8px;
+    background: #909399;
+    border-radius: 50%;
+  }
+
+  &:hover {
+    &::before {
+      width: 8.2px;
+      height: 8.2px;
+      box-shadow: 0 0 1px 1px #909399;
+    }
+  }
+}
+
+.creating {
+  color: #0079d1;
+
+  &::before {
+    display: inline-block;
+    margin-right: 8px;
+    content: "";
+    width: 8px;
+    height: 8px;
+    background: #0079d1;
+    border-radius: 50%;
+  }
+
+  &:hover {
+    &::before {
+      width: 8.2px;
+      height: 8.2px;
+      box-shadow: 0 0 1px 1px #0079d1;
+    }
+  }
+}
+
+.success {
+  &::before {
+    display: inline-block;
+    margin-right: 8px;
+    content: "";
+    width: 8px;
+    height: 8px;
+    background: #00ab5c;
+    border-radius: 50%;
+  }
+
+  &:hover {
+    &::before {
+      width: 8.2px;
+      height: 8.2px;
+      box-shadow: 0 0 1px 1px #00ab5c;
+    }
+  }
+}
+
+.upgrade {
+  color: #e6a23c;
+
+  &::before {
+    display: inline-block;
+    margin-right: 8px;
+    content: "";
+    width: 8px;
+    height: 8px;
+    background: #e6a23c;
+    border-radius: 50%;
+  }
+
+  &:hover {
+    &::before {
+      width: 8.2px;
+      height: 8.2px;
+      box-shadow: 0 0 1px 1px #e6a23c;
+    }
+  }
+}
+
+.pause {
+  color: #EEEE11;
+
+  &::before {
+    display: inline-block;
+    margin-right: 8px;
+    content: "";
+    width: 8px;
+    height: 8px;
+    background: #EEEE11;
+    border-radius: 50%;
+  }
+
+  &:hover {
+    &::before {
+      width: 8.2px;
+      height: 8.2px;
+      box-shadow: 0 0 1px 1px #EEEE11;
+    }
+  }
+}
+
+.journalStyle {
+  padding: 10px;
+  outline: none;
+  background-color: rgb(0, 0, 0);
+  color: rgb(240, 240, 240);
+  height: calc(100vh - 63px);
+  overflow: auto;
+  white-space: pre-line;
+}
+
+.xtermbg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1099;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.xtermmain {
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 99;
+  width: 800px;
+  margin: 0 auto;
+  padding: 20px 20px 10px;
+  background-color: #fff;
+
+  h5 {
+    margin: 0 0 10px;
+  }
+
+  .xterm {
+    min-height: 300px;
+    background-color: black;
+  }
+
+  .el-button {
+    overflow: auto;
+    margin: 10px auto 0;
+    display: block;
+  }
+}
+
+svg {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.detaillong {
+  display: inline-block;
+  word-break: break-all;
+  width: 98%;
+}

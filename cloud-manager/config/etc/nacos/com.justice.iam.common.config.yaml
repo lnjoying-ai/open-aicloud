@@ -1,0 +1,18 @@
+cors-allow-origins: "*"
+reset-pwd-max-attempt: 3
+reset-pwd-lock-sec: 300
+
+# register mode, available mode: invite\admin-invite\admin-verify\open, default: open
+# invite: both users and admin can invite others to register
+# admin-invite: only admin can invite others to register
+# admin-verify: anyone can register, users with an invitation code are activate, while users without an invitation code are inactive
+# open: anyone can register without invitation code
+register-mode: admin-invite
+invitation-url: https://192.168.1.250:9080/api/iam/v1/users/invite
+invitation-url-effective-sec: 259200
+# Multiple roles separated by commas, role name is ROLE_{MODULE}_{ ROLENAME}
+bp-admin-default-roles:
+bp-user-default-roles:
+default-roles-for-all: ROLE_ISSUE_COPOTE_NORMAL
+
+validate-code-effective-sec: 120

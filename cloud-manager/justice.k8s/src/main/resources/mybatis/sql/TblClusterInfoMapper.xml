@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.cluster.manager.db.mapper.TblClusterInfoMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.cluster.manager.db.model.TblClusterInfo">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="tmpl_version_id" jdbcType="VARCHAR" property="tmplVersionId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="cluster_engine_config" jdbcType="VARCHAR" property="clusterEngineConfig" />
+    <result column="dev_need" jdbcType="VARCHAR" property="devNeed" />
+    <result column="target_nodes" jdbcType="VARCHAR" property="targetNodes" />
+    <result column="members" jdbcType="VARCHAR" property="members" />
+    <result column="create_type" jdbcType="VARCHAR" property="createType" />
+    <result column="cluster_type" jdbcType="VARCHAR" property="clusterType" />
+    <result column="labels" jdbcType="VARCHAR" property="labels" />
+    <result column="annotations" jdbcType="VARCHAR" property="annotations" />
+    <result column="owner" jdbcType="VARCHAR" property="owner" />
+    <result column="bp" jdbcType="VARCHAR" property="bp" />
+    <result column="token" jdbcType="VARCHAR" property="token" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="service_state" jdbcType="INTEGER" property="serviceState" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, tmpl_version_id, name, description, cluster_engine_config, dev_need, target_nodes, 
+    members, create_type, cluster_type, labels, annotations, owner, bp, token, creator, 
+    status, service_state, create_time, update_time
+  </sql>
+  <select id="selectByExample" parameterType="com.lnjoying.justice.cluster.manager.db.model.TblClusterInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_cluster_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_cluster_info
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tbl_cluster_info
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lnjoying.justice.cluster.manager.db.model.TblClusterInfoExample">
+    delete from tbl_cluster_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.cluster.manager.db.model.TblClusterInfo">
+    insert into tbl_cluster_info (id, tmpl_version_id, name, 
+      description, cluster_engine_config, dev_need, 
+      target_nodes, members, create_type, 
+      cluster_type, labels, annotations, 
+      owner, bp, token, creator, 
+      status, service_state, create_time, 
+      update_time)
+    values (#{id,jdbcType=VARCHAR}, #{tmplVersionId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{clusterEngineConfig,jdbcType=VARCHAR}, #{devNeed,jdbcType=VARCHAR}, 
+      #{targetNodes,jdbcType=VARCHAR}, #{members,jdbcType=VARCHAR}, #{createType,jdbcType=VARCHAR}, 
+      #{clusterType,jdbcType=VARCHAR}, #{labels,jdbcType=VARCHAR}, #{annotations,jdbcType=VARCHAR}, 
+      #{owner,jdbcType=VARCHAR}, #{bp,jdbcType=VARCHAR}, #{token,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{serviceState,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.cluster.manager.db.model.TblClusterInfo">
+    insert into tbl_cluster_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="tmplVersionId != null">
+        tmpl_version_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="clusterEngineConfig != null">
+        cluster_engine_config,
+      </if>
+      <if test="devNeed != null">
+        dev_need,
+      </if>
+      <if test="targetNodes != null">
+        target_nodes,
+      </if>
+      <if test="members != null">
+        members,
+      </if>
+      <if test="createType != null">
+        create_type,
+      </if>
+      <if test="clusterType != null">
+        cluster_type,
+      </if>
+      <if test="labels != null">
+        labels,
+      </if>
+      <if test="annotations != null">
+        annotations,
+      </if>
+      <if test="owner != null">
+        owner,
+      </if>
+      <if test="bp != null">
+        bp,
+      </if>
+      <if test="token != null">
+        token,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="serviceState != null">
+        service_state,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="tmplVersionId != null">
+        #{tmplVersionId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="clusterEngineConfig != null">
+        #{clusterEngineConfig,jdbcType=VARCHAR},
+      </if>
+      <if test="devNeed != null">
+        #{devNeed,jdbcType=VARCHAR},
+      </if>
+      <if test="targetNodes != null">
+        #{targetNodes,jdbcType=VARCHAR},
+      </if>
+      <if test="members != null">
+        #{members,jdbcType=VARCHAR},
+      </if>
+      <if test="createType != null">
+        #{createType,jdbcType=VARCHAR},
+      </if>
+      <if test="clusterType != null">
+        #{clusterType,jdbcType=VARCHAR},
+      </if>
+      <if test="labels != null">
+        #{labels,jdbcType=VARCHAR},
+      </if>
+      <if test="annotations != null">
+        #{annotations,jdbcType=VARCHAR},
+      </if>
+      <if test="owner != null">
+        #{owner,jdbcType=VARCHAR},
+      </if>
+      <if test="bp != null">
+        #{bp,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null">
+        #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="serviceState != null">
+        #{serviceState,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lnjoying.justice.cluster.manager.db.model.TblClusterInfoExample" resultType="java.lang.Long">
+    select count(*) from tbl_cluster_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_cluster_info
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tmplVersionId != null">
+        tmpl_version_id = #{record.tmplVersionId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clusterEngineConfig != null">
+        cluster_engine_config = #{record.clusterEngineConfig,jdbcType=VARCHAR},
+      </if>
+      <if test="record.devNeed != null">
+        dev_need = #{record.devNeed,jdbcType=VARCHAR},
+      </if>
+      <if test="record.targetNodes != null">
+        target_nodes = #{record.targetNodes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.members != null">
+        members = #{record.members,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createType != null">
+        create_type = #{record.createType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clusterType != null">
+        cluster_type = #{record.clusterType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.labels != null">
+        labels = #{record.labels,jdbcType=VARCHAR},
+      </if>
+      <if test="record.annotations != null">
+        annotations = #{record.annotations,jdbcType=VARCHAR},
+      </if>
+      <if test="record.owner != null">
+        owner = #{record.owner,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bp != null">
+        bp = #{record.bp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.token != null">
+        token = #{record.token,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creator != null">
+        creator = #{record.creator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.serviceState != null">
+        service_state = #{record.serviceState,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_cluster_info
+    set id = #{record.id,jdbcType=VARCHAR},
+      tmpl_version_id = #{record.tmplVersionId,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      cluster_engine_config = #{record.clusterEngineConfig,jdbcType=VARCHAR},
+      dev_need = #{record.devNeed,jdbcType=VARCHAR},
+      target_nodes = #{record.targetNodes,jdbcType=VARCHAR},
+      members = #{record.members,jdbcType=VARCHAR},
+      create_type = #{record.createType,jdbcType=VARCHAR},
+      cluster_type = #{record.clusterType,jdbcType=VARCHAR},
+      labels = #{record.labels,jdbcType=VARCHAR},
+      annotations = #{record.annotations,jdbcType=VARCHAR},
+      owner = #{record.owner,jdbcType=VARCHAR},
+      bp = #{record.bp,jdbcType=VARCHAR},
+      token = #{record.token,jdbcType=VARCHAR},
+      creator = #{record.creator,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      service_state = #{record.serviceState,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.cluster.manager.db.model.TblClusterInfo">
+    update tbl_cluster_info
+    <set>
+      <if test="tmplVersionId != null">
+        tmpl_version_id = #{tmplVersionId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="clusterEngineConfig != null">
+        cluster_engine_config = #{clusterEngineConfig,jdbcType=VARCHAR},
+      </if>
+      <if test="devNeed != null">
+        dev_need = #{devNeed,jdbcType=VARCHAR},
+      </if>
+      <if test="targetNodes != null">
+        target_nodes = #{targetNodes,jdbcType=VARCHAR},
+      </if>
+      <if test="members != null">
+        members = #{members,jdbcType=VARCHAR},
+      </if>
+      <if test="createType != null">
+        create_type = #{createType,jdbcType=VARCHAR},
+      </if>
+      <if test="clusterType != null">
+        cluster_type = #{clusterType,jdbcType=VARCHAR},
+      </if>
+      <if test="labels != null">
+        labels = #{labels,jdbcType=VARCHAR},
+      </if>
+      <if test="annotations != null">
+        annotations = #{annotations,jdbcType=VARCHAR},
+      </if>
+      <if test="owner != null">
+        owner = #{owner,jdbcType=VARCHAR},
+      </if>
+      <if test="bp != null">
+        bp = #{bp,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null">
+        token = #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="serviceState != null">
+        service_state = #{serviceState,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.cluster.manager.db.model.TblClusterInfo">
+    update tbl_cluster_info
+    set tmpl_version_id = #{tmplVersionId,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      cluster_engine_config = #{clusterEngineConfig,jdbcType=VARCHAR},
+      dev_need = #{devNeed,jdbcType=VARCHAR},
+      target_nodes = #{targetNodes,jdbcType=VARCHAR},
+      members = #{members,jdbcType=VARCHAR},
+      create_type = #{createType,jdbcType=VARCHAR},
+      cluster_type = #{clusterType,jdbcType=VARCHAR},
+      labels = #{labels,jdbcType=VARCHAR},
+      annotations = #{annotations,jdbcType=VARCHAR},
+      owner = #{owner,jdbcType=VARCHAR},
+      bp = #{bp,jdbcType=VARCHAR},
+      token = #{token,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      service_state = #{serviceState,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectClusterNameById" resultType="java.lang.String">
+    select "name"
+    from tbl_cluster_info
+    <where>
+      <if test="id != null and id != ''">
+        and id=#{id,jdbcType=VARCHAR}
+      </if>
+    </where>
+    limit 1
+  </select>
+
+  <resultMap id="GetStatusMetricsRsp" type="com.lnjoying.justice.schema.entity.stat.StatusMetrics">
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="count" jdbcType="VARCHAR" property="count" />
+  </resultMap>
+
+  <select id="getClusterStatusMetrics" resultMap="GetStatusMetricsRsp">
+    SELECT status, COUNT(*) as count
+    FROM tbl_cluster_info
+    where status != 99
+    <if test="userId != null and userId != ''">
+      and owner = #{userId,jdbcType=VARCHAR}
+    </if>
+    <if test="bpId != null and bpId != ''">
+      and bp = #{bpId,jdbcType=VARCHAR}
+    </if>
+    GROUP BY status
+  </select>
+</mapper>

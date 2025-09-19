@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.iam.db.mapper.TblIamConditionFuncMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.iam.db.model.TblIamConditionFunc">
+    <!--@mbg.generated-->
+    <!--@Table tbl_iam_condition_func-->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="condition_type" jdbcType="VARCHAR" property="conditionType" />
+    <result column="operation" jdbcType="VARCHAR" property="operation" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, condition_type, "operation", create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_iam_condition_func
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from tbl_iam_condition_func
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.iam.db.model.TblIamConditionFunc">
+    <!--@mbg.generated-->
+    insert into tbl_iam_condition_func (id, condition_type, "operation", 
+      create_time, update_time)
+    values (#{id,jdbcType=VARCHAR}, #{conditionType,jdbcType=VARCHAR}, #{operation,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.iam.db.model.TblIamConditionFunc">
+    <!--@mbg.generated-->
+    insert into tbl_iam_condition_func
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        id,
+      </if>
+      <if test="conditionType != null and conditionType != ''">
+        condition_type,
+      </if>
+      <if test="operation != null and operation != ''">
+        "operation",
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="conditionType != null and conditionType != ''">
+        #{conditionType,jdbcType=VARCHAR},
+      </if>
+      <if test="operation != null and operation != ''">
+        #{operation,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.iam.db.model.TblIamConditionFunc">
+    <!--@mbg.generated-->
+    update tbl_iam_condition_func
+    <set>
+      <if test="conditionType != null and conditionType != ''">
+        condition_type = #{conditionType,jdbcType=VARCHAR},
+      </if>
+      <if test="operation != null and operation != ''">
+        "operation" = #{operation,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.iam.db.model.TblIamConditionFunc">
+    <!--@mbg.generated-->
+    update tbl_iam_condition_func
+    set condition_type = #{conditionType,jdbcType=VARCHAR},
+      "operation" = #{operation,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

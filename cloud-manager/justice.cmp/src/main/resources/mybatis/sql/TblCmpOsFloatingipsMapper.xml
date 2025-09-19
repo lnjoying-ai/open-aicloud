@@ -1,0 +1,551 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.cmp.db.mapper.TblCmpOsFloatingipsMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.cmp.db.model.TblCmpOsFloatingips">
+    <id column="cloud_id" jdbcType="VARCHAR" property="cloudId" />
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="project_id" jdbcType="VARCHAR" property="projectId" />
+    <result column="floating_ip_address" jdbcType="VARCHAR" property="floatingIpAddress" />
+    <result column="floating_network_id" jdbcType="VARCHAR" property="floatingNetworkId" />
+    <result column="floating_port_id" jdbcType="VARCHAR" property="floatingPortId" />
+    <result column="fixed_port_id" jdbcType="VARCHAR" property="fixedPortId" />
+    <result column="fixed_ip_address" jdbcType="VARCHAR" property="fixedIpAddress" />
+    <result column="router_id" jdbcType="VARCHAR" property="routerId" />
+    <result column="last_known_router_id" jdbcType="VARCHAR" property="lastKnownRouterId" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="standard_attr_id" jdbcType="BIGINT" property="standardAttrId" />
+    <result column="ee_bp" jdbcType="VARCHAR" property="eeBp" />
+    <result column="ee_user" jdbcType="VARCHAR" property="eeUser" />
+    <result column="ee_status" jdbcType="INTEGER" property="eeStatus" />
+    <result column="dns_name" jdbcType="VARCHAR" property="dnsName" />
+    <result column="dns_domain" jdbcType="VARCHAR" property="dnsDomain" />
+    <result column="published_dns_name" jdbcType="VARCHAR" property="publishedDnsName" />
+    <result column="published_dns_domain" jdbcType="VARCHAR" property="publishedDnsDomain" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="revision_number" jdbcType="BIGINT" property="revisionNumber" />
+    <result column="policy_id" jdbcType="VARCHAR" property="policyId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    cloud_id, id, project_id, floating_ip_address, floating_network_id, floating_port_id, 
+    fixed_port_id, fixed_ip_address, router_id, last_known_router_id, status, standard_attr_id, 
+    ee_bp, ee_user, ee_status, dns_name, dns_domain, published_dns_name, published_dns_domain, 
+    created_at, updated_at, description, revision_number, policy_id
+  </sql>
+  <select id="selectByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsFloatingipsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_cmp_os_floatingips
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsFloatingipsKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_cmp_os_floatingips
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsFloatingipsKey">
+    delete from tbl_cmp_os_floatingips
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsFloatingipsExample">
+    delete from tbl_cmp_os_floatingips
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsFloatingips">
+    insert into tbl_cmp_os_floatingips (cloud_id, id, project_id, 
+      floating_ip_address, floating_network_id, floating_port_id, 
+      fixed_port_id, fixed_ip_address, router_id, 
+      last_known_router_id, status, standard_attr_id, 
+      ee_bp, ee_user, ee_status, 
+      dns_name, dns_domain, published_dns_name, 
+      published_dns_domain, created_at, updated_at, 
+      description, revision_number, policy_id
+      )
+    values (#{cloudId,jdbcType=VARCHAR}, #{id,jdbcType=VARCHAR}, #{projectId,jdbcType=VARCHAR}, 
+      #{floatingIpAddress,jdbcType=VARCHAR}, #{floatingNetworkId,jdbcType=VARCHAR}, #{floatingPortId,jdbcType=VARCHAR}, 
+      #{fixedPortId,jdbcType=VARCHAR}, #{fixedIpAddress,jdbcType=VARCHAR}, #{routerId,jdbcType=VARCHAR}, 
+      #{lastKnownRouterId,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{standardAttrId,jdbcType=BIGINT}, 
+      #{eeBp,jdbcType=VARCHAR}, #{eeUser,jdbcType=VARCHAR}, #{eeStatus,jdbcType=INTEGER}, 
+      #{dnsName,jdbcType=VARCHAR}, #{dnsDomain,jdbcType=VARCHAR}, #{publishedDnsName,jdbcType=VARCHAR}, 
+      #{publishedDnsDomain,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP}, 
+      #{description,jdbcType=VARCHAR}, #{revisionNumber,jdbcType=BIGINT}, #{policyId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsFloatingips">
+    insert into tbl_cmp_os_floatingips
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cloudId != null">
+        cloud_id,
+      </if>
+      <if test="id != null">
+        id,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="floatingIpAddress != null">
+        floating_ip_address,
+      </if>
+      <if test="floatingNetworkId != null">
+        floating_network_id,
+      </if>
+      <if test="floatingPortId != null">
+        floating_port_id,
+      </if>
+      <if test="fixedPortId != null">
+        fixed_port_id,
+      </if>
+      <if test="fixedIpAddress != null">
+        fixed_ip_address,
+      </if>
+      <if test="routerId != null">
+        router_id,
+      </if>
+      <if test="lastKnownRouterId != null">
+        last_known_router_id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="standardAttrId != null">
+        standard_attr_id,
+      </if>
+      <if test="eeBp != null">
+        ee_bp,
+      </if>
+      <if test="eeUser != null">
+        ee_user,
+      </if>
+      <if test="eeStatus != null">
+        ee_status,
+      </if>
+      <if test="dnsName != null">
+        dns_name,
+      </if>
+      <if test="dnsDomain != null">
+        dns_domain,
+      </if>
+      <if test="publishedDnsName != null">
+        published_dns_name,
+      </if>
+      <if test="publishedDnsDomain != null">
+        published_dns_domain,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedAt != null">
+        updated_at,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="revisionNumber != null">
+        revision_number,
+      </if>
+      <if test="policyId != null">
+        policy_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cloudId != null">
+        #{cloudId,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="floatingIpAddress != null">
+        #{floatingIpAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="floatingNetworkId != null">
+        #{floatingNetworkId,jdbcType=VARCHAR},
+      </if>
+      <if test="floatingPortId != null">
+        #{floatingPortId,jdbcType=VARCHAR},
+      </if>
+      <if test="fixedPortId != null">
+        #{fixedPortId,jdbcType=VARCHAR},
+      </if>
+      <if test="fixedIpAddress != null">
+        #{fixedIpAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="routerId != null">
+        #{routerId,jdbcType=VARCHAR},
+      </if>
+      <if test="lastKnownRouterId != null">
+        #{lastKnownRouterId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="standardAttrId != null">
+        #{standardAttrId,jdbcType=BIGINT},
+      </if>
+      <if test="eeBp != null">
+        #{eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="eeUser != null">
+        #{eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="eeStatus != null">
+        #{eeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="dnsName != null">
+        #{dnsName,jdbcType=VARCHAR},
+      </if>
+      <if test="dnsDomain != null">
+        #{dnsDomain,jdbcType=VARCHAR},
+      </if>
+      <if test="publishedDnsName != null">
+        #{publishedDnsName,jdbcType=VARCHAR},
+      </if>
+      <if test="publishedDnsDomain != null">
+        #{publishedDnsDomain,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="revisionNumber != null">
+        #{revisionNumber,jdbcType=BIGINT},
+      </if>
+      <if test="policyId != null">
+        #{policyId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsFloatingipsExample" resultType="java.lang.Long">
+    select count(*) from tbl_cmp_os_floatingips
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_cmp_os_floatingips
+    <set>
+      <if test="record.cloudId != null">
+        cloud_id = #{record.cloudId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.projectId != null">
+        project_id = #{record.projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.floatingIpAddress != null">
+        floating_ip_address = #{record.floatingIpAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.floatingNetworkId != null">
+        floating_network_id = #{record.floatingNetworkId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.floatingPortId != null">
+        floating_port_id = #{record.floatingPortId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fixedPortId != null">
+        fixed_port_id = #{record.fixedPortId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fixedIpAddress != null">
+        fixed_ip_address = #{record.fixedIpAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.routerId != null">
+        router_id = #{record.routerId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastKnownRouterId != null">
+        last_known_router_id = #{record.lastKnownRouterId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.standardAttrId != null">
+        standard_attr_id = #{record.standardAttrId,jdbcType=BIGINT},
+      </if>
+      <if test="record.eeBp != null">
+        ee_bp = #{record.eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeUser != null">
+        ee_user = #{record.eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeStatus != null">
+        ee_status = #{record.eeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.dnsName != null">
+        dns_name = #{record.dnsName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dnsDomain != null">
+        dns_domain = #{record.dnsDomain,jdbcType=VARCHAR},
+      </if>
+      <if test="record.publishedDnsName != null">
+        published_dns_name = #{record.publishedDnsName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.publishedDnsDomain != null">
+        published_dns_domain = #{record.publishedDnsDomain,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdAt != null">
+        created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedAt != null">
+        updated_at = #{record.updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.revisionNumber != null">
+        revision_number = #{record.revisionNumber,jdbcType=BIGINT},
+      </if>
+      <if test="record.policyId != null">
+        policy_id = #{record.policyId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_cmp_os_floatingips
+    set cloud_id = #{record.cloudId,jdbcType=VARCHAR},
+      id = #{record.id,jdbcType=VARCHAR},
+      project_id = #{record.projectId,jdbcType=VARCHAR},
+      floating_ip_address = #{record.floatingIpAddress,jdbcType=VARCHAR},
+      floating_network_id = #{record.floatingNetworkId,jdbcType=VARCHAR},
+      floating_port_id = #{record.floatingPortId,jdbcType=VARCHAR},
+      fixed_port_id = #{record.fixedPortId,jdbcType=VARCHAR},
+      fixed_ip_address = #{record.fixedIpAddress,jdbcType=VARCHAR},
+      router_id = #{record.routerId,jdbcType=VARCHAR},
+      last_known_router_id = #{record.lastKnownRouterId,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      standard_attr_id = #{record.standardAttrId,jdbcType=BIGINT},
+      ee_bp = #{record.eeBp,jdbcType=VARCHAR},
+      ee_user = #{record.eeUser,jdbcType=VARCHAR},
+      ee_status = #{record.eeStatus,jdbcType=INTEGER},
+      dns_name = #{record.dnsName,jdbcType=VARCHAR},
+      dns_domain = #{record.dnsDomain,jdbcType=VARCHAR},
+      published_dns_name = #{record.publishedDnsName,jdbcType=VARCHAR},
+      published_dns_domain = #{record.publishedDnsDomain,jdbcType=VARCHAR},
+      created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{record.updatedAt,jdbcType=TIMESTAMP},
+      description = #{record.description,jdbcType=VARCHAR},
+      revision_number = #{record.revisionNumber,jdbcType=BIGINT},
+      policy_id = #{record.policyId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsFloatingips">
+    update tbl_cmp_os_floatingips
+    <set>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="floatingIpAddress != null">
+        floating_ip_address = #{floatingIpAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="floatingNetworkId != null">
+        floating_network_id = #{floatingNetworkId,jdbcType=VARCHAR},
+      </if>
+      <if test="floatingPortId != null">
+        floating_port_id = #{floatingPortId,jdbcType=VARCHAR},
+      </if>
+      <if test="fixedPortId != null">
+        fixed_port_id = #{fixedPortId,jdbcType=VARCHAR},
+      </if>
+      <if test="fixedIpAddress != null">
+        fixed_ip_address = #{fixedIpAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="routerId != null">
+        router_id = #{routerId,jdbcType=VARCHAR},
+      </if>
+      <if test="lastKnownRouterId != null">
+        last_known_router_id = #{lastKnownRouterId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="standardAttrId != null">
+        standard_attr_id = #{standardAttrId,jdbcType=BIGINT},
+      </if>
+      <if test="eeBp != null">
+        ee_bp = #{eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="eeUser != null">
+        ee_user = #{eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="eeStatus != null">
+        ee_status = #{eeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="dnsName != null">
+        dns_name = #{dnsName,jdbcType=VARCHAR},
+      </if>
+      <if test="dnsDomain != null">
+        dns_domain = #{dnsDomain,jdbcType=VARCHAR},
+      </if>
+      <if test="publishedDnsName != null">
+        published_dns_name = #{publishedDnsName,jdbcType=VARCHAR},
+      </if>
+      <if test="publishedDnsDomain != null">
+        published_dns_domain = #{publishedDnsDomain,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="revisionNumber != null">
+        revision_number = #{revisionNumber,jdbcType=BIGINT},
+      </if>
+      <if test="policyId != null">
+        policy_id = #{policyId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsFloatingips">
+    update tbl_cmp_os_floatingips
+    set project_id = #{projectId,jdbcType=VARCHAR},
+      floating_ip_address = #{floatingIpAddress,jdbcType=VARCHAR},
+      floating_network_id = #{floatingNetworkId,jdbcType=VARCHAR},
+      floating_port_id = #{floatingPortId,jdbcType=VARCHAR},
+      fixed_port_id = #{fixedPortId,jdbcType=VARCHAR},
+      fixed_ip_address = #{fixedIpAddress,jdbcType=VARCHAR},
+      router_id = #{routerId,jdbcType=VARCHAR},
+      last_known_router_id = #{lastKnownRouterId,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      standard_attr_id = #{standardAttrId,jdbcType=BIGINT},
+      ee_bp = #{eeBp,jdbcType=VARCHAR},
+      ee_user = #{eeUser,jdbcType=VARCHAR},
+      ee_status = #{eeStatus,jdbcType=INTEGER},
+      dns_name = #{dnsName,jdbcType=VARCHAR},
+      dns_domain = #{dnsDomain,jdbcType=VARCHAR},
+      published_dns_name = #{publishedDnsName,jdbcType=VARCHAR},
+      published_dns_domain = #{publishedDnsDomain,jdbcType=VARCHAR},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      description = #{description,jdbcType=VARCHAR},
+      revision_number = #{revisionNumber,jdbcType=BIGINT},
+      policy_id = #{policyId,jdbcType=VARCHAR}
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyEeSelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsFloatingips">
+    update tbl_cmp_os_floatingips
+    set project_id = #{projectId,jdbcType=VARCHAR},
+        floating_ip_address = #{floatingIpAddress,jdbcType=VARCHAR},
+        floating_network_id = #{floatingNetworkId,jdbcType=VARCHAR},
+        floating_port_id = #{floatingPortId,jdbcType=VARCHAR},
+        fixed_port_id = #{fixedPortId,jdbcType=VARCHAR},
+        fixed_ip_address = #{fixedIpAddress,jdbcType=VARCHAR},
+        router_id = #{routerId,jdbcType=VARCHAR},
+        last_known_router_id = #{lastKnownRouterId,jdbcType=VARCHAR},
+        status = #{status,jdbcType=VARCHAR},
+        standard_attr_id = #{standardAttrId,jdbcType=BIGINT},
+        <if test="eeBp != null">
+        ee_bp = #{eeBp,jdbcType=VARCHAR},
+        </if>
+        <if test="eeUser != null">
+        ee_user = #{eeUser,jdbcType=VARCHAR},
+        </if>
+        <if test="eeStatus != null">
+        ee_status = #{eeStatus,jdbcType=INTEGER},
+        </if>
+        dns_name = #{dnsName,jdbcType=VARCHAR},
+        dns_domain = #{dnsDomain,jdbcType=VARCHAR},
+        published_dns_name = #{publishedDnsName,jdbcType=VARCHAR},
+        published_dns_domain = #{publishedDnsDomain,jdbcType=VARCHAR},
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+        description = #{description,jdbcType=VARCHAR},
+        revision_number = #{revisionNumber,jdbcType=BIGINT},
+        policy_id = #{policyId,jdbcType=VARCHAR}
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="getFloatingipIds" resultType="String">
+    select id from tbl_cmp_os_floatingips
+    where cloud_id = #{cloudId} and ee_status != -1
+  </select>
+</mapper>

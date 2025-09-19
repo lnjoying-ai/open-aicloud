@@ -1,0 +1,11 @@
+v1.24.3+k3s1:
+  jke-cert-deployer: lnjoying/jke-tools:v0.1.1-k3s1
+  jke-sidekick: lnjoying/jke-tools:v0.1.1-k3s1
+  jke-port-checker: lnjoying/jke-tools:v0.1.1-k3s1
+  jke-k3s-cleaner: lnjoying/jke-tools:v0.1.1-k3s1
+  jke-health-check-k3s: lnjoying/jke-tools:v0.1.1-k3s1
+  k3s-server: rancher/k3s:v1.24.3-k3s1
+  k3s-worker: rancher/k3s:v1.24.3-k3s1
+  cluster-agent: lnjoying/aicloud-cluster-agent:v1.0.0
+  jke-addon-deployer: rancher/k3s:v1.24.3-k3s1
+  file-download: lnjoying/jke-tools:v0.1.1-k3s1

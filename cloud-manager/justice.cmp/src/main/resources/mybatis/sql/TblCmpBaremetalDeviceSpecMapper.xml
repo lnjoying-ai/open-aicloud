@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.cmp.db.mapper.TblCmpBaremetalDeviceSpecMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.cmp.db.model.TblCmpBaremetalDeviceSpec">
+    <id column="cloud_id" jdbcType="VARCHAR" property="cloudId" />
+    <id column="device_spec_id" jdbcType="VARCHAR" property="deviceSpecId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="serial_number" jdbcType="VARCHAR" property="serialNumber" />
+    <result column="manufacturer" jdbcType="VARCHAR" property="manufacturer" />
+    <result column="architecture" jdbcType="VARCHAR" property="architecture" />
+    <result column="processor_count" jdbcType="INTEGER" property="processorCount" />
+    <result column="cpu_logic_num" jdbcType="INTEGER" property="cpuLogicNum" />
+    <result column="cpu_physical_num" jdbcType="INTEGER" property="cpuPhysicalNum" />
+    <result column="cpu_model_name" jdbcType="VARCHAR" property="cpuModelName" />
+    <result column="cpu_frequency" jdbcType="DOUBLE" property="cpuFrequency" />
+    <result column="cpu_num" jdbcType="INTEGER" property="cpuNum" />
+    <result column="mem_total" jdbcType="BIGINT" property="memTotal" />
+    <result column="disk_total" jdbcType="BIGINT" property="diskTotal" />
+    <result column="disk_type" jdbcType="VARCHAR" property="diskType" />
+    <result column="disk_detail" jdbcType="VARCHAR" property="diskDetail" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="ee_bp" jdbcType="VARCHAR" property="eeBp" />
+    <result column="ee_user" jdbcType="VARCHAR" property="eeUser" />
+    <result column="ee_status" jdbcType="INTEGER" property="eeStatus" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    cloud_id, device_spec_id, name, product_name, serial_number, manufacturer, architecture, 
+    processor_count, cpu_logic_num, cpu_physical_num, cpu_model_name, cpu_frequency, 
+    cpu_num, mem_total, disk_total, disk_type, disk_detail, create_time, update_time, 
+    ee_bp, ee_user, ee_status
+  </sql>
+  <select id="selectByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpBaremetalDeviceSpecExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_cmp_baremetal_device_spec
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpBaremetalDeviceSpecKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_cmp_baremetal_device_spec
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and device_spec_id = #{deviceSpecId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpBaremetalDeviceSpecKey">
+    delete from tbl_cmp_baremetal_device_spec
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and device_spec_id = #{deviceSpecId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpBaremetalDeviceSpecExample">
+    delete from tbl_cmp_baremetal_device_spec
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpBaremetalDeviceSpec">
+    insert into tbl_cmp_baremetal_device_spec (cloud_id, device_spec_id, name, 
+      product_name, serial_number, manufacturer, 
+      architecture, processor_count, cpu_logic_num, 
+      cpu_physical_num, cpu_model_name, cpu_frequency, 
+      cpu_num, mem_total, disk_total, 
+      disk_type, disk_detail, create_time, 
+      update_time, ee_bp, ee_user, 
+      ee_status)
+    values (#{cloudId,jdbcType=VARCHAR}, #{deviceSpecId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{productName,jdbcType=VARCHAR}, #{serialNumber,jdbcType=VARCHAR}, #{manufacturer,jdbcType=VARCHAR}, 
+      #{architecture,jdbcType=VARCHAR}, #{processorCount,jdbcType=INTEGER}, #{cpuLogicNum,jdbcType=INTEGER}, 
+      #{cpuPhysicalNum,jdbcType=INTEGER}, #{cpuModelName,jdbcType=VARCHAR}, #{cpuFrequency,jdbcType=DOUBLE}, 
+      #{cpuNum,jdbcType=INTEGER}, #{memTotal,jdbcType=BIGINT}, #{diskTotal,jdbcType=BIGINT}, 
+      #{diskType,jdbcType=VARCHAR}, #{diskDetail,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{eeBp,jdbcType=VARCHAR}, #{eeUser,jdbcType=VARCHAR}, 
+      #{eeStatus,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpBaremetalDeviceSpec">
+    insert into tbl_cmp_baremetal_device_spec
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cloudId != null">
+        cloud_id,
+      </if>
+      <if test="deviceSpecId != null">
+        device_spec_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="productName != null">
+        product_name,
+      </if>
+      <if test="serialNumber != null">
+        serial_number,
+      </if>
+      <if test="manufacturer != null">
+        manufacturer,
+      </if>
+      <if test="architecture != null">
+        architecture,
+      </if>
+      <if test="processorCount != null">
+        processor_count,
+      </if>
+      <if test="cpuLogicNum != null">
+        cpu_logic_num,
+      </if>
+      <if test="cpuPhysicalNum != null">
+        cpu_physical_num,
+      </if>
+      <if test="cpuModelName != null">
+        cpu_model_name,
+      </if>
+      <if test="cpuFrequency != null">
+        cpu_frequency,
+      </if>
+      <if test="cpuNum != null">
+        cpu_num,
+      </if>
+      <if test="memTotal != null">
+        mem_total,
+      </if>
+      <if test="diskTotal != null">
+        disk_total,
+      </if>
+      <if test="diskType != null">
+        disk_type,
+      </if>
+      <if test="diskDetail != null">
+        disk_detail,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="eeBp != null">
+        ee_bp,
+      </if>
+      <if test="eeUser != null">
+        ee_user,
+      </if>
+      <if test="eeStatus != null">
+        ee_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cloudId != null">
+        #{cloudId,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceSpecId != null">
+        #{deviceSpecId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null">
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="serialNumber != null">
+        #{serialNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="manufacturer != null">
+        #{manufacturer,jdbcType=VARCHAR},
+      </if>
+      <if test="architecture != null">
+        #{architecture,jdbcType=VARCHAR},
+      </if>
+      <if test="processorCount != null">
+        #{processorCount,jdbcType=INTEGER},
+      </if>
+      <if test="cpuLogicNum != null">
+        #{cpuLogicNum,jdbcType=INTEGER},
+      </if>
+      <if test="cpuPhysicalNum != null">
+        #{cpuPhysicalNum,jdbcType=INTEGER},
+      </if>
+      <if test="cpuModelName != null">
+        #{cpuModelName,jdbcType=VARCHAR},
+      </if>
+      <if test="cpuFrequency != null">
+        #{cpuFrequency,jdbcType=DOUBLE},
+      </if>
+      <if test="cpuNum != null">
+        #{cpuNum,jdbcType=INTEGER},
+      </if>
+      <if test="memTotal != null">
+        #{memTotal,jdbcType=BIGINT},
+      </if>
+      <if test="diskTotal != null">
+        #{diskTotal,jdbcType=BIGINT},
+      </if>
+      <if test="diskType != null">
+        #{diskType,jdbcType=VARCHAR},
+      </if>
+      <if test="diskDetail != null">
+        #{diskDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="eeBp != null">
+        #{eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="eeUser != null">
+        #{eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="eeStatus != null">
+        #{eeStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpBaremetalDeviceSpecExample" resultType="java.lang.Long">
+    select count(*) from tbl_cmp_baremetal_device_spec
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_cmp_baremetal_device_spec
+    <set>
+      <if test="record.cloudId != null">
+        cloud_id = #{record.cloudId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceSpecId != null">
+        device_spec_id = #{record.deviceSpecId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productName != null">
+        product_name = #{record.productName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serialNumber != null">
+        serial_number = #{record.serialNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.manufacturer != null">
+        manufacturer = #{record.manufacturer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.architecture != null">
+        architecture = #{record.architecture,jdbcType=VARCHAR},
+      </if>
+      <if test="record.processorCount != null">
+        processor_count = #{record.processorCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.cpuLogicNum != null">
+        cpu_logic_num = #{record.cpuLogicNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.cpuPhysicalNum != null">
+        cpu_physical_num = #{record.cpuPhysicalNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.cpuModelName != null">
+        cpu_model_name = #{record.cpuModelName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cpuFrequency != null">
+        cpu_frequency = #{record.cpuFrequency,jdbcType=DOUBLE},
+      </if>
+      <if test="record.cpuNum != null">
+        cpu_num = #{record.cpuNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.memTotal != null">
+        mem_total = #{record.memTotal,jdbcType=BIGINT},
+      </if>
+      <if test="record.diskTotal != null">
+        disk_total = #{record.diskTotal,jdbcType=BIGINT},
+      </if>
+      <if test="record.diskType != null">
+        disk_type = #{record.diskType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.diskDetail != null">
+        disk_detail = #{record.diskDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.eeBp != null">
+        ee_bp = #{record.eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeUser != null">
+        ee_user = #{record.eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeStatus != null">
+        ee_status = #{record.eeStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_cmp_baremetal_device_spec
+    set cloud_id = #{record.cloudId,jdbcType=VARCHAR},
+      device_spec_id = #{record.deviceSpecId,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      product_name = #{record.productName,jdbcType=VARCHAR},
+      serial_number = #{record.serialNumber,jdbcType=VARCHAR},
+      manufacturer = #{record.manufacturer,jdbcType=VARCHAR},
+      architecture = #{record.architecture,jdbcType=VARCHAR},
+      processor_count = #{record.processorCount,jdbcType=INTEGER},
+      cpu_logic_num = #{record.cpuLogicNum,jdbcType=INTEGER},
+      cpu_physical_num = #{record.cpuPhysicalNum,jdbcType=INTEGER},
+      cpu_model_name = #{record.cpuModelName,jdbcType=VARCHAR},
+      cpu_frequency = #{record.cpuFrequency,jdbcType=DOUBLE},
+      cpu_num = #{record.cpuNum,jdbcType=INTEGER},
+      mem_total = #{record.memTotal,jdbcType=BIGINT},
+      disk_total = #{record.diskTotal,jdbcType=BIGINT},
+      disk_type = #{record.diskType,jdbcType=VARCHAR},
+      disk_detail = #{record.diskDetail,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      ee_bp = #{record.eeBp,jdbcType=VARCHAR},
+      ee_user = #{record.eeUser,jdbcType=VARCHAR},
+      ee_status = #{record.eeStatus,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpBaremetalDeviceSpec">
+    update tbl_cmp_baremetal_device_spec
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null">
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="serialNumber != null">
+        serial_number = #{serialNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="manufacturer != null">
+        manufacturer = #{manufacturer,jdbcType=VARCHAR},
+      </if>
+      <if test="architecture != null">
+        architecture = #{architecture,jdbcType=VARCHAR},
+      </if>
+      <if test="processorCount != null">
+        processor_count = #{processorCount,jdbcType=INTEGER},
+      </if>
+      <if test="cpuLogicNum != null">
+        cpu_logic_num = #{cpuLogicNum,jdbcType=INTEGER},
+      </if>
+      <if test="cpuPhysicalNum != null">
+        cpu_physical_num = #{cpuPhysicalNum,jdbcType=INTEGER},
+      </if>
+      <if test="cpuModelName != null">
+        cpu_model_name = #{cpuModelName,jdbcType=VARCHAR},
+      </if>
+      <if test="cpuFrequency != null">
+        cpu_frequency = #{cpuFrequency,jdbcType=DOUBLE},
+      </if>
+      <if test="cpuNum != null">
+        cpu_num = #{cpuNum,jdbcType=INTEGER},
+      </if>
+      <if test="memTotal != null">
+        mem_total = #{memTotal,jdbcType=BIGINT},
+      </if>
+      <if test="diskTotal != null">
+        disk_total = #{diskTotal,jdbcType=BIGINT},
+      </if>
+      <if test="diskType != null">
+        disk_type = #{diskType,jdbcType=VARCHAR},
+      </if>
+      <if test="diskDetail != null">
+        disk_detail = #{diskDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="eeBp != null">
+        ee_bp = #{eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="eeUser != null">
+        ee_user = #{eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="eeStatus != null">
+        ee_status = #{eeStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and device_spec_id = #{deviceSpecId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpBaremetalDeviceSpec">
+    update tbl_cmp_baremetal_device_spec
+    set name = #{name,jdbcType=VARCHAR},
+      product_name = #{productName,jdbcType=VARCHAR},
+      serial_number = #{serialNumber,jdbcType=VARCHAR},
+      manufacturer = #{manufacturer,jdbcType=VARCHAR},
+      architecture = #{architecture,jdbcType=VARCHAR},
+      processor_count = #{processorCount,jdbcType=INTEGER},
+      cpu_logic_num = #{cpuLogicNum,jdbcType=INTEGER},
+      cpu_physical_num = #{cpuPhysicalNum,jdbcType=INTEGER},
+      cpu_model_name = #{cpuModelName,jdbcType=VARCHAR},
+      cpu_frequency = #{cpuFrequency,jdbcType=DOUBLE},
+      cpu_num = #{cpuNum,jdbcType=INTEGER},
+      mem_total = #{memTotal,jdbcType=BIGINT},
+      disk_total = #{diskTotal,jdbcType=BIGINT},
+      disk_type = #{diskType,jdbcType=VARCHAR},
+      disk_detail = #{diskDetail,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      ee_bp = #{eeBp,jdbcType=VARCHAR},
+      ee_user = #{eeUser,jdbcType=VARCHAR},
+      ee_status = #{eeStatus,jdbcType=INTEGER}
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and device_spec_id = #{deviceSpecId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectCpuNum" resultType="java.lang.Integer">
+    select distinct cpu_num from tbl_cmp_baremetal_device_spec
+    <if test="cloudId != null">
+      where tbl_cmp_baremetal_device_spec.cloud_id = #{cloudId}
+    </if>
+  </select>
+
+  <select id="selectMemTotal" resultType="java.lang.Long">
+    select distinct mem_total from tbl_cmp_baremetal_device_spec
+    <if test="cloudId != null">
+      where tbl_cmp_baremetal_device_spec.cloud_id = #{cloudId}
+    </if>
+  </select>
+</mapper>

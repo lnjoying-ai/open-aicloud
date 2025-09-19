@@ -1,0 +1,378 @@
+version: "3.4"
+services:
+  opa:
+    image: swr.cn-north-1.myhuaweicloud.com/lnjoying/opa:0.51.0-static
+    container_name: aicloud-opa-server
+    restart: always
+    command:
+      - run
+      - --server
+    ports:
+      - "8181:8181"
+    networks:
+      - aicloud-bridge
+  nacos:
+    image: swr.cn-north-1.myhuaweicloud.com/lnjoying/nacos-server:v2.1.0
+    container_name: aicloud-nacos-server
+    restart: always
+    ports:
+      - "8848:8848"
+      - "9848:9848"
+    volumes:
+      - /home/lnjoying/mount/nacos/data:/home/nacos/data/
+    environment:
+      MODE: "standalone"
+    networks:
+      - aicloud-bridge
+    healthcheck:
+      test: [ "CMD","curl","-f","http://localhost:8848/nacos" ]
+      interval: 15s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+  frp:
+    image: swr.cn-north-1.myhuaweicloud.com/lnjoying/frps:v0.41
+    container_name: aicloud-frp-server
+    restart: always
+    network_mode: "host"
+  redis:
+    image: swr.cn-north-1.myhuaweicloud.com/lnjoying/redis:6.2.3
+    container_name: aicloud-redis
+    restart: always
+    ports:
+      - "6379:6379"
+    command: redis-server --requirepass ${REDIS_PASSWORD}
+    volumes:
+      - /home/lnjoying/mount/redis/data:/data/
+    networks:
+      - aicloud-bridge
+  postgres:
+    image: swr.cn-north-1.myhuaweicloud.com/lnjoying/postgres:13.3
+    container_name: aicloud-postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USERNAME}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: "dbname"
+      TZ: "Asia/Shanghai"
+    volumes:
+      - /home/lnjoying/mount/postgre/init:/docker-entrypoint-initdb.d/
+      - /home/lnjoying/mount/postgre/data:/var/lib/postgresql/data/
+    networks:
+      - aicloud-bridge
+  nginx:
+    image: swr.cn-north-1.myhuaweicloud.com/lnjoying/nginx:latest
+    container_name: aicloud-nginx
+    restart: always
+    network_mode: "host"
+    volumes:
+      - /home/lnjoying/mount/nginx/web:/root/web
+      - /home/lnjoying/mount/down:/root/down
+      - /home/lnjoying/mount/justice/config/etc/ssl:/opt/ssl
+      - /home/lnjoying/mount/nginx/nginx.conf:/etc/nginx/nginx.conf
+  servicecomb:
+    image: swr.cn-north-1.myhuaweicloud.com/lnjoying/service-center
+    container_name: aicloud-servicecomb
+    restart: always
+    ports:
+      - "30100:30100"
+    networks:
+      - aicloud-bridge
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "1"
+        max-size: "50m"
+  aicloud_sys:
+    image: swr.cn-north-1.myhuaweicloud.com/lnjoying/aicloud-sys:v1.0.0
+    container_name: aicloud-sys
+    restart: always
+    network_mode: "host"
+    env_file:
+      - .env
+    volumes:
+      - /home/lnjoying/mount/justice/config:/root/justice_config
+      - /home/lnjoying/mount/justice/logs:/root/justice_cloud/logs
+      - /home/lnjoying/mount/justice/out:/root/justice_cloud/out
+      - /home/lnjoying/mount/ssl:/root/ssl
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://127.0.0.1:8090/sys/v1/health" ]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 3s
+    depends_on:
+      - redis
+      - postgres
+      - servicecomb
+      - nacos
+  aicloud_scheduler:
+    image: swr.cn-north-1.myhuaweicloud.com/lnjoying/aicloud-scheduler:v1.0.0
+    container_name: aicloud-scheduler
+    restart: always
+    network_mode: "host"
+    environment:
+      - SYS_REST_ADDRESS=${CLOUD_INTERNAL_IP:-127.0.0.1}:8090
+    env_file:
+      - .env
+    volumes:
+      - /home/lnjoying/mount/justice/config:/root/justice_config
+      - /home/lnjoying/mount/justice/logs:/root/justice_cloud/logs
+      - /home/lnjoying/mount/justice/out:/root/justice_cloud/out
+      - /home/lnjoying/mount/ssl:/root/ssl
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://127.0.0.1:8098/ecss/v1/health" ]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 3s
+  aicloud_cls:
+    image: swr.cn-north-1.myhuaweicloud.com/lnjoying/aicloud-cls:v1.0.0
+    container_name: aicloud-cls
+    restart: always
+    network_mode: "host"
+    environment:
+      - SYS_REST_ADDRESS=${CLOUD_INTERNAL_IP:-127.0.0.1}:8090
+    env_file:
+      - .env
+    volumes:
+      - /home/lnjoying/mount/justice/config:/root/justice_config
+      - /home/lnjoying/mount/justice/logs:/root/justice_cloud/logs
+      - /home/lnjoying/mount/justice/out:/root/justice_cloud/out
+      - /home/lnjoying/mount/down:/root/down
+      - /home/lnjoying/mount/ssl:/root/ssl
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://127.0.0.1:8092/cls/v1/health" ]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 3s
+  aicloud_ims:
+    image: swr.cn-north-1.myhuaweicloud.com/lnjoying/aicloud-ims:v1.0.0
+    container_name: aicloud-ims
+    restart: always
+    network_mode: "host"
+    environment:
+      - SYS_REST_ADDRESS=${CLOUD_INTERNAL_IP:-127.0.0.1}:8090
+    env_file:
+      - .env
+    volumes:
+      - /home/lnjoying/mount/justice/config:/root/justice_config
+      - /home/lnjoying/mount/justice/logs:/root/justice_cloud/logs
+      - /home/lnjoying/mount/justice/out:/root/justice_cloud/out
+      - /home/lnjoying/mount/ssl:/root/ssl
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://127.0.0.1:8094/ims/v1/health" ]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 3s
+  aicloud_cis:
+    image: swr.cn-north-1.myhuaweicloud.com/lnjoying/aicloud-cis:v1.0.0
+    container_name: aicloud-cis
+    restart: always
+    network_mode: "host"
+    environment:
+      - SYS_REST_ADDRESS=${CLOUD_INTERNAL_IP:-127.0.0.1}:8090
+    env_file:
+      - .env
+    volumes:
+      - /home/lnjoying/mount/justice/config:/root/justice_config
+      - /home/lnjoying/mount/justice/logs:/root/justice_cloud/logs
+      - /home/lnjoying/mount/justice/out:/root/justice_cloud/out
+      - /home/lnjoying/mount/ssl:/root/ssl
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://127.0.0.1:8097/cis/v1/health" ]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 3s
+  aicloud_ecrm:
+    image: swr.cn-north-1.myhuaweicloud.com/lnjoying/aicloud-ecrm:v1.0.0
+    container_name: aicloud-ecrm
+    restart: always
+    network_mode: "host"
+    environment:
+      - SYS_REST_ADDRESS=${CLOUD_INTERNAL_IP:-127.0.0.1}:8090
+    env_file:
+      - .env
+    volumes:
+      - /home/lnjoying/mount/justice/config:/root/justice_config
+      - /home/lnjoying/mount/justice/logs:/root/justice_cloud/logs
+      - /home/lnjoying/mount/justice/out:/root/justice_cloud/out
+      - /home/lnjoying/mount/ssl:/root/ssl
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://127.0.0.1:8099/ecrm/v1/health" ]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 3s
+  aicloud_cmp:
+    image: swr.cn-north-1.myhuaweicloud.com/lnjoying/aicloud-cmp:v1.0.0
+    container_name: aicloud-cmp
+    restart: always
+    network_mode: "host"
+    environment:
+      - SYS_REST_ADDRESS=${CLOUD_INTERNAL_IP:-127.0.0.1}:8090
+    env_file:
+      - .env
+    volumes:
+      - /home/lnjoying/mount/justice/config:/root/justice_config
+      - /home/lnjoying/mount/justice/logs:/root/justice_cloud/logs
+      - /home/lnjoying/mount/justice/out:/root/justice_cloud/out
+      - /home/lnjoying/mount/ssl:/root/ssl
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://127.0.0.1:8089/cmp/v1/health" ]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 3s
+  aicloud_servicemanager:
+    image: swr.cn-north-1.myhuaweicloud.com/lnjoying/aicloud-servicemanager:v1.0.0
+    container_name: aicloud-servicemanager
+    restart: always
+    network_mode: "host"
+    environment:
+      - SYS_REST_ADDRESS=${CLOUD_INTERNAL_IP:-127.0.0.1}:8090
+    env_file:
+      - .env
+    volumes:
+      - /home/lnjoying/mount/justice/config:/root/justice_config
+      - /home/lnjoying/mount/justice/logs:/root/justice_cloud/logs
+      - /home/lnjoying/mount/justice/out:/root/justice_cloud/out
+      - /home/lnjoying/mount/ssl:/root/ssl
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://127.0.0.1:8087/service-manager/v1/health" ]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 3s
+  aicloud_servicegw:
+    image: swr.cn-north-1.myhuaweicloud.com/lnjoying/aicloud-servicegw:v1.0.0
+    container_name: aicloud-servicegw
+    restart: always
+    network_mode: "host"
+    environment:
+      - SYS_REST_ADDRESS=${CLOUD_INTERNAL_IP:-127.0.0.1}:8090
+    env_file:
+      - .env
+    volumes:
+      - /home/lnjoying/mount/justice/config:/root/justice_config
+      - /home/lnjoying/mount/justice/logs:/root/justice_cloud/logs
+      - /home/lnjoying/mount/justice/out:/root/justice_cloud/out
+      - /home/lnjoying/mount/ssl:/root/ssl
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://127.0.0.1:18092/servicegw/v1/health" ]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 3s
+  aicloud_apiserver:
+    image: swr.cn-north-1.myhuaweicloud.com/lnjoying/aicloud-apiserver:v1.0.0
+    container_name: aicloud-apiserver
+    restart: always
+    network_mode: "host"
+    environment:
+      - SYS_REST_ADDRESS=${CLOUD_INTERNAL_IP:-127.0.0.1}:8090
+    env_file:
+      - .env
+    volumes:
+      - /home/lnjoying/mount/justice/config:/root/justice_config
+      - /home/lnjoying/mount/justice/logs:/root/justice_cloud/logs
+      - /home/lnjoying/mount/justice/out:/root/justice_cloud/out
+      - /home/lnjoying/mount/ssl:/root/ssl
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://127.0.0.1:8686/api/v1/health" ]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 3s
+  aicloud_aos:
+    image: swr.cn-north-1.myhuaweicloud.com/lnjoying/aicloud-aos:v1.0.0
+    container_name: aicloud-aos
+    restart: always
+    network_mode: "host"
+    environment:
+      - HELM_CACHE_HOME=/root/helm/.cache
+      - HELM_CONFIG_HOME=/root/helm/.config
+      - HELM_DATA_HOME=/root/helm/.local/share
+      - HELM_CHART_TAR_HOME=/root/helm/.local/tar/
+      - SYS_REST_ADDRESS=${CLOUD_INTERNAL_IP:-127.0.0.1}:8090
+    env_file:
+      - .env
+    volumes:
+      - /home/lnjoying/mount/justice/config:/root/justice_config
+      - /home/lnjoying/mount/justice/logs:/root/justice_cloud/logs
+      - /home/lnjoying/mount/justice/out:/root/justice_cloud/out
+      - /home/lnjoying/mount/ssl:/root/ssl
+      - /home/lnjoying/mount/helm:/root/helm
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://127.0.0.1:8096/aos/v1/health" ]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 3s
+  aicloud_omc:
+    image: swr.cn-north-1.myhuaweicloud.com/lnjoying/aicloud-omc:v1.0.0
+    container_name: aicloud-omc
+    restart: always
+    network_mode: "host"
+    environment:
+      - MONITOR_ADMIN_USER=${MONITOR_ADMIN_USER:-admin}
+      - MONITOR_ADMIN_PASSWORD=${MONITOR_ADMIN_PASSWORD:-admin}
+      - SYS_REST_ADDRESS=${CLOUD_INTERNAL_IP:-127.0.0.1}:8090
+    env_file:
+      - .env
+    volumes:
+      - /home/lnjoying/mount/justice/config:/root/justice_config
+      - /home/lnjoying/mount/justice/logs:/root/justice_cloud/logs
+      - /home/lnjoying/mount/justice/out:/root/justice_cloud/out
+      - /home/lnjoying/mount/ssl:/root/ssl
+      - /home/lnjoying/mount/monitor/prometheus/:/root/monitor/prometheus/
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://127.0.0.1:8088/omc/v1/health" ]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 3s
+  aicloud_iam:
+    image: swr.cn-north-1.myhuaweicloud.com/lnjoying/aicloud-iam:v1.0.0
+    container_name: aicloud-iam
+    restart: always
+    network_mode: "host"
+    environment:
+      - SYS_REST_ADDRESS=${CLOUD_INTERNAL_IP:-127.0.0.1}:8090
+    env_file:
+      - .env
+    volumes:
+      - /home/lnjoying/mount/justice/config:/root/justice_config
+      - /home/lnjoying/mount/justice/logs:/root/justice_cloud/logs
+      - /home/lnjoying/mount/justice/out:/root/justice_cloud/out
+      - /home/lnjoying/mount/ssl:/root/ssl
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://127.0.0.1:8068/iam/v1/health" ]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 3s
+  dashboard:
+    image: swr.cn-north-1.myhuaweicloud.com/lnjoying/dashboard:v1.25.c
+    container_name: aicloud-dashboard
+    restart: always
+    network_mode: "host"
+    command: --insecure-port 19000
+  autoheal:
+    image: swr.cn-north-1.myhuaweicloud.com/lnjoying/autoheal
+    container_name: aicloud-autoheal
+    restart: always
+    environment:
+      - AUTOHEAL_CONTAINER_LABEL=all
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - aicloud-bridge
+networks:
+  aicloud-bridge:
+    driver: bridge

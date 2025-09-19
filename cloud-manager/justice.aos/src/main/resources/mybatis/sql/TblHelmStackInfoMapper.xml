@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.aos.db.mapper.TblHelmStackInfoMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.aos.db.model.TblHelmStackInfo">
+    <!--@mbg.generated-->
+    <!--@Table tbl_helm_stack_info-->
+    <id column="stack_id" jdbcType="VARCHAR" property="stackId" />
+    <result column="release_name" jdbcType="VARCHAR" property="releaseName" />
+    <result column="app_id" jdbcType="VARCHAR" property="appId" />
+    <result column="chart_name" jdbcType="VARCHAR" property="chartName" />
+    <result column="chart_version" jdbcType="VARCHAR" property="chartVersion" />
+    <result column="chart_package_name" jdbcType="VARCHAR" property="chartPackageName" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="stack_compose" jdbcType="VARCHAR" property="stackCompose" />
+    <result column="cluster_id" jdbcType="VARCHAR" property="clusterId" />
+    <result column="cluster_name" jdbcType="VARCHAR" property="clusterName" />
+    <result column="namespace" jdbcType="VARCHAR" property="namespace" />
+    <result column="labels" jdbcType="OTHER" property="labels"  typeHandler="com.lnjoying.justice.aos.handler.JsonbTypeHandler"/>
+    <result column="owner_id" jdbcType="VARCHAR" property="ownerId" />
+    <result column="owner_name" jdbcType="VARCHAR" property="ownerName" />
+    <result column="owner_bp_id" jdbcType="VARCHAR" property="ownerBpId" />
+    <result column="owner_bp_name" jdbcType="VARCHAR" property="ownerBpName" />
+    <result column="creator_id" jdbcType="VARCHAR" property="creatorId" />
+    <result column="creator_name" jdbcType="VARCHAR" property="creatorName" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    stack_id, release_name, app_id, chart_name, chart_version, chart_package_name, description, 
+    "status", stack_compose, cluster_id, cluster_name, namespace, labels, owner_id, owner_name, owner_bp_id, owner_bp_name,
+    creator_id, creator_name, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_helm_stack_info
+    where stack_id = #{stackId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from tbl_helm_stack_info
+    where stack_id = #{stackId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.aos.db.model.TblHelmStackInfo">
+    <!--@mbg.generated-->
+    insert into tbl_helm_stack_info (stack_id, release_name, app_id, 
+      chart_name, chart_version, chart_package_name, 
+      description, "status", stack_compose, 
+      cluster_id, cluster_name, namespace, labels,
+      owner_id, owner_name, owner_bp_id, owner_bp_name, creator_id,
+      creator_name, create_time, update_time
+      )
+    values (#{stackId,jdbcType=VARCHAR}, #{releaseName,jdbcType=VARCHAR}, #{appId,jdbcType=VARCHAR}, 
+      #{chartName,jdbcType=VARCHAR}, #{chartVersion,jdbcType=VARCHAR}, #{chartPackageName,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{stackCompose,jdbcType=VARCHAR}, 
+      #{clusterId,jdbcType=VARCHAR}, #{clusterName,jdbcType=VARCHAR}, #{namespace,jdbcType=VARCHAR},
+     #{labels,jdbcType=OTHER, typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler}
+      #{ownerId,jdbcType=VARCHAR}, #{ownerName,jdbcType=VARCHAR}, #{ownerBpId,jdbcType=VARCHAR}, #{ownerBpName,jdbcType=VARCHAR},
+     #{creatorId,jdbcType=VARCHAR},
+      #{creatorName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.aos.db.model.TblHelmStackInfo">
+    <!--@mbg.generated-->
+    insert into tbl_helm_stack_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="stackId != null and stackId != ''">
+        stack_id,
+      </if>
+      <if test="releaseName != null and releaseName != ''">
+        release_name,
+      </if>
+      <if test="appId != null and appId != ''">
+        app_id,
+      </if>
+      <if test="chartName != null and chartName != ''">
+        chart_name,
+      </if>
+      <if test="chartVersion != null and chartVersion != ''">
+        chart_version,
+      </if>
+      <if test="chartPackageName != null and chartPackageName != ''">
+        chart_package_name,
+      </if>
+      <if test="description != null and description != ''">
+        description,
+      </if>
+      <if test="status != null">
+        "status",
+      </if>
+      <if test="stackCompose != null and stackCompose != ''">
+        stack_compose,
+      </if>
+      <if test="clusterId != null and clusterId != ''">
+        cluster_id,
+      </if>
+      <if test="clusterName != null and clusterName != ''">
+        cluster_name,
+      </if>
+      <if test="namespace != null and namespace != ''">
+        namespace,
+      </if>
+      <if test="labels != null ">
+        labels,
+      </if>
+      <if test="ownerId != null and ownerId != ''">
+        owner_id,
+      </if>
+      <if test="ownerName != null and ownerName != ''">
+        owner_name,
+      </if>
+      <if test="ownerBpId != null and ownerBpId != ''">
+        owner_bp_id,
+      </if>
+      <if test="ownerBpName != null and ownerBpName != ''">
+        owner_bp_name,
+      </if>
+      <if test="creatorId != null and creatorId != ''">
+        creator_id,
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+        creator_name,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="stackId != null and stackId != ''">
+        #{stackId,jdbcType=VARCHAR},
+      </if>
+      <if test="releaseName != null and releaseName != ''">
+        #{releaseName,jdbcType=VARCHAR},
+      </if>
+      <if test="appId != null and appId != ''">
+        #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="chartName != null and chartName != ''">
+        #{chartName,jdbcType=VARCHAR},
+      </if>
+      <if test="chartVersion != null and chartVersion != ''">
+        #{chartVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="chartPackageName != null and chartPackageName != ''">
+        #{chartPackageName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null and description != ''">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="stackCompose != null and stackCompose != ''">
+        #{stackCompose,jdbcType=VARCHAR},
+      </if>
+      <if test="clusterId != null and clusterId != ''">
+        #{clusterId,jdbcType=VARCHAR},
+      </if>
+      <if test="clusterName != null and clusterName != ''">
+        #{clusterName,jdbcType=VARCHAR},
+      </if>
+      <if test="namespace != null and namespace != ''">
+        #{namespace,jdbcType=VARCHAR},
+      </if>
+      <if test="labels != null ">
+        #{labels,jdbcType=OTHER, typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+      </if>
+      <if test="ownerId != null and ownerId != ''">
+        #{ownerId,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerName != null and ownerName != ''">
+        #{ownerName,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerBpId != null and ownerBpId != ''">
+        #{ownerBpId,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerBpName != null and ownerBpName != ''">
+        #{ownerBpName,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null and creatorId != ''">
+        #{creatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+        #{creatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.aos.db.model.TblHelmStackInfo">
+    <!--@mbg.generated-->
+    update tbl_helm_stack_info
+    <set>
+      <if test="releaseName != null and releaseName != ''">
+        release_name = #{releaseName,jdbcType=VARCHAR},
+      </if>
+      <if test="appId != null and appId != ''">
+        app_id = #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="chartName != null and chartName != ''">
+        chart_name = #{chartName,jdbcType=VARCHAR},
+      </if>
+      <if test="chartVersion != null and chartVersion != ''">
+        chart_version = #{chartVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="chartPackageName != null and chartPackageName != ''">
+        chart_package_name = #{chartPackageName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null and description != ''">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        "status" = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="stackCompose != null and stackCompose != ''">
+        stack_compose = #{stackCompose,jdbcType=VARCHAR},
+      </if>
+      <if test="clusterId != null and clusterId != ''">
+        cluster_id = #{clusterId,jdbcType=VARCHAR},
+      </if>
+      <if test="clusterName != null and clusterName != ''">
+        cluster_name = #{clusterName,jdbcType=VARCHAR},
+      </if>
+      <if test="namespace != null and namespace != ''">
+        namespace = #{namespace,jdbcType=VARCHAR},
+      </if>
+      <if test="labels != null ">
+        labels =  #{labels,jdbcType=OTHER, typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+      </if>
+      <if test="ownerId != null and ownerId != ''">
+        owner_id = #{ownerId,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerName != null and ownerName != ''">
+        owner_name = #{ownerName,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerBpId != null and ownerBpId != ''">
+        owner_bp_id = #{ownerBpId,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerBpName != null and ownerBpName != ''">
+        owner_bp_name = #{ownerBpName,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null and creatorId != ''">
+        creator_id = #{creatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorName != null and creatorName != ''">
+        creator_name = #{creatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where stack_id = #{stackId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.aos.db.model.TblHelmStackInfo">
+    <!--@mbg.generated-->
+    update tbl_helm_stack_info
+    set release_name = #{releaseName,jdbcType=VARCHAR},
+      app_id = #{appId,jdbcType=VARCHAR},
+      chart_name = #{chartName,jdbcType=VARCHAR},
+      chart_version = #{chartVersion,jdbcType=VARCHAR},
+      chart_package_name = #{chartPackageName,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      "status" = #{status,jdbcType=INTEGER},
+      stack_compose = #{stackCompose,jdbcType=VARCHAR},
+      cluster_id = #{clusterId,jdbcType=VARCHAR},
+      cluster_name = #{clusterName,jdbcType=VARCHAR},
+      namespace = #{namespace,jdbcType=VARCHAR},
+      labels =  #{labels,jdbcType=OTHER, typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+      owner_id = #{ownerId,jdbcType=VARCHAR},
+      owner_name = #{ownerName,jdbcType=VARCHAR},
+      owner_bp_id = #{ownerBpId,jdbcType=VARCHAR},
+      owner_bp_name = #{ownerBpName,jdbcType=VARCHAR},
+      creator_id = #{creatorId,jdbcType=VARCHAR},
+      creator_name = #{creatorName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where stack_id = #{stackId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectStackByChartName" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tbl_helm_stack_info
+        <where>
+            <if test="chartName != null and chartName != ''">
+                and chart_name=#{chartName,jdbcType=VARCHAR}
+            </if>
+            <!--<if test = "true">
+                and status != 5
+            </if>-->
+        </where>
+    </select>
+
+  <select id="selectAllStacks" resultMap="BaseResultMap">
+    SELECT
+    t3.*
+    FROM
+    ( SELECT * FROM tbl_helm_stack_info
+    <where>
+      <if test="releaseName != null and releaseName != ''">
+        and release_name like concat('%',#{releaseName,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="userId != null and userId != ''">
+        and owner_id = #{releaseName,jdbcType=VARCHAR}
+      </if>
+      <if test="bpId != null and bpId != ''">
+        and owner_bp_id = #{bpId,jdbcType=VARCHAR}
+      </if>
+      <if test="clusterIds != null and clusterIds.size() > 0">
+        and cluster_id in
+        <foreach collection="clusterIds" item="element" index="index" open="(" close=")" separator=",">
+           #{element,jdbcType=VARCHAR}
+        </foreach>
+      </if>
+     <!-- <if test="true">
+        and status != 5
+      </if>-->
+    </where>
+    ) t3
+    JOIN (
+    SELECT
+    t1.app_id
+    FROM
+    tbl_repo_app_category_bind_info t1
+    JOIN ( SELECT category_id FROM tbl_repo_category_info
+    <where>
+      <if test="category != null and category != ''">
+        and category like concat('%',#{category,jdbcType=VARCHAR},'%')
+      </if>
+    </where>
+    ) t2 ON t1.category_id = t2.category_id
+    ) t5 ON t3.app_id = t5.app_id
+    order by t3.create_time desc
+  </select>
+
+  <select id="selectAllByReleaseName" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tbl_helm_stack_info
+    <where>
+      <if test="releaseName != null and releaseName != ''">
+        and release_name=#{releaseName,jdbcType=VARCHAR}
+      </if>
+      <if test="true">
+        and status != 5
+      </if>
+    </where>
+  </select>
+
+  <select id="countByOwnerBpIdAndOwnerId" resultType="java.lang.Integer">
+    select count(1)
+    from tbl_helm_stack_info
+    <where>
+      <if test="ownerBpId != null and ownerBpId != ''">
+        and owner_bp_id=#{ownerBpId,jdbcType=VARCHAR}
+      </if>
+      <if test="ownerId != null and ownerId != ''">
+        and owner_id=#{ownerId,jdbcType=VARCHAR}
+      </if>
+      <if test="true">
+        and status != 5
+      </if>
+    </where>
+  </select>
+</mapper>

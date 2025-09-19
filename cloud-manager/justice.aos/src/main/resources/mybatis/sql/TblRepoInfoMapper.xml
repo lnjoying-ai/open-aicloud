@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.aos.db.mapper.TblRepoInfoMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.aos.db.model.TblRepoInfo">
+    <!--@mbg.generated-->
+    <!--@Table tbl_repo_info-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="repo_name" jdbcType="VARCHAR" property="repoName" />
+    <result column="repo_url" jdbcType="VARCHAR" property="repoUrl" />
+    <result column="auth_method" jdbcType="INTEGER" property="authMethod" />
+    <result column="auth_info" jdbcType="OTHER" property="authInfo" typeHandler="com.lnjoying.justice.aos.handler.JsonbTypeHandler"/>
+    <result column="hash" jdbcType="VARCHAR" property="hash" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="labels" jdbcType="OTHER" property="labels" typeHandler="com.lnjoying.justice.aos.handler.JsonbTypeHandler"/>
+    <result column="access" jdbcType="OTHER" property="access" typeHandler="com.lnjoying.justice.aos.handler.JsonbTypeHandler"/>
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, repo_name, repo_url, auth_method, auth_info, hash, "status", labels, "access", create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_repo_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from tbl_repo_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.aos.db.model.TblRepoInfo" useGeneratedKeys="true"
+          keyProperty="id">
+    <!--@mbg.generated-->
+    insert into tbl_repo_info (repo_name, repo_url,
+      auth_method, auth_info, hash, 
+      "status", labels, "access", create_time, update_time)
+    values ( #{repoName,jdbcType=VARCHAR}, #{repoUrl,jdbcType=VARCHAR},
+      #{authMethod,jdbcType=INTEGER}, #{authInfo,jdbcType=OTHER, typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler}, #{hash,jdbcType=VARCHAR},
+      #{status,jdbcType=INTEGER}, #{labels,jdbcType=OTHER, typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+    #{access,jdbcType=OTHER, typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.aos.db.model.TblRepoInfo" useGeneratedKeys="true"
+          keyProperty="id">
+    <!--@mbg.generated-->
+    insert into tbl_repo_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="repoName != null and repoName != ''">
+        repo_name,
+      </if>
+      <if test="repoUrl != null and repoUrl != ''">
+        repo_url,
+      </if>
+      <if test="authMethod != null">
+        auth_method,
+      </if>
+      <if test="authInfo != null">
+        auth_info,
+      </if>
+      <if test="hash != null and hash != ''">
+        hash,
+      </if>
+      <if test="status != null">
+        "status",
+      </if>
+      <if test="labels != null">
+        labels,
+      </if>
+      <if test="access != null">
+        "access",
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="repoName != null and repoName != ''">
+        #{repoName,jdbcType=VARCHAR},
+      </if>
+      <if test="repoUrl != null and repoUrl != ''">
+        #{repoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="authMethod != null">
+        #{authMethod,jdbcType=INTEGER},
+      </if>
+      <if test="authInfo != null">
+        #{authInfo,jdbcType=OTHER, typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+      </if>
+      <if test="hash != null and hash != ''">
+        #{hash,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="labels != null">
+        #{labels,jdbcType=OTHER, typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+      </if>
+      <if test="access != null">
+        #{access,jdbcType=OTHER, typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.aos.db.model.TblRepoInfo">
+    <!--@mbg.generated-->
+    update tbl_repo_info
+    <set>
+      <if test="repoName != null and repoName != ''">
+        repo_name = #{repoName,jdbcType=VARCHAR},
+      </if>
+      <if test="repoUrl != null and repoUrl != ''">
+        repo_url = #{repoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="authMethod != null">
+        auth_method = #{authMethod,jdbcType=INTEGER},
+      </if>
+      <if test="authInfo != null">
+        auth_info = #{authInfo,jdbcType=OTHER, typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+      </if>
+      <if test="hash != null and hash != ''">
+        hash = #{hash,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        "status" = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="labels != null">
+        labels = #{labels,jdbcType=OTHER, typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+      </if>
+      <if test="access != null">
+        "access" = #{access,jdbcType=OTHER, typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.aos.db.model.TblRepoInfo">
+    <!--@mbg.generated-->
+    update tbl_repo_info
+    set repo_name = #{repoName,jdbcType=VARCHAR},
+      repo_url = #{repoUrl,jdbcType=VARCHAR},
+      auth_method = #{authMethod,jdbcType=INTEGER},
+      auth_info = #{authInfo,jdbcType=OTHER, typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+      hash = #{hash,jdbcType=VARCHAR},
+      "status" = #{status,jdbcType=INTEGER},
+      labels = #{labels,jdbcType=OTHER, typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+      "access" = #{access,jdbcType=OTHER, typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByRepoName" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from tbl_repo_info
+        <where>
+            <if test="repoName != null and repoName != ''">
+                and repo_name=#{repoName,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
+  <delete id="deleteByRepoName">
+        delete from tbl_repo_info
+        <where>
+            <if test="repoName != null and repoName != ''">
+                and repo_name=#{repoName,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </delete>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tbl_repo_info
+    <where>
+      <if test="repoName != null and repoName != ''">
+        and repo_name like concat('%',#{repoName,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="status != null">
+        and "status"=#{status,jdbcType=INTEGER}
+      </if>
+    </where>
+    order by create_time desc
+  </select>
+
+  <select id="selectAllByStatus" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from tbl_repo_info
+        <where>
+            <if test="list != null and list.size() > 0">
+              and status in
+              <foreach collection="list" item="status" index="index" open="(" close=")" separator=",">
+                #{status,jdbcType=INTEGER}
+              </foreach>
+            </if>
+        </where>
+    </select>
+</mapper>

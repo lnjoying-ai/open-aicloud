@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.cmp.db.mapper.TblCmpFlavorMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.cmp.db.model.TblCmpFlavor">
+    <id column="cloud_id" jdbcType="VARCHAR" property="cloudId" />
+    <id column="flavor_id" jdbcType="VARCHAR" property="flavorId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="type" jdbcType="SMALLINT" property="type" />
+    <result column="cpu" jdbcType="INTEGER" property="cpu" />
+    <result column="mem" jdbcType="INTEGER" property="mem" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="ee_bp" jdbcType="VARCHAR" property="eeBp" />
+    <result column="ee_user" jdbcType="VARCHAR" property="eeUser" />
+    <result column="ee_status" jdbcType="INTEGER" property="eeStatus" />
+    <result column="phase_status" jdbcType="INTEGER" property="phaseStatus" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="gpu_count" jdbcType="INTEGER" property="gpuCount" />
+    <result column="gpu_name" jdbcType="VARCHAR" property="gpuName" />
+    <result column="need_ib" jdbcType="BIT" property="needIb" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    cloud_id, flavor_id, name, type, cpu, mem, create_time, update_time, ee_bp, ee_user, 
+    ee_status, phase_status, user_id, gpu_count, gpu_name, need_ib
+  </sql>
+  <select id="selectByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpFlavorExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_cmp_flavor
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null and pageSize != null and pageSize != 0">
+      limit #{pageSize} offset #{startRow}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpFlavorKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_cmp_flavor
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and flavor_id = #{flavorId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpFlavorKey">
+    delete from tbl_cmp_flavor
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and flavor_id = #{flavorId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpFlavorExample">
+    delete from tbl_cmp_flavor
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpFlavor">
+    insert into tbl_cmp_flavor (cloud_id, flavor_id, name, 
+      type, cpu, mem, create_time, 
+      update_time, ee_bp, ee_user, 
+      ee_status, phase_status, user_id, 
+      gpu_count, gpu_name, need_ib
+      )
+    values (#{cloudId,jdbcType=VARCHAR}, #{flavorId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{type,jdbcType=SMALLINT}, #{cpu,jdbcType=INTEGER}, #{mem,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{eeBp,jdbcType=VARCHAR}, #{eeUser,jdbcType=VARCHAR}, 
+      #{eeStatus,jdbcType=INTEGER}, #{phaseStatus,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, 
+      #{gpuCount,jdbcType=INTEGER}, #{gpuName,jdbcType=VARCHAR}, #{needIb,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpFlavor">
+    insert into tbl_cmp_flavor
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cloudId != null">
+        cloud_id,
+      </if>
+      <if test="flavorId != null">
+        flavor_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="cpu != null">
+        cpu,
+      </if>
+      <if test="mem != null">
+        mem,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="eeBp != null">
+        ee_bp,
+      </if>
+      <if test="eeUser != null">
+        ee_user,
+      </if>
+      <if test="eeStatus != null">
+        ee_status,
+      </if>
+      <if test="phaseStatus != null">
+        phase_status,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="gpuCount != null">
+        gpu_count,
+      </if>
+      <if test="gpuName != null">
+        gpu_name,
+      </if>
+      <if test="needIb != null">
+        need_ib,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cloudId != null">
+        #{cloudId,jdbcType=VARCHAR},
+      </if>
+      <if test="flavorId != null">
+        #{flavorId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=SMALLINT},
+      </if>
+      <if test="cpu != null">
+        #{cpu,jdbcType=INTEGER},
+      </if>
+      <if test="mem != null">
+        #{mem,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="eeBp != null">
+        #{eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="eeUser != null">
+        #{eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="eeStatus != null">
+        #{eeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="phaseStatus != null">
+        #{phaseStatus,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="gpuCount != null">
+        #{gpuCount,jdbcType=INTEGER},
+      </if>
+      <if test="gpuName != null">
+        #{gpuName,jdbcType=VARCHAR},
+      </if>
+      <if test="needIb != null">
+        #{needIb,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpFlavorExample" resultType="java.lang.Long">
+    select count(*) from tbl_cmp_flavor
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_cmp_flavor
+    <set>
+      <if test="record.cloudId != null">
+        cloud_id = #{record.cloudId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.flavorId != null">
+        flavor_id = #{record.flavorId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=SMALLINT},
+      </if>
+      <if test="record.cpu != null">
+        cpu = #{record.cpu,jdbcType=INTEGER},
+      </if>
+      <if test="record.mem != null">
+        mem = #{record.mem,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.eeBp != null">
+        ee_bp = #{record.eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeUser != null">
+        ee_user = #{record.eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeStatus != null">
+        ee_status = #{record.eeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.phaseStatus != null">
+        phase_status = #{record.phaseStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gpuCount != null">
+        gpu_count = #{record.gpuCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.gpuName != null">
+        gpu_name = #{record.gpuName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.needIb != null">
+        need_ib = #{record.needIb,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_cmp_flavor
+    set cloud_id = #{record.cloudId,jdbcType=VARCHAR},
+      flavor_id = #{record.flavorId,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=SMALLINT},
+      cpu = #{record.cpu,jdbcType=INTEGER},
+      mem = #{record.mem,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      ee_bp = #{record.eeBp,jdbcType=VARCHAR},
+      ee_user = #{record.eeUser,jdbcType=VARCHAR},
+      ee_status = #{record.eeStatus,jdbcType=INTEGER},
+      phase_status = #{record.phaseStatus,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      gpu_count = #{record.gpuCount,jdbcType=INTEGER},
+      gpu_name = #{record.gpuName,jdbcType=VARCHAR},
+      need_ib = #{record.needIb,jdbcType=BIT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpFlavor">
+    update tbl_cmp_flavor
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=SMALLINT},
+      </if>
+      <if test="cpu != null">
+        cpu = #{cpu,jdbcType=INTEGER},
+      </if>
+      <if test="mem != null">
+        mem = #{mem,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="eeBp != null">
+        ee_bp = #{eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="eeUser != null">
+        ee_user = #{eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="eeStatus != null">
+        ee_status = #{eeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="phaseStatus != null">
+        phase_status = #{phaseStatus,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="gpuCount != null">
+        gpu_count = #{gpuCount,jdbcType=INTEGER},
+      </if>
+      <if test="gpuName != null">
+        gpu_name = #{gpuName,jdbcType=VARCHAR},
+      </if>
+      <if test="needIb != null">
+        need_ib = #{needIb,jdbcType=BIT},
+      </if>
+    </set>
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and flavor_id = #{flavorId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpFlavor">
+    update tbl_cmp_flavor
+    set name = #{name,jdbcType=VARCHAR},
+      type = #{type,jdbcType=SMALLINT},
+      cpu = #{cpu,jdbcType=INTEGER},
+      mem = #{mem,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      ee_bp = #{eeBp,jdbcType=VARCHAR},
+      ee_user = #{eeUser,jdbcType=VARCHAR},
+      ee_status = #{eeStatus,jdbcType=INTEGER},
+      phase_status = #{phaseStatus,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=VARCHAR},
+      gpu_count = #{gpuCount,jdbcType=INTEGER},
+      gpu_name = #{gpuName,jdbcType=VARCHAR},
+      need_ib = #{needIb,jdbcType=BIT}
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and flavor_id = #{flavorId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="getFlavorIds" resultType="String">
+    select flavor_id from tbl_cmp_flavor
+    where cloud_id = #{cloudId} and ee_status != -1
+  </select>
+</mapper>

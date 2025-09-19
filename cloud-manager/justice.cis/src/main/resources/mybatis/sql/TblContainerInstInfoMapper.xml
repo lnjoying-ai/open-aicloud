@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.cis.db.mapper.TblContainerInstInfoMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.cis.db.model.TblContainerInstInfo">
+    <id column="inst_id" jdbcType="VARCHAR" property="instId" />
+    <result column="ref_id" jdbcType="VARCHAR" property="refId" />
+    <result column="node_id" jdbcType="VARCHAR" property="nodeId" />
+    <result column="region_id" jdbcType="VARCHAR" property="regionId" />
+    <result column="site_id" jdbcType="VARCHAR" property="siteId" />
+    <result column="spec_id" jdbcType="VARCHAR" property="specId" />
+    <result column="container_name" jdbcType="VARCHAR" property="containerName" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="inspet_container_params" jdbcType="VARCHAR" property="inspetContainerParams" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="send_create_num" jdbcType="INTEGER" property="sendCreateNum" />
+    <result column="start_num" jdbcType="INTEGER" property="startNum" />
+    <result column="fail_num" jdbcType="INTEGER" property="failNum" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="remove_time" jdbcType="TIMESTAMP" property="removeTime" />
+    <result column="image_name" jdbcType="VARCHAR" property="imageName" />
+    <result column="cmd" jdbcType="VARCHAR" property="cmd" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="bp_id" jdbcType="VARCHAR" property="bpId" />
+    <result column="event_type" jdbcType="INTEGER" property="eventType" />
+    <result column="report_time" jdbcType="TIMESTAMP" property="reportTime" />
+    <result column="restart_policy" jdbcType="VARCHAR" property="restartPolicy" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    inst_id, ref_id, node_id, region_id, site_id, spec_id, container_name, status, inspet_container_params, 
+    ip, send_create_num, start_num, fail_num, create_time, update_time, remove_time, image_name, cmd,
+    user_id, bp_id, event_type, report_time, restart_policy
+  </sql>
+  <select id="selectByExample" parameterType="com.lnjoying.justice.cis.db.model.TblContainerInstInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_container_inst_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null and pageSize != null and pageSize != 0">
+      offset #{startRow} limit #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_container_inst_info
+    where inst_id = #{instId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tbl_container_inst_info
+    where inst_id = #{instId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lnjoying.justice.cis.db.model.TblContainerInstInfoExample">
+    delete from tbl_container_inst_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.cis.db.model.TblContainerInstInfo">
+    insert into tbl_container_inst_info (inst_id, ref_id, node_id, 
+      region_id, site_id, spec_id, 
+      container_name, status, inspet_container_params, 
+      ip, send_create_num, start_num, 
+      fail_num, create_time, update_time, 
+      remove_time, image_name, cmd,
+      user_id, bp_id, event_type,
+      report_time, restart_policy)
+    values (#{instId,jdbcType=VARCHAR}, #{refId,jdbcType=VARCHAR}, #{nodeId,jdbcType=VARCHAR}, 
+      #{regionId,jdbcType=VARCHAR}, #{siteId,jdbcType=VARCHAR}, #{specId,jdbcType=VARCHAR}, 
+      #{containerName,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{inspetContainerParams,jdbcType=VARCHAR}, 
+      #{ip,jdbcType=VARCHAR}, #{sendCreateNum,jdbcType=INTEGER}, #{startNum,jdbcType=INTEGER}, 
+      #{failNum,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{removeTime,jdbcType=TIMESTAMP}, #{imageName,jdbcType=VARCHAR}, #{cmd,jdbcType=VARCHAR},
+      #{userId,jdbcType=VARCHAR}, #{bpId,jdbcType=VARCHAR}, #{eventType,jdbcType=INTEGER},
+      #{reportTime,jdbcType=TIMESTAMP}, #{restartPolicy,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.cis.db.model.TblContainerInstInfo">
+    insert into tbl_container_inst_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="instId != null">
+        inst_id,
+      </if>
+      <if test="refId != null">
+        ref_id,
+      </if>
+      <if test="nodeId != null">
+        node_id,
+      </if>
+      <if test="regionId != null">
+        region_id,
+      </if>
+      <if test="siteId != null">
+        site_id,
+      </if>
+      <if test="specId != null">
+        spec_id,
+      </if>
+      <if test="containerName != null">
+        container_name,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="inspetContainerParams != null">
+        inspet_container_params,
+      </if>
+      <if test="ip != null">
+        ip,
+      </if>
+      <if test="sendCreateNum != null">
+        send_create_num,
+      </if>
+      <if test="startNum != null">
+        start_num,
+      </if>
+      <if test="failNum != null">
+        fail_num,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="removeTime != null">
+        remove_time,
+      </if>
+      <if test="imageName != null">
+        image_name,
+      </if>
+      <if test="cmd != null">
+        cmd,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="bpId != null">
+        bp_id,
+      </if>
+      <if test="eventType != null">
+        event_type,
+      </if>
+      <if test="reportTime != null">
+        report_time,
+      </if>
+      <if test="restartPolicy != null">
+        restart_policy,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="instId != null">
+        #{instId,jdbcType=VARCHAR},
+      </if>
+      <if test="refId != null">
+        #{refId,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeId != null">
+        #{nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="regionId != null">
+        #{regionId,jdbcType=VARCHAR},
+      </if>
+      <if test="siteId != null">
+        #{siteId,jdbcType=VARCHAR},
+      </if>
+      <if test="specId != null">
+        #{specId,jdbcType=VARCHAR},
+      </if>
+      <if test="containerName != null">
+        #{containerName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="inspetContainerParams != null">
+        #{inspetContainerParams,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="sendCreateNum != null">
+        #{sendCreateNum,jdbcType=INTEGER},
+      </if>
+      <if test="startNum != null">
+        #{startNum,jdbcType=INTEGER},
+      </if>
+      <if test="failNum != null">
+        #{failNum,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="removeTime != null">
+        #{removeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="imageName != null">
+        #{imageName,jdbcType=VARCHAR},
+      </if>
+      <if test="cmd != null">
+        #{cmd,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="bpId != null">
+        #{bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="eventType != null">
+        #{eventType,jdbcType=INTEGER},
+      </if>
+      <if test="reportTime != null">
+        #{reportTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="restartPolicy != null">
+        #{restartPolicy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lnjoying.justice.cis.db.model.TblContainerInstInfoExample" resultType="java.lang.Long">
+    select count(*) from tbl_container_inst_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_container_inst_info
+    <set>
+      <if test="record.instId != null">
+        inst_id = #{record.instId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.refId != null">
+        ref_id = #{record.refId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nodeId != null">
+        node_id = #{record.nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regionId != null">
+        region_id = #{record.regionId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.siteId != null">
+        site_id = #{record.siteId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.specId != null">
+        spec_id = #{record.specId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containerName != null">
+        container_name = #{record.containerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.inspetContainerParams != null">
+        inspet_container_params = #{record.inspetContainerParams,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ip != null">
+        ip = #{record.ip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sendCreateNum != null">
+        send_create_num = #{record.sendCreateNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.startNum != null">
+        start_num = #{record.startNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.failNum != null">
+        fail_num = #{record.failNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.removeTime != null">
+        remove_time = #{record.removeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.imageName != null">
+        image_name = #{record.imageName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmd != null">
+        cmd = #{record.cmd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bpId != null">
+        bp_id = #{record.bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eventType != null">
+        event_type = #{record.eventType,jdbcType=INTEGER},
+      </if>
+      <if test="record.reportTime != null">
+        report_time = #{record.reportTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.restartPolicy != null">
+        restart_policy = #{record.restartPolicy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_container_inst_info
+    set inst_id = #{record.instId,jdbcType=VARCHAR},
+      ref_id = #{record.refId,jdbcType=VARCHAR},
+      node_id = #{record.nodeId,jdbcType=VARCHAR},
+      region_id = #{record.regionId,jdbcType=VARCHAR},
+      site_id = #{record.siteId,jdbcType=VARCHAR},
+      spec_id = #{record.specId,jdbcType=VARCHAR},
+      container_name = #{record.containerName,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      inspet_container_params = #{record.inspetContainerParams,jdbcType=VARCHAR},
+      ip = #{record.ip,jdbcType=VARCHAR},
+      send_create_num = #{record.sendCreateNum,jdbcType=INTEGER},
+      start_num = #{record.startNum,jdbcType=INTEGER},
+      fail_num = #{record.failNum,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      remove_time = #{record.removeTime,jdbcType=TIMESTAMP},
+      image_name = #{record.imageName,jdbcType=VARCHAR},
+      cmd = #{record.cmd,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      bp_id = #{record.bpId,jdbcType=VARCHAR},
+      event_type = #{record.eventType,jdbcType=INTEGER},
+      report_time = #{record.reportTime,jdbcType=TIMESTAMP},
+      restart_policy = #{record.restartPolicy,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.cis.db.model.TblContainerInstInfo">
+    update tbl_container_inst_info
+    <set>
+      <if test="refId != null">
+        ref_id = #{refId,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeId != null">
+        node_id = #{nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="regionId != null">
+        region_id = #{regionId,jdbcType=VARCHAR},
+      </if>
+      <if test="siteId != null">
+        site_id = #{siteId,jdbcType=VARCHAR},
+      </if>
+      <if test="specId != null">
+        spec_id = #{specId,jdbcType=VARCHAR},
+      </if>
+      <if test="containerName != null">
+        container_name = #{containerName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="inspetContainerParams != null">
+        inspet_container_params = #{inspetContainerParams,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="sendCreateNum != null">
+        send_create_num = #{sendCreateNum,jdbcType=INTEGER},
+      </if>
+      <if test="startNum != null">
+        start_num = #{startNum,jdbcType=INTEGER},
+      </if>
+      <if test="failNum != null">
+        fail_num = #{failNum,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="removeTime != null">
+        remove_time = #{removeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="imageName != null">
+        image_name = #{imageName,jdbcType=VARCHAR},
+      </if>
+      <if test="cmd != null">
+        cmd = #{cmd,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="bpId != null">
+        bp_id = #{bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="eventType != null">
+        event_type = #{eventType,jdbcType=INTEGER},
+      </if>
+      <if test="reportTime != null">
+        report_time = #{reportTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="restartPolicy != null">
+        restart_policy = #{restartPolicy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where inst_id = #{instId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.cis.db.model.TblContainerInstInfo">
+    update tbl_container_inst_info
+    set ref_id = #{refId,jdbcType=VARCHAR},
+      node_id = #{nodeId,jdbcType=VARCHAR},
+      region_id = #{regionId,jdbcType=VARCHAR},
+      site_id = #{siteId,jdbcType=VARCHAR},
+      spec_id = #{specId,jdbcType=VARCHAR},
+      container_name = #{containerName,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      inspet_container_params = #{inspetContainerParams,jdbcType=VARCHAR},
+      ip = #{ip,jdbcType=VARCHAR},
+      send_create_num = #{sendCreateNum,jdbcType=INTEGER},
+      start_num = #{startNum,jdbcType=INTEGER},
+      fail_num = #{failNum,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      remove_time = #{removeTime,jdbcType=TIMESTAMP},
+      image_name = #{imageName,jdbcType=VARCHAR},
+      cmd = #{cmd,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      bp_id = #{bpId,jdbcType=VARCHAR},
+      event_type = #{eventType,jdbcType=INTEGER},
+      report_time = #{reportTime,jdbcType=TIMESTAMP},
+        restart_policy = #{restartPolicy,jdbcType=VARCHAR}
+    where inst_id = #{instId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="getContainerInstanceStatusMetrics" resultType="com.lnjoying.justice.schema.entity.stat.StatusMetrics">
+        select
+          status as statusStr, count(*) as count
+        from tbl_container_inst_info
+        <where>
+            <if test="statusExcludeCollection != null and statusExcludeCollection.size() > 0">
+              and "status" not in
+              <foreach item="item" index="index" collection="statusExcludeCollection"
+                       open="(" separator="," close=")">
+                #{item,jdbcType=INTEGER}
+              </foreach>
+            </if>
+            <if test="bpId != null and bpId != ''">
+                and bp_id=#{bpId,jdbcType=VARCHAR}
+            </if>
+            <if test="userId != null and userId != ''">
+                and user_id=#{userId,jdbcType=VARCHAR}
+            </if>
+        </where>
+        group by status
+    </select>
+
+  <select id="selectByInstIdOrRefId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tbl_container_inst_info
+        <where>
+            <if test="uniqueId != null and uniqueId != ''">
+                and (inst_id=#{uniqueId,jdbcType=VARCHAR} or ref_id=#{uniqueId,jdbcType=VARCHAR})
+            </if>
+        </where>
+    limit 1
+    </select>
+</mapper>

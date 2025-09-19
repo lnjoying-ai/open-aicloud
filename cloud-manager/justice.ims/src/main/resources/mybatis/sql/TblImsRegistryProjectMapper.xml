@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.ims.db.mapper.TblImsRegistryProjectMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.ims.db.model.TblImsRegistryProject">
+    <!--@mbg.generated-->
+    <!--@Table tbl_ims_registry_project-->
+    <id column="project_id" jdbcType="VARCHAR" property="projectId" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="project_desc" jdbcType="VARCHAR" property="projectDesc" />
+    <result column="registry_id" jdbcType="VARCHAR" property="registryId" />
+    <result column="scope" jdbcType="INTEGER" property="scope" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="bp_id" jdbcType="VARCHAR" property="bpId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="bp_name" jdbcType="VARCHAR" property="bpName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    project_id, project_name, project_desc, registry_id, "scope", "status", user_id, 
+    bp_id, create_time, update_time, user_name, bp_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_ims_registry_project
+    where project_id = #{projectId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from tbl_ims_registry_project
+    where project_id = #{projectId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" keyColumn="project_id" keyProperty="projectId" parameterType="com.lnjoying.justice.ims.db.model.TblImsRegistryProject" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into tbl_ims_registry_project (project_name, project_desc, registry_id, 
+      "scope", "status", user_id, 
+      bp_id, create_time, update_time, 
+      user_name, bp_name)
+    values (#{projectName,jdbcType=VARCHAR}, #{projectDesc,jdbcType=VARCHAR}, #{registryId,jdbcType=VARCHAR}, 
+      #{scope,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, 
+      #{bpId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{userName,jdbcType=VARCHAR}, #{bpName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective"   parameterType="com.lnjoying.justice.ims.db.model.TblImsRegistryProject" >
+    <!--@mbg.generated-->
+    insert into tbl_ims_registry_project
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="projectId != null and projectId != ''">
+        project_id,
+      </if>
+      <if test="projectName != null and projectName != ''">
+        project_name,
+      </if>
+      <if test="projectDesc != null and projectDesc != ''">
+        project_desc,
+      </if>
+      <if test="registryId != null and registryId != ''">
+        registry_id,
+      </if>
+      <if test="scope != null">
+        "scope",
+      </if>
+      <if test="status != null">
+        "status",
+      </if>
+      <if test="userId != null and userId != ''">
+        user_id,
+      </if>
+      <if test="bpId != null and bpId != ''">
+        bp_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="userName != null and userName != ''">
+        user_name,
+      </if>
+      <if test="bpName != null and bpName != ''">
+        bp_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="projectId != null and projectId != ''">
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="projectName != null and projectName != ''">
+        #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectDesc != null and projectDesc != ''">
+        #{projectDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="registryId != null and registryId != ''">
+        #{registryId,jdbcType=VARCHAR},
+      </if>
+      <if test="scope != null">
+        #{scope,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null and userId != ''">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="bpId != null and bpId != ''">
+        #{bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userName != null and userName != ''">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="bpName != null and bpName != ''">
+        #{bpName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.ims.db.model.TblImsRegistryProject">
+    <!--@mbg.generated-->
+    update tbl_ims_registry_project
+    <set>
+      <if test="projectName != null and projectName != ''">
+        project_name = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectDesc != null and projectDesc != ''">
+        project_desc = #{projectDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="registryId != null and registryId != ''">
+        registry_id = #{registryId,jdbcType=VARCHAR},
+      </if>
+      <if test="scope != null">
+        "scope" = #{scope,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        "status" = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null and userId != ''">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="bpId != null and bpId != ''">
+        bp_id = #{bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userName != null and userName != ''">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="bpName != null and bpName != ''">
+        bp_name = #{bpName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where project_id = #{projectId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.ims.db.model.TblImsRegistryProject">
+    <!--@mbg.generated-->
+    update tbl_ims_registry_project
+    set project_name = #{projectName,jdbcType=VARCHAR},
+      project_desc = #{projectDesc,jdbcType=VARCHAR},
+      registry_id = #{registryId,jdbcType=VARCHAR},
+      "scope" = #{scope,jdbcType=INTEGER},
+      "status" = #{status,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=VARCHAR},
+      bp_id = #{bpId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      user_name = #{userName,jdbcType=VARCHAR},
+      bp_name = #{bpName,jdbcType=VARCHAR}
+    where project_id = #{projectId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectByProjectName" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tbl_ims_registry_project
+    <where>
+      <if test="projectName != null and projectName != ''">
+        and project_name=#{projectName,jdbcType=VARCHAR}
+      </if>
+    </where>
+    limit 1
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tbl_ims_registry_project
+    <where>
+      <if test="registryId != null and registryId != ''">
+        and registry_id=#{registryId,jdbcType=VARCHAR}
+      </if>
+      <if test="likeProjectName != null and likeProjectName != ''">
+        and project_name like concat('%',#{likeProjectName,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="scope != null">
+        and "scope"=#{scope,jdbcType=INTEGER}
+      </if>
+      <if test="userId != null and userId != ''">
+        and user_id=#{userId,jdbcType=VARCHAR}
+      </if>
+      <if test="bpId != null and bpId != ''">
+        and bp_id=#{bpId,jdbcType=VARCHAR}
+      </if>
+      <if test="status != null">
+        and "status"= 1
+      </if>
+    </where>
+    order by update_time desc, create_time desc
+  </select>
+
+  <select id="selectAllOrdinaryTenant" resultMap="BaseResultMap">
+    <!--private scope-->
+    <if test="scope != null and scope == 0">
+      select
+      <include refid="Base_Column_List"/>
+      from tbl_ims_registry_project
+      <where>
+        <if test="registryId != null and registryId != ''">
+          and registry_id=#{registryId,jdbcType=VARCHAR}
+        </if>
+        <if test="likeProjectName != null and likeProjectName != ''">
+          and project_name like concat('%',#{likeProjectName,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="scope != null">
+          and "scope"=0
+        </if>
+        <if test="userId != null and userId != ''">
+          and user_id=#{userId,jdbcType=VARCHAR}
+        </if>
+        <if test="bpId != null and bpId != ''">
+          and bp_id=#{bpId,jdbcType=VARCHAR}
+        </if>
+        <if test="status != null">
+          and "status"= 1
+        </if>
+      </where>
+    </if>
+    <!--bp scope-->
+    <if test="scope != null and scope == 1">
+      select
+      <include refid="Base_Column_List"/>
+      from tbl_ims_registry_project
+      <where>
+        <if test="registryId != null and registryId != ''">
+          and registry_id=#{registryId,jdbcType=VARCHAR}
+        </if>
+        <if test="likeProjectName != null and likeProjectName != ''">
+          and project_name like concat('%',#{likeProjectName,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="scope != null">
+          and "scope"=1
+        </if>
+        <if test="bpId != null and bpId != ''">
+          and bp_id=#{bpId,jdbcType=VARCHAR}
+        </if>
+        <if test="status != null">
+          and "status"= 1
+        </if>
+      </where>
+    </if>
+    <!--public scope-->
+    <if test="scope != null and scope == 2">
+      select
+      <include refid="Base_Column_List"/>
+      from tbl_ims_registry_project
+      <where>
+        <if test="registryId != null and registryId != ''">
+          and registry_id=#{registryId,jdbcType=VARCHAR}
+        </if>
+        <if test="likeProjectName != null and likeProjectName != ''">
+          and project_name like concat('%',#{likeProjectName,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="scope != null">
+          and "scope"=2
+        </if>
+        <if test="status != null">
+          and "status"= 1
+        </if>
+      </where>
+    </if>
+    <!--all project-->
+    <if test="scope == null ">
+      select
+      <include refid="Base_Column_List"/>
+      from tbl_ims_registry_project
+      <where>
+        <if test="registryId != null and registryId != ''">
+          and registry_id=#{registryId,jdbcType=VARCHAR}
+        </if>
+        <if test="likeProjectName != null and likeProjectName != ''">
+          and project_name like concat('%',#{likeProjectName,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="true">
+          and "scope"=0
+        </if>
+        <if test="userId != null and userId != ''">
+          and user_id=#{userId,jdbcType=VARCHAR}
+        </if>
+        <if test="bpId != null and bpId != ''">
+          and bp_id=#{bpId,jdbcType=VARCHAR}
+        </if>
+        <if test="status != null">
+          and "status"= 1
+        </if>
+      </where>
+      union
+      select
+      <include refid="Base_Column_List"/>
+      from tbl_ims_registry_project
+      <where>
+        <if test="registryId != null and registryId != ''">
+          and registry_id=#{registryId,jdbcType=VARCHAR}
+        </if>
+        <if test="likeProjectName != null and likeProjectName != ''">
+          and project_name like concat('%',#{likeProjectName,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="true">
+          and "scope"=1
+        </if>
+        <if test="bpId != null and bpId != ''">
+          and bp_id=#{bpId,jdbcType=VARCHAR}
+        </if>
+        <if test="status != null">
+          and "status"= 1
+        </if>
+      </where>
+      union
+      select
+      <include refid="Base_Column_List"/>
+      from tbl_ims_registry_project
+      <where>
+        <if test="registryId != null and registryId != ''">
+          and registry_id=#{registryId,jdbcType=VARCHAR}
+        </if>
+        <if test="likeProjectName != null and likeProjectName != ''">
+          and project_name like concat('%',#{likeProjectName,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="true">
+          and "scope"=2
+        </if>
+        <if test="status != null">
+          and "status"= 1
+        </if>
+      </where>
+    </if>
+  </select>
+
+  <select id="selectByScope" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tbl_ims_registry_project
+    <where>
+      <if test="scope != null ">
+        and "scope"=#{scope,jdbcType=INTEGER}
+      </if>
+      <if test="true">
+        and "status"= 1
+      </if>
+    </where>
+  </select>
+
+  <select id="selectByRegistryId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tbl_ims_registry_project
+        <where>
+            <if test="registryId != null and registryId != ''">
+                and registry_id=#{registryId,jdbcType=VARCHAR}
+            </if>
+            <if test="true">
+              and "status"= 1
+            </if>
+        </where>
+    </select>
+</mapper>

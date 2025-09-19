@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.ims.db.mapper.TblImsRegistryMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.ims.db.model.TblImsRegistry">
+    <!--@mbg.generated-->
+    <!--@Table tbl_ims_registry-->
+    <id column="registry_id" jdbcType="VARCHAR" property="registryId" />
+    <result column="registry_name" jdbcType="VARCHAR" property="registryName" />
+    <result column="registry_desc" jdbcType="VARCHAR" property="registryDesc" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="admin_name" jdbcType="VARCHAR" property="adminName" />
+    <result column="admin_passwd" jdbcType="VARCHAR" property="adminPasswd" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" typeHandler="com.lnjoying.justice.ims.converter.TimestampTypeHandler"/>
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" typeHandler="com.lnjoying.justice.ims.converter.TimestampTypeHandler" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    registry_id, registry_name, registry_desc, "type", url, admin_name, admin_passwd, 
+    user_id, "status", create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_ims_registry
+    where registry_id = #{registryId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from tbl_ims_registry
+    where registry_id = #{registryId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.ims.db.model.TblImsRegistry">
+    <!--@mbg.generated-->
+    insert into tbl_ims_registry (registry_id, registry_name, registry_desc, 
+      "type", url, admin_name, 
+      admin_passwd, user_id, "status", 
+      create_time, update_time)
+    values (#{registryId,jdbcType=VARCHAR}, #{registryName,jdbcType=VARCHAR}, #{registryDesc,jdbcType=VARCHAR}, 
+      #{type,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{adminName,jdbcType=VARCHAR}, 
+      #{adminPasswd,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.ims.db.model.TblImsRegistry">
+    <!--@mbg.generated-->
+    insert into tbl_ims_registry
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="registryId != null">
+        registry_id,
+      </if>
+      <if test="registryName != null">
+        registry_name,
+      </if>
+      <if test="registryDesc != null">
+        registry_desc,
+      </if>
+      <if test="type != null">
+        "type",
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="adminName != null">
+        admin_name,
+      </if>
+      <if test="adminPasswd != null">
+        admin_passwd,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="status != null">
+        "status",
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="registryId != null">
+        #{registryId,jdbcType=VARCHAR},
+      </if>
+      <if test="registryName != null">
+        #{registryName,jdbcType=VARCHAR},
+      </if>
+      <if test="registryDesc != null">
+        #{registryDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="adminName != null">
+        #{adminName,jdbcType=VARCHAR},
+      </if>
+      <if test="adminPasswd != null">
+        #{adminPasswd,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.ims.db.model.TblImsRegistry">
+    <!--@mbg.generated-->
+    update tbl_ims_registry
+    <set>
+      <if test="registryName != null">
+        registry_name = #{registryName,jdbcType=VARCHAR},
+      </if>
+      <if test="registryDesc != null">
+        registry_desc = #{registryDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        "type" = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="adminName != null">
+        admin_name = #{adminName,jdbcType=VARCHAR},
+      </if>
+      <if test="adminPasswd != null">
+        admin_passwd = #{adminPasswd,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        "status" = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where registry_id = #{registryId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.ims.db.model.TblImsRegistry">
+    <!--@mbg.generated-->
+    update tbl_ims_registry
+    set registry_name = #{registryName,jdbcType=VARCHAR},
+      registry_desc = #{registryDesc,jdbcType=VARCHAR},
+      "type" = #{type,jdbcType=INTEGER},
+      url = #{url,jdbcType=VARCHAR},
+      admin_name = #{adminName,jdbcType=VARCHAR},
+      admin_passwd = #{adminPasswd,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      "status" = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where registry_id = #{registryId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tbl_ims_registry
+    <where>
+      <if test="registryIds != null and registryIds.size() > 0 ">
+        and registry_id in
+        <foreach collection="registryIds" item="registryId" index="index" open="(" close=")" separator=",">
+          #{registryId}
+        </foreach>
+      </if>
+      <if test="likeRegistryName != null and likeRegistryName != ''">
+        and registry_name like concat('%',#{likeRegistryName,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="userId != null and userId != ''">
+        and user_id=#{userId,jdbcType=VARCHAR}
+      </if>
+      <if test="statusCollection != null and statusCollection.size() > 0 ">
+        and status in
+        <foreach collection="statusCollection" item="status" index="index" open="(" close=")" separator=",">
+          #{status,jdbcType=INTEGER}
+        </foreach>
+      </if>
+      <if test="true">
+        and status <![CDATA[<>]]> -1
+      </if>
+    </where>
+    order by update_time desc, create_time desc
+  </select>
+
+  <select id="selectOne" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tbl_ims_registry
+    <where>
+      <if test="true">
+        and "status"= 6
+      </if>
+    </where>
+    limit 1
+  </select>
+
+  <select id="selectAllByStatus" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tbl_ims_registry
+    <where>
+      <if test="list != null and list.size() > 0 ">
+        and status in
+        <foreach collection="list" item="status" index="index" open="(" close=")" separator=",">
+          #{status,jdbcType=INTEGER}
+        </foreach>
+      </if>
+    </where>
+  </select>
+
+  <select id="selectByRegionId" resultMap="BaseResultMap" parameterType="java.lang.String">
+    SELECT
+    t2.registry_id, t2.url, t2.admin_name, t2.admin_passwd
+    FROM
+    ( SELECT registry_id FROM tbl_ims_registry_region
+    <where>
+      <if test=" regionId != null and regionId != ''">
+        and region_id =#{regionId,jdbcType=VARCHAR}
+      </if>
+    </where>
+    ) t1
+    JOIN (select * from tbl_ims_registry where status = 6) t2
+    ON t1.registry_id = t2.registry_id
+    </select>
+
+  <select id="selectByRegistryName" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tbl_ims_registry
+    <where>
+      <if test="registryName != null and registryName != ''">
+        and registry_name=#{registryName,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+
+  <select id="selectByUrl" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tbl_ims_registry
+        <where>
+            <if test="url != null and url != ''">
+                and url=#{url,jdbcType=VARCHAR}
+            </if>
+            <if test="true">
+              and "status"= 6
+            </if>
+          limit 1
+        </where>
+    </select>
+</mapper>

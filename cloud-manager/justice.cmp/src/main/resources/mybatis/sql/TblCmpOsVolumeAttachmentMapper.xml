@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.cmp.db.mapper.TblCmpOsVolumeAttachmentMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.cmp.db.model.TblCmpOsVolumeAttachment">
+    <id column="cloud_id" jdbcType="VARCHAR" property="cloudId" />
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+    <result column="deleted_at" jdbcType="TIMESTAMP" property="deletedAt" />
+    <result column="deleted" jdbcType="SMALLINT" property="deleted" />
+    <result column="volume_id" jdbcType="VARCHAR" property="volumeId" />
+    <result column="attached_host" jdbcType="VARCHAR" property="attachedHost" />
+    <result column="instance_uuid" jdbcType="VARCHAR" property="instanceUuid" />
+    <result column="mountpoint" jdbcType="VARCHAR" property="mountpoint" />
+    <result column="attach_time" jdbcType="TIMESTAMP" property="attachTime" />
+    <result column="detach_time" jdbcType="TIMESTAMP" property="detachTime" />
+    <result column="attach_mode" jdbcType="VARCHAR" property="attachMode" />
+    <result column="attach_status" jdbcType="VARCHAR" property="attachStatus" />
+    <result column="connection_info" jdbcType="VARCHAR" property="connectionInfo" />
+    <result column="connector" jdbcType="VARCHAR" property="connector" />
+    <result column="ee_status" jdbcType="INTEGER" property="eeStatus" />
+    <result column="ee_bp" jdbcType="VARCHAR" property="eeBp" />
+    <result column="ee_user" jdbcType="VARCHAR" property="eeUser" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    cloud_id, id, created_at, updated_at, deleted_at, deleted, volume_id, attached_host, 
+    instance_uuid, mountpoint, attach_time, detach_time, attach_mode, attach_status, 
+    connection_info, connector, ee_status, ee_bp, ee_user
+  </sql>
+  <select id="selectByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsVolumeAttachmentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_cmp_os_volume_attachment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsVolumeAttachmentKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_cmp_os_volume_attachment
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsVolumeAttachmentKey">
+    delete from tbl_cmp_os_volume_attachment
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsVolumeAttachmentExample">
+    delete from tbl_cmp_os_volume_attachment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsVolumeAttachment">
+    insert into tbl_cmp_os_volume_attachment (cloud_id, id, created_at, 
+      updated_at, deleted_at, deleted, 
+      volume_id, attached_host, instance_uuid, 
+      mountpoint, attach_time, detach_time, 
+      attach_mode, attach_status, connection_info, 
+      connector, ee_status, ee_bp, 
+      ee_user)
+    values (#{cloudId,jdbcType=VARCHAR}, #{id,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP}, 
+      #{updatedAt,jdbcType=TIMESTAMP}, #{deletedAt,jdbcType=TIMESTAMP}, #{deleted,jdbcType=SMALLINT}, 
+      #{volumeId,jdbcType=VARCHAR}, #{attachedHost,jdbcType=VARCHAR}, #{instanceUuid,jdbcType=VARCHAR}, 
+      #{mountpoint,jdbcType=VARCHAR}, #{attachTime,jdbcType=TIMESTAMP}, #{detachTime,jdbcType=TIMESTAMP}, 
+      #{attachMode,jdbcType=VARCHAR}, #{attachStatus,jdbcType=VARCHAR}, #{connectionInfo,jdbcType=VARCHAR}, 
+      #{connector,jdbcType=VARCHAR}, #{eeStatus,jdbcType=INTEGER}, #{eeBp,jdbcType=VARCHAR}, 
+      #{eeUser,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsVolumeAttachment">
+    insert into tbl_cmp_os_volume_attachment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cloudId != null">
+        cloud_id,
+      </if>
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedAt != null">
+        updated_at,
+      </if>
+      <if test="deletedAt != null">
+        deleted_at,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+      <if test="volumeId != null">
+        volume_id,
+      </if>
+      <if test="attachedHost != null">
+        attached_host,
+      </if>
+      <if test="instanceUuid != null">
+        instance_uuid,
+      </if>
+      <if test="mountpoint != null">
+        mountpoint,
+      </if>
+      <if test="attachTime != null">
+        attach_time,
+      </if>
+      <if test="detachTime != null">
+        detach_time,
+      </if>
+      <if test="attachMode != null">
+        attach_mode,
+      </if>
+      <if test="attachStatus != null">
+        attach_status,
+      </if>
+      <if test="connectionInfo != null">
+        connection_info,
+      </if>
+      <if test="connector != null">
+        connector,
+      </if>
+      <if test="eeStatus != null">
+        ee_status,
+      </if>
+      <if test="eeBp != null">
+        ee_bp,
+      </if>
+      <if test="eeUser != null">
+        ee_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cloudId != null">
+        #{cloudId,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletedAt != null">
+        #{deletedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=SMALLINT},
+      </if>
+      <if test="volumeId != null">
+        #{volumeId,jdbcType=VARCHAR},
+      </if>
+      <if test="attachedHost != null">
+        #{attachedHost,jdbcType=VARCHAR},
+      </if>
+      <if test="instanceUuid != null">
+        #{instanceUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="mountpoint != null">
+        #{mountpoint,jdbcType=VARCHAR},
+      </if>
+      <if test="attachTime != null">
+        #{attachTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="detachTime != null">
+        #{detachTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="attachMode != null">
+        #{attachMode,jdbcType=VARCHAR},
+      </if>
+      <if test="attachStatus != null">
+        #{attachStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="connectionInfo != null">
+        #{connectionInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="connector != null">
+        #{connector,jdbcType=VARCHAR},
+      </if>
+      <if test="eeStatus != null">
+        #{eeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="eeBp != null">
+        #{eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="eeUser != null">
+        #{eeUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsVolumeAttachmentExample" resultType="java.lang.Long">
+    select count(*) from tbl_cmp_os_volume_attachment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_cmp_os_volume_attachment
+    <set>
+      <if test="record.cloudId != null">
+        cloud_id = #{record.cloudId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdAt != null">
+        created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedAt != null">
+        updated_at = #{record.updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deletedAt != null">
+        deleted_at = #{record.deletedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deleted != null">
+        deleted = #{record.deleted,jdbcType=SMALLINT},
+      </if>
+      <if test="record.volumeId != null">
+        volume_id = #{record.volumeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attachedHost != null">
+        attached_host = #{record.attachedHost,jdbcType=VARCHAR},
+      </if>
+      <if test="record.instanceUuid != null">
+        instance_uuid = #{record.instanceUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mountpoint != null">
+        mountpoint = #{record.mountpoint,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attachTime != null">
+        attach_time = #{record.attachTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.detachTime != null">
+        detach_time = #{record.detachTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.attachMode != null">
+        attach_mode = #{record.attachMode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attachStatus != null">
+        attach_status = #{record.attachStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.connectionInfo != null">
+        connection_info = #{record.connectionInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.connector != null">
+        connector = #{record.connector,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeStatus != null">
+        ee_status = #{record.eeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.eeBp != null">
+        ee_bp = #{record.eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeUser != null">
+        ee_user = #{record.eeUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_cmp_os_volume_attachment
+    set cloud_id = #{record.cloudId,jdbcType=VARCHAR},
+      id = #{record.id,jdbcType=VARCHAR},
+      created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{record.updatedAt,jdbcType=TIMESTAMP},
+      deleted_at = #{record.deletedAt,jdbcType=TIMESTAMP},
+      deleted = #{record.deleted,jdbcType=SMALLINT},
+      volume_id = #{record.volumeId,jdbcType=VARCHAR},
+      attached_host = #{record.attachedHost,jdbcType=VARCHAR},
+      instance_uuid = #{record.instanceUuid,jdbcType=VARCHAR},
+      mountpoint = #{record.mountpoint,jdbcType=VARCHAR},
+      attach_time = #{record.attachTime,jdbcType=TIMESTAMP},
+      detach_time = #{record.detachTime,jdbcType=TIMESTAMP},
+      attach_mode = #{record.attachMode,jdbcType=VARCHAR},
+      attach_status = #{record.attachStatus,jdbcType=VARCHAR},
+      connection_info = #{record.connectionInfo,jdbcType=VARCHAR},
+      connector = #{record.connector,jdbcType=VARCHAR},
+      ee_status = #{record.eeStatus,jdbcType=INTEGER},
+      ee_bp = #{record.eeBp,jdbcType=VARCHAR},
+      ee_user = #{record.eeUser,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsVolumeAttachment">
+    update tbl_cmp_os_volume_attachment
+    <set>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletedAt != null">
+        deleted_at = #{deletedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=SMALLINT},
+      </if>
+      <if test="volumeId != null">
+        volume_id = #{volumeId,jdbcType=VARCHAR},
+      </if>
+      <if test="attachedHost != null">
+        attached_host = #{attachedHost,jdbcType=VARCHAR},
+      </if>
+      <if test="instanceUuid != null">
+        instance_uuid = #{instanceUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="mountpoint != null">
+        mountpoint = #{mountpoint,jdbcType=VARCHAR},
+      </if>
+      <if test="attachTime != null">
+        attach_time = #{attachTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="detachTime != null">
+        detach_time = #{detachTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="attachMode != null">
+        attach_mode = #{attachMode,jdbcType=VARCHAR},
+      </if>
+      <if test="attachStatus != null">
+        attach_status = #{attachStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="connectionInfo != null">
+        connection_info = #{connectionInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="connector != null">
+        connector = #{connector,jdbcType=VARCHAR},
+      </if>
+      <if test="eeStatus != null">
+        ee_status = #{eeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="eeBp != null">
+        ee_bp = #{eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="eeUser != null">
+        ee_user = #{eeUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsVolumeAttachment">
+    update tbl_cmp_os_volume_attachment
+    set created_at = #{createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      deleted_at = #{deletedAt,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=SMALLINT},
+      volume_id = #{volumeId,jdbcType=VARCHAR},
+      attached_host = #{attachedHost,jdbcType=VARCHAR},
+      instance_uuid = #{instanceUuid,jdbcType=VARCHAR},
+      mountpoint = #{mountpoint,jdbcType=VARCHAR},
+      attach_time = #{attachTime,jdbcType=TIMESTAMP},
+      detach_time = #{detachTime,jdbcType=TIMESTAMP},
+      attach_mode = #{attachMode,jdbcType=VARCHAR},
+      attach_status = #{attachStatus,jdbcType=VARCHAR},
+      connection_info = #{connectionInfo,jdbcType=VARCHAR},
+      connector = #{connector,jdbcType=VARCHAR},
+      ee_status = #{eeStatus,jdbcType=INTEGER},
+      ee_bp = #{eeBp,jdbcType=VARCHAR},
+      ee_user = #{eeUser,jdbcType=VARCHAR}
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="getVolumeAttachmentIds" resultType="String">
+    select id from tbl_cmp_os_volume_attachment
+    where cloud_id = #{cloudId} and volume_id = #{volumeId} and ee_status != -1
+  </select>
+
+  <select id="getServerVolumeAttachmentIds" resultType="String">
+    select id from tbl_cmp_os_volume_attachment
+    where cloud_id = #{cloudId} and instance_uuid = #{serverId} and ee_status != -1
+  </select>
+</mapper>

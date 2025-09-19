@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.omc.db.mapper.TblOmcResourceStatusStatMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.omc.db.model.TblOmcResourceStatusStat">
+    <!--@mbg.generated-->
+    <!--@Table tbl_omc_resource_status_stat-->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="resource_type" jdbcType="INTEGER" property="resourceType" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="status_counts" jdbcType="INTEGER" property="statusCounts" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="day" jdbcType="TIMESTAMP" property="day" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, resource_type, "status", status_counts, create_time, "day"
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_omc_resource_status_stat
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from tbl_omc_resource_status_stat
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.omc.db.model.TblOmcResourceStatusStat">
+    <!--@mbg.generated-->
+    insert into tbl_omc_resource_status_stat (id, resource_type, "status", 
+      status_counts, create_time, "day"
+      )
+    values (#{id,jdbcType=VARCHAR}, #{resourceType,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, 
+      #{statusCounts,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{day,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.omc.db.model.TblOmcResourceStatusStat">
+    <!--@mbg.generated-->
+    insert into tbl_omc_resource_status_stat
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        id,
+      </if>
+      <if test="resourceType != null">
+        resource_type,
+      </if>
+      <if test="status != null and status != ''">
+        "status",
+      </if>
+      <if test="statusCounts != null">
+        status_counts,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="day != null">
+        "day",
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceType != null">
+        #{resourceType,jdbcType=INTEGER},
+      </if>
+      <if test="status != null and status != ''">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="statusCounts != null">
+        #{statusCounts,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="day != null">
+        #{day,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.omc.db.model.TblOmcResourceStatusStat">
+    <!--@mbg.generated-->
+    update tbl_omc_resource_status_stat
+    <set>
+      <if test="resourceType != null">
+        resource_type = #{resourceType,jdbcType=INTEGER},
+      </if>
+      <if test="status != null and status != ''">
+        "status" = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="statusCounts != null">
+        status_counts = #{statusCounts,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="day != null">
+        "day" = #{day,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.omc.db.model.TblOmcResourceStatusStat">
+    <!--@mbg.generated-->
+    update tbl_omc_resource_status_stat
+    set resource_type = #{resourceType,jdbcType=INTEGER},
+      "status" = #{status,jdbcType=VARCHAR},
+      status_counts = #{statusCounts,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      "day" = #{day,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

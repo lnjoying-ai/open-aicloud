@@ -1,0 +1,740 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.cmp.db.mapper.TblCmpOsBlockDeviceMappingMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.cmp.db.model.TblCmpOsBlockDeviceMapping">
+    <id column="cloud_id" jdbcType="VARCHAR" property="cloudId" />
+    <id column="uuid" jdbcType="VARCHAR" property="uuid" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+    <result column="deleted_at" jdbcType="TIMESTAMP" property="deletedAt" />
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="device_name" jdbcType="VARCHAR" property="deviceName" />
+    <result column="delete_on_termination" jdbcType="SMALLINT" property="deleteOnTermination" />
+    <result column="snapshot_id" jdbcType="VARCHAR" property="snapshotId" />
+    <result column="volume_id" jdbcType="VARCHAR" property="volumeId" />
+    <result column="volume_size" jdbcType="INTEGER" property="volumeSize" />
+    <result column="no_device" jdbcType="SMALLINT" property="noDevice" />
+    <result column="connection_info" jdbcType="VARCHAR" property="connectionInfo" />
+    <result column="instance_uuid" jdbcType="VARCHAR" property="instanceUuid" />
+    <result column="deleted" jdbcType="INTEGER" property="deleted" />
+    <result column="source_type" jdbcType="VARCHAR" property="sourceType" />
+    <result column="destination_type" jdbcType="VARCHAR" property="destinationType" />
+    <result column="guest_format" jdbcType="VARCHAR" property="guestFormat" />
+    <result column="device_type" jdbcType="VARCHAR" property="deviceType" />
+    <result column="disk_bus" jdbcType="VARCHAR" property="diskBus" />
+    <result column="boot_index" jdbcType="INTEGER" property="bootIndex" />
+    <result column="image_id" jdbcType="VARCHAR" property="imageId" />
+    <result column="tag" jdbcType="VARCHAR" property="tag" />
+    <result column="attachment_id" jdbcType="VARCHAR" property="attachmentId" />
+    <result column="volume_type" jdbcType="VARCHAR" property="volumeType" />
+    <result column="encrypted" jdbcType="SMALLINT" property="encrypted" />
+    <result column="encryption_secret_uuid" jdbcType="VARCHAR" property="encryptionSecretUuid" />
+    <result column="encryption_format" jdbcType="VARCHAR" property="encryptionFormat" />
+    <result column="encryption_options" jdbcType="VARCHAR" property="encryptionOptions" />
+    <result column="ee_bp" jdbcType="VARCHAR" property="eeBp" />
+    <result column="ee_user" jdbcType="VARCHAR" property="eeUser" />
+    <result column="ee_status" jdbcType="INTEGER" property="eeStatus" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    cloud_id, uuid, created_at, updated_at, deleted_at, id, device_name, delete_on_termination, 
+    snapshot_id, volume_id, volume_size, no_device, connection_info, instance_uuid, deleted, 
+    source_type, destination_type, guest_format, device_type, disk_bus, boot_index, image_id, 
+    tag, attachment_id, volume_type, encrypted, encryption_secret_uuid, encryption_format, 
+    encryption_options, ee_bp, ee_user, ee_status
+  </sql>
+  <select id="selectByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsBlockDeviceMappingExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_cmp_os_block_device_mapping
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsBlockDeviceMappingKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_cmp_os_block_device_mapping
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and uuid = #{uuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsBlockDeviceMappingKey">
+    delete from tbl_cmp_os_block_device_mapping
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and uuid = #{uuid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsBlockDeviceMappingExample">
+    delete from tbl_cmp_os_block_device_mapping
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsBlockDeviceMapping">
+    insert into tbl_cmp_os_block_device_mapping (cloud_id, uuid, created_at, 
+      updated_at, deleted_at, id, 
+      device_name, delete_on_termination, snapshot_id, 
+      volume_id, volume_size, no_device, 
+      connection_info, instance_uuid, deleted, 
+      source_type, destination_type, guest_format, 
+      device_type, disk_bus, boot_index, 
+      image_id, tag, attachment_id, 
+      volume_type, encrypted, encryption_secret_uuid, 
+      encryption_format, encryption_options, ee_bp, 
+      ee_user, ee_status)
+    values (#{cloudId,jdbcType=VARCHAR}, #{uuid,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP}, 
+      #{updatedAt,jdbcType=TIMESTAMP}, #{deletedAt,jdbcType=TIMESTAMP}, #{id,jdbcType=INTEGER}, 
+      #{deviceName,jdbcType=VARCHAR}, #{deleteOnTermination,jdbcType=SMALLINT}, #{snapshotId,jdbcType=VARCHAR}, 
+      #{volumeId,jdbcType=VARCHAR}, #{volumeSize,jdbcType=INTEGER}, #{noDevice,jdbcType=SMALLINT}, 
+      #{connectionInfo,jdbcType=VARCHAR}, #{instanceUuid,jdbcType=VARCHAR}, #{deleted,jdbcType=INTEGER}, 
+      #{sourceType,jdbcType=VARCHAR}, #{destinationType,jdbcType=VARCHAR}, #{guestFormat,jdbcType=VARCHAR}, 
+      #{deviceType,jdbcType=VARCHAR}, #{diskBus,jdbcType=VARCHAR}, #{bootIndex,jdbcType=INTEGER}, 
+      #{imageId,jdbcType=VARCHAR}, #{tag,jdbcType=VARCHAR}, #{attachmentId,jdbcType=VARCHAR}, 
+      #{volumeType,jdbcType=VARCHAR}, #{encrypted,jdbcType=SMALLINT}, #{encryptionSecretUuid,jdbcType=VARCHAR}, 
+      #{encryptionFormat,jdbcType=VARCHAR}, #{encryptionOptions,jdbcType=VARCHAR}, #{eeBp,jdbcType=VARCHAR}, 
+      #{eeUser,jdbcType=VARCHAR}, #{eeStatus,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsBlockDeviceMapping">
+    insert into tbl_cmp_os_block_device_mapping
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cloudId != null">
+        cloud_id,
+      </if>
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedAt != null">
+        updated_at,
+      </if>
+      <if test="deletedAt != null">
+        deleted_at,
+      </if>
+      <if test="id != null">
+        id,
+      </if>
+      <if test="deviceName != null">
+        device_name,
+      </if>
+      <if test="deleteOnTermination != null">
+        delete_on_termination,
+      </if>
+      <if test="snapshotId != null">
+        snapshot_id,
+      </if>
+      <if test="volumeId != null">
+        volume_id,
+      </if>
+      <if test="volumeSize != null">
+        volume_size,
+      </if>
+      <if test="noDevice != null">
+        no_device,
+      </if>
+      <if test="connectionInfo != null">
+        connection_info,
+      </if>
+      <if test="instanceUuid != null">
+        instance_uuid,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+      <if test="sourceType != null">
+        source_type,
+      </if>
+      <if test="destinationType != null">
+        destination_type,
+      </if>
+      <if test="guestFormat != null">
+        guest_format,
+      </if>
+      <if test="deviceType != null">
+        device_type,
+      </if>
+      <if test="diskBus != null">
+        disk_bus,
+      </if>
+      <if test="bootIndex != null">
+        boot_index,
+      </if>
+      <if test="imageId != null">
+        image_id,
+      </if>
+      <if test="tag != null">
+        tag,
+      </if>
+      <if test="attachmentId != null">
+        attachment_id,
+      </if>
+      <if test="volumeType != null">
+        volume_type,
+      </if>
+      <if test="encrypted != null">
+        encrypted,
+      </if>
+      <if test="encryptionSecretUuid != null">
+        encryption_secret_uuid,
+      </if>
+      <if test="encryptionFormat != null">
+        encryption_format,
+      </if>
+      <if test="encryptionOptions != null">
+        encryption_options,
+      </if>
+      <if test="eeBp != null">
+        ee_bp,
+      </if>
+      <if test="eeUser != null">
+        ee_user,
+      </if>
+      <if test="eeStatus != null">
+        ee_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cloudId != null">
+        #{cloudId,jdbcType=VARCHAR},
+      </if>
+      <if test="uuid != null">
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletedAt != null">
+        #{deletedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="deviceName != null">
+        #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteOnTermination != null">
+        #{deleteOnTermination,jdbcType=SMALLINT},
+      </if>
+      <if test="snapshotId != null">
+        #{snapshotId,jdbcType=VARCHAR},
+      </if>
+      <if test="volumeId != null">
+        #{volumeId,jdbcType=VARCHAR},
+      </if>
+      <if test="volumeSize != null">
+        #{volumeSize,jdbcType=INTEGER},
+      </if>
+      <if test="noDevice != null">
+        #{noDevice,jdbcType=SMALLINT},
+      </if>
+      <if test="connectionInfo != null">
+        #{connectionInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="instanceUuid != null">
+        #{instanceUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="sourceType != null">
+        #{sourceType,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationType != null">
+        #{destinationType,jdbcType=VARCHAR},
+      </if>
+      <if test="guestFormat != null">
+        #{guestFormat,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceType != null">
+        #{deviceType,jdbcType=VARCHAR},
+      </if>
+      <if test="diskBus != null">
+        #{diskBus,jdbcType=VARCHAR},
+      </if>
+      <if test="bootIndex != null">
+        #{bootIndex,jdbcType=INTEGER},
+      </if>
+      <if test="imageId != null">
+        #{imageId,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null">
+        #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentId != null">
+        #{attachmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="volumeType != null">
+        #{volumeType,jdbcType=VARCHAR},
+      </if>
+      <if test="encrypted != null">
+        #{encrypted,jdbcType=SMALLINT},
+      </if>
+      <if test="encryptionSecretUuid != null">
+        #{encryptionSecretUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="encryptionFormat != null">
+        #{encryptionFormat,jdbcType=VARCHAR},
+      </if>
+      <if test="encryptionOptions != null">
+        #{encryptionOptions,jdbcType=VARCHAR},
+      </if>
+      <if test="eeBp != null">
+        #{eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="eeUser != null">
+        #{eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="eeStatus != null">
+        #{eeStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsBlockDeviceMappingExample" resultType="java.lang.Long">
+    select count(*) from tbl_cmp_os_block_device_mapping
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_cmp_os_block_device_mapping
+    <set>
+      <if test="record.cloudId != null">
+        cloud_id = #{record.cloudId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uuid != null">
+        uuid = #{record.uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdAt != null">
+        created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedAt != null">
+        updated_at = #{record.updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deletedAt != null">
+        deleted_at = #{record.deletedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.deviceName != null">
+        device_name = #{record.deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deleteOnTermination != null">
+        delete_on_termination = #{record.deleteOnTermination,jdbcType=SMALLINT},
+      </if>
+      <if test="record.snapshotId != null">
+        snapshot_id = #{record.snapshotId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.volumeId != null">
+        volume_id = #{record.volumeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.volumeSize != null">
+        volume_size = #{record.volumeSize,jdbcType=INTEGER},
+      </if>
+      <if test="record.noDevice != null">
+        no_device = #{record.noDevice,jdbcType=SMALLINT},
+      </if>
+      <if test="record.connectionInfo != null">
+        connection_info = #{record.connectionInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.instanceUuid != null">
+        instance_uuid = #{record.instanceUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deleted != null">
+        deleted = #{record.deleted,jdbcType=INTEGER},
+      </if>
+      <if test="record.sourceType != null">
+        source_type = #{record.sourceType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.destinationType != null">
+        destination_type = #{record.destinationType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.guestFormat != null">
+        guest_format = #{record.guestFormat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceType != null">
+        device_type = #{record.deviceType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.diskBus != null">
+        disk_bus = #{record.diskBus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bootIndex != null">
+        boot_index = #{record.bootIndex,jdbcType=INTEGER},
+      </if>
+      <if test="record.imageId != null">
+        image_id = #{record.imageId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tag != null">
+        tag = #{record.tag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attachmentId != null">
+        attachment_id = #{record.attachmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.volumeType != null">
+        volume_type = #{record.volumeType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.encrypted != null">
+        encrypted = #{record.encrypted,jdbcType=SMALLINT},
+      </if>
+      <if test="record.encryptionSecretUuid != null">
+        encryption_secret_uuid = #{record.encryptionSecretUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.encryptionFormat != null">
+        encryption_format = #{record.encryptionFormat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.encryptionOptions != null">
+        encryption_options = #{record.encryptionOptions,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeBp != null">
+        ee_bp = #{record.eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeUser != null">
+        ee_user = #{record.eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeStatus != null">
+        ee_status = #{record.eeStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_cmp_os_block_device_mapping
+    set cloud_id = #{record.cloudId,jdbcType=VARCHAR},
+      uuid = #{record.uuid,jdbcType=VARCHAR},
+      created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{record.updatedAt,jdbcType=TIMESTAMP},
+      deleted_at = #{record.deletedAt,jdbcType=TIMESTAMP},
+      id = #{record.id,jdbcType=INTEGER},
+      device_name = #{record.deviceName,jdbcType=VARCHAR},
+      delete_on_termination = #{record.deleteOnTermination,jdbcType=SMALLINT},
+      snapshot_id = #{record.snapshotId,jdbcType=VARCHAR},
+      volume_id = #{record.volumeId,jdbcType=VARCHAR},
+      volume_size = #{record.volumeSize,jdbcType=INTEGER},
+      no_device = #{record.noDevice,jdbcType=SMALLINT},
+      connection_info = #{record.connectionInfo,jdbcType=VARCHAR},
+      instance_uuid = #{record.instanceUuid,jdbcType=VARCHAR},
+      deleted = #{record.deleted,jdbcType=INTEGER},
+      source_type = #{record.sourceType,jdbcType=VARCHAR},
+      destination_type = #{record.destinationType,jdbcType=VARCHAR},
+      guest_format = #{record.guestFormat,jdbcType=VARCHAR},
+      device_type = #{record.deviceType,jdbcType=VARCHAR},
+      disk_bus = #{record.diskBus,jdbcType=VARCHAR},
+      boot_index = #{record.bootIndex,jdbcType=INTEGER},
+      image_id = #{record.imageId,jdbcType=VARCHAR},
+      tag = #{record.tag,jdbcType=VARCHAR},
+      attachment_id = #{record.attachmentId,jdbcType=VARCHAR},
+      volume_type = #{record.volumeType,jdbcType=VARCHAR},
+      encrypted = #{record.encrypted,jdbcType=SMALLINT},
+      encryption_secret_uuid = #{record.encryptionSecretUuid,jdbcType=VARCHAR},
+      encryption_format = #{record.encryptionFormat,jdbcType=VARCHAR},
+      encryption_options = #{record.encryptionOptions,jdbcType=VARCHAR},
+      ee_bp = #{record.eeBp,jdbcType=VARCHAR},
+      ee_user = #{record.eeUser,jdbcType=VARCHAR},
+      ee_status = #{record.eeStatus,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsBlockDeviceMapping">
+    update tbl_cmp_os_block_device_mapping
+    <set>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletedAt != null">
+        deleted_at = #{deletedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="id != null">
+        id = #{id,jdbcType=INTEGER},
+      </if>
+      <if test="deviceName != null">
+        device_name = #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteOnTermination != null">
+        delete_on_termination = #{deleteOnTermination,jdbcType=SMALLINT},
+      </if>
+      <if test="snapshotId != null">
+        snapshot_id = #{snapshotId,jdbcType=VARCHAR},
+      </if>
+      <if test="volumeId != null">
+        volume_id = #{volumeId,jdbcType=VARCHAR},
+      </if>
+      <if test="volumeSize != null">
+        volume_size = #{volumeSize,jdbcType=INTEGER},
+      </if>
+      <if test="noDevice != null">
+        no_device = #{noDevice,jdbcType=SMALLINT},
+      </if>
+      <if test="connectionInfo != null">
+        connection_info = #{connectionInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="instanceUuid != null">
+        instance_uuid = #{instanceUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="sourceType != null">
+        source_type = #{sourceType,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationType != null">
+        destination_type = #{destinationType,jdbcType=VARCHAR},
+      </if>
+      <if test="guestFormat != null">
+        guest_format = #{guestFormat,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceType != null">
+        device_type = #{deviceType,jdbcType=VARCHAR},
+      </if>
+      <if test="diskBus != null">
+        disk_bus = #{diskBus,jdbcType=VARCHAR},
+      </if>
+      <if test="bootIndex != null">
+        boot_index = #{bootIndex,jdbcType=INTEGER},
+      </if>
+      <if test="imageId != null">
+        image_id = #{imageId,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null">
+        tag = #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentId != null">
+        attachment_id = #{attachmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="volumeType != null">
+        volume_type = #{volumeType,jdbcType=VARCHAR},
+      </if>
+      <if test="encrypted != null">
+        encrypted = #{encrypted,jdbcType=SMALLINT},
+      </if>
+      <if test="encryptionSecretUuid != null">
+        encryption_secret_uuid = #{encryptionSecretUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="encryptionFormat != null">
+        encryption_format = #{encryptionFormat,jdbcType=VARCHAR},
+      </if>
+      <if test="encryptionOptions != null">
+        encryption_options = #{encryptionOptions,jdbcType=VARCHAR},
+      </if>
+      <if test="eeBp != null">
+        ee_bp = #{eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="eeUser != null">
+        ee_user = #{eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="eeStatus != null">
+        ee_status = #{eeStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsBlockDeviceMapping">
+    update tbl_cmp_os_block_device_mapping
+    set created_at = #{createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      deleted_at = #{deletedAt,jdbcType=TIMESTAMP},
+      id = #{id,jdbcType=INTEGER},
+      device_name = #{deviceName,jdbcType=VARCHAR},
+      delete_on_termination = #{deleteOnTermination,jdbcType=SMALLINT},
+      snapshot_id = #{snapshotId,jdbcType=VARCHAR},
+      volume_id = #{volumeId,jdbcType=VARCHAR},
+      volume_size = #{volumeSize,jdbcType=INTEGER},
+      no_device = #{noDevice,jdbcType=SMALLINT},
+      connection_info = #{connectionInfo,jdbcType=VARCHAR},
+      instance_uuid = #{instanceUuid,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=INTEGER},
+      source_type = #{sourceType,jdbcType=VARCHAR},
+      destination_type = #{destinationType,jdbcType=VARCHAR},
+      guest_format = #{guestFormat,jdbcType=VARCHAR},
+      device_type = #{deviceType,jdbcType=VARCHAR},
+      disk_bus = #{diskBus,jdbcType=VARCHAR},
+      boot_index = #{bootIndex,jdbcType=INTEGER},
+      image_id = #{imageId,jdbcType=VARCHAR},
+      tag = #{tag,jdbcType=VARCHAR},
+      attachment_id = #{attachmentId,jdbcType=VARCHAR},
+      volume_type = #{volumeType,jdbcType=VARCHAR},
+      encrypted = #{encrypted,jdbcType=SMALLINT},
+      encryption_secret_uuid = #{encryptionSecretUuid,jdbcType=VARCHAR},
+      encryption_format = #{encryptionFormat,jdbcType=VARCHAR},
+      encryption_options = #{encryptionOptions,jdbcType=VARCHAR},
+      ee_bp = #{eeBp,jdbcType=VARCHAR},
+      ee_user = #{eeUser,jdbcType=VARCHAR},
+      ee_status = #{eeStatus,jdbcType=INTEGER}
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectByVolumeId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tbl_cmp_os_block_device_mapping
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+    and volume_id = #{volumeId,jdbcType=VARCHAR}
+  </select>
+  <update id="updateByVolumeIdSelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsBlockDeviceMapping">
+    update tbl_cmp_os_block_device_mapping
+    <set>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletedAt != null">
+        deleted_at = #{deletedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="id != null">
+        id = #{id,jdbcType=INTEGER},
+      </if>
+      <if test="deviceName != null">
+        device_name = #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteOnTermination != null">
+        delete_on_termination = #{deleteOnTermination,jdbcType=SMALLINT},
+      </if>
+      <if test="snapshotId != null">
+        snapshot_id = #{snapshotId,jdbcType=VARCHAR},
+      </if>
+      <if test="volumeSize != null">
+        volume_size = #{volumeSize,jdbcType=INTEGER},
+      </if>
+      <if test="noDevice != null">
+        no_device = #{noDevice,jdbcType=SMALLINT},
+      </if>
+      <if test="connectionInfo != null">
+        connection_info = #{connectionInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="instanceUuid != null">
+        instance_uuid = #{instanceUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="sourceType != null">
+        source_type = #{sourceType,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationType != null">
+        destination_type = #{destinationType,jdbcType=VARCHAR},
+      </if>
+      <if test="guestFormat != null">
+        guest_format = #{guestFormat,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceType != null">
+        device_type = #{deviceType,jdbcType=VARCHAR},
+      </if>
+      <if test="diskBus != null">
+        disk_bus = #{diskBus,jdbcType=VARCHAR},
+      </if>
+      <if test="bootIndex != null">
+        boot_index = #{bootIndex,jdbcType=INTEGER},
+      </if>
+      <if test="imageId != null">
+        image_id = #{imageId,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null">
+        tag = #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentId != null">
+        attachment_id = #{attachmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="volumeType != null">
+        volume_type = #{volumeType,jdbcType=VARCHAR},
+      </if>
+      <if test="encrypted != null">
+        encrypted = #{encrypted,jdbcType=SMALLINT},
+      </if>
+      <if test="encryptionSecretUuid != null">
+        encryption_secret_uuid = #{encryptionSecretUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="encryptionFormat != null">
+        encryption_format = #{encryptionFormat,jdbcType=VARCHAR},
+      </if>
+      <if test="encryptionOptions != null">
+        encryption_options = #{encryptionOptions,jdbcType=VARCHAR},
+      </if>
+      <if test="eeBp != null">
+        ee_bp = #{eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="eeUser != null">
+        ee_user = #{eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="eeStatus != null">
+        ee_status = #{eeStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+    and volume_id = #{volumeId,jdbcType=VARCHAR}
+  </update>
+</mapper>

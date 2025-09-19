@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.aos.db.mapper.TblRepoAppVersionInfoMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.aos.db.model.TblRepoAppVersionInfo">
+    <!--@mbg.generated-->
+    <!--@Table tbl_repo_app_version_info-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="app_id" jdbcType="VARCHAR" property="appId" />
+    <result column="repo_name" jdbcType="VARCHAR" property="repoName" />
+    <result column="app_name" jdbcType="VARCHAR" property="appName" />
+    <result column="version" jdbcType="VARCHAR" property="version" />
+    <result column="app_info" jdbcType="OTHER" property="appInfo" typeHandler="com.lnjoying.justice.aos.handler.JsonbTypeHandler" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, app_id, repo_name, app_name, version, app_info, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_repo_app_version_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from tbl_repo_app_version_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.aos.db.model.TblRepoAppVersionInfo" useGeneratedKeys="true"
+          keyProperty="id">
+    <!--@mbg.generated-->
+    insert into tbl_repo_app_version_info ( app_id, repo_name,
+      app_name, version, app_info, 
+      create_time, update_time)
+    values ( #{appId,jdbcType=VARCHAR}, #{repoName,jdbcType=VARCHAR},
+      #{appName,jdbcType=VARCHAR}, #{version,jdbcType=VARCHAR}, #{appInfo,jdbcType=OTHER, typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.aos.db.model.TblRepoAppVersionInfo" useGeneratedKeys="true"
+          keyProperty="id">
+    <!--@mbg.generated-->
+    insert into tbl_repo_app_version_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="appId != null and appId != ''">
+        app_id,
+      </if>
+      <if test="repoName != null and repoName != ''">
+        repo_name,
+      </if>
+      <if test="appName != null and appName != ''">
+        app_name,
+      </if>
+      <if test="version != null and version != ''">
+        version,
+      </if>
+      <if test="appInfo != null">
+        app_info,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="appId != null and appId != ''">
+        #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="repoName != null and repoName != ''">
+        #{repoName,jdbcType=VARCHAR},
+      </if>
+      <if test="appName != null and appName != ''">
+        #{appName,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null and version != ''">
+        #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="appInfo != null">
+        #{appInfo,jdbcType=OTHER, typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.aos.db.model.TblRepoAppVersionInfo">
+    <!--@mbg.generated-->
+    update tbl_repo_app_version_info
+    <set>
+      <if test="appId != null and appId != ''">
+        app_id = #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="repoName != null and repoName != ''">
+        repo_name = #{repoName,jdbcType=VARCHAR},
+      </if>
+      <if test="appName != null and appName != ''">
+        app_name = #{appName,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null and version != ''">
+        version = #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="appInfo != null">
+        app_info = #{appInfo,jdbcType=OTHER, typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.aos.db.model.TblRepoAppVersionInfo">
+    <!--@mbg.generated-->
+    update tbl_repo_app_version_info
+    set app_id = #{appId,jdbcType=VARCHAR},
+      repo_name = #{repoName,jdbcType=VARCHAR},
+      app_name = #{appName,jdbcType=VARCHAR},
+      version = #{version,jdbcType=VARCHAR},
+      app_info = #{appInfo,jdbcType=OTHER, typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByAppId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from tbl_repo_app_version_info
+        <where>
+            <if test="appId != null and appId != ''">
+                and app_id=#{appId,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
+  <insert id="batchInsert" parameterType="com.lnjoying.justice.aos.db.model.TblRepoAppVersionInfo" useGeneratedKeys="true"
+          keyProperty="id">
+    <!--@mbg.generated-->
+    insert into tbl_repo_app_version_info (app_id, repo_name,
+    app_name, version, app_info,
+    create_time, update_time)
+    values
+    <foreach collection="list" item="element" index="index" separator=",">
+      ( #{element.appId,jdbcType=VARCHAR}, #{element.repoName,jdbcType=VARCHAR},
+      #{element.appName,jdbcType=VARCHAR}, #{element.version,jdbcType=VARCHAR}, #{element.appInfo,jdbcType=OTHER, typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+      #{element.createTime,jdbcType=TIMESTAMP}, #{element.updateTime,jdbcType=TIMESTAMP})
+    </foreach>
+  </insert>
+
+  <select id="selectByAppIdAndVersion" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tbl_repo_app_version_info
+    <where>
+      <if test="appId != null and appId != ''">
+        and app_id=#{appId,jdbcType=VARCHAR}
+      </if>
+      <if test="version != null and version != ''">
+        and version=#{version,jdbcType=VARCHAR}
+      </if>
+    </where>
+    limit 1
+  </select>
+
+  <delete id="deleteByRepoName">
+        delete from tbl_repo_app_version_info
+        <where>
+            <if test="repoName != null and repoName != ''">
+                and repo_name=#{repoName,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </delete>
+
+  <select id="selectByRepoNameAndAppNameAndVersion" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tbl_repo_app_version_info
+        <where>
+            <if test="repoName != null and repoName != ''">
+                and repo_name=#{repoName,jdbcType=VARCHAR}
+            </if>
+            <if test="appName != null and appName != ''">
+                and app_name=#{appName,jdbcType=VARCHAR}
+            </if>
+            <if test="version != null and version != ''">
+                and version=#{version,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
+  <delete id="deleteByRepoNameAndAppNameAndVersion">
+        delete from tbl_repo_app_version_info
+        <where>
+            <if test="repoName != null and repoName != ''">
+                and repo_name=#{repoName,jdbcType=VARCHAR}
+            </if>
+            <if test="appName != null and appName != ''">
+                and app_name=#{appName,jdbcType=VARCHAR}
+            </if>
+            <if test="version != null and version != ''">
+                and version=#{version,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </delete>
+</mapper>

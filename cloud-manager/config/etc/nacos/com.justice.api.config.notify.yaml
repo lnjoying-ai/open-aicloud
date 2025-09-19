@@ -1,0 +1,75 @@
+mail:
+  host: host
+  username: username
+  password: password
+  auth: "true"
+  endableStarttls: "true"
+  requiredStarttls: "true"
+  sendFrom: sendFrom
+
+sms:
+  #Sms provider. available provider: ucpaas\copote, default: ucpaas
+  provider: provider
+  ucpaas:
+    url: http://open2.ucpaas.com/sms-server
+    clientid: ucpaasClientid
+    password: ucpaasPassword
+  copote:
+    url: copoteUrl
+    msgEcName: copoteMsgEcName
+    msgApId: copoteMsgApId
+    msgSecretKey: copoteMsgSecretKey
+    sign: copoteSign
+    addSerial: ""
+  alibaba:
+    accessKeyId: alibabaAccessKeyId
+    accessKeySecret: alibabaAccessKeySecret
+    endpoint: "dysmsapi.aliyuncs.com"
+    signName: alibabaSignName
+  templateParamsReplacement:
+    SMS_490815252:
+      code: code
+      time: time
+    SMS_490590255:
+      title: title
+      detail: detail
+  paramValueCalculation:
+    SMS_490815252:
+      time:
+        operator: /
+        value: 60
+
+notifyTemplateCode:
+  validateCode:
+    email: 验证码
+    #sms: 715de4e681004171a161aa85b8bc46c8
+    #    sms: 5291
+    sms: SMS_490815252
+  newUserNotifyAdmin:
+    email: 新用户注册
+    sms: 532987
+  auth_verification_code:
+    email: 验证码
+    #sms: 715de4e681004171a161aa85b8bc46c8
+    #    sms: 5291
+    sms: SMS_490815252
+  reg_verification_code:
+    email: 验证码
+    #sms: 715de4e681004171a161aa85b8bc46c8
+    #    sms: 5291
+    sms: SMS_490815252
+  patch_verification_code:
+    email: 验证码
+    #sms: 715de4e681004171a161aa85b8bc46c8
+    #    sms: 5291
+    sms: SMS_490815252
+  monitor_alert_code:
+    email: 告警通知
+    #    sms: 2040
+    sms: SMS_490590255
+
+notifyTemplate:
+  auth_verification_code: "尊敬的用户,\n\n您好！\n\n您的验证码为：${code}，验证码有效时间：${time}秒。请勿向任何人包括客服提供验证码。\n\n感谢您选择我们！\n\n秒如官方\n\n联系我们邮件：service@lnjoying.com"
+  patch_verification_code: "尊敬的用户,\n\n您好！\n\n您的验证码为：${code}，验证码有效时间：${time}秒。请勿向任何人包括客服提供验证码。\n\n感谢您选择我们！\n\n秒如官方\n\n联系我们邮件：service@lnjoying.com"
+  reg_verification_code: "尊敬的用户,\n\n您好！\n\n您的验证码为：${code}，验证码有效时间：${time}秒。请勿向任何人包括客服提供验证码。\n\n感谢您选择我们！\n\n秒如官方\n\n联系我们邮件：service@lnjoying.com"
+  monitor_alert_code: "尊敬的用户,\n您好！\n\n您账号(${user_id})${alert_status_message}:\n事件:${alarm_name}\n告警器id:${alarm_id}\n级别:${level}\n时间:${current_time}\n详细内容:${summary}\n\n\n\n感谢您选择我们！\n秒如官方\n联系我们邮件：service@lnjoying.com"

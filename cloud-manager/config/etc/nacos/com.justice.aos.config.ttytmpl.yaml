@@ -1,0 +1,52 @@
+# frpc and wetty template
+
+---
+# docker compose
+version: "3"
+services:
+  frpc:
+    image: lnjoying/frpc:v0.41
+    container_name: lnjoying_frpc
+    restart: always
+    network_mode: "host"
+    environment:
+      FRP_SERVER_ADDR: ${frp_server_addr}
+      Node_id: ${node_id}
+      FRP_ADDR: ${frp_addr}
+    depends_on:
+      - wetty
+  wetty:
+    image: lnjoying/wetty:v1.0
+    container_name: lnjoying_wetty
+    restart: always
+    network_mode: "host"
+    command: --ssh-host=${ssh_host} --base=/${node_id}/tty --allow-iframe=true
+
+
+---
+#  stack compose
+basic:
+  name: "frpc-system-default-stack"
+  version: "v1.41"
+  description: "frpc and wetty"
+  uuid: frpc_wetty_20220413
+  minimum_justice_version: v0.6.1
+  input_params:
+    - variable: frp_server_addr
+      description: " frp_server_addr "
+      label: "frp server addr"
+      type: "string"
+      required: true
+      default_value: '127.0.0.1'
+    - variable: node_id
+      description: " node_id "
+      label: "node id"
+      type: "string"
+      required: true
+      default_value: '1231'
+    - variable: frp_addr
+      description: " frp_addr "
+      label: "frp addr"
+      type: "string"
+      required: true
+      default_value: '127.0.0.1'

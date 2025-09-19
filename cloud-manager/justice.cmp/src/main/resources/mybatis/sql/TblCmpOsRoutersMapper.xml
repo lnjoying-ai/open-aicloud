@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.cmp.db.mapper.TblCmpOsRoutersMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.cmp.db.model.TblCmpOsRouters">
+    <id column="cloud_id" jdbcType="VARCHAR" property="cloudId" />
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="project_id" jdbcType="VARCHAR" property="projectId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="admin_state_up" jdbcType="SMALLINT" property="adminStateUp" />
+    <result column="gw_port_id" jdbcType="VARCHAR" property="gwPortId" />
+    <result column="enable_snat" jdbcType="SMALLINT" property="enableSnat" />
+    <result column="standard_attr_id" jdbcType="BIGINT" property="standardAttrId" />
+    <result column="flavor_id" jdbcType="VARCHAR" property="flavorId" />
+    <result column="ee_bp" jdbcType="VARCHAR" property="eeBp" />
+    <result column="ee_user" jdbcType="VARCHAR" property="eeUser" />
+    <result column="ee_status" jdbcType="INTEGER" property="eeStatus" />
+    <result column="distributed" jdbcType="SMALLINT" property="distributed" />
+    <result column="service_router" jdbcType="SMALLINT" property="serviceRouter" />
+    <result column="ha" jdbcType="SMALLINT" property="ha" />
+    <result column="ha_vr_id" jdbcType="INTEGER" property="haVrId" />
+    <result column="availability_zone_hints" jdbcType="VARCHAR" property="availabilityZoneHints" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="revision_number" jdbcType="BIGINT" property="revisionNumber" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    cloud_id, id, project_id, name, status, admin_state_up, gw_port_id, enable_snat, 
+    standard_attr_id, flavor_id, ee_bp, ee_user, ee_status, distributed, service_router, 
+    ha, ha_vr_id, availability_zone_hints, created_at, updated_at, description, revision_number
+  </sql>
+  <select id="selectByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsRoutersExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_cmp_os_routers
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsRoutersKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_cmp_os_routers
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsRoutersKey">
+    delete from tbl_cmp_os_routers
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsRoutersExample">
+    delete from tbl_cmp_os_routers
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsRouters">
+    insert into tbl_cmp_os_routers (cloud_id, id, project_id, 
+      name, status, admin_state_up, 
+      gw_port_id, enable_snat, standard_attr_id, 
+      flavor_id, ee_bp, ee_user, 
+      ee_status, distributed, service_router, 
+      ha, ha_vr_id, availability_zone_hints, 
+      created_at, updated_at, description, 
+      revision_number)
+    values (#{cloudId,jdbcType=VARCHAR}, #{id,jdbcType=VARCHAR}, #{projectId,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{adminStateUp,jdbcType=SMALLINT}, 
+      #{gwPortId,jdbcType=VARCHAR}, #{enableSnat,jdbcType=SMALLINT}, #{standardAttrId,jdbcType=BIGINT}, 
+      #{flavorId,jdbcType=VARCHAR}, #{eeBp,jdbcType=VARCHAR}, #{eeUser,jdbcType=VARCHAR}, 
+      #{eeStatus,jdbcType=INTEGER}, #{distributed,jdbcType=SMALLINT}, #{serviceRouter,jdbcType=SMALLINT}, 
+      #{ha,jdbcType=SMALLINT}, #{haVrId,jdbcType=INTEGER}, #{availabilityZoneHints,jdbcType=VARCHAR}, 
+      #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}, 
+      #{revisionNumber,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsRouters">
+    insert into tbl_cmp_os_routers
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cloudId != null">
+        cloud_id,
+      </if>
+      <if test="id != null">
+        id,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="adminStateUp != null">
+        admin_state_up,
+      </if>
+      <if test="gwPortId != null">
+        gw_port_id,
+      </if>
+      <if test="enableSnat != null">
+        enable_snat,
+      </if>
+      <if test="standardAttrId != null">
+        standard_attr_id,
+      </if>
+      <if test="flavorId != null">
+        flavor_id,
+      </if>
+      <if test="eeBp != null">
+        ee_bp,
+      </if>
+      <if test="eeUser != null">
+        ee_user,
+      </if>
+      <if test="eeStatus != null">
+        ee_status,
+      </if>
+      <if test="distributed != null">
+        distributed,
+      </if>
+      <if test="serviceRouter != null">
+        service_router,
+      </if>
+      <if test="ha != null">
+        ha,
+      </if>
+      <if test="haVrId != null">
+        ha_vr_id,
+      </if>
+      <if test="availabilityZoneHints != null">
+        availability_zone_hints,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedAt != null">
+        updated_at,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="revisionNumber != null">
+        revision_number,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cloudId != null">
+        #{cloudId,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="adminStateUp != null">
+        #{adminStateUp,jdbcType=SMALLINT},
+      </if>
+      <if test="gwPortId != null">
+        #{gwPortId,jdbcType=VARCHAR},
+      </if>
+      <if test="enableSnat != null">
+        #{enableSnat,jdbcType=SMALLINT},
+      </if>
+      <if test="standardAttrId != null">
+        #{standardAttrId,jdbcType=BIGINT},
+      </if>
+      <if test="flavorId != null">
+        #{flavorId,jdbcType=VARCHAR},
+      </if>
+      <if test="eeBp != null">
+        #{eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="eeUser != null">
+        #{eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="eeStatus != null">
+        #{eeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="distributed != null">
+        #{distributed,jdbcType=SMALLINT},
+      </if>
+      <if test="serviceRouter != null">
+        #{serviceRouter,jdbcType=SMALLINT},
+      </if>
+      <if test="ha != null">
+        #{ha,jdbcType=SMALLINT},
+      </if>
+      <if test="haVrId != null">
+        #{haVrId,jdbcType=INTEGER},
+      </if>
+      <if test="availabilityZoneHints != null">
+        #{availabilityZoneHints,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="revisionNumber != null">
+        #{revisionNumber,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsRoutersExample" resultType="java.lang.Long">
+    select count(*) from tbl_cmp_os_routers
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_cmp_os_routers
+    <set>
+      <if test="record.cloudId != null">
+        cloud_id = #{record.cloudId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.projectId != null">
+        project_id = #{record.projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminStateUp != null">
+        admin_state_up = #{record.adminStateUp,jdbcType=SMALLINT},
+      </if>
+      <if test="record.gwPortId != null">
+        gw_port_id = #{record.gwPortId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enableSnat != null">
+        enable_snat = #{record.enableSnat,jdbcType=SMALLINT},
+      </if>
+      <if test="record.standardAttrId != null">
+        standard_attr_id = #{record.standardAttrId,jdbcType=BIGINT},
+      </if>
+      <if test="record.flavorId != null">
+        flavor_id = #{record.flavorId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeBp != null">
+        ee_bp = #{record.eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeUser != null">
+        ee_user = #{record.eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeStatus != null">
+        ee_status = #{record.eeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.distributed != null">
+        distributed = #{record.distributed,jdbcType=SMALLINT},
+      </if>
+      <if test="record.serviceRouter != null">
+        service_router = #{record.serviceRouter,jdbcType=SMALLINT},
+      </if>
+      <if test="record.ha != null">
+        ha = #{record.ha,jdbcType=SMALLINT},
+      </if>
+      <if test="record.haVrId != null">
+        ha_vr_id = #{record.haVrId,jdbcType=INTEGER},
+      </if>
+      <if test="record.availabilityZoneHints != null">
+        availability_zone_hints = #{record.availabilityZoneHints,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdAt != null">
+        created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedAt != null">
+        updated_at = #{record.updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.revisionNumber != null">
+        revision_number = #{record.revisionNumber,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_cmp_os_routers
+    set cloud_id = #{record.cloudId,jdbcType=VARCHAR},
+      id = #{record.id,jdbcType=VARCHAR},
+      project_id = #{record.projectId,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      admin_state_up = #{record.adminStateUp,jdbcType=SMALLINT},
+      gw_port_id = #{record.gwPortId,jdbcType=VARCHAR},
+      enable_snat = #{record.enableSnat,jdbcType=SMALLINT},
+      standard_attr_id = #{record.standardAttrId,jdbcType=BIGINT},
+      flavor_id = #{record.flavorId,jdbcType=VARCHAR},
+      ee_bp = #{record.eeBp,jdbcType=VARCHAR},
+      ee_user = #{record.eeUser,jdbcType=VARCHAR},
+      ee_status = #{record.eeStatus,jdbcType=INTEGER},
+      distributed = #{record.distributed,jdbcType=SMALLINT},
+      service_router = #{record.serviceRouter,jdbcType=SMALLINT},
+      ha = #{record.ha,jdbcType=SMALLINT},
+      ha_vr_id = #{record.haVrId,jdbcType=INTEGER},
+      availability_zone_hints = #{record.availabilityZoneHints,jdbcType=VARCHAR},
+      created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{record.updatedAt,jdbcType=TIMESTAMP},
+      description = #{record.description,jdbcType=VARCHAR},
+      revision_number = #{record.revisionNumber,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsRouters">
+    update tbl_cmp_os_routers
+    <set>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="adminStateUp != null">
+        admin_state_up = #{adminStateUp,jdbcType=SMALLINT},
+      </if>
+      <if test="gwPortId != null">
+        gw_port_id = #{gwPortId,jdbcType=VARCHAR},
+      </if>
+      <if test="enableSnat != null">
+        enable_snat = #{enableSnat,jdbcType=SMALLINT},
+      </if>
+      <if test="standardAttrId != null">
+        standard_attr_id = #{standardAttrId,jdbcType=BIGINT},
+      </if>
+      <if test="flavorId != null">
+        flavor_id = #{flavorId,jdbcType=VARCHAR},
+      </if>
+      <if test="eeBp != null">
+        ee_bp = #{eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="eeUser != null">
+        ee_user = #{eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="eeStatus != null">
+        ee_status = #{eeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="distributed != null">
+        distributed = #{distributed,jdbcType=SMALLINT},
+      </if>
+      <if test="serviceRouter != null">
+        service_router = #{serviceRouter,jdbcType=SMALLINT},
+      </if>
+      <if test="ha != null">
+        ha = #{ha,jdbcType=SMALLINT},
+      </if>
+      <if test="haVrId != null">
+        ha_vr_id = #{haVrId,jdbcType=INTEGER},
+      </if>
+      <if test="availabilityZoneHints != null">
+        availability_zone_hints = #{availabilityZoneHints,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="revisionNumber != null">
+        revision_number = #{revisionNumber,jdbcType=BIGINT},
+      </if>
+    </set>
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsRouters">
+    update tbl_cmp_os_routers
+    set project_id = #{projectId,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      admin_state_up = #{adminStateUp,jdbcType=SMALLINT},
+      gw_port_id = #{gwPortId,jdbcType=VARCHAR},
+      enable_snat = #{enableSnat,jdbcType=SMALLINT},
+      standard_attr_id = #{standardAttrId,jdbcType=BIGINT},
+      flavor_id = #{flavorId,jdbcType=VARCHAR},
+      ee_bp = #{eeBp,jdbcType=VARCHAR},
+      ee_user = #{eeUser,jdbcType=VARCHAR},
+      ee_status = #{eeStatus,jdbcType=INTEGER},
+      distributed = #{distributed,jdbcType=SMALLINT},
+      service_router = #{serviceRouter,jdbcType=SMALLINT},
+      ha = #{ha,jdbcType=SMALLINT},
+      ha_vr_id = #{haVrId,jdbcType=INTEGER},
+      availability_zone_hints = #{availabilityZoneHints,jdbcType=VARCHAR},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      description = #{description,jdbcType=VARCHAR},
+      revision_number = #{revisionNumber,jdbcType=BIGINT}
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="getRouterIds" resultType="String">
+    select id from tbl_cmp_os_routers
+    where cloud_id = #{cloudId} and ee_status != -1
+  </select>
+
+  <update id="updateByPrimaryKeyEeSelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsRouters">
+    update tbl_cmp_os_routers
+    set project_id = #{projectId,jdbcType=VARCHAR},
+        name = #{name,jdbcType=VARCHAR},
+        status = #{status,jdbcType=VARCHAR},
+        admin_state_up = #{adminStateUp,jdbcType=SMALLINT},
+        gw_port_id = #{gwPortId,jdbcType=VARCHAR},
+        enable_snat = #{enableSnat,jdbcType=SMALLINT},
+        standard_attr_id = #{standardAttrId,jdbcType=BIGINT},
+        flavor_id = #{flavorId,jdbcType=VARCHAR},
+        <if test="eeBp != null">
+        ee_bp = #{eeBp,jdbcType=VARCHAR},
+        </if>
+        <if test="eeUser != null">
+        ee_user = #{eeUser,jdbcType=VARCHAR},
+        </if>
+        <if test="eeStatus != null">
+        ee_status = #{eeStatus,jdbcType=INTEGER},
+        </if>
+        distributed = #{distributed,jdbcType=SMALLINT},
+        service_router = #{serviceRouter,jdbcType=SMALLINT},
+        ha = #{ha,jdbcType=SMALLINT},
+        ha_vr_id = #{haVrId,jdbcType=INTEGER},
+        availability_zone_hints = #{availabilityZoneHints,jdbcType=VARCHAR},
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+        description = #{description,jdbcType=VARCHAR},
+        revision_number = #{revisionNumber,jdbcType=BIGINT}
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <resultMap id="EsRouterMap" type="com.lnjoying.justice.cmp.db.model.TblCmpEsRouters">
+    <id column="cloud_id" jdbcType="VARCHAR" property="cloudId" />
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="project_id" jdbcType="VARCHAR" property="projectId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="admin_state_up" jdbcType="SMALLINT" property="adminStateUp" />
+    <result column="gw_port_id" jdbcType="VARCHAR" property="gwPortId" />
+    <result column="enable_snat" jdbcType="SMALLINT" property="enableSnat" />
+    <result column="standard_attr_id" jdbcType="BIGINT" property="standardAttrId" />
+    <result column="flavor_id" jdbcType="VARCHAR" property="flavorId" />
+    <result column="ee_bp" jdbcType="VARCHAR" property="eeBp" />
+    <result column="ee_user" jdbcType="VARCHAR" property="eeUser" />
+    <result column="ee_status" jdbcType="INTEGER" property="eeStatus" />
+    <result column="distributed" jdbcType="SMALLINT" property="distributed" />
+    <result column="service_router" jdbcType="SMALLINT" property="serviceRouter" />
+    <result column="ha" jdbcType="SMALLINT" property="ha" />
+    <result column="ha_vr_id" jdbcType="INTEGER" property="haVrId" />
+    <result column="availability_zone_hints" jdbcType="VARCHAR" property="availabilityZoneHints" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="revision_number" jdbcType="BIGINT" property="revisionNumber" />
+    <result column="firewall_id" jdbcType="VARCHAR" property="firewallId" />
+  </resultMap>
+  <select id="selectByExampleWithFirewall" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsRoutersExample" resultMap="EsRouterMap">
+    select
+    <if test="example.distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" /> , firewall_id
+    from tbl_cmp_os_routers left join
+    (select router_id, firewall_id from tbl_cmp_es_firewall_bindings where cloud_id = #{cloudId} and ee_status != -1
+    <if test="firewallId != null and firewallId != '' and firewallId != 'empty'">
+      and firewall_id = #{firewallId,jdbcType=VARCHAR}
+    </if>)
+    t on tbl_cmp_os_routers.id = t.router_id
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+    <if test="firewallId != null and firewallId != ''">
+      and
+      <if test="firewallId == 'empty'">
+        firewall_id is null
+      </if>
+      <if test="firewallId != 'empty'">
+        firewall_id = #{firewallId,jdbcType=VARCHAR}
+      </if>
+    </if>
+    <if test="example.orderByClause != null">
+      order by ${example.orderByClause}
+    </if>
+  </select>
+</mapper>

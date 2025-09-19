@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.aos.db.mapper.TblRepoAppInfoMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.aos.db.model.TblRepoAppInfo">
+    <!--@mbg.generated-->
+    <!--@Table tbl_repo_app_info-->
+    <id column="app_id" jdbcType="VARCHAR" property="appId" />
+    <result column="repo_name" jdbcType="VARCHAR" property="repoName" />
+    <result column="app_name" jdbcType="VARCHAR" property="appName" />
+    <result column="versions" jdbcType="OTHER" property="versions" typeHandler="com.lnjoying.justice.aos.handler.JsonbTypeHandler" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    app_id, repo_name, app_name, versions, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_repo_app_info
+    where app_id = #{appId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from tbl_repo_app_info
+    where app_id = #{appId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.aos.db.model.TblRepoAppInfo">
+    <!--@mbg.generated-->
+    insert into tbl_repo_app_info (app_id, repo_name, app_name, 
+      versions, create_time, update_time
+      )
+    values (#{appId,jdbcType=VARCHAR}, #{repoName,jdbcType=VARCHAR}, #{appName,jdbcType=VARCHAR}, 
+      #{versions,jdbcType=OTHER, typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.aos.db.model.TblRepoAppInfo">
+    <!--@mbg.generated-->
+    insert into tbl_repo_app_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="appId != null and appId != ''">
+        app_id,
+      </if>
+      <if test="repoName != null and repoName != ''">
+        repo_name,
+      </if>
+      <if test="appName != null and appName != ''">
+        app_name,
+      </if>
+      <if test="versions != null">
+        versions,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="appId != null and appId != ''">
+        #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="repoName != null and repoName != ''">
+        #{repoName,jdbcType=VARCHAR},
+      </if>
+      <if test="appName != null and appName != ''">
+        #{appName,jdbcType=VARCHAR},
+      </if>
+      <if test="versions != null">
+        #{versions,jdbcType=OTHER, typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.aos.db.model.TblRepoAppInfo">
+    <!--@mbg.generated-->
+    update tbl_repo_app_info
+    <set>
+      <if test="repoName != null and repoName != ''">
+        repo_name = #{repoName,jdbcType=VARCHAR},
+      </if>
+      <if test="appName != null and appName != ''">
+        app_name = #{appName,jdbcType=VARCHAR},
+      </if>
+      <if test="versions != null">
+        versions = #{versions,jdbcType=OTHER, typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where app_id = #{appId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.aos.db.model.TblRepoAppInfo">
+    <!--@mbg.generated-->
+    update tbl_repo_app_info
+    set repo_name = #{repoName,jdbcType=VARCHAR},
+      app_name = #{appName,jdbcType=VARCHAR},
+      versions = #{versions,jdbcType=OTHER, typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where app_id = #{appId,jdbcType=VARCHAR}
+  </update>
+
+  <insert id="batchInsert" parameterType="com.lnjoying.justice.aos.db.model.TblRepoAppInfo">
+    <!--@mbg.generated-->
+    insert into tbl_repo_app_info (app_id, repo_name, app_name,
+    versions, create_time, update_time
+    )
+    values
+    <foreach collection="list" item="element" index="index" separator=",">
+    (#{element.appId,jdbcType=VARCHAR}, #{element.repoName,jdbcType=VARCHAR}, #{element.appName,jdbcType=VARCHAR},
+    #{element.versions,jdbcType=OTHER, typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler}, #{element.createTime,jdbcType=TIMESTAMP},
+      #{element.updateTime,jdbcType=TIMESTAMP}
+    )
+    </foreach>
+  </insert>
+
+  <select id="selectAllChartList" resultMap="BaseResultMap">
+    SELECT C.*
+    FROM
+    ( SELECT * FROM tbl_repo_app_info
+    <where>
+      <if test="appName != null and appName != ''">
+        and app_name like concat('%',#{appName,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="repoNameList != null and repoNameList.size() > 0">
+        and repo_name in
+        <foreach collection="repoNameList" item="element" index="index" open="(" close=")" separator=",">
+          #{element,jdbcType=VARCHAR}
+        </foreach>
+      </if>
+     <!-- <if test="repoName != null and repoName != ''">
+        and repo_name like concat('%',#{repoName,jdbcType=VARCHAR},'%')
+      </if>-->
+    </where>
+    )
+    C JOIN (
+    SELECT A
+    .app_id
+    FROM
+    tbl_repo_app_category_bind_info
+    A JOIN ( SELECT category_id FROM tbl_repo_category_info
+    <where>
+      <if test="category != null and category != ''">
+        and category like concat('%',#{category,jdbcType=VARCHAR},'%')
+      </if>
+    </where>
+    ) b ON A.category_id = b.category_id
+    ) d ON C.app_id = d.app_id
+    order by c.create_time desc, c.app_id asc
+  </select>
+
+  <select id="selectAllPrecise" resultMap="BaseResultMap">
+    SELECT
+      <include refid="Base_Column_List" />
+    FROM
+     tbl_repo_app_info
+    <where>
+      <if test="appName != null and appName != ''">
+        and app_name = #{appName,jdbcType=VARCHAR}
+      </if>
+      <if test="repoName != null and repoName != ''">
+        and repo_name = #{repoName,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+
+  <delete id="deleteByRepoName">
+    delete from tbl_repo_app_info
+    <where>
+      <if test="repoName != null and repoName != ''">
+        and repo_name=#{repoName,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </delete>
+
+  <delete id="deleteByRepoNameAndAppName">
+        delete from tbl_repo_app_info
+        <where>
+            <if test="repoName != null and repoName != ''">
+                and repo_name=#{repoName,jdbcType=VARCHAR}
+            </if>
+            <if test="appName != null and appName != ''">
+                and app_name=#{appName,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </delete>
+</mapper>

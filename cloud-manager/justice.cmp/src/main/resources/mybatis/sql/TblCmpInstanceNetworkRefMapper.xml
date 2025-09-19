@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.cmp.db.mapper.TblCmpInstanceNetworkRefMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.cmp.db.model.TblCmpInstanceNetworkRef">
+    <id column="cloud_id" jdbcType="VARCHAR" property="cloudId" />
+    <id column="instance_network_id" jdbcType="VARCHAR" property="instanceNetworkId" />
+    <result column="instance_id" jdbcType="VARCHAR" property="instanceId" />
+    <result column="vpc_id" jdbcType="VARCHAR" property="vpcId" />
+    <result column="subnet_id" jdbcType="VARCHAR" property="subnetId" />
+    <result column="port_id" jdbcType="VARCHAR" property="portId" />
+    <result column="instance_type" jdbcType="INTEGER" property="instanceType" />
+    <result column="static_ip" jdbcType="VARCHAR" property="staticIp" />
+    <result column="phase_status" jdbcType="INTEGER" property="phaseStatus" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="is_vip" jdbcType="BIT" property="isVip" />
+    <result column="ee_bp" jdbcType="VARCHAR" property="eeBp" />
+    <result column="ee_user" jdbcType="VARCHAR" property="eeUser" />
+    <result column="ee_status" jdbcType="INTEGER" property="eeStatus" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    cloud_id, instance_network_id, instance_id, vpc_id, subnet_id, port_id, instance_type, 
+    static_ip, phase_status, create_time, update_time, is_vip, ee_bp, ee_user, ee_status
+  </sql>
+  <select id="selectByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpInstanceNetworkRefExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_cmp_instance_network_ref
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpInstanceNetworkRefKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_cmp_instance_network_ref
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and instance_network_id = #{instanceNetworkId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpInstanceNetworkRefKey">
+    delete from tbl_cmp_instance_network_ref
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and instance_network_id = #{instanceNetworkId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpInstanceNetworkRefExample">
+    delete from tbl_cmp_instance_network_ref
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpInstanceNetworkRef">
+    insert into tbl_cmp_instance_network_ref (cloud_id, instance_network_id, instance_id, 
+      vpc_id, subnet_id, port_id, 
+      instance_type, static_ip, phase_status, 
+      create_time, update_time, is_vip, 
+      ee_bp, ee_user, ee_status
+      )
+    values (#{cloudId,jdbcType=VARCHAR}, #{instanceNetworkId,jdbcType=VARCHAR}, #{instanceId,jdbcType=VARCHAR}, 
+      #{vpcId,jdbcType=VARCHAR}, #{subnetId,jdbcType=VARCHAR}, #{portId,jdbcType=VARCHAR}, 
+      #{instanceType,jdbcType=INTEGER}, #{staticIp,jdbcType=VARCHAR}, #{phaseStatus,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{isVip,jdbcType=BIT}, 
+      #{eeBp,jdbcType=VARCHAR}, #{eeUser,jdbcType=VARCHAR}, #{eeStatus,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpInstanceNetworkRef">
+    insert into tbl_cmp_instance_network_ref
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cloudId != null">
+        cloud_id,
+      </if>
+      <if test="instanceNetworkId != null">
+        instance_network_id,
+      </if>
+      <if test="instanceId != null">
+        instance_id,
+      </if>
+      <if test="vpcId != null">
+        vpc_id,
+      </if>
+      <if test="subnetId != null">
+        subnet_id,
+      </if>
+      <if test="portId != null">
+        port_id,
+      </if>
+      <if test="instanceType != null">
+        instance_type,
+      </if>
+      <if test="staticIp != null">
+        static_ip,
+      </if>
+      <if test="phaseStatus != null">
+        phase_status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="isVip != null">
+        is_vip,
+      </if>
+      <if test="eeBp != null">
+        ee_bp,
+      </if>
+      <if test="eeUser != null">
+        ee_user,
+      </if>
+      <if test="eeStatus != null">
+        ee_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cloudId != null">
+        #{cloudId,jdbcType=VARCHAR},
+      </if>
+      <if test="instanceNetworkId != null">
+        #{instanceNetworkId,jdbcType=VARCHAR},
+      </if>
+      <if test="instanceId != null">
+        #{instanceId,jdbcType=VARCHAR},
+      </if>
+      <if test="vpcId != null">
+        #{vpcId,jdbcType=VARCHAR},
+      </if>
+      <if test="subnetId != null">
+        #{subnetId,jdbcType=VARCHAR},
+      </if>
+      <if test="portId != null">
+        #{portId,jdbcType=VARCHAR},
+      </if>
+      <if test="instanceType != null">
+        #{instanceType,jdbcType=INTEGER},
+      </if>
+      <if test="staticIp != null">
+        #{staticIp,jdbcType=VARCHAR},
+      </if>
+      <if test="phaseStatus != null">
+        #{phaseStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isVip != null">
+        #{isVip,jdbcType=BIT},
+      </if>
+      <if test="eeBp != null">
+        #{eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="eeUser != null">
+        #{eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="eeStatus != null">
+        #{eeStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpInstanceNetworkRefExample" resultType="java.lang.Long">
+    select count(*) from tbl_cmp_instance_network_ref
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_cmp_instance_network_ref
+    <set>
+      <if test="record.cloudId != null">
+        cloud_id = #{record.cloudId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.instanceNetworkId != null">
+        instance_network_id = #{record.instanceNetworkId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.instanceId != null">
+        instance_id = #{record.instanceId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vpcId != null">
+        vpc_id = #{record.vpcId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subnetId != null">
+        subnet_id = #{record.subnetId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.portId != null">
+        port_id = #{record.portId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.instanceType != null">
+        instance_type = #{record.instanceType,jdbcType=INTEGER},
+      </if>
+      <if test="record.staticIp != null">
+        static_ip = #{record.staticIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phaseStatus != null">
+        phase_status = #{record.phaseStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isVip != null">
+        is_vip = #{record.isVip,jdbcType=BIT},
+      </if>
+      <if test="record.eeBp != null">
+        ee_bp = #{record.eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeUser != null">
+        ee_user = #{record.eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeStatus != null">
+        ee_status = #{record.eeStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_cmp_instance_network_ref
+    set cloud_id = #{record.cloudId,jdbcType=VARCHAR},
+      instance_network_id = #{record.instanceNetworkId,jdbcType=VARCHAR},
+      instance_id = #{record.instanceId,jdbcType=VARCHAR},
+      vpc_id = #{record.vpcId,jdbcType=VARCHAR},
+      subnet_id = #{record.subnetId,jdbcType=VARCHAR},
+      port_id = #{record.portId,jdbcType=VARCHAR},
+      instance_type = #{record.instanceType,jdbcType=INTEGER},
+      static_ip = #{record.staticIp,jdbcType=VARCHAR},
+      phase_status = #{record.phaseStatus,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      is_vip = #{record.isVip,jdbcType=BIT},
+      ee_bp = #{record.eeBp,jdbcType=VARCHAR},
+      ee_user = #{record.eeUser,jdbcType=VARCHAR},
+      ee_status = #{record.eeStatus,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpInstanceNetworkRef">
+    update tbl_cmp_instance_network_ref
+    <set>
+      <if test="instanceId != null">
+        instance_id = #{instanceId,jdbcType=VARCHAR},
+      </if>
+      <if test="vpcId != null">
+        vpc_id = #{vpcId,jdbcType=VARCHAR},
+      </if>
+      <if test="subnetId != null">
+        subnet_id = #{subnetId,jdbcType=VARCHAR},
+      </if>
+      <if test="portId != null">
+        port_id = #{portId,jdbcType=VARCHAR},
+      </if>
+      <if test="instanceType != null">
+        instance_type = #{instanceType,jdbcType=INTEGER},
+      </if>
+      <if test="staticIp != null">
+        static_ip = #{staticIp,jdbcType=VARCHAR},
+      </if>
+      <if test="phaseStatus != null">
+        phase_status = #{phaseStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isVip != null">
+        is_vip = #{isVip,jdbcType=BIT},
+      </if>
+      <if test="eeBp != null">
+        ee_bp = #{eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="eeUser != null">
+        ee_user = #{eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="eeStatus != null">
+        ee_status = #{eeStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and instance_network_id = #{instanceNetworkId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpInstanceNetworkRef">
+    update tbl_cmp_instance_network_ref
+    set instance_id = #{instanceId,jdbcType=VARCHAR},
+      vpc_id = #{vpcId,jdbcType=VARCHAR},
+      subnet_id = #{subnetId,jdbcType=VARCHAR},
+      port_id = #{portId,jdbcType=VARCHAR},
+      instance_type = #{instanceType,jdbcType=INTEGER},
+      static_ip = #{staticIp,jdbcType=VARCHAR},
+      phase_status = #{phaseStatus,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      is_vip = #{isVip,jdbcType=BIT},
+      ee_bp = #{eeBp,jdbcType=VARCHAR},
+      ee_user = #{eeUser,jdbcType=VARCHAR},
+      ee_status = #{eeStatus,jdbcType=INTEGER}
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and instance_network_id = #{instanceNetworkId,jdbcType=VARCHAR}
+  </update>
+  <select id="getInstanceNetworkRefIds" resultType="String">
+    select instance_network_id from tbl_cmp_instance_network_ref
+    where cloud_id = #{cloudId} and instance_id = #{instanceId} and ee_status != -1
+  </select>
+</mapper>

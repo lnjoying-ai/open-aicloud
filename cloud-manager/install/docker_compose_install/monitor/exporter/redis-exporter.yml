@@ -1,0 +1,13 @@
+version: "3.4"
+services:
+  redis-exporter:
+    image: bitnami/redis-exporter:latest
+    restart: always
+    container_name: redis-exporter
+    environment:
+      REDIS_ADDR: "redis://${CLOUD_INTERNAL_IP}:6379"
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+    ports:
+      - 9121:9121
+
+#grafana id 763

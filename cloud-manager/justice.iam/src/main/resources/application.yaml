@@ -1,0 +1,56 @@
+###servicecomb config####
+servicecomb-config-order: 1
+APPLICATION_ID: justice-cloud  #应用名
+service_description:
+  name: iam        #微服务名
+  version: 1.0.10 #微服务版本
+  environment: development
+servicecomb:
+  service:
+    registry:
+      address: ${SC_ADDRESS:http://127.0.0.1:30100} #连接SC(Service Center,注册中心)的地址
+#    publishAddress: 127.0.0.1
+  rest:
+    address: ${LISTEN_IP:0.0.0.0}:8068  #Rest通信地址
+#    servlet:
+#      urlPattern: /cse/*  #using spring mvc rest server to handle requests
+  inspector:
+    enabled: true
+  handler:
+    chain:
+      Consumer:
+        default: tracing-consumer,loadbalance
+      Provider:
+        default: tracing-provider
+    tracing:
+      collector: # 配置Zipkin服务器 API 版本和地址信息
+        address: http://127.0.0.1:9411
+
+
+#  handler:
+#    chain:
+#      Provider:
+#        default: globalExceptionHandler
+
+###spring config######
+server:
+  port: 8068
+
+###mybtis config####
+mybatis:
+  mapper-locations: classpath:mybatis/sql/*.xml
+
+jwtkey: aicloud
+default-weixin-password: joying@365
+wx:
+  miniapp:
+    appid: xxxx
+    secret: xxxx
+    config-storage:
+      type: Jedis
+
+opa:
+  authz:
+    url: ${OPA_AUTHZ_URL:http://192.168.60.6:8181/}
+    resource:
+      update: ${IAM_COMMON_RESOURCE_UPDATE:true}

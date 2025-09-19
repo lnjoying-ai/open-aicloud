@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.cmp.db.mapper.TblCmpOsImagesMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.cmp.db.model.TblCmpOsImages">
+    <id column="cloud_id" jdbcType="VARCHAR" property="cloudId" />
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="size" jdbcType="BIGINT" property="size" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+    <result column="deleted_at" jdbcType="TIMESTAMP" property="deletedAt" />
+    <result column="deleted" jdbcType="SMALLINT" property="deleted" />
+    <result column="disk_format" jdbcType="VARCHAR" property="diskFormat" />
+    <result column="container_format" jdbcType="VARCHAR" property="containerFormat" />
+    <result column="checksum" jdbcType="VARCHAR" property="checksum" />
+    <result column="owner" jdbcType="VARCHAR" property="owner" />
+    <result column="min_disk" jdbcType="INTEGER" property="minDisk" />
+    <result column="min_ram" jdbcType="INTEGER" property="minRam" />
+    <result column="protected" jdbcType="SMALLINT" property="protect" />
+    <result column="virual_size" jdbcType="BIGINT" property="virualSize" />
+    <result column="visibility" jdbcType="VARCHAR" property="visibility" />
+    <result column="os_hidden" jdbcType="SMALLINT" property="osHidden" />
+    <result column="os_hash_algo" jdbcType="VARCHAR" property="osHashAlgo" />
+    <result column="os_hash_value" jdbcType="VARCHAR" property="osHashValue" />
+    <result column="ee_status" jdbcType="INTEGER" property="eeStatus" />
+    <result column="ee_bp" jdbcType="VARCHAR" property="eeBp" />
+    <result column="ee_user" jdbcType="VARCHAR" property="eeUser" />
+    <result column="properties" jdbcType="VARCHAR" property="properties" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    cloud_id, id, name, size, status, created_at, updated_at, deleted_at, deleted, disk_format, 
+    container_format, checksum, owner, min_disk, min_ram, protected, virual_size, visibility, 
+    os_hidden, os_hash_algo, os_hash_value, ee_status, ee_bp, ee_user, properties
+  </sql>
+  <select id="selectByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsImagesExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_cmp_os_images
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsImagesKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_cmp_os_images
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsImagesKey">
+    delete from tbl_cmp_os_images
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsImagesExample">
+    delete from tbl_cmp_os_images
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsImages">
+    insert into tbl_cmp_os_images (cloud_id, id, name, 
+      size, status, created_at, 
+      updated_at, deleted_at, deleted, 
+      disk_format, container_format, checksum, 
+      owner, min_disk, min_ram, 
+      protected, virual_size, visibility, 
+      os_hidden, os_hash_algo, os_hash_value, 
+      ee_status, ee_bp, ee_user, 
+      properties)
+    values (#{cloudId,jdbcType=VARCHAR}, #{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{size,jdbcType=BIGINT}, #{status,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP}, 
+      #{updatedAt,jdbcType=TIMESTAMP}, #{deletedAt,jdbcType=TIMESTAMP}, #{deleted,jdbcType=SMALLINT}, 
+      #{diskFormat,jdbcType=VARCHAR}, #{containerFormat,jdbcType=VARCHAR}, #{checksum,jdbcType=VARCHAR}, 
+      #{owner,jdbcType=VARCHAR}, #{minDisk,jdbcType=INTEGER}, #{minRam,jdbcType=INTEGER}, 
+      #{protected,jdbcType=SMALLINT}, #{virualSize,jdbcType=BIGINT}, #{visibility,jdbcType=VARCHAR}, 
+      #{osHidden,jdbcType=SMALLINT}, #{osHashAlgo,jdbcType=VARCHAR}, #{osHashValue,jdbcType=VARCHAR}, 
+      #{eeStatus,jdbcType=INTEGER}, #{eeBp,jdbcType=VARCHAR}, #{eeUser,jdbcType=VARCHAR}, 
+      #{properties,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsImages">
+    insert into tbl_cmp_os_images
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cloudId != null">
+        cloud_id,
+      </if>
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="size != null">
+        size,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedAt != null">
+        updated_at,
+      </if>
+      <if test="deletedAt != null">
+        deleted_at,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+      <if test="diskFormat != null">
+        disk_format,
+      </if>
+      <if test="containerFormat != null">
+        container_format,
+      </if>
+      <if test="checksum != null">
+        checksum,
+      </if>
+      <if test="owner != null">
+        owner,
+      </if>
+      <if test="minDisk != null">
+        min_disk,
+      </if>
+      <if test="minRam != null">
+        min_ram,
+      </if>
+      <if test="protected != null">
+        protected,
+      </if>
+      <if test="virualSize != null">
+        virual_size,
+      </if>
+      <if test="visibility != null">
+        visibility,
+      </if>
+      <if test="osHidden != null">
+        os_hidden,
+      </if>
+      <if test="osHashAlgo != null">
+        os_hash_algo,
+      </if>
+      <if test="osHashValue != null">
+        os_hash_value,
+      </if>
+      <if test="eeStatus != null">
+        ee_status,
+      </if>
+      <if test="eeBp != null">
+        ee_bp,
+      </if>
+      <if test="eeUser != null">
+        ee_user,
+      </if>
+      <if test="properties != null">
+        properties,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cloudId != null">
+        #{cloudId,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        #{size,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletedAt != null">
+        #{deletedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=SMALLINT},
+      </if>
+      <if test="diskFormat != null">
+        #{diskFormat,jdbcType=VARCHAR},
+      </if>
+      <if test="containerFormat != null">
+        #{containerFormat,jdbcType=VARCHAR},
+      </if>
+      <if test="checksum != null">
+        #{checksum,jdbcType=VARCHAR},
+      </if>
+      <if test="owner != null">
+        #{owner,jdbcType=VARCHAR},
+      </if>
+      <if test="minDisk != null">
+        #{minDisk,jdbcType=INTEGER},
+      </if>
+      <if test="minRam != null">
+        #{minRam,jdbcType=INTEGER},
+      </if>
+      <if test="protected != null">
+        #{protected,jdbcType=SMALLINT},
+      </if>
+      <if test="virualSize != null">
+        #{virualSize,jdbcType=BIGINT},
+      </if>
+      <if test="visibility != null">
+        #{visibility,jdbcType=VARCHAR},
+      </if>
+      <if test="osHidden != null">
+        #{osHidden,jdbcType=SMALLINT},
+      </if>
+      <if test="osHashAlgo != null">
+        #{osHashAlgo,jdbcType=VARCHAR},
+      </if>
+      <if test="osHashValue != null">
+        #{osHashValue,jdbcType=VARCHAR},
+      </if>
+      <if test="eeStatus != null">
+        #{eeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="eeBp != null">
+        #{eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="eeUser != null">
+        #{eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="properties != null">
+        #{properties,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsImagesExample" resultType="java.lang.Long">
+    select count(*) from tbl_cmp_os_images
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_cmp_os_images
+    <set>
+      <if test="record.cloudId != null">
+        cloud_id = #{record.cloudId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.size != null">
+        size = #{record.size,jdbcType=BIGINT},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdAt != null">
+        created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedAt != null">
+        updated_at = #{record.updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deletedAt != null">
+        deleted_at = #{record.deletedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deleted != null">
+        deleted = #{record.deleted,jdbcType=SMALLINT},
+      </if>
+      <if test="record.diskFormat != null">
+        disk_format = #{record.diskFormat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.containerFormat != null">
+        container_format = #{record.containerFormat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checksum != null">
+        checksum = #{record.checksum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.owner != null">
+        owner = #{record.owner,jdbcType=VARCHAR},
+      </if>
+      <if test="record.minDisk != null">
+        min_disk = #{record.minDisk,jdbcType=INTEGER},
+      </if>
+      <if test="record.minRam != null">
+        min_ram = #{record.minRam,jdbcType=INTEGER},
+      </if>
+      <if test="record.protected != null">
+        protected = #{record.protected,jdbcType=SMALLINT},
+      </if>
+      <if test="record.virualSize != null">
+        virual_size = #{record.virualSize,jdbcType=BIGINT},
+      </if>
+      <if test="record.visibility != null">
+        visibility = #{record.visibility,jdbcType=VARCHAR},
+      </if>
+      <if test="record.osHidden != null">
+        os_hidden = #{record.osHidden,jdbcType=SMALLINT},
+      </if>
+      <if test="record.osHashAlgo != null">
+        os_hash_algo = #{record.osHashAlgo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.osHashValue != null">
+        os_hash_value = #{record.osHashValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeStatus != null">
+        ee_status = #{record.eeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.eeBp != null">
+        ee_bp = #{record.eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeUser != null">
+        ee_user = #{record.eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.properties != null">
+        properties = #{record.properties,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_cmp_os_images
+    set cloud_id = #{record.cloudId,jdbcType=VARCHAR},
+      id = #{record.id,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      size = #{record.size,jdbcType=BIGINT},
+      status = #{record.status,jdbcType=VARCHAR},
+      created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{record.updatedAt,jdbcType=TIMESTAMP},
+      deleted_at = #{record.deletedAt,jdbcType=TIMESTAMP},
+      deleted = #{record.deleted,jdbcType=SMALLINT},
+      disk_format = #{record.diskFormat,jdbcType=VARCHAR},
+      container_format = #{record.containerFormat,jdbcType=VARCHAR},
+      checksum = #{record.checksum,jdbcType=VARCHAR},
+      owner = #{record.owner,jdbcType=VARCHAR},
+      min_disk = #{record.minDisk,jdbcType=INTEGER},
+      min_ram = #{record.minRam,jdbcType=INTEGER},
+      protected = #{record.protected,jdbcType=SMALLINT},
+      virual_size = #{record.virualSize,jdbcType=BIGINT},
+      visibility = #{record.visibility,jdbcType=VARCHAR},
+      os_hidden = #{record.osHidden,jdbcType=SMALLINT},
+      os_hash_algo = #{record.osHashAlgo,jdbcType=VARCHAR},
+      os_hash_value = #{record.osHashValue,jdbcType=VARCHAR},
+      ee_status = #{record.eeStatus,jdbcType=INTEGER},
+      ee_bp = #{record.eeBp,jdbcType=VARCHAR},
+      ee_user = #{record.eeUser,jdbcType=VARCHAR},
+      properties = #{record.properties,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsImages">
+    update tbl_cmp_os_images
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        size = #{size,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletedAt != null">
+        deleted_at = #{deletedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=SMALLINT},
+      </if>
+      <if test="diskFormat != null">
+        disk_format = #{diskFormat,jdbcType=VARCHAR},
+      </if>
+      <if test="containerFormat != null">
+        container_format = #{containerFormat,jdbcType=VARCHAR},
+      </if>
+      <if test="checksum != null">
+        checksum = #{checksum,jdbcType=VARCHAR},
+      </if>
+      <if test="owner != null">
+        owner = #{owner,jdbcType=VARCHAR},
+      </if>
+      <if test="minDisk != null">
+        min_disk = #{minDisk,jdbcType=INTEGER},
+      </if>
+      <if test="minRam != null">
+        min_ram = #{minRam,jdbcType=INTEGER},
+      </if>
+      <if test="protected != null">
+        protected = #{protected,jdbcType=SMALLINT},
+      </if>
+      <if test="virualSize != null">
+        virual_size = #{virualSize,jdbcType=BIGINT},
+      </if>
+      <if test="visibility != null">
+        visibility = #{visibility,jdbcType=VARCHAR},
+      </if>
+      <if test="osHidden != null">
+        os_hidden = #{osHidden,jdbcType=SMALLINT},
+      </if>
+      <if test="osHashAlgo != null">
+        os_hash_algo = #{osHashAlgo,jdbcType=VARCHAR},
+      </if>
+      <if test="osHashValue != null">
+        os_hash_value = #{osHashValue,jdbcType=VARCHAR},
+      </if>
+      <if test="eeStatus != null">
+        ee_status = #{eeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="eeBp != null">
+        ee_bp = #{eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="eeUser != null">
+        ee_user = #{eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="properties != null">
+        properties = #{properties,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsImages">
+    update tbl_cmp_os_images
+    set name = #{name,jdbcType=VARCHAR},
+      size = #{size,jdbcType=BIGINT},
+      status = #{status,jdbcType=VARCHAR},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      deleted_at = #{deletedAt,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=SMALLINT},
+      disk_format = #{diskFormat,jdbcType=VARCHAR},
+      container_format = #{containerFormat,jdbcType=VARCHAR},
+      checksum = #{checksum,jdbcType=VARCHAR},
+      owner = #{owner,jdbcType=VARCHAR},
+      min_disk = #{minDisk,jdbcType=INTEGER},
+      min_ram = #{minRam,jdbcType=INTEGER},
+      protected = #{protected,jdbcType=SMALLINT},
+      virual_size = #{virualSize,jdbcType=BIGINT},
+      visibility = #{visibility,jdbcType=VARCHAR},
+      os_hidden = #{osHidden,jdbcType=SMALLINT},
+      os_hash_algo = #{osHashAlgo,jdbcType=VARCHAR},
+      os_hash_value = #{osHashValue,jdbcType=VARCHAR},
+      ee_status = #{eeStatus,jdbcType=INTEGER},
+      ee_bp = #{eeBp,jdbcType=VARCHAR},
+      ee_user = #{eeUser,jdbcType=VARCHAR},
+      properties = #{properties,jdbcType=VARCHAR}
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="getImageIds" resultType="String">
+    select id from tbl_cmp_os_images
+    where cloud_id = #{cloudId} and ee_status != -1
+  </select>
+</mapper>

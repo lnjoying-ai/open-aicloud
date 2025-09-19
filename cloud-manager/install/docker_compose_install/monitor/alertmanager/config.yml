@@ -1,0 +1,12 @@
+route:
+  receiver: 'webhook-receiver'
+
+receivers:
+  - name: 'webhook-receiver'
+    webhook_configs:
+      - url: 'http://localhost:8088/omc/v1/alert/webhook'
+        send_resolved: true
+        http_config:
+          basic_auth:
+            username: 'your-username'
+            password: 'your-password'

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.ecrm.db.mapper.TblEdgeComputeTaintInfoMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.ecrm.db.model.TblEdgeComputeTaintInfo">
+    <id column="node_id" jdbcType="VARCHAR" property="nodeId" />
+    <id column="taint_key" jdbcType="VARCHAR" property="taintKey" />
+    <result column="taint_value" jdbcType="VARCHAR" property="taintValue" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    node_id, taint_key, taint_value
+  </sql>
+  <select id="selectByExample" parameterType="com.lnjoying.justice.ecrm.db.model.TblEdgeComputeTaintInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_edge_compute_taint_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.lnjoying.justice.ecrm.db.model.TblEdgeComputeTaintInfoKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_edge_compute_taint_info
+    where node_id = #{nodeId,jdbcType=VARCHAR}
+      and taint_key = #{taintKey,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.lnjoying.justice.ecrm.db.model.TblEdgeComputeTaintInfoKey">
+    delete from tbl_edge_compute_taint_info
+    where node_id = #{nodeId,jdbcType=VARCHAR}
+      and taint_key = #{taintKey,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lnjoying.justice.ecrm.db.model.TblEdgeComputeTaintInfoExample">
+    delete from tbl_edge_compute_taint_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.ecrm.db.model.TblEdgeComputeTaintInfo">
+    insert into tbl_edge_compute_taint_info (node_id, taint_key, taint_value
+    )
+    values (#{nodeId,jdbcType=VARCHAR}, #{taintKey,jdbcType=VARCHAR}, #{taintValue,jdbcType=VARCHAR}
+    )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.ecrm.db.model.TblEdgeComputeTaintInfo">
+    insert into tbl_edge_compute_taint_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="nodeId != null">
+        node_id,
+      </if>
+      <if test="taintKey != null">
+        taint_key,
+      </if>
+      <if test="taintValue != null">
+        taint_value,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="nodeId != null">
+        #{nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="taintKey != null">
+        #{taintKey,jdbcType=VARCHAR},
+      </if>
+      <if test="taintValue != null">
+        #{taintValue,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lnjoying.justice.ecrm.db.model.TblEdgeComputeTaintInfoExample" resultType="java.lang.Long">
+    select count(*) from tbl_edge_compute_taint_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_edge_compute_taint_info
+    <set>
+      <if test="record.nodeId != null">
+        node_id = #{record.nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taintKey != null">
+        taint_key = #{record.taintKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taintValue != null">
+        taint_value = #{record.taintValue,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_edge_compute_taint_info
+    set node_id = #{record.nodeId,jdbcType=VARCHAR},
+      taint_key = #{record.taintKey,jdbcType=VARCHAR},
+      taint_value = #{record.taintValue,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.ecrm.db.model.TblEdgeComputeTaintInfo">
+    update tbl_edge_compute_taint_info
+    <set>
+      <if test="taintValue != null">
+        taint_value = #{taintValue,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where node_id = #{nodeId,jdbcType=VARCHAR}
+      and taint_key = #{taintKey,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.ecrm.db.model.TblEdgeComputeTaintInfo">
+    update tbl_edge_compute_taint_info
+    set taint_value = #{taintValue,jdbcType=VARCHAR}
+    where node_id = #{nodeId,jdbcType=VARCHAR}
+      and taint_key = #{taintKey,jdbcType=VARCHAR}
+  </update>
+</mapper>

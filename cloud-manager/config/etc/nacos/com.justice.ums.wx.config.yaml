@@ -1,0 +1,15 @@
+default-weixin-password: joying@365
+wx:
+  miniapp:
+    appid: xxxx
+    secret: xxxx
+    config-storage:
+      #      redis:
+      #        database: 1
+      #        host: ${REDIS_HOST:127.0.0.1}
+      #        port: ${REDIS_PORT:6379}
+      #        password: ${REDIS_PASSWORD:hello}
+      #        max-active: ${MAX_CONNECT:10}
+      #        max-idle: ${MAX_IDLE:10}
+      #        max-wait-millis: ${MAX_WAIT_MILLIS:1000000}
+      type: Jedis

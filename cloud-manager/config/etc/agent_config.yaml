@@ -1,0 +1,4 @@
+!!com.lnjoying.justice.cluster.agent.model.NodeConfig {core_version: 0.0.1, magic_num: -388914927,
+  node_id: FFAHkcd1jet6FaQYh3t9V6UdbHYUzNvoeemZs, node_name: admin, node_type: 2,
+  peer_ip: null, peer_port: 0, private_key: 2fGJgWhsY8BfJSZAiJ89EonjtqrTvdqBXcQoErxSsXGXJHfinqNfxuVAip,
+  protocol_version: 0.0.1, regFlag: 1, region_id: admin, token: null}

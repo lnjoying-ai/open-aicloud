@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.ims.db.mapper.TblImsRegistry3rdMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.ims.db.model.TblImsRegistry3rd">
+    <!--@mbg.generated-->
+    <!--@Table tbl_ims_registry_3rd-->
+    <id column="registry_id" jdbcType="VARCHAR" property="registryId" />
+    <result column="registry_name" jdbcType="VARCHAR" property="registryName" />
+    <result column="registry_desc" jdbcType="VARCHAR" property="registryDesc" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="access_key" jdbcType="VARCHAR" property="accessKey" />
+    <result column="access_secret" jdbcType="VARCHAR" property="accessSecret" />
+    <result column="insecure" jdbcType="BOOLEAN" property="insecure" />
+    <result column="bp_id" jdbcType="VARCHAR" property="bpId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="bp_name" jdbcType="VARCHAR" property="bpName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    registry_id, registry_name, registry_desc, "type", url, access_key, access_secret, 
+    insecure, bp_id, user_id, "status", create_time, update_time, user_name, bp_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_ims_registry_3rd
+    where registry_id = #{registryId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from tbl_ims_registry_3rd
+    where registry_id = #{registryId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" keyColumn="registry_id" keyProperty="registryId" parameterType="com.lnjoying.justice.ims.db.model.TblImsRegistry3rd" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into tbl_ims_registry_3rd (registry_name, registry_desc, "type", 
+      url, access_key, access_secret, 
+      insecure, bp_id, user_id, 
+      "status", create_time, update_time, 
+      user_name, bp_name)
+    values (#{registryName,jdbcType=VARCHAR}, #{registryDesc,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{url,jdbcType=VARCHAR}, #{accessKey,jdbcType=VARCHAR}, #{accessSecret,jdbcType=VARCHAR}, 
+      #{insecure,jdbcType=BOOLEAN}, #{bpId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{userName,jdbcType=VARCHAR}, #{bpName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="registry_id" keyProperty="registryId" parameterType="com.lnjoying.justice.ims.db.model.TblImsRegistry3rd" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into tbl_ims_registry_3rd
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="registryId != null and registryId != ''">
+        registry_id,
+      </if>
+      <if test="registryName != null and registryName != ''">
+        registry_name,
+      </if>
+      <if test="registryDesc != null and registryDesc != ''">
+        registry_desc,
+      </if>
+      <if test="type != null">
+        "type",
+      </if>
+      <if test="url != null and url != ''">
+        url,
+      </if>
+      <if test="accessKey != null and accessKey != ''">
+        access_key,
+      </if>
+      <if test="accessSecret != null and accessSecret != ''">
+        access_secret,
+      </if>
+      <if test="insecure != null">
+        insecure,
+      </if>
+      <if test="bpId != null and bpId != ''">
+        bp_id,
+      </if>
+      <if test="userId != null and userId != ''">
+        user_id,
+      </if>
+      <if test="status != null">
+        "status",
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="userName != null and userName != ''">
+        user_name,
+      </if>
+      <if test="bpName != null and bpName != ''">
+        bp_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="registryId != null and registryId != ''">
+        #{registryId,jdbcType=VARCHAR},
+      </if>
+      <if test="registryName != null and registryName != ''">
+        #{registryName,jdbcType=VARCHAR},
+      </if>
+      <if test="registryDesc != null and registryDesc != ''">
+        #{registryDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="url != null and url != ''">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="accessKey != null and accessKey != ''">
+        #{accessKey,jdbcType=VARCHAR},
+      </if>
+      <if test="accessSecret != null and accessSecret != ''">
+        #{accessSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="insecure != null">
+        #{insecure,jdbcType=BOOLEAN},
+      </if>
+      <if test="bpId != null and bpId != ''">
+        #{bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null and userId != ''">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userName != null and userName != ''">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="bpName != null and bpName != ''">
+        #{bpName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.ims.db.model.TblImsRegistry3rd">
+    <!--@mbg.generated-->
+    update tbl_ims_registry_3rd
+    <set>
+      <if test="registryName != null and registryName != ''">
+        registry_name = #{registryName,jdbcType=VARCHAR},
+      </if>
+      <if test="registryDesc != null and registryDesc != ''">
+        registry_desc = #{registryDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        "type" = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="url != null and url != ''">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="accessKey != null and accessKey != ''">
+        access_key = #{accessKey,jdbcType=VARCHAR},
+      </if>
+      <if test="accessSecret != null and accessSecret != ''">
+        access_secret = #{accessSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="insecure != null">
+        insecure = #{insecure,jdbcType=BOOLEAN},
+      </if>
+      <if test="bpId != null and bpId != ''">
+        bp_id = #{bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null and userId != ''">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        "status" = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userName != null and userName != ''">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="bpName != null and bpName != ''">
+        bp_name = #{bpName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where registry_id = #{registryId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.ims.db.model.TblImsRegistry3rd">
+    <!--@mbg.generated-->
+    update tbl_ims_registry_3rd
+    set registry_name = #{registryName,jdbcType=VARCHAR},
+      registry_desc = #{registryDesc,jdbcType=VARCHAR},
+      "type" = #{type,jdbcType=INTEGER},
+      url = #{url,jdbcType=VARCHAR},
+      access_key = #{accessKey,jdbcType=VARCHAR},
+      access_secret = #{accessSecret,jdbcType=VARCHAR},
+      insecure = #{insecure,jdbcType=BOOLEAN},
+      bp_id = #{bpId,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      "status" = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      user_name = #{userName,jdbcType=VARCHAR},
+      bp_name = #{bpName,jdbcType=VARCHAR}
+    where registry_id = #{registryId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tbl_ims_registry_3rd
+    <where>
+      <if test="likeRegistryName != null and likeRegistryName != ''">
+        and registry_name like concat('%',#{likeRegistryName,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="status != null">
+        and "status"=#{status,jdbcType=INTEGER}
+      </if>
+      <if test="bpId != null and bpId != ''">
+        and bp_id=#{bpId,jdbcType=VARCHAR}
+      </if>
+      <if test="userId != null and userId != ''">
+        and user_id=#{userId,jdbcType=VARCHAR}
+      </if>
+    </where>
+    order by update_time desc, create_time desc
+  </select>
+
+  <select id="selectByRegistryName" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tbl_ims_registry_3rd
+    <where>
+      <if test="registryName != null and registryName != ''">
+        and registry_name=#{registryName,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+
+  <select id="selectByUrlAndAccessKey" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tbl_ims_registry_3rd
+        <where>
+            <if test="url != null and url != ''">
+                and url=#{url,jdbcType=VARCHAR}
+            </if>
+            <if test="accessKey != null and accessKey != ''">
+                and access_key=#{accessKey,jdbcType=VARCHAR}
+            </if>
+            <if test="true">
+               and status = 1
+            </if>
+        </where>
+    </select>
+</mapper>

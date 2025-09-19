@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.cmp.db.mapper.ManualMapper">
+  <select id="getVmNum" resultType="int">
+    select count(*) from tbl_cmp_vm_instance
+    left join tbl_cloud_info on tbl_cmp_vm_instance.cloud_id = tbl_cloud_info.cloud_id
+    where tbl_cloud_info.status != -1
+    <if test="userId != null and userId != ''">
+      and tbl_cloud_info.owner = #{userId,jdbcType=VARCHAR}
+    </if>
+    <if test="bpId != null and bpId != ''">
+      and tbl_cloud_info.bp = #{bpId,jdbcType=VARCHAR}
+    </if>
+    and tbl_cmp_vm_instance.phase_status = #{status,jdbcType=INTEGER}
+    and tbl_cmp_vm_instance.ee_status != -1
+  </select>
+  <select id="getBaremetalNum" resultType="int">
+    select count(*) from tbl_cmp_baremetal_instance
+    left join tbl_cloud_info on tbl_cmp_baremetal_instance.cloud_id = tbl_cloud_info.cloud_id
+    where tbl_cloud_info.status != -1
+    <if test="userId != null and userId != ''">
+      and tbl_cloud_info.owner = #{userId,jdbcType=VARCHAR}
+    </if>
+    <if test="bpId != null and bpId != ''">
+      and tbl_cloud_info.bp = #{bpId,jdbcType=VARCHAR}
+    </if>
+    and tbl_cmp_baremetal_instance.phase_status = #{status,jdbcType=INTEGER}
+    and tbl_cmp_baremetal_instance.ee_status != -1
+  </select>
+
+  <select id="getSubnetConnectToRouter" resultType="String">
+    select distinct subnet_id
+    from ( select port_id, subnet_id, device_id, device_owner
+           from tbl_cmp_os_ipallocations t1
+               inner join ( select id, device_id, device_owner
+                            from tbl_cmp_os_ports
+                            where cloud_id = #{cloudId} and ee_status != -1 and device_owner in ('network:router_interface_distributed', 'network:router_interface', 'network:ha_router_replicated_interface')) t2
+               on t1.port_id = t2.id and t1.cloud_id = #{cloudId} and t1.ee_status != -1) t3
+        inner join tbl_cmp_os_routerports t4 on t3.device_id = t4.router_id and t4.port_type = 'network:router_gateway' and t4.ee_status != -1
+  </select>
+</mapper>

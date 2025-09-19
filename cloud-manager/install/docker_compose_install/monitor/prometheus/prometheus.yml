@@ -1,0 +1,86 @@
+global:
+  scrape_interval:     15s
+  evaluation_interval: 15s
+
+
+rule_files:
+  #- "alert.rules"
+  - rules/*.yml
+
+
+scrape_configs:
+  - job_name: 'node'
+    scrape_interval: 5s
+    http_sd_configs:
+      - url: http://localhost:8088/omc/v1/job/prometheus?type=LIGHT_NODE
+    relabel_configs:
+      - source_labels: [__address__]
+        regex: '([^:]+):[0-9]+'
+        target_label: instance_id
+        replacement: '${1}'
+  - job_name: 'cadvisor'
+    scrape_interval: 5s
+    http_sd_configs:
+      - url: http://localhost:8088/omc/v1/job/prometheus?type=CADVISOR
+    metric_relabel_configs:
+      - source_labels: [container_label_com_docker_compose_project_working_dir]
+        target_label: container_xxx
+        regex: '(.*)'
+        replacement: '$1'
+        action: replace
+      - source_labels: [ id ]
+        regex: /docker/([a-f0-9]+)$
+        target_label: container_ref_id
+        replacement: $1
+
+
+  - job_name: 'prometheus-server'
+    scrape_interval: 10s
+    static_configs:
+      - targets: ['localhost:9090']
+
+# 多云管理业务监控
+#  - job_name: elasticcloud-cmp
+#    static_configs:
+#      - targets: [ "localhost:6089" ]
+
+# psql单节点
+#  - job_name: postgresql
+#    static_configs:
+#      - targets: [ "localhost:9187" ]
+
+# psql多节点
+#  - job_name: 'postgresql-cluster'
+#    static_configs:
+#      - targets:
+#        - server1:5432
+#        - server2:5432
+#    metrics_path: /probe
+#    params:
+#      auth_module: [ foo ]
+#    relabel_configs:
+#      - source_labels: [ __address__ ]
+#        target_label: __param_target
+#      - source_labels: [ __param_target ]
+#        target_label: instance
+#      - target_label: __address__
+#        replacement: 127.0.0.1:9116  # The postgres exporter's real hostname:port.
+
+# redis
+#  - job_name: redis
+#    static_configs:
+#      - targets: [ "localhost:9121" ]
+
+# nginx
+#  - job_name: nginx
+#    static_configs:
+#      - targets: [ "localhost:9113" ]
+
+
+alerting:
+  alertmanagers:
+    - scheme: http
+      static_configs:
+        - targets:
+            - 'alertmanager:9093'
+

@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.iam.db.mapper.TblIamActionMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.iam.db.model.TblIamAction">
+    <!--@mbg.generated-->
+    <!--@Table tbl_iam_action-->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="project_id" jdbcType="VARCHAR" property="projectId" />
+    <result column="action_name" jdbcType="VARCHAR" property="actionName" />
+    <result column="action_type" jdbcType="INTEGER" property="actionType" />
+    <result column="enable" jdbcType="INTEGER" property="enable" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="associated_apis" jdbcType="VARCHAR" property="associatedApis" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="resource_id" jdbcType="VARCHAR" property="resourceId" />
+  </resultMap>
+
+  <resultMap id="ServiceActionMap" type="com.lnjoying.justice.iam.domain.model.ActionsCache$ServiceAction">
+    <result column="service_id" jdbcType="VARCHAR" property="serviceId" />
+    <result column="service_name" jdbcType="VARCHAR" property="serviceName" />
+    <result column="iam_code" jdbcType="VARCHAR" property="iamCode" />
+    <result column="resource_id" jdbcType="VARCHAR" property="resourceId" />
+    <result column="resource_name" jdbcType="VARCHAR" property="resourceName" />
+    <result column="resource_type" jdbcType="VARCHAR" property="resourceType" />
+    <result column="action_id" jdbcType="VARCHAR" property="actionId" />
+    <result column="action_name" jdbcType="VARCHAR" property="actionName" />
+    <result column="service_display_name" jdbcType="VARCHAR" property="serviceDisplayName" />
+    <result column="resource_description" jdbcType="VARCHAR" property="resourceDescription" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, project_id, action_name, action_type, "enable", description, associated_apis, 
+    create_time, update_time, resource_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_iam_action
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from tbl_iam_action
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.iam.db.model.TblIamAction">
+    <!--@mbg.generated-->
+    insert into tbl_iam_action (id, project_id, action_name, 
+      action_type, "enable", description, 
+      associated_apis, create_time, update_time, 
+      resource_id)
+    values (#{id,jdbcType=VARCHAR}, #{projectId,jdbcType=VARCHAR}, #{actionName,jdbcType=VARCHAR}, 
+      #{actionType,jdbcType=INTEGER}, #{enable,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, 
+      #{associatedApis,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{resourceId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.iam.db.model.TblIamAction">
+    <!--@mbg.generated-->
+    insert into tbl_iam_action
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        id,
+      </if>
+      <if test="projectId != null and projectId != ''">
+        project_id,
+      </if>
+      <if test="actionName != null and actionName != ''">
+        action_name,
+      </if>
+      <if test="actionType != null">
+        action_type,
+      </if>
+      <if test="enable != null">
+        "enable",
+      </if>
+      <if test="description != null and description != ''">
+        description,
+      </if>
+      <if test="associatedApis != null and associatedApis != ''">
+        associated_apis,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="resourceId != null and resourceId != ''">
+        resource_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null and projectId != ''">
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="actionName != null and actionName != ''">
+        #{actionName,jdbcType=VARCHAR},
+      </if>
+      <if test="actionType != null">
+        #{actionType,jdbcType=INTEGER},
+      </if>
+      <if test="enable != null">
+        #{enable,jdbcType=INTEGER},
+      </if>
+      <if test="description != null and description != ''">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="associatedApis != null and associatedApis != ''">
+        #{associatedApis,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="resourceId != null and resourceId != ''">
+        #{resourceId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.iam.db.model.TblIamAction">
+    <!--@mbg.generated-->
+    update tbl_iam_action
+    <set>
+      <if test="projectId != null and projectId != ''">
+        project_id = #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="actionName != null and actionName != ''">
+        action_name = #{actionName,jdbcType=VARCHAR},
+      </if>
+      <if test="actionType != null">
+        action_type = #{actionType,jdbcType=INTEGER},
+      </if>
+      <if test="enable != null">
+        "enable" = #{enable,jdbcType=INTEGER},
+      </if>
+      <if test="description != null and description != ''">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="associatedApis != null and associatedApis != ''">
+        associated_apis = #{associatedApis,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="resourceId != null and resourceId != ''">
+        resource_id = #{resourceId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.iam.db.model.TblIamAction">
+    <!--@mbg.generated-->
+    update tbl_iam_action
+    set project_id = #{projectId,jdbcType=VARCHAR},
+      action_name = #{actionName,jdbcType=VARCHAR},
+      action_type = #{actionType,jdbcType=INTEGER},
+      "enable" = #{enable,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
+      associated_apis = #{associatedApis,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      resource_id = #{resourceId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from tbl_iam_action
+        <where>
+            <if test="true">
+                and "enable"=1
+            </if>
+        </where>
+    </select>
+
+
+<!--  <select id="selectAllByResourceId" resultMap="BaseResultMap">-->
+<!--    SELECT-->
+<!--    t2.*-->
+<!--    FROM-->
+<!--    ( SELECT * FROM tbl_iam_resource_action-->
+<!--    <where>-->
+<!--      <if test="resourceId != null and resourceId != ''">-->
+<!--        and resource_id =#{resourceId,jdbcType=VARCHAR}-->
+<!--      </if>-->
+<!--    </where>-->
+<!--     ) t1-->
+<!--    JOIN ( SELECT * FROM tbl_iam_action ) t2 ON t1.action_id = t2.ID-->
+<!--  </select>-->
+
+  <select id="selectByActionName" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from tbl_iam_action
+        <where>
+            <if test="actionName != null and actionName != ''">
+                and action_name=#{actionName,jdbcType=VARCHAR}
+            </if>
+        </where>
+        limit 1
+    </select>
+
+  <select id="selectAllByResourceId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tbl_iam_action
+    <where>
+      <if test="resourceId != null and resourceId != ''">
+        and resource_id=#{resourceId,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+
+  <select id="selectAllServiceActions" resultMap="ServiceActionMap">
+    SELECT
+      service_id,
+      service_name,
+      iam_code,
+      t2.resource_id AS resource_id,
+      resource_name,
+      concat_ws(':', iam_code, resource_name) as resource_type,
+      action_id,
+      action_name,
+      t2.display_name as service_display_name,
+      t2.resource_description
+    FROM
+        ( SELECT ID AS action_id, action_name, resource_id FROM tbl_iam_action ) t1
+          JOIN (
+        SELECT
+          t3.NAME AS resource_name,
+          t3.ID AS resource_id,
+          t4.ID AS service_id,
+          t4.NAME AS service_name,
+          t4.iam_code,
+          t3.Description AS resource_description,
+          t4.Display_Name as display_name
+        FROM
+          tbl_iam_common_resource t3
+            JOIN tbl_iam_service t4 ON t3.service_id = t4.ID
+      ) t2 ON t1.resource_id = t2.resource_id
+    </select>
+
+  <select id="countByResourceId" resultType="java.lang.Integer">
+    select count(1)
+    from tbl_iam_action
+    <where>
+      <if test="resourceId != null and resourceId != ''">
+        and resource_id=#{resourceId,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+
+  <select id="selectByResourceIdAndActionName" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tbl_iam_action
+        <where>
+            <if test="resourceId != null and resourceId != ''">
+                and resource_id=#{resourceId,jdbcType=VARCHAR}
+            </if>
+            <if test="actionName != null and actionName != ''">
+                and action_name=#{actionName,jdbcType=VARCHAR}
+            </if>
+        </where>
+        limit 1
+    </select>
+</mapper>

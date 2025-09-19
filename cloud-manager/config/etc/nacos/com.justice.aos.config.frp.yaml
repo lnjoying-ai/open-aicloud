@@ -1,0 +1,8 @@
+tty:
+  proxy_server_url: /%s/tty
+  frps_server_port: 7000
+  #frpc客户端访问frps的地址，可能是私网也可能以是公网地址
+  frps_server_addr: 112.25.78.90
+  #用户从公网可以访问的地址，可以是域名，也可以是ip
+  frp_addr: 112.25.78.90:16005
+

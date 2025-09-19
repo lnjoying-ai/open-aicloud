@@ -1,0 +1,78 @@
+# exporter for node template
+
+---
+version: '3'
+
+services:
+
+  nodeexporter:
+    image: lnjoying/node-exporter:v1.6.1
+    container_name: lnjoying-nodeexporter
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    restart: unless-stopped
+    ports:
+      - "${EXPOSE_PORT_HTTP_LIGHT_NODE}:9100"
+    networks:
+      - lnjoying-exporter-net
+    labels:
+      org.label-schema.group: "lnjoying"
+
+  cadvisor:
+    image: lnjoying/cadvisor:v0.47.2
+    container_name: lnjoying-cadvisor
+    privileged: true
+    devices:
+      - /dev/kmsg:/dev/kmsg
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /cgroup:/cgroup:ro
+    command:
+      - '--store_container_labels=false'
+      - '--whitelisted_container_labels=JDS_UID,JDS_UUID,JDS_BPID'
+      - '--docker_only=true'
+    restart: unless-stopped
+    ports:
+      - "${EXPOSE_PORT_HTTP_CADVISOR}:8080"
+    networks:
+      - lnjoying-exporter-net
+    labels:
+      org.label-schema.group: "lnjoying"
+
+networks:
+  lnjoying-exporter-net:
+    driver: bridge
+
+---
+
+#  justice compose
+basic:
+  name: "exporter for node template"
+  version: "v1.0"
+  description: "exporter for node template"
+  uuid: exporter_for_node_template_20231104
+  minimum_justice_version: v1.0
+  input_params:
+    - variable: EXPOSE_PORT_HTTP_LIGHT_NODE
+      description: " node exporter listen address "
+      label: "节点采集端口"
+      type: "string"
+      required: true
+      default_value: '39100'
+
+    - variable: EXPOSE_PORT_HTTP_CADVISOR
+      description: "cadvisor exporter listen address "
+      label: "容器采集端口"
+      type: "string"
+      required: true
+      default_value: '38080'

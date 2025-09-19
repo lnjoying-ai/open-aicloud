@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.cmp.db.mapper.TblCmpNodeImageMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.cmp.db.model.TblCmpNodeImage">
+    <id column="cloud_id" jdbcType="VARCHAR" property="cloudId" />
+    <id column="node_image_id" jdbcType="VARCHAR" property="nodeImageId" />
+    <result column="image_id" jdbcType="VARCHAR" property="imageId" />
+    <result column="storage_pool_id" jdbcType="VARCHAR" property="storagePoolId" />
+    <result column="node_image_from_agent" jdbcType="VARCHAR" property="nodeImageFromAgent" />
+    <result column="phase_status" jdbcType="INTEGER" property="phaseStatus" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="node_id" jdbcType="VARCHAR" property="nodeId" />
+    <result column="storage_pool_id_from_agent" jdbcType="VARCHAR" property="storagePoolIdFromAgent" />
+    <result column="node_ip" jdbcType="VARCHAR" property="nodeIp" />
+    <result column="ee_bp" jdbcType="VARCHAR" property="eeBp" />
+    <result column="ee_user" jdbcType="VARCHAR" property="eeUser" />
+    <result column="ee_status" jdbcType="INTEGER" property="eeStatus" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    cloud_id, node_image_id, image_id, storage_pool_id, node_image_from_agent, phase_status, 
+    create_time, update_time, user_id, node_id, storage_pool_id_from_agent, node_ip, 
+    ee_bp, ee_user, ee_status
+  </sql>
+  <select id="selectByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpNodeImageExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_cmp_node_image
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpNodeImageKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_cmp_node_image
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and node_image_id = #{nodeImageId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpNodeImageKey">
+    delete from tbl_cmp_node_image
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and node_image_id = #{nodeImageId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpNodeImageExample">
+    delete from tbl_cmp_node_image
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpNodeImage">
+    insert into tbl_cmp_node_image (cloud_id, node_image_id, image_id, 
+      storage_pool_id, node_image_from_agent, phase_status, 
+      create_time, update_time, user_id, 
+      node_id, storage_pool_id_from_agent, node_ip, 
+      ee_bp, ee_user, ee_status
+      )
+    values (#{cloudId,jdbcType=VARCHAR}, #{nodeImageId,jdbcType=VARCHAR}, #{imageId,jdbcType=VARCHAR}, 
+      #{storagePoolId,jdbcType=VARCHAR}, #{nodeImageFromAgent,jdbcType=VARCHAR}, #{phaseStatus,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{userId,jdbcType=VARCHAR}, 
+      #{nodeId,jdbcType=VARCHAR}, #{storagePoolIdFromAgent,jdbcType=VARCHAR}, #{nodeIp,jdbcType=VARCHAR}, 
+      #{eeBp,jdbcType=VARCHAR}, #{eeUser,jdbcType=VARCHAR}, #{eeStatus,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpNodeImage">
+    insert into tbl_cmp_node_image
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cloudId != null">
+        cloud_id,
+      </if>
+      <if test="nodeImageId != null">
+        node_image_id,
+      </if>
+      <if test="imageId != null">
+        image_id,
+      </if>
+      <if test="storagePoolId != null">
+        storage_pool_id,
+      </if>
+      <if test="nodeImageFromAgent != null">
+        node_image_from_agent,
+      </if>
+      <if test="phaseStatus != null">
+        phase_status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="nodeId != null">
+        node_id,
+      </if>
+      <if test="storagePoolIdFromAgent != null">
+        storage_pool_id_from_agent,
+      </if>
+      <if test="nodeIp != null">
+        node_ip,
+      </if>
+      <if test="eeBp != null">
+        ee_bp,
+      </if>
+      <if test="eeUser != null">
+        ee_user,
+      </if>
+      <if test="eeStatus != null">
+        ee_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cloudId != null">
+        #{cloudId,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeImageId != null">
+        #{nodeImageId,jdbcType=VARCHAR},
+      </if>
+      <if test="imageId != null">
+        #{imageId,jdbcType=VARCHAR},
+      </if>
+      <if test="storagePoolId != null">
+        #{storagePoolId,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeImageFromAgent != null">
+        #{nodeImageFromAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="phaseStatus != null">
+        #{phaseStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeId != null">
+        #{nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="storagePoolIdFromAgent != null">
+        #{storagePoolIdFromAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeIp != null">
+        #{nodeIp,jdbcType=VARCHAR},
+      </if>
+      <if test="eeBp != null">
+        #{eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="eeUser != null">
+        #{eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="eeStatus != null">
+        #{eeStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpNodeImageExample" resultType="java.lang.Long">
+    select count(*) from tbl_cmp_node_image
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_cmp_node_image
+    <set>
+      <if test="record.cloudId != null">
+        cloud_id = #{record.cloudId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nodeImageId != null">
+        node_image_id = #{record.nodeImageId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imageId != null">
+        image_id = #{record.imageId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storagePoolId != null">
+        storage_pool_id = #{record.storagePoolId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nodeImageFromAgent != null">
+        node_image_from_agent = #{record.nodeImageFromAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phaseStatus != null">
+        phase_status = #{record.phaseStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nodeId != null">
+        node_id = #{record.nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storagePoolIdFromAgent != null">
+        storage_pool_id_from_agent = #{record.storagePoolIdFromAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nodeIp != null">
+        node_ip = #{record.nodeIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeBp != null">
+        ee_bp = #{record.eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeUser != null">
+        ee_user = #{record.eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeStatus != null">
+        ee_status = #{record.eeStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_cmp_node_image
+    set cloud_id = #{record.cloudId,jdbcType=VARCHAR},
+      node_image_id = #{record.nodeImageId,jdbcType=VARCHAR},
+      image_id = #{record.imageId,jdbcType=VARCHAR},
+      storage_pool_id = #{record.storagePoolId,jdbcType=VARCHAR},
+      node_image_from_agent = #{record.nodeImageFromAgent,jdbcType=VARCHAR},
+      phase_status = #{record.phaseStatus,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      node_id = #{record.nodeId,jdbcType=VARCHAR},
+      storage_pool_id_from_agent = #{record.storagePoolIdFromAgent,jdbcType=VARCHAR},
+      node_ip = #{record.nodeIp,jdbcType=VARCHAR},
+      ee_bp = #{record.eeBp,jdbcType=VARCHAR},
+      ee_user = #{record.eeUser,jdbcType=VARCHAR},
+      ee_status = #{record.eeStatus,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpNodeImage">
+    update tbl_cmp_node_image
+    <set>
+      <if test="imageId != null">
+        image_id = #{imageId,jdbcType=VARCHAR},
+      </if>
+      <if test="storagePoolId != null">
+        storage_pool_id = #{storagePoolId,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeImageFromAgent != null">
+        node_image_from_agent = #{nodeImageFromAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="phaseStatus != null">
+        phase_status = #{phaseStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeId != null">
+        node_id = #{nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="storagePoolIdFromAgent != null">
+        storage_pool_id_from_agent = #{storagePoolIdFromAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeIp != null">
+        node_ip = #{nodeIp,jdbcType=VARCHAR},
+      </if>
+      <if test="eeBp != null">
+        ee_bp = #{eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="eeUser != null">
+        ee_user = #{eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="eeStatus != null">
+        ee_status = #{eeStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and node_image_id = #{nodeImageId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpNodeImage">
+    update tbl_cmp_node_image
+    set image_id = #{imageId,jdbcType=VARCHAR},
+      storage_pool_id = #{storagePoolId,jdbcType=VARCHAR},
+      node_image_from_agent = #{nodeImageFromAgent,jdbcType=VARCHAR},
+      phase_status = #{phaseStatus,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      user_id = #{userId,jdbcType=VARCHAR},
+      node_id = #{nodeId,jdbcType=VARCHAR},
+      storage_pool_id_from_agent = #{storagePoolIdFromAgent,jdbcType=VARCHAR},
+      node_ip = #{nodeIp,jdbcType=VARCHAR},
+      ee_bp = #{eeBp,jdbcType=VARCHAR},
+      ee_user = #{eeUser,jdbcType=VARCHAR},
+      ee_status = #{eeStatus,jdbcType=INTEGER}
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and node_image_id = #{nodeImageId,jdbcType=VARCHAR}
+  </update>
+</mapper>

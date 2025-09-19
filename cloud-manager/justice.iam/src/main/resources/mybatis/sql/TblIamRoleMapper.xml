@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.iam.db.mapper.TblIamRoleMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.iam.db.model.TblIamRole">
+    <!--@mbg.generated-->
+    <!--@Table tbl_iam_role-->
+    <id column="role_id" jdbcType="BIGINT" property="roleId" />
+    <result column="platform" jdbcType="VARCHAR" property="platform" />
+    <result column="role" jdbcType="VARCHAR" property="role" />
+    <result column="project_id" jdbcType="VARCHAR" property="projectId" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="role_type" jdbcType="INTEGER" property="roleType" />
+    <result column="bp_id" jdbcType="VARCHAR" property="bpId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+
+  <resultMap extends="BaseResultMap" id="ExtendResultMap" type="com.lnjoying.justice.iam.domain.dto.response.role.TblIamRoleDetail">
+    <association column="user_id" javaType="java.lang.String" property="userName" select="com.lnjoying.justice.iam.db.mapper.TblUserInfoMapper.selectUserNameByUserId" />
+    <association column="user_id" javaType="java.lang.String" property="bpName" select="com.lnjoying.justice.iam.db.mapper.TblUserInfoMapper.selectBpNameByUserId">
+    </association>
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    role_id, platform, "role", project_id, description, role_type, bp_id, user_id, create_time, 
+    update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_iam_role
+    where role_id = #{roleId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--@mbg.generated-->
+    delete from tbl_iam_role
+    where role_id = #{roleId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.iam.db.model.TblIamRole" useGeneratedKeys="true"
+          keyProperty="roleId">
+    <!--@mbg.generated-->
+    insert into tbl_iam_role (role_id, platform, "role", 
+      project_id, description, role_type, 
+      bp_id, user_id, create_time, 
+      update_time)
+    values (#{roleId,jdbcType=BIGINT}, #{platform,jdbcType=VARCHAR}, #{role,jdbcType=VARCHAR}, 
+      #{projectId,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{roleType,jdbcType=INTEGER}, 
+      #{bpId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.iam.db.model.TblIamRole" useGeneratedKeys="true"
+          keyProperty="roleId">
+    <!--@mbg.generated-->
+    insert into tbl_iam_role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="roleId != null">
+        role_id,
+      </if>
+      <if test="platform != null and platform != ''">
+        platform,
+      </if>
+      <if test="role != null and role != ''">
+        "role",
+      </if>
+      <if test="projectId != null and projectId != ''">
+        project_id,
+      </if>
+      <if test="description != null and description != ''">
+        description,
+      </if>
+      <if test="roleType != null">
+        role_type,
+      </if>
+      <if test="bpId != null and bpId != ''">
+        bp_id,
+      </if>
+      <if test="userId != null and userId != ''">
+        user_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="roleId != null">
+        #{roleId,jdbcType=BIGINT},
+      </if>
+      <if test="platform != null and platform != ''">
+        #{platform,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null and role != ''">
+        #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null and projectId != ''">
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null and description != ''">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="roleType != null">
+        #{roleType,jdbcType=INTEGER},
+      </if>
+      <if test="bpId != null and bpId != ''">
+        #{bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null and userId != ''">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.iam.db.model.TblIamRole">
+    <!--@mbg.generated-->
+    update tbl_iam_role
+    <set>
+      <if test="platform != null and platform != ''">
+        platform = #{platform,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null and role != ''">
+        "role" = #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null and projectId != ''">
+        project_id = #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null and description != ''">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="roleType != null">
+        role_type = #{roleType,jdbcType=INTEGER},
+      </if>
+      <if test="bpId != null and bpId != ''">
+        bp_id = #{bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null and userId != ''">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where role_id = #{roleId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.iam.db.model.TblIamRole">
+    <!--@mbg.generated-->
+    update tbl_iam_role
+    set platform = #{platform,jdbcType=VARCHAR},
+      "role" = #{role,jdbcType=VARCHAR},
+      project_id = #{projectId,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      role_type = #{roleType,jdbcType=INTEGER},
+      bp_id = #{bpId,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where role_id = #{roleId,jdbcType=BIGINT}
+  </update>
+
+  <select id="countByName" resultType="java.lang.Integer">
+    select count(1)
+    from tbl_iam_role
+    <where>
+      <if test="projectId != null and projectId != ''">
+        and project_id=#{projectId,jdbcType=VARCHAR}
+      </if>
+      <if test="bpId != null and bpId != ''">
+        and bp_id=#{bpId,jdbcType=VARCHAR}
+      </if>
+      <if test="platform != null and platform != ''">
+        and platform=#{platform,jdbcType=VARCHAR}
+      </if>
+      <if test="role != null and role != ''">
+        and "role"=#{role,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+
+  <select id="countByRoleId" resultType="java.lang.Integer">
+    select count(1)
+    from tbl_iam_role
+    <where>
+      <if test="roleId != null">
+        and role_id=#{roleId,jdbcType=BIGINT}
+      </if>
+    </where>
+  </select>
+
+  <select id="selectAll" resultMap="ExtendResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tbl_iam_role
+    <where>
+      <if test="projectId != null and projectId != ''">
+        and project_id=#{projectId,jdbcType=VARCHAR}
+      </if>
+      <if test="bpId != null and bpId != ''">
+        and bp_id=#{bpId,jdbcType=VARCHAR}
+      </if>
+      <if test="platform != null and platform != ''">
+        and platform=#{platform,jdbcType=VARCHAR}
+      </if>
+      <if test="role != null and role != ''">
+        and "role" like concat('%',#{role,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="roleType != null">
+        and role_type=#{roleType,jdbcType=INTEGER}
+      </if>
+    </where>
+    union
+    select
+    <include refid="Base_Column_List"/>
+    from tbl_iam_role
+    <where>
+      <if test="projectId != null and projectId != ''">
+        and project_id=#{projectId,jdbcType=VARCHAR}
+      </if>
+      <if test="true">
+        and bp_id is null
+      </if>
+      <if test="platform != null and platform != ''">
+        and platform=#{platform,jdbcType=VARCHAR}
+      </if>
+      <if test="role != null and role != ''">
+        and "role" like concat('%',#{role,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="true">
+        and role_type=2
+      </if>
+    </where>
+    order by create_time desc
+  </select>
+
+  <select id="selectByRoleIdAndBpId" resultMap="ExtendResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tbl_iam_role
+    <where>
+      <if test="roleId != null">
+        and role_id=#{roleId,jdbcType=BIGINT}
+      </if>
+      <if test="bpId != null and bpId != ''">
+        and bp_id=#{bpId,jdbcType=VARCHAR}
+      </if>
+    </where>
+    union
+    select
+    <include refid="Base_Column_List"/>
+    from tbl_iam_role
+    <where>
+      <if test="roleId != null">
+        and role_id=#{roleId,jdbcType=BIGINT}
+      </if>
+      <if test="true">
+        and bp_id is null
+      </if>
+      <if test="true">
+        and role_type=2
+      </if>
+    </where>
+    limit 1
+  </select>
+
+  <select id="selectAllByRoleIdIn" resultMap="ExtendResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tbl_iam_role
+    <where>
+      <if test="roleIdCollection != null and roleIdCollection.size() > 0">
+        and role_id in
+        <foreach item="item" index="index" collection="roleIdCollection"
+                 open="(" separator="," close=")">
+          #{item,jdbcType=BIGINT}
+        </foreach>
+      </if>
+    </where>
+  </select>
+
+  <select id="selectByRoleType" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tbl_iam_role
+    <where>
+      <if test="roleType != null">
+        and role_type=#{roleType,jdbcType=INTEGER}
+      </if>
+    </where>
+  </select>
+
+  <select id="selectKindByRoleIdIn" resultType="java.lang.Integer">
+    SELECT
+      CASE
+        WHEN ( t1.roleStr = 'SYSTEM' and roleType = 1 and platform = 'ALL')  THEN  0
+        WHEN ( t1.roleStr = 'ADMIN' and roleType = 1 and platform = 'ALL') THEN  1
+        WHEN ( t1.roleStr = 'TENANT_ADMIN' and roleType = 1 and platform = 'ALL') THEN  2
+        WHEN ( t1.roleStr = 'TENANT' and roleType = 1 and platform = 'ALL') THEN  4
+        ELSE 4
+      END AS kind
+    FROM
+    ( SELECT DISTINCT ROLE AS roleStr, role_type as roleType, platform FROM tbl_iam_role
+      <where>
+        <if test="roleIdCollection != null and roleIdCollection.size() > 0">
+          and role_id in
+          <foreach item="item" index="index" collection="roleIdCollection"
+                   open="(" separator="," close=")">
+            #{item,jdbcType=BIGINT}
+          </foreach>
+        </if>
+      </where>
+    ) t1 order by kind asc limit 1
+  </select>
+
+  <select id="countByRoleIdIn" resultType="java.lang.Integer">
+    select count(1)
+    from tbl_iam_role
+    <where>
+      <if test="roleIdCollection != null and roleIdCollection.size() > 0">
+        and role_id in
+        <foreach item="item" index="index" collection="roleIdCollection"
+                 open="(" separator="," close=")">
+          #{item,jdbcType=BIGINT}
+        </foreach>
+      </if>
+    </where>
+  </select>
+
+  <select id="countByProjectId" resultType="java.lang.Integer">
+    select count(1)
+    from tbl_iam_role
+    <where>
+      <if test="projectId != null and projectId != ''">
+        and project_id=#{projectId,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+
+  <delete id="deleteByProjectId">
+    delete from tbl_iam_role
+    <where>
+      <if test="projectId != null and projectId != ''">
+        and project_id=#{projectId,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </delete>
+</mapper>

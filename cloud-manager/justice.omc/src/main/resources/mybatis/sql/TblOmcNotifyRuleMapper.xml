@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.omc.db.mapper.TblOmcNotifyRuleMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.omc.db.model.TblOmcNotifyRule">
+    <!--@mbg.generated-->
+    <!--@Table tbl_omc_notify_rule-->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="repeat_notify" jdbcType="BOOLEAN" property="repeatNotify" />
+    <result column="notify_start_time" jdbcType="TIMESTAMP" property="notifyStartTime" />
+    <result column="notify_end_time" jdbcType="TIMESTAMP" property="notifyEndTime" />
+    <result column="alarm_id" jdbcType="VARCHAR" property="alarmId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, repeat_notify, notify_start_time, notify_end_time, alarm_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_omc_notify_rule
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from tbl_omc_notify_rule
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.omc.db.model.TblOmcNotifyRule">
+    <!--@mbg.generated-->
+    insert into tbl_omc_notify_rule (id, repeat_notify, notify_start_time, 
+      notify_end_time, alarm_id)
+    values (#{id,jdbcType=VARCHAR}, #{repeatNotify,jdbcType=BOOLEAN}, #{notifyStartTime,jdbcType=TIMESTAMP}, 
+      #{notifyEndTime,jdbcType=TIMESTAMP}, #{alarmId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.omc.db.model.TblOmcNotifyRule">
+    <!--@mbg.generated-->
+    insert into tbl_omc_notify_rule
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        id,
+      </if>
+      <if test="repeatNotify != null">
+        repeat_notify,
+      </if>
+      <if test="notifyStartTime != null">
+        notify_start_time,
+      </if>
+      <if test="notifyEndTime != null">
+        notify_end_time,
+      </if>
+      <if test="alarmId != null and alarmId != ''">
+        alarm_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="repeatNotify != null">
+        #{repeatNotify,jdbcType=BOOLEAN},
+      </if>
+      <if test="notifyStartTime != null">
+        #{notifyStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="notifyEndTime != null">
+        #{notifyEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="alarmId != null and alarmId != ''">
+        #{alarmId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.omc.db.model.TblOmcNotifyRule">
+    <!--@mbg.generated-->
+    update tbl_omc_notify_rule
+    <set>
+      <if test="repeatNotify != null">
+        repeat_notify = #{repeatNotify,jdbcType=BOOLEAN},
+      </if>
+      <if test="notifyStartTime != null">
+        notify_start_time = #{notifyStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="notifyEndTime != null">
+        notify_end_time = #{notifyEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="alarmId != null and alarmId != ''">
+        alarm_id = #{alarmId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.omc.db.model.TblOmcNotifyRule">
+    <!--@mbg.generated-->
+    update tbl_omc_notify_rule
+    set repeat_notify = #{repeatNotify,jdbcType=BOOLEAN},
+      notify_start_time = #{notifyStartTime,jdbcType=TIMESTAMP},
+      notify_end_time = #{notifyEndTime,jdbcType=TIMESTAMP},
+      alarm_id = #{alarmId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectAllByAlarmId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tbl_omc_notify_rule
+        <where>
+            <if test="alarmId != null and alarmId != ''">
+                and alarm_id=#{alarmId,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
+  <select id="selectIdsByAlarmId" resultType="java.lang.String">
+    select id
+    from tbl_omc_notify_rule
+    <where>
+      <if test="alarmId != null and alarmId != ''">
+        and alarm_id=#{alarmId,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+
+  <select id="selectReceiversByAlarmId" resultType="java.lang.String">
+    SELECT DISTINCT
+    t2.receiver_id as receiverId
+    FROM
+    ( SELECT * FROM tbl_omc_notify_rule
+    <where>
+      <if test="alarmId != null and alarmId != ''">
+        and alarm_id=#{alarmId,jdbcType=VARCHAR}
+      </if>
+    </where>
+    ) t1
+    JOIN ( SELECT * FROM tbl_omc_notify_object ) t2 ON t1.ID = t2.notify_rule_id
+    </select>
+</mapper>

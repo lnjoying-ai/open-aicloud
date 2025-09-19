@@ -1,0 +1,592 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.aos.db.mapper.TblStackInfoMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.aos.db.model.TblStackInfo">
+    <!--@mbg.generated-->
+    <!--@Table public.tbl_stack_info-->
+    <id column="stack_id" jdbcType="VARCHAR" property="stackId" />
+    <result column="spec_id" jdbcType="VARCHAR" property="specId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="bp_id" jdbcType="VARCHAR" property="bpId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="create_user_id" jdbcType="VARCHAR" property="createUserId" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="dst_node" jdbcType="OTHER" property="dstNode" typeHandler="com.lnjoying.justice.aos.handler.JsonbTypeHandler" />
+    <result column="labels" jdbcType="LONGVARCHAR" property="labels" />
+    <result column="dev_need_info" jdbcType="LONGVARCHAR" property="devNeedInfo" />
+    <result column="auto_run" jdbcType="BOOLEAN" property="autoRun" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="send_create_num" jdbcType="INTEGER" property="sendCreateNum" />
+    <result column="start_num" jdbcType="INTEGER" property="startNum" />
+    <result column="fail_num" jdbcType="INTEGER" property="failNum" />
+    <result column="event_type" jdbcType="INTEGER" property="eventType" />
+    <result column="report_time" jdbcType="TIMESTAMP" property="reportTime" />
+    <result column="always_online" jdbcType="BOOLEAN" property="alwaysOnline" />
+    <result column="stack_type" jdbcType="VARCHAR" property="stackType" />
+    <result column="use_service_penetration" jdbcType="BOOLEAN" property="useServicePenetration" />
+    <result column="expose_ports" jdbcType="OTHER" property="exposePorts" typeHandler="com.lnjoying.justice.aos.handler.JsonbTypeHandler"/>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <!--@mbg.generated-->
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <!--@mbg.generated-->
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    stack_id, spec_id, "name", bp_id, user_id, create_user_id, "status", dst_node, labels, 
+    dev_need_info, auto_run, create_time, update_time, send_create_num, start_num, fail_num, 
+    event_type, report_time, always_online, stack_type, use_service_penetration, expose_ports
+  </sql>
+  <select id="selectByExample" parameterType="com.lnjoying.justice.aos.db.model.TblStackInfoExample" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from public.tbl_stack_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from public.tbl_stack_info
+    where stack_id = #{stackId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from public.tbl_stack_info
+    where stack_id = #{stackId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lnjoying.justice.aos.db.model.TblStackInfoExample">
+    <!--@mbg.generated-->
+    delete from public.tbl_stack_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.aos.db.model.TblStackInfo">
+    <!--@mbg.generated-->
+    insert into public.tbl_stack_info (stack_id, spec_id, "name", 
+      bp_id, user_id, create_user_id, 
+      "status", dst_node, labels, 
+      dev_need_info, auto_run, create_time, 
+      update_time, send_create_num, start_num, 
+      fail_num, event_type, report_time, 
+      always_online, stack_type, use_service_penetration, 
+      expose_ports)
+    values (#{stackId,jdbcType=VARCHAR}, #{specId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{bpId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{createUserId,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{dstNode,jdbcType=OTHER,typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler}, #{labels,jdbcType=LONGVARCHAR}, 
+      #{devNeedInfo,jdbcType=LONGVARCHAR}, #{autoRun,jdbcType=BOOLEAN}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{sendCreateNum,jdbcType=INTEGER}, #{startNum,jdbcType=INTEGER}, 
+      #{failNum,jdbcType=INTEGER}, #{eventType,jdbcType=INTEGER}, #{reportTime,jdbcType=TIMESTAMP}, 
+      #{alwaysOnline,jdbcType=BOOLEAN}, #{stackType,jdbcType=VARCHAR}, #{useServicePenetration,jdbcType=BOOLEAN}, 
+      #{exposePorts,jdbcType=OTHER,typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.aos.db.model.TblStackInfo">
+    <!--@mbg.generated-->
+    insert into public.tbl_stack_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="stackId != null">
+        stack_id,
+      </if>
+      <if test="specId != null">
+        spec_id,
+      </if>
+      <if test="name != null">
+        "name",
+      </if>
+      <if test="bpId != null">
+        bp_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="status != null">
+        "status",
+      </if>
+      <if test="dstNode != null">
+        dst_node,
+      </if>
+      <if test="labels != null">
+        labels,
+      </if>
+      <if test="devNeedInfo != null">
+        dev_need_info,
+      </if>
+      <if test="autoRun != null">
+        auto_run,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="sendCreateNum != null">
+        send_create_num,
+      </if>
+      <if test="startNum != null">
+        start_num,
+      </if>
+      <if test="failNum != null">
+        fail_num,
+      </if>
+      <if test="eventType != null">
+        event_type,
+      </if>
+      <if test="reportTime != null">
+        report_time,
+      </if>
+      <if test="alwaysOnline != null">
+        always_online,
+      </if>
+      <if test="stackType != null">
+        stack_type,
+      </if>
+      <if test="useServicePenetration != null">
+        use_service_penetration,
+      </if>
+      <if test="exposePorts != null">
+        expose_ports,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="stackId != null">
+        #{stackId,jdbcType=VARCHAR},
+      </if>
+      <if test="specId != null">
+        #{specId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="bpId != null">
+        #{bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="dstNode != null">
+        #{dstNode,jdbcType=OTHER,typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+      </if>
+      <if test="labels != null">
+        #{labels,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="devNeedInfo != null">
+        #{devNeedInfo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="autoRun != null">
+        #{autoRun,jdbcType=BOOLEAN},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sendCreateNum != null">
+        #{sendCreateNum,jdbcType=INTEGER},
+      </if>
+      <if test="startNum != null">
+        #{startNum,jdbcType=INTEGER},
+      </if>
+      <if test="failNum != null">
+        #{failNum,jdbcType=INTEGER},
+      </if>
+      <if test="eventType != null">
+        #{eventType,jdbcType=INTEGER},
+      </if>
+      <if test="reportTime != null">
+        #{reportTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="alwaysOnline != null">
+        #{alwaysOnline,jdbcType=BOOLEAN},
+      </if>
+      <if test="stackType != null">
+        #{stackType,jdbcType=VARCHAR},
+      </if>
+      <if test="useServicePenetration != null">
+        #{useServicePenetration,jdbcType=BOOLEAN},
+      </if>
+      <if test="exposePorts != null">
+        #{exposePorts,jdbcType=OTHER,typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lnjoying.justice.aos.db.model.TblStackInfoExample" resultType="java.lang.Long">
+    <!--@mbg.generated-->
+    select count(*) from public.tbl_stack_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    <!--@mbg.generated-->
+    update public.tbl_stack_info
+    <set>
+      <if test="record.stackId != null">
+        stack_id = #{record.stackId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.specId != null">
+        spec_id = #{record.specId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        "name" = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bpId != null">
+        bp_id = #{record.bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createUserId != null">
+        create_user_id = #{record.createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        "status" = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.dstNode != null">
+        dst_node = #{record.dstNode,jdbcType=OTHER,typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+      </if>
+      <if test="record.labels != null">
+        labels = #{record.labels,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.devNeedInfo != null">
+        dev_need_info = #{record.devNeedInfo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.autoRun != null">
+        auto_run = #{record.autoRun,jdbcType=BOOLEAN},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sendCreateNum != null">
+        send_create_num = #{record.sendCreateNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.startNum != null">
+        start_num = #{record.startNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.failNum != null">
+        fail_num = #{record.failNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.eventType != null">
+        event_type = #{record.eventType,jdbcType=INTEGER},
+      </if>
+      <if test="record.reportTime != null">
+        report_time = #{record.reportTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.alwaysOnline != null">
+        always_online = #{record.alwaysOnline,jdbcType=BOOLEAN},
+      </if>
+      <if test="record.stackType != null">
+        stack_type = #{record.stackType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useServicePenetration != null">
+        use_service_penetration = #{record.useServicePenetration,jdbcType=BOOLEAN},
+      </if>
+      <if test="record.exposePorts != null">
+        expose_ports = #{record.exposePorts,jdbcType=OTHER,typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    <!--@mbg.generated-->
+    update public.tbl_stack_info
+    set stack_id = #{record.stackId,jdbcType=VARCHAR},
+      spec_id = #{record.specId,jdbcType=VARCHAR},
+      "name" = #{record.name,jdbcType=VARCHAR},
+      bp_id = #{record.bpId,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      create_user_id = #{record.createUserId,jdbcType=VARCHAR},
+      "status" = #{record.status,jdbcType=INTEGER},
+      dst_node = #{record.dstNode,jdbcType=OTHER,typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+      labels = #{record.labels,jdbcType=LONGVARCHAR},
+      dev_need_info = #{record.devNeedInfo,jdbcType=LONGVARCHAR},
+      auto_run = #{record.autoRun,jdbcType=BOOLEAN},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      send_create_num = #{record.sendCreateNum,jdbcType=INTEGER},
+      start_num = #{record.startNum,jdbcType=INTEGER},
+      fail_num = #{record.failNum,jdbcType=INTEGER},
+      event_type = #{record.eventType,jdbcType=INTEGER},
+      report_time = #{record.reportTime,jdbcType=TIMESTAMP},
+      always_online = #{record.alwaysOnline,jdbcType=BOOLEAN},
+      stack_type = #{record.stackType,jdbcType=VARCHAR},
+      use_service_penetration = #{record.useServicePenetration,jdbcType=BOOLEAN},
+      expose_ports = #{record.exposePorts,jdbcType=OTHER,typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.aos.db.model.TblStackInfo">
+    <!--@mbg.generated-->
+    update public.tbl_stack_info
+    <set>
+      <if test="specId != null">
+        spec_id = #{specId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        "name" = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="bpId != null">
+        bp_id = #{bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        "status" = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="dstNode != null">
+        dst_node = #{dstNode,jdbcType=OTHER,typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler, typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+      </if>
+      <if test="labels != null">
+        labels = #{labels,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="devNeedInfo != null">
+        dev_need_info = #{devNeedInfo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="autoRun != null">
+        auto_run = #{autoRun,jdbcType=BOOLEAN},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sendCreateNum != null">
+        send_create_num = #{sendCreateNum,jdbcType=INTEGER},
+      </if>
+      <if test="startNum != null">
+        start_num = #{startNum,jdbcType=INTEGER},
+      </if>
+      <if test="failNum != null">
+        fail_num = #{failNum,jdbcType=INTEGER},
+      </if>
+      <if test="eventType != null">
+        event_type = #{eventType,jdbcType=INTEGER},
+      </if>
+      <if test="reportTime != null">
+        report_time = #{reportTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="alwaysOnline != null">
+        always_online = #{alwaysOnline,jdbcType=BOOLEAN},
+      </if>
+      <if test="stackType != null">
+        stack_type = #{stackType,jdbcType=VARCHAR},
+      </if>
+      <if test="useServicePenetration != null">
+        use_service_penetration = #{useServicePenetration,jdbcType=BOOLEAN},
+      </if>
+      <if test="exposePorts != null">
+        expose_ports = #{exposePorts,jdbcType=OTHER,typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+      </if>
+    </set>
+    where stack_id = #{stackId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.aos.db.model.TblStackInfo">
+    <!--@mbg.generated-->
+    update public.tbl_stack_info
+    set spec_id = #{specId,jdbcType=VARCHAR},
+      "name" = #{name,jdbcType=VARCHAR},
+      bp_id = #{bpId,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      create_user_id = #{createUserId,jdbcType=VARCHAR},
+      "status" = #{status,jdbcType=INTEGER},
+      dst_node = #{dstNode,jdbcType=OTHER,typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler},
+      labels = #{labels,jdbcType=LONGVARCHAR},
+      dev_need_info = #{devNeedInfo,jdbcType=LONGVARCHAR},
+      auto_run = #{autoRun,jdbcType=BOOLEAN},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      send_create_num = #{sendCreateNum,jdbcType=INTEGER},
+      start_num = #{startNum,jdbcType=INTEGER},
+      fail_num = #{failNum,jdbcType=INTEGER},
+      event_type = #{eventType,jdbcType=INTEGER},
+      report_time = #{reportTime,jdbcType=TIMESTAMP},
+      always_online = #{alwaysOnline,jdbcType=BOOLEAN},
+      stack_type = #{stackType,jdbcType=VARCHAR},
+      use_service_penetration = #{useServicePenetration,jdbcType=BOOLEAN},
+      expose_ports = #{exposePorts,jdbcType=OTHER,typeHandler=com.lnjoying.justice.aos.handler.JsonbTypeHandler}
+    where stack_id = #{stackId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tbl_stack_info
+    <where>
+      <if test="specId != null and specId != ''">
+        and spec_id = #{specId,jdbcType=VARCHAR}
+      </if>
+      <if test="name != null and name != ''">
+        and name like concat('%', #{name,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="bpId != null and bpId != ''">
+        and bp_id=#{bpId,jdbcType=VARCHAR}
+      </if>
+      <if test="userId != null and userId != ''">
+        and user_id=#{userId,jdbcType=VARCHAR}
+      </if>
+      <if test="statusCollection != null and statusCollection.size() > 0">
+        and "status" in
+        <foreach item="item" index="index" collection="statusCollection"
+                 open="(" separator="," close=")">
+          #{item,jdbcType=INTEGER}
+        </foreach>
+      </if>
+      <if test="statusCollection == null or statusCollection.size() == 0">
+        and "status" not in
+        <foreach item="item" index="index" collection="notInStatusCollection"
+                 open="(" separator="," close=")">
+          #{item,jdbcType=INTEGER}
+        </foreach>
+      </if>
+      <if test="(region != null and region != '') || (site != null and site != '') || (nodeId != null and nodeId != '')">
+        and dst_node <![CDATA[@> ]]>
+        <trim prefix="'{" suffix="}'" suffixOverrides=",">
+          <if test="region != null and region != ''">
+            "dstRegionId": "${region}",
+          </if>
+          <if test="site != null and site != ''">
+            "dstSiteId": "${site}",
+          </if>
+          <if test="nodeId != null and nodeId != ''">
+            "dstNodeId": "${nodeId}"
+          </if>
+        </trim>
+      </if>
+    </where>
+    ORDER BY create_time desc
+    <if test="startRow != null and pageSize != null and pageSize != 0">
+      limit #{pageSize} offset #{startRow}
+    </if>
+  </select>
+
+  <select id="countAll" resultType="java.lang.Integer">
+    select
+        count(*)
+    from tbl_stack_info
+    <where>
+      <if test="name != null and name != ''">
+        and name like concat('%', #{name,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="bpId != null and bpId != ''">
+        and bp_id=#{bpId,jdbcType=VARCHAR}
+      </if>
+      <if test="userId != null and userId != ''">
+        and user_id=#{userId,jdbcType=VARCHAR}
+      </if>
+      <if test="statusCollection != null and statusCollection.size() > 0">
+        and "status" in
+        <foreach item="item" index="index" collection="statusCollection"
+                 open="(" separator="," close=")">
+          #{item,jdbcType=INTEGER}
+        </foreach>
+      </if>
+      <if test="statusCollection == null or statusCollection.size() == 0">
+        and "status" not in
+        <foreach item="item" index="index" collection="notInStatusCollection"
+                 open="(" separator="," close=")">
+          #{item,jdbcType=INTEGER}
+        </foreach>
+      </if>
+      <if test="(region != null and region != '') || (site != null and site != '') || (nodeId != null and nodeId != '')">
+        and dst_node <![CDATA[@> ]]>
+        <trim prefix="'{" suffix="}'" suffixOverrides=",">
+          <if test="region != null and region != ''">
+            "dstRegionId": "${region}",
+          </if>
+          <if test="site != null and site != ''">
+            "dstSiteId": "${site}",
+          </if>
+          <if test="nodeId != null and nodeId != ''">
+            "dstNodeId": "${nodeId}"
+          </if>
+        </trim>
+      </if>
+    </where>
+  </select>
+</mapper>

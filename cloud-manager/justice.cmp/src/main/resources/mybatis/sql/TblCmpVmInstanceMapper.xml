@@ -1,0 +1,1000 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.cmp.db.mapper.TblCmpVmInstanceMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.cmp.db.model.TblCmpVmInstance">
+    <id column="cloud_id" jdbcType="VARCHAR" property="cloudId" />
+    <id column="vm_instance_id" jdbcType="VARCHAR" property="vmInstanceId" />
+    <result column="instance_id_from_agent" jdbcType="VARCHAR" property="instanceIdFromAgent" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="phase_status" jdbcType="INTEGER" property="phaseStatus" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="node_id" jdbcType="VARCHAR" property="nodeId" />
+    <result column="flavor_id" jdbcType="VARCHAR" property="flavorId" />
+    <result column="image_id" jdbcType="VARCHAR" property="imageId" />
+    <result column="vpc_id" jdbcType="VARCHAR" property="vpcId" />
+    <result column="subnet_id" jdbcType="VARCHAR" property="subnetId" />
+    <result column="port_id" jdbcType="VARCHAR" property="portId" />
+    <result column="static_ip" jdbcType="VARCHAR" property="staticIp" />
+    <result column="host_name" jdbcType="VARCHAR" property="hostName" />
+    <result column="sys_username" jdbcType="VARCHAR" property="sysUsername" />
+    <result column="sys_password" jdbcType="VARCHAR" property="sysPassword" />
+    <result column="pubkey_id" jdbcType="VARCHAR" property="pubkeyId" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="last_node_id" jdbcType="VARCHAR" property="lastNodeId" />
+    <result column="dest_node_id" jdbcType="VARCHAR" property="destNodeId" />
+    <result column="volume_id" jdbcType="VARCHAR" property="volumeId" />
+    <result column="storage_pool_id" jdbcType="VARCHAR" property="storagePoolId" />
+    <result column="instance_group_id" jdbcType="VARCHAR" property="instanceGroupId" />
+    <result column="boot_dev" jdbcType="VARCHAR" property="bootDev" />
+    <result column="os_type" jdbcType="VARCHAR" property="osType" />
+    <result column="cmp_tenant_id" jdbcType="VARCHAR" property="cmpTenantId" />
+    <result column="cmp_user_id" jdbcType="VARCHAR" property="cmpUserId" />
+    <result column="cpu_count" jdbcType="INTEGER" property="cpuCount" />
+    <result column="mem_size" jdbcType="INTEGER" property="memSize" />
+    <result column="eip_id" jdbcType="VARCHAR" property="eipId" />
+    <result column="root_disk" jdbcType="INTEGER" property="rootDisk" />
+    <result column="recycle_mem_size" jdbcType="INTEGER" property="recycleMemSize" />
+    <result column="recycle_cpu_count" jdbcType="INTEGER" property="recycleCpuCount" />
+    <result column="ee_bp" jdbcType="VARCHAR" property="eeBp" />
+    <result column="ee_user" jdbcType="VARCHAR" property="eeUser" />
+    <result column="ee_status" jdbcType="INTEGER" property="eeStatus" />
+    <result column="charge_type" jdbcType="INTEGER" property="chargeType" />
+    <result column="price_unit" jdbcType="INTEGER" property="priceUnit" />
+    <result column="period" jdbcType="INTEGER" property="period" />
+    <result column="expire_time" jdbcType="TIMESTAMP" property="expireTime" />
+    <result column="ee_id" jdbcType="VARCHAR" property="eeId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    cloud_id, vm_instance_id, instance_id_from_agent, name, phase_status, user_id, node_id, 
+    flavor_id, image_id, vpc_id, subnet_id, port_id, static_ip, host_name, sys_username, 
+    sys_password, pubkey_id, description, create_time, update_time, last_node_id, dest_node_id, 
+    volume_id, storage_pool_id, instance_group_id, boot_dev, os_type, cmp_tenant_id, 
+    cmp_user_id, cpu_count, mem_size, eip_id, root_disk, recycle_mem_size, recycle_cpu_count, 
+    ee_bp, ee_user, ee_status, charge_type, price_unit, period, expire_time, ee_id
+  </sql>
+  <select id="selectByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpVmInstanceExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_cmp_vm_instance
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null and pageSize != null and pageSize != 0">
+      limit #{pageSize} offset #{startRow}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpVmInstanceKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_cmp_vm_instance
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and vm_instance_id = #{vmInstanceId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpVmInstanceKey">
+    delete from tbl_cmp_vm_instance
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and vm_instance_id = #{vmInstanceId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpVmInstanceExample">
+    delete from tbl_cmp_vm_instance
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpVmInstance">
+    insert into tbl_cmp_vm_instance (cloud_id, vm_instance_id, instance_id_from_agent, 
+      name, phase_status, user_id, 
+      node_id, flavor_id, image_id, 
+      vpc_id, subnet_id, port_id, 
+      static_ip, host_name, sys_username, 
+      sys_password, pubkey_id, description, 
+      create_time, update_time, last_node_id, 
+      dest_node_id, volume_id, storage_pool_id, 
+      instance_group_id, boot_dev, os_type, 
+      cmp_tenant_id, cmp_user_id, cpu_count, 
+      mem_size, eip_id, root_disk, 
+      recycle_mem_size, recycle_cpu_count, ee_bp, 
+      ee_user, ee_status, charge_type, 
+      price_unit, period, expire_time, 
+      ee_id)
+    values (#{cloudId,jdbcType=VARCHAR}, #{vmInstanceId,jdbcType=VARCHAR}, #{instanceIdFromAgent,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{phaseStatus,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, 
+      #{nodeId,jdbcType=VARCHAR}, #{flavorId,jdbcType=VARCHAR}, #{imageId,jdbcType=VARCHAR}, 
+      #{vpcId,jdbcType=VARCHAR}, #{subnetId,jdbcType=VARCHAR}, #{portId,jdbcType=VARCHAR}, 
+      #{staticIp,jdbcType=VARCHAR}, #{hostName,jdbcType=VARCHAR}, #{sysUsername,jdbcType=VARCHAR}, 
+      #{sysPassword,jdbcType=VARCHAR}, #{pubkeyId,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{lastNodeId,jdbcType=VARCHAR}, 
+      #{destNodeId,jdbcType=VARCHAR}, #{volumeId,jdbcType=VARCHAR}, #{storagePoolId,jdbcType=VARCHAR}, 
+      #{instanceGroupId,jdbcType=VARCHAR}, #{bootDev,jdbcType=VARCHAR}, #{osType,jdbcType=VARCHAR}, 
+      #{cmpTenantId,jdbcType=VARCHAR}, #{cmpUserId,jdbcType=VARCHAR}, #{cpuCount,jdbcType=INTEGER}, 
+      #{memSize,jdbcType=INTEGER}, #{eipId,jdbcType=VARCHAR}, #{rootDisk,jdbcType=INTEGER}, 
+      #{recycleMemSize,jdbcType=INTEGER}, #{recycleCpuCount,jdbcType=INTEGER}, #{eeBp,jdbcType=VARCHAR}, 
+      #{eeUser,jdbcType=VARCHAR}, #{eeStatus,jdbcType=INTEGER}, #{chargeType,jdbcType=INTEGER}, 
+      #{priceUnit,jdbcType=INTEGER}, #{period,jdbcType=INTEGER}, #{expireTime,jdbcType=TIMESTAMP}, 
+      #{eeId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpVmInstance">
+    insert into tbl_cmp_vm_instance
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cloudId != null">
+        cloud_id,
+      </if>
+      <if test="vmInstanceId != null">
+        vm_instance_id,
+      </if>
+      <if test="instanceIdFromAgent != null">
+        instance_id_from_agent,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="phaseStatus != null">
+        phase_status,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="nodeId != null">
+        node_id,
+      </if>
+      <if test="flavorId != null">
+        flavor_id,
+      </if>
+      <if test="imageId != null">
+        image_id,
+      </if>
+      <if test="vpcId != null">
+        vpc_id,
+      </if>
+      <if test="subnetId != null">
+        subnet_id,
+      </if>
+      <if test="portId != null">
+        port_id,
+      </if>
+      <if test="staticIp != null">
+        static_ip,
+      </if>
+      <if test="hostName != null">
+        host_name,
+      </if>
+      <if test="sysUsername != null">
+        sys_username,
+      </if>
+      <if test="sysPassword != null">
+        sys_password,
+      </if>
+      <if test="pubkeyId != null">
+        pubkey_id,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="lastNodeId != null">
+        last_node_id,
+      </if>
+      <if test="destNodeId != null">
+        dest_node_id,
+      </if>
+      <if test="volumeId != null">
+        volume_id,
+      </if>
+      <if test="storagePoolId != null">
+        storage_pool_id,
+      </if>
+      <if test="instanceGroupId != null">
+        instance_group_id,
+      </if>
+      <if test="bootDev != null">
+        boot_dev,
+      </if>
+      <if test="osType != null">
+        os_type,
+      </if>
+      <if test="cmpTenantId != null">
+        cmp_tenant_id,
+      </if>
+      <if test="cmpUserId != null">
+        cmp_user_id,
+      </if>
+      <if test="cpuCount != null">
+        cpu_count,
+      </if>
+      <if test="memSize != null">
+        mem_size,
+      </if>
+      <if test="eipId != null">
+        eip_id,
+      </if>
+      <if test="rootDisk != null">
+        root_disk,
+      </if>
+      <if test="recycleMemSize != null">
+        recycle_mem_size,
+      </if>
+      <if test="recycleCpuCount != null">
+        recycle_cpu_count,
+      </if>
+      <if test="eeBp != null">
+        ee_bp,
+      </if>
+      <if test="eeUser != null">
+        ee_user,
+      </if>
+      <if test="eeStatus != null">
+        ee_status,
+      </if>
+      <if test="chargeType != null">
+        charge_type,
+      </if>
+      <if test="priceUnit != null">
+        price_unit,
+      </if>
+      <if test="period != null">
+        period,
+      </if>
+      <if test="expireTime != null">
+        expire_time,
+      </if>
+      <if test="eeId != null">
+        ee_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cloudId != null">
+        #{cloudId,jdbcType=VARCHAR},
+      </if>
+      <if test="vmInstanceId != null">
+        #{vmInstanceId,jdbcType=VARCHAR},
+      </if>
+      <if test="instanceIdFromAgent != null">
+        #{instanceIdFromAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phaseStatus != null">
+        #{phaseStatus,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeId != null">
+        #{nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="flavorId != null">
+        #{flavorId,jdbcType=VARCHAR},
+      </if>
+      <if test="imageId != null">
+        #{imageId,jdbcType=VARCHAR},
+      </if>
+      <if test="vpcId != null">
+        #{vpcId,jdbcType=VARCHAR},
+      </if>
+      <if test="subnetId != null">
+        #{subnetId,jdbcType=VARCHAR},
+      </if>
+      <if test="portId != null">
+        #{portId,jdbcType=VARCHAR},
+      </if>
+      <if test="staticIp != null">
+        #{staticIp,jdbcType=VARCHAR},
+      </if>
+      <if test="hostName != null">
+        #{hostName,jdbcType=VARCHAR},
+      </if>
+      <if test="sysUsername != null">
+        #{sysUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="sysPassword != null">
+        #{sysPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="pubkeyId != null">
+        #{pubkeyId,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastNodeId != null">
+        #{lastNodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="destNodeId != null">
+        #{destNodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="volumeId != null">
+        #{volumeId,jdbcType=VARCHAR},
+      </if>
+      <if test="storagePoolId != null">
+        #{storagePoolId,jdbcType=VARCHAR},
+      </if>
+      <if test="instanceGroupId != null">
+        #{instanceGroupId,jdbcType=VARCHAR},
+      </if>
+      <if test="bootDev != null">
+        #{bootDev,jdbcType=VARCHAR},
+      </if>
+      <if test="osType != null">
+        #{osType,jdbcType=VARCHAR},
+      </if>
+      <if test="cmpTenantId != null">
+        #{cmpTenantId,jdbcType=VARCHAR},
+      </if>
+      <if test="cmpUserId != null">
+        #{cmpUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="cpuCount != null">
+        #{cpuCount,jdbcType=INTEGER},
+      </if>
+      <if test="memSize != null">
+        #{memSize,jdbcType=INTEGER},
+      </if>
+      <if test="eipId != null">
+        #{eipId,jdbcType=VARCHAR},
+      </if>
+      <if test="rootDisk != null">
+        #{rootDisk,jdbcType=INTEGER},
+      </if>
+      <if test="recycleMemSize != null">
+        #{recycleMemSize,jdbcType=INTEGER},
+      </if>
+      <if test="recycleCpuCount != null">
+        #{recycleCpuCount,jdbcType=INTEGER},
+      </if>
+      <if test="eeBp != null">
+        #{eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="eeUser != null">
+        #{eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="eeStatus != null">
+        #{eeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="chargeType != null">
+        #{chargeType,jdbcType=INTEGER},
+      </if>
+      <if test="priceUnit != null">
+        #{priceUnit,jdbcType=INTEGER},
+      </if>
+      <if test="period != null">
+        #{period,jdbcType=INTEGER},
+      </if>
+      <if test="expireTime != null">
+        #{expireTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="eeId != null">
+        #{eeId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpVmInstanceExample" resultType="java.lang.Long">
+    select count(*) from tbl_cmp_vm_instance
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_cmp_vm_instance
+    <set>
+      <if test="record.cloudId != null">
+        cloud_id = #{record.cloudId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vmInstanceId != null">
+        vm_instance_id = #{record.vmInstanceId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.instanceIdFromAgent != null">
+        instance_id_from_agent = #{record.instanceIdFromAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phaseStatus != null">
+        phase_status = #{record.phaseStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nodeId != null">
+        node_id = #{record.nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.flavorId != null">
+        flavor_id = #{record.flavorId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imageId != null">
+        image_id = #{record.imageId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vpcId != null">
+        vpc_id = #{record.vpcId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subnetId != null">
+        subnet_id = #{record.subnetId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.portId != null">
+        port_id = #{record.portId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staticIp != null">
+        static_ip = #{record.staticIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hostName != null">
+        host_name = #{record.hostName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sysUsername != null">
+        sys_username = #{record.sysUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sysPassword != null">
+        sys_password = #{record.sysPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pubkeyId != null">
+        pubkey_id = #{record.pubkeyId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastNodeId != null">
+        last_node_id = #{record.lastNodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.destNodeId != null">
+        dest_node_id = #{record.destNodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.volumeId != null">
+        volume_id = #{record.volumeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storagePoolId != null">
+        storage_pool_id = #{record.storagePoolId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.instanceGroupId != null">
+        instance_group_id = #{record.instanceGroupId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bootDev != null">
+        boot_dev = #{record.bootDev,jdbcType=VARCHAR},
+      </if>
+      <if test="record.osType != null">
+        os_type = #{record.osType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmpTenantId != null">
+        cmp_tenant_id = #{record.cmpTenantId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmpUserId != null">
+        cmp_user_id = #{record.cmpUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cpuCount != null">
+        cpu_count = #{record.cpuCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.memSize != null">
+        mem_size = #{record.memSize,jdbcType=INTEGER},
+      </if>
+      <if test="record.eipId != null">
+        eip_id = #{record.eipId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rootDisk != null">
+        root_disk = #{record.rootDisk,jdbcType=INTEGER},
+      </if>
+      <if test="record.recycleMemSize != null">
+        recycle_mem_size = #{record.recycleMemSize,jdbcType=INTEGER},
+      </if>
+      <if test="record.recycleCpuCount != null">
+        recycle_cpu_count = #{record.recycleCpuCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.eeBp != null">
+        ee_bp = #{record.eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeUser != null">
+        ee_user = #{record.eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeStatus != null">
+        ee_status = #{record.eeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.chargeType != null">
+        charge_type = #{record.chargeType,jdbcType=INTEGER},
+      </if>
+      <if test="record.priceUnit != null">
+        price_unit = #{record.priceUnit,jdbcType=INTEGER},
+      </if>
+      <if test="record.period != null">
+        period = #{record.period,jdbcType=INTEGER},
+      </if>
+      <if test="record.expireTime != null">
+        expire_time = #{record.expireTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.eeId != null">
+        ee_id = #{record.eeId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_cmp_vm_instance
+    set cloud_id = #{record.cloudId,jdbcType=VARCHAR},
+      vm_instance_id = #{record.vmInstanceId,jdbcType=VARCHAR},
+      instance_id_from_agent = #{record.instanceIdFromAgent,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      phase_status = #{record.phaseStatus,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      node_id = #{record.nodeId,jdbcType=VARCHAR},
+      flavor_id = #{record.flavorId,jdbcType=VARCHAR},
+      image_id = #{record.imageId,jdbcType=VARCHAR},
+      vpc_id = #{record.vpcId,jdbcType=VARCHAR},
+      subnet_id = #{record.subnetId,jdbcType=VARCHAR},
+      port_id = #{record.portId,jdbcType=VARCHAR},
+      static_ip = #{record.staticIp,jdbcType=VARCHAR},
+      host_name = #{record.hostName,jdbcType=VARCHAR},
+      sys_username = #{record.sysUsername,jdbcType=VARCHAR},
+      sys_password = #{record.sysPassword,jdbcType=VARCHAR},
+      pubkey_id = #{record.pubkeyId,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      last_node_id = #{record.lastNodeId,jdbcType=VARCHAR},
+      dest_node_id = #{record.destNodeId,jdbcType=VARCHAR},
+      volume_id = #{record.volumeId,jdbcType=VARCHAR},
+      storage_pool_id = #{record.storagePoolId,jdbcType=VARCHAR},
+      instance_group_id = #{record.instanceGroupId,jdbcType=VARCHAR},
+      boot_dev = #{record.bootDev,jdbcType=VARCHAR},
+      os_type = #{record.osType,jdbcType=VARCHAR},
+      cmp_tenant_id = #{record.cmpTenantId,jdbcType=VARCHAR},
+      cmp_user_id = #{record.cmpUserId,jdbcType=VARCHAR},
+      cpu_count = #{record.cpuCount,jdbcType=INTEGER},
+      mem_size = #{record.memSize,jdbcType=INTEGER},
+      eip_id = #{record.eipId,jdbcType=VARCHAR},
+      root_disk = #{record.rootDisk,jdbcType=INTEGER},
+      recycle_mem_size = #{record.recycleMemSize,jdbcType=INTEGER},
+      recycle_cpu_count = #{record.recycleCpuCount,jdbcType=INTEGER},
+      ee_bp = #{record.eeBp,jdbcType=VARCHAR},
+      ee_user = #{record.eeUser,jdbcType=VARCHAR},
+      ee_status = #{record.eeStatus,jdbcType=INTEGER},
+      charge_type = #{record.chargeType,jdbcType=INTEGER},
+      price_unit = #{record.priceUnit,jdbcType=INTEGER},
+      period = #{record.period,jdbcType=INTEGER},
+      expire_time = #{record.expireTime,jdbcType=TIMESTAMP},
+      ee_id = #{record.eeId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpVmInstance">
+    update tbl_cmp_vm_instance
+    <set>
+      <if test="instanceIdFromAgent != null">
+        instance_id_from_agent = #{instanceIdFromAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phaseStatus != null">
+        phase_status = #{phaseStatus,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeId != null">
+        node_id = #{nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="flavorId != null">
+        flavor_id = #{flavorId,jdbcType=VARCHAR},
+      </if>
+      <if test="imageId != null">
+        image_id = #{imageId,jdbcType=VARCHAR},
+      </if>
+      <if test="vpcId != null">
+        vpc_id = #{vpcId,jdbcType=VARCHAR},
+      </if>
+      <if test="subnetId != null">
+        subnet_id = #{subnetId,jdbcType=VARCHAR},
+      </if>
+      <if test="portId != null">
+        port_id = #{portId,jdbcType=VARCHAR},
+      </if>
+      <if test="staticIp != null">
+        static_ip = #{staticIp,jdbcType=VARCHAR},
+      </if>
+      <if test="hostName != null">
+        host_name = #{hostName,jdbcType=VARCHAR},
+      </if>
+      <if test="sysUsername != null">
+        sys_username = #{sysUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="sysPassword != null">
+        sys_password = #{sysPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="pubkeyId != null">
+        pubkey_id = #{pubkeyId,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastNodeId != null">
+        last_node_id = #{lastNodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="destNodeId != null">
+        dest_node_id = #{destNodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="volumeId != null">
+        volume_id = #{volumeId,jdbcType=VARCHAR},
+      </if>
+      <if test="storagePoolId != null">
+        storage_pool_id = #{storagePoolId,jdbcType=VARCHAR},
+      </if>
+      <if test="instanceGroupId != null">
+        instance_group_id = #{instanceGroupId,jdbcType=VARCHAR},
+      </if>
+      <if test="bootDev != null">
+        boot_dev = #{bootDev,jdbcType=VARCHAR},
+      </if>
+      <if test="osType != null">
+        os_type = #{osType,jdbcType=VARCHAR},
+      </if>
+      <if test="cmpTenantId != null">
+        cmp_tenant_id = #{cmpTenantId,jdbcType=VARCHAR},
+      </if>
+      <if test="cmpUserId != null">
+        cmp_user_id = #{cmpUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="cpuCount != null">
+        cpu_count = #{cpuCount,jdbcType=INTEGER},
+      </if>
+      <if test="memSize != null">
+        mem_size = #{memSize,jdbcType=INTEGER},
+      </if>
+      <if test="eipId != null">
+        eip_id = #{eipId,jdbcType=VARCHAR},
+      </if>
+      <if test="rootDisk != null">
+        root_disk = #{rootDisk,jdbcType=INTEGER},
+      </if>
+      <if test="recycleMemSize != null">
+        recycle_mem_size = #{recycleMemSize,jdbcType=INTEGER},
+      </if>
+      <if test="recycleCpuCount != null">
+        recycle_cpu_count = #{recycleCpuCount,jdbcType=INTEGER},
+      </if>
+      <if test="eeBp != null">
+        ee_bp = #{eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="eeUser != null">
+        ee_user = #{eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="eeStatus != null">
+        ee_status = #{eeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="chargeType != null">
+        charge_type = #{chargeType,jdbcType=INTEGER},
+      </if>
+      <if test="priceUnit != null">
+        price_unit = #{priceUnit,jdbcType=INTEGER},
+      </if>
+      <if test="period != null">
+        period = #{period,jdbcType=INTEGER},
+      </if>
+      <if test="expireTime != null">
+        expire_time = #{expireTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="eeId != null">
+        ee_id = #{eeId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and vm_instance_id = #{vmInstanceId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpVmInstance">
+    update tbl_cmp_vm_instance
+    set instance_id_from_agent = #{instanceIdFromAgent,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      phase_status = #{phaseStatus,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=VARCHAR},
+      node_id = #{nodeId,jdbcType=VARCHAR},
+      flavor_id = #{flavorId,jdbcType=VARCHAR},
+      image_id = #{imageId,jdbcType=VARCHAR},
+      vpc_id = #{vpcId,jdbcType=VARCHAR},
+      subnet_id = #{subnetId,jdbcType=VARCHAR},
+      port_id = #{portId,jdbcType=VARCHAR},
+      static_ip = #{staticIp,jdbcType=VARCHAR},
+      host_name = #{hostName,jdbcType=VARCHAR},
+      sys_username = #{sysUsername,jdbcType=VARCHAR},
+      sys_password = #{sysPassword,jdbcType=VARCHAR},
+      pubkey_id = #{pubkeyId,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      last_node_id = #{lastNodeId,jdbcType=VARCHAR},
+      dest_node_id = #{destNodeId,jdbcType=VARCHAR},
+      volume_id = #{volumeId,jdbcType=VARCHAR},
+      storage_pool_id = #{storagePoolId,jdbcType=VARCHAR},
+      instance_group_id = #{instanceGroupId,jdbcType=VARCHAR},
+      boot_dev = #{bootDev,jdbcType=VARCHAR},
+      os_type = #{osType,jdbcType=VARCHAR},
+      cmp_tenant_id = #{cmpTenantId,jdbcType=VARCHAR},
+      cmp_user_id = #{cmpUserId,jdbcType=VARCHAR},
+      cpu_count = #{cpuCount,jdbcType=INTEGER},
+      mem_size = #{memSize,jdbcType=INTEGER},
+      eip_id = #{eipId,jdbcType=VARCHAR},
+      root_disk = #{rootDisk,jdbcType=INTEGER},
+      recycle_mem_size = #{recycleMemSize,jdbcType=INTEGER},
+      recycle_cpu_count = #{recycleCpuCount,jdbcType=INTEGER},
+      ee_bp = #{eeBp,jdbcType=VARCHAR},
+      ee_user = #{eeUser,jdbcType=VARCHAR},
+      ee_status = #{eeStatus,jdbcType=INTEGER},
+      charge_type = #{chargeType,jdbcType=INTEGER},
+      price_unit = #{priceUnit,jdbcType=INTEGER},
+      period = #{period,jdbcType=INTEGER},
+      expire_time = #{expireTime,jdbcType=TIMESTAMP},
+      ee_id = #{eeId,jdbcType=VARCHAR}
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and vm_instance_id = #{vmInstanceId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="sumRootDiskSizeByUserId" resultType="java.lang.Long">
+    select COALESCE(sum(tbl_cmp_flavor.root_disk),0) from tbl_cmp_flavor, tbl_cmp_vm_instance where tbl_cmp_vm_instance.flavor_id = tbl_cmp_flavor.flavor_id
+    and tbl_cmp_vm_instance.phase_status != -1
+    <if test="userId != null">
+      and tbl_cmp_vm_instance.user_id=#{userId}
+    </if>
+    <if test="cloudId != null">
+      and tbl_cmp_vm_instance.cloud_id=#{cloudId}
+    </if>
+    and tbl_cmp_vm_instance.ee_status != -1
+  </select>
+
+  <select id="sumDataDiskSizeByUserId" resultType="java.lang.Long">
+    select COALESCE(sum(tbl_cmp_disk_info."size"),0) from tbl_cmp_disk_info, tbl_cmp_vm_instance where tbl_cmp_vm_instance.vm_instance_id = tbl_cmp_disk_info.vm_instance_id
+    and tbl_cmp_vm_instance.phase_status != -1
+    <if test="userId != null">
+      and tbl_cmp_vm_instance.user_id=#{userId}
+    </if>
+    <if test="cloudId != null">
+      and tbl_cmp_vm_instance.cloud_id=#{cloudId}
+    </if>
+    and tbl_cmp_vm_instance.ee_status != -1
+  </select>
+
+  <select id="getVmInstanceIds" resultType="String">
+    select vm_instance_id from tbl_cmp_vm_instance
+    where cloud_id = #{cloudId} and ee_status = 0
+  </select>
+
+  <resultMap id="GetStatusMetricsRsp" type="com.lnjoying.justice.schema.entity.stat.StatusMetrics">
+    <result column="phase_status" jdbcType="INTEGER" property="status" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+  </resultMap>
+  <select id="getVmInstanceStatusMetrics" resultMap="GetStatusMetricsRsp">
+    SELECT phase_status, COUNT(*) as count
+    FROM tbl_cmp_vm_instance
+    where ee_status != -1 and cloud_id = #{cloudId,jdbcType=VARCHAR}
+    <if test="userId != null and userId != ''">
+      and ee_user = #{userId,jdbcType=VARCHAR}
+    </if>
+    <if test="bpId != null and bpId != ''">
+      and ee_bp = #{bpId,jdbcType=VARCHAR}
+    </if>
+    GROUP BY phase_status
+  </select>
+
+  <update id="updateVmInstanceByEeIdSelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpVmInstance">
+    update tbl_cmp_vm_instance
+    <set>
+      <if test="instanceIdFromAgent != null">
+        instance_id_from_agent = #{instanceIdFromAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phaseStatus != null">
+        phase_status = #{phaseStatus,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeId != null">
+        node_id = #{nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="flavorId != null">
+        flavor_id = #{flavorId,jdbcType=VARCHAR},
+      </if>
+      <if test="imageId != null">
+        image_id = #{imageId,jdbcType=VARCHAR},
+      </if>
+      <if test="vpcId != null">
+        vpc_id = #{vpcId,jdbcType=VARCHAR},
+      </if>
+      <if test="subnetId != null">
+        subnet_id = #{subnetId,jdbcType=VARCHAR},
+      </if>
+      <if test="portId != null">
+        port_id = #{portId,jdbcType=VARCHAR},
+      </if>
+      <if test="staticIp != null">
+        static_ip = #{staticIp,jdbcType=VARCHAR},
+      </if>
+      <if test="hostName != null">
+        host_name = #{hostName,jdbcType=VARCHAR},
+      </if>
+      <if test="sysUsername != null">
+        sys_username = #{sysUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="sysPassword != null">
+        sys_password = #{sysPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="pubkeyId != null">
+        pubkey_id = #{pubkeyId,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastNodeId != null">
+        last_node_id = #{lastNodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="destNodeId != null">
+        dest_node_id = #{destNodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="volumeId != null">
+        volume_id = #{volumeId,jdbcType=VARCHAR},
+      </if>
+      <if test="storagePoolId != null">
+        storage_pool_id = #{storagePoolId,jdbcType=VARCHAR},
+      </if>
+      <if test="instanceGroupId != null">
+        instance_group_id = #{instanceGroupId,jdbcType=VARCHAR},
+      </if>
+      <if test="bootDev != null">
+        boot_dev = #{bootDev,jdbcType=VARCHAR},
+      </if>
+      <if test="osType != null">
+        os_type = #{osType,jdbcType=VARCHAR},
+      </if>
+      <if test="cmpTenantId != null">
+        cmp_tenant_id = #{cmpTenantId,jdbcType=VARCHAR},
+      </if>
+      <if test="cmpUserId != null">
+        cmp_user_id = #{cmpUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="cpuCount != null">
+        cpu_count = #{cpuCount,jdbcType=INTEGER},
+      </if>
+      <if test="memSize != null">
+        mem_size = #{memSize,jdbcType=INTEGER},
+      </if>
+      <if test="eipId != null">
+        eip_id = #{eipId,jdbcType=VARCHAR},
+      </if>
+      <if test="rootDisk != null">
+        root_disk = #{rootDisk,jdbcType=INTEGER},
+      </if>
+      <if test="recycleMemSize != null">
+        recycle_mem_size = #{recycleMemSize,jdbcType=INTEGER},
+      </if>
+      <if test="recycleCpuCount != null">
+        recycle_cpu_count = #{recycleCpuCount,jdbcType=INTEGER},
+      </if>
+      <if test="eeBp != null">
+        ee_bp = #{eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="eeUser != null">
+        ee_user = #{eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="eeStatus != null">
+        ee_status = #{eeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="chargeType != null">
+        charge_type = #{chargeType,jdbcType=INTEGER},
+      </if>
+      <if test="priceUnit != null">
+        price_unit = #{priceUnit,jdbcType=INTEGER},
+      </if>
+      <if test="period != null">
+        period = #{period,jdbcType=INTEGER},
+      </if>
+      <if test="expireTime != null">
+        expire_time = #{expireTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="vmInstanceId != null">
+        vm_instance_id = #{vmInstanceId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+    and ee_id = #{eeId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectByEeId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tbl_cmp_vm_instance
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+    and ee_id = #{eeId,jdbcType=VARCHAR}
+  </select>
+</mapper>

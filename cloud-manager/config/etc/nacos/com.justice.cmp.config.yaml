@@ -1,0 +1,9 @@
+cloud_server:
+  url: 127.0.0.1:9080
+  token: token
+#  inner: 127.0.0.1:16443
+service_gw:
+  url: 127.0.0.1:16443
+cloud_agent:
+  image: swr.cn-north-1.myhuaweicloud.com/lnjoying/aicloud-cluster-agent:v1.0.0
+expire_policy: '{"poweroffTimeAfterExpire":300000,"removeTimeAfterExpire":604800000}'

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.iam.db.mapper.TblIamAssignmentMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.iam.db.model.TblIamAssignment">
+    <!--@mbg.generated-->
+    <!--@Table tbl_iam_assignment-->
+    <result column="actor_id" jdbcType="VARCHAR" property="actorId" />
+    <result column="target_id" jdbcType="VARCHAR" property="targetId" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    actor_id, target_id, "type"
+  </sql>
+  <insert id="insert" parameterType="com.lnjoying.justice.iam.db.model.TblIamAssignment">
+    <!--@mbg.generated-->
+    insert into tbl_iam_assignment (actor_id, target_id, "type"
+      )
+    values (#{actorId,jdbcType=VARCHAR}, #{targetId,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.iam.db.model.TblIamAssignment">
+    <!--@mbg.generated-->
+    insert into tbl_iam_assignment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="actorId != null and actorId != ''">
+        actor_id,
+      </if>
+      <if test="targetId != null and targetId != ''">
+        target_id,
+      </if>
+      <if test="type != null">
+        "type",
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="actorId != null and actorId != ''">
+        #{actorId,jdbcType=VARCHAR},
+      </if>
+      <if test="targetId != null and targetId != ''">
+        #{targetId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <insert id="batchInsert">
+    INSERT INTO tbl_iam_assignment(
+    actor_id,
+    target_id,
+    type
+    )VALUES
+    <foreach collection="list" item="element" index="index" separator=",">
+      (
+      #{element.actorId,jdbcType=VARCHAR},
+      #{element.targetId,jdbcType=VARCHAR},
+      #{element.type,jdbcType=INTEGER}
+      )
+    </foreach>
+  </insert>
+
+  <delete id="deleteByActorIdAndTargetIdAndType">
+    delete from tbl_iam_assignment
+    <where>
+      <if test="actorId != null and actorId != ''">
+        and actor_id=#{actorId,jdbcType=VARCHAR}
+      </if>
+      <if test="targetId != null and targetId != ''">
+        and target_id=#{targetId,jdbcType=VARCHAR}
+      </if>
+      <if test="type != null">
+        and "type"=#{type,jdbcType=INTEGER}
+      </if>
+    </where>
+  </delete>
+
+  <select id="selectByTargetIdAndType" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tbl_iam_assignment
+    <where>
+      <if test="targetId != null and targetId != ''">
+        and target_id=#{targetId,jdbcType=VARCHAR}
+      </if>
+      <if test="type != null">
+        and "type"=#{type,jdbcType=INTEGER}
+      </if>
+    </where>
+  </select>
+
+  <select id="countByTargetIdAndType" resultType="java.lang.Integer">
+        select count(1)
+        from tbl_iam_assignment
+        <where>
+            <if test="targetId != null and targetId != ''">
+                and target_id=#{targetId,jdbcType=VARCHAR}
+            </if>
+            <if test="type != null">
+                and "type"=#{type,jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
+</mapper>

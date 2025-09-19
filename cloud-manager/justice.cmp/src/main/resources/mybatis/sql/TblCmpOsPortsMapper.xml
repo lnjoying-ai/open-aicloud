@@ -1,0 +1,648 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.cmp.db.mapper.TblCmpOsPortsMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.cmp.db.model.TblCmpOsPorts">
+    <id column="cloud_id" jdbcType="VARCHAR" property="cloudId" />
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="project_id" jdbcType="VARCHAR" property="projectId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="network_id" jdbcType="VARCHAR" property="networkId" />
+    <result column="mac_address" jdbcType="VARCHAR" property="macAddress" />
+    <result column="admin_state_up" jdbcType="SMALLINT" property="adminStateUp" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="device_id" jdbcType="VARCHAR" property="deviceId" />
+    <result column="device_owner" jdbcType="VARCHAR" property="deviceOwner" />
+    <result column="standard_attr_id" jdbcType="BIGINT" property="standardAttrId" />
+    <result column="ip_allocation" jdbcType="VARCHAR" property="ipAllocation" />
+    <result column="ee_bp" jdbcType="VARCHAR" property="eeBp" />
+    <result column="ee_user" jdbcType="VARCHAR" property="eeUser" />
+    <result column="ee_status" jdbcType="INTEGER" property="eeStatus" />
+    <result column="data_plane_status" jdbcType="VARCHAR" property="dataPlaneStatus" />
+    <result column="current_dns_name" jdbcType="VARCHAR" property="currentDnsName" />
+    <result column="current_dns_domain" jdbcType="VARCHAR" property="currentDnsDomain" />
+    <result column="previous_dns_name" jdbcType="VARCHAR" property="previousDnsName" />
+    <result column="previous_dns_domain" jdbcType="VARCHAR" property="previousDnsDomain" />
+    <result column="dns_name" jdbcType="VARCHAR" property="dnsName" />
+    <result column="dns_domain" jdbcType="VARCHAR" property="dnsDomain" />
+    <result column="policy_id" jdbcType="VARCHAR" property="policyId" />
+    <result column="propagate_uplink_status" jdbcType="SMALLINT" property="propagateUplinkStatus" />
+    <result column="mac_learning_enabled" jdbcType="SMALLINT" property="macLearningEnabled" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="revision_number" jdbcType="BIGINT" property="revisionNumber" />
+    <result column="port_security_enabled" jdbcType="SMALLINT" property="portSecurityEnabled" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    cloud_id, id, project_id, name, network_id, mac_address, admin_state_up, status, 
+    device_id, device_owner, standard_attr_id, ip_allocation, ee_bp, ee_user, ee_status, 
+    data_plane_status, current_dns_name, current_dns_domain, previous_dns_name, previous_dns_domain, 
+    dns_name, dns_domain, policy_id, propagate_uplink_status, mac_learning_enabled, created_at, 
+    updated_at, description, revision_number, port_security_enabled
+  </sql>
+  <select id="selectByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsPortsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_cmp_os_ports
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsPortsKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_cmp_os_ports
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsPortsKey">
+    delete from tbl_cmp_os_ports
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsPortsExample">
+    delete from tbl_cmp_os_ports
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsPorts">
+    insert into tbl_cmp_os_ports (cloud_id, id, project_id, 
+      name, network_id, mac_address, 
+      admin_state_up, status, device_id, 
+      device_owner, standard_attr_id, ip_allocation, 
+      ee_bp, ee_user, ee_status, 
+      data_plane_status, current_dns_name, current_dns_domain, 
+      previous_dns_name, previous_dns_domain, dns_name, 
+      dns_domain, policy_id, propagate_uplink_status, 
+      mac_learning_enabled, created_at, updated_at, 
+      description, revision_number, port_security_enabled
+      )
+    values (#{cloudId,jdbcType=VARCHAR}, #{id,jdbcType=VARCHAR}, #{projectId,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{networkId,jdbcType=VARCHAR}, #{macAddress,jdbcType=VARCHAR}, 
+      #{adminStateUp,jdbcType=SMALLINT}, #{status,jdbcType=VARCHAR}, #{deviceId,jdbcType=VARCHAR}, 
+      #{deviceOwner,jdbcType=VARCHAR}, #{standardAttrId,jdbcType=BIGINT}, #{ipAllocation,jdbcType=VARCHAR}, 
+      #{eeBp,jdbcType=VARCHAR}, #{eeUser,jdbcType=VARCHAR}, #{eeStatus,jdbcType=INTEGER}, 
+      #{dataPlaneStatus,jdbcType=VARCHAR}, #{currentDnsName,jdbcType=VARCHAR}, #{currentDnsDomain,jdbcType=VARCHAR}, 
+      #{previousDnsName,jdbcType=VARCHAR}, #{previousDnsDomain,jdbcType=VARCHAR}, #{dnsName,jdbcType=VARCHAR}, 
+      #{dnsDomain,jdbcType=VARCHAR}, #{policyId,jdbcType=VARCHAR}, #{propagateUplinkStatus,jdbcType=SMALLINT}, 
+      #{macLearningEnabled,jdbcType=SMALLINT}, #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP}, 
+      #{description,jdbcType=VARCHAR}, #{revisionNumber,jdbcType=BIGINT}, #{portSecurityEnabled,jdbcType=SMALLINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsPorts">
+    insert into tbl_cmp_os_ports
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cloudId != null">
+        cloud_id,
+      </if>
+      <if test="id != null">
+        id,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="networkId != null">
+        network_id,
+      </if>
+      <if test="macAddress != null">
+        mac_address,
+      </if>
+      <if test="adminStateUp != null">
+        admin_state_up,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="deviceId != null">
+        device_id,
+      </if>
+      <if test="deviceOwner != null">
+        device_owner,
+      </if>
+      <if test="standardAttrId != null">
+        standard_attr_id,
+      </if>
+      <if test="ipAllocation != null">
+        ip_allocation,
+      </if>
+      <if test="eeBp != null">
+        ee_bp,
+      </if>
+      <if test="eeUser != null">
+        ee_user,
+      </if>
+      <if test="eeStatus != null">
+        ee_status,
+      </if>
+      <if test="dataPlaneStatus != null">
+        data_plane_status,
+      </if>
+      <if test="currentDnsName != null">
+        current_dns_name,
+      </if>
+      <if test="currentDnsDomain != null">
+        current_dns_domain,
+      </if>
+      <if test="previousDnsName != null">
+        previous_dns_name,
+      </if>
+      <if test="previousDnsDomain != null">
+        previous_dns_domain,
+      </if>
+      <if test="dnsName != null">
+        dns_name,
+      </if>
+      <if test="dnsDomain != null">
+        dns_domain,
+      </if>
+      <if test="policyId != null">
+        policy_id,
+      </if>
+      <if test="propagateUplinkStatus != null">
+        propagate_uplink_status,
+      </if>
+      <if test="macLearningEnabled != null">
+        mac_learning_enabled,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedAt != null">
+        updated_at,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="revisionNumber != null">
+        revision_number,
+      </if>
+      <if test="portSecurityEnabled != null">
+        port_security_enabled,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cloudId != null">
+        #{cloudId,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="networkId != null">
+        #{networkId,jdbcType=VARCHAR},
+      </if>
+      <if test="macAddress != null">
+        #{macAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="adminStateUp != null">
+        #{adminStateUp,jdbcType=SMALLINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null">
+        #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceOwner != null">
+        #{deviceOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="standardAttrId != null">
+        #{standardAttrId,jdbcType=BIGINT},
+      </if>
+      <if test="ipAllocation != null">
+        #{ipAllocation,jdbcType=VARCHAR},
+      </if>
+      <if test="eeBp != null">
+        #{eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="eeUser != null">
+        #{eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="eeStatus != null">
+        #{eeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="dataPlaneStatus != null">
+        #{dataPlaneStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="currentDnsName != null">
+        #{currentDnsName,jdbcType=VARCHAR},
+      </if>
+      <if test="currentDnsDomain != null">
+        #{currentDnsDomain,jdbcType=VARCHAR},
+      </if>
+      <if test="previousDnsName != null">
+        #{previousDnsName,jdbcType=VARCHAR},
+      </if>
+      <if test="previousDnsDomain != null">
+        #{previousDnsDomain,jdbcType=VARCHAR},
+      </if>
+      <if test="dnsName != null">
+        #{dnsName,jdbcType=VARCHAR},
+      </if>
+      <if test="dnsDomain != null">
+        #{dnsDomain,jdbcType=VARCHAR},
+      </if>
+      <if test="policyId != null">
+        #{policyId,jdbcType=VARCHAR},
+      </if>
+      <if test="propagateUplinkStatus != null">
+        #{propagateUplinkStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="macLearningEnabled != null">
+        #{macLearningEnabled,jdbcType=SMALLINT},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="revisionNumber != null">
+        #{revisionNumber,jdbcType=BIGINT},
+      </if>
+      <if test="portSecurityEnabled != null">
+        #{portSecurityEnabled,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsPortsExample" resultType="java.lang.Long">
+    select count(*) from tbl_cmp_os_ports
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_cmp_os_ports
+    <set>
+      <if test="record.cloudId != null">
+        cloud_id = #{record.cloudId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.projectId != null">
+        project_id = #{record.projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.networkId != null">
+        network_id = #{record.networkId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.macAddress != null">
+        mac_address = #{record.macAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminStateUp != null">
+        admin_state_up = #{record.adminStateUp,jdbcType=SMALLINT},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceId != null">
+        device_id = #{record.deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceOwner != null">
+        device_owner = #{record.deviceOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="record.standardAttrId != null">
+        standard_attr_id = #{record.standardAttrId,jdbcType=BIGINT},
+      </if>
+      <if test="record.ipAllocation != null">
+        ip_allocation = #{record.ipAllocation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeBp != null">
+        ee_bp = #{record.eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeUser != null">
+        ee_user = #{record.eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeStatus != null">
+        ee_status = #{record.eeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.dataPlaneStatus != null">
+        data_plane_status = #{record.dataPlaneStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.currentDnsName != null">
+        current_dns_name = #{record.currentDnsName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.currentDnsDomain != null">
+        current_dns_domain = #{record.currentDnsDomain,jdbcType=VARCHAR},
+      </if>
+      <if test="record.previousDnsName != null">
+        previous_dns_name = #{record.previousDnsName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.previousDnsDomain != null">
+        previous_dns_domain = #{record.previousDnsDomain,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dnsName != null">
+        dns_name = #{record.dnsName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dnsDomain != null">
+        dns_domain = #{record.dnsDomain,jdbcType=VARCHAR},
+      </if>
+      <if test="record.policyId != null">
+        policy_id = #{record.policyId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.propagateUplinkStatus != null">
+        propagate_uplink_status = #{record.propagateUplinkStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="record.macLearningEnabled != null">
+        mac_learning_enabled = #{record.macLearningEnabled,jdbcType=SMALLINT},
+      </if>
+      <if test="record.createdAt != null">
+        created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedAt != null">
+        updated_at = #{record.updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.revisionNumber != null">
+        revision_number = #{record.revisionNumber,jdbcType=BIGINT},
+      </if>
+      <if test="record.portSecurityEnabled != null">
+        port_security_enabled = #{record.portSecurityEnabled,jdbcType=SMALLINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_cmp_os_ports
+    set cloud_id = #{record.cloudId,jdbcType=VARCHAR},
+      id = #{record.id,jdbcType=VARCHAR},
+      project_id = #{record.projectId,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      network_id = #{record.networkId,jdbcType=VARCHAR},
+      mac_address = #{record.macAddress,jdbcType=VARCHAR},
+      admin_state_up = #{record.adminStateUp,jdbcType=SMALLINT},
+      status = #{record.status,jdbcType=VARCHAR},
+      device_id = #{record.deviceId,jdbcType=VARCHAR},
+      device_owner = #{record.deviceOwner,jdbcType=VARCHAR},
+      standard_attr_id = #{record.standardAttrId,jdbcType=BIGINT},
+      ip_allocation = #{record.ipAllocation,jdbcType=VARCHAR},
+      ee_bp = #{record.eeBp,jdbcType=VARCHAR},
+      ee_user = #{record.eeUser,jdbcType=VARCHAR},
+      ee_status = #{record.eeStatus,jdbcType=INTEGER},
+      data_plane_status = #{record.dataPlaneStatus,jdbcType=VARCHAR},
+      current_dns_name = #{record.currentDnsName,jdbcType=VARCHAR},
+      current_dns_domain = #{record.currentDnsDomain,jdbcType=VARCHAR},
+      previous_dns_name = #{record.previousDnsName,jdbcType=VARCHAR},
+      previous_dns_domain = #{record.previousDnsDomain,jdbcType=VARCHAR},
+      dns_name = #{record.dnsName,jdbcType=VARCHAR},
+      dns_domain = #{record.dnsDomain,jdbcType=VARCHAR},
+      policy_id = #{record.policyId,jdbcType=VARCHAR},
+      propagate_uplink_status = #{record.propagateUplinkStatus,jdbcType=SMALLINT},
+      mac_learning_enabled = #{record.macLearningEnabled,jdbcType=SMALLINT},
+      created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{record.updatedAt,jdbcType=TIMESTAMP},
+      description = #{record.description,jdbcType=VARCHAR},
+      revision_number = #{record.revisionNumber,jdbcType=BIGINT},
+      port_security_enabled = #{record.portSecurityEnabled,jdbcType=SMALLINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsPorts">
+    update tbl_cmp_os_ports
+    <set>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="networkId != null">
+        network_id = #{networkId,jdbcType=VARCHAR},
+      </if>
+      <if test="macAddress != null">
+        mac_address = #{macAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="adminStateUp != null">
+        admin_state_up = #{adminStateUp,jdbcType=SMALLINT},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null">
+        device_id = #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceOwner != null">
+        device_owner = #{deviceOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="standardAttrId != null">
+        standard_attr_id = #{standardAttrId,jdbcType=BIGINT},
+      </if>
+      <if test="ipAllocation != null">
+        ip_allocation = #{ipAllocation,jdbcType=VARCHAR},
+      </if>
+      <if test="eeBp != null">
+        ee_bp = #{eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="eeUser != null">
+        ee_user = #{eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="eeStatus != null">
+        ee_status = #{eeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="dataPlaneStatus != null">
+        data_plane_status = #{dataPlaneStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="currentDnsName != null">
+        current_dns_name = #{currentDnsName,jdbcType=VARCHAR},
+      </if>
+      <if test="currentDnsDomain != null">
+        current_dns_domain = #{currentDnsDomain,jdbcType=VARCHAR},
+      </if>
+      <if test="previousDnsName != null">
+        previous_dns_name = #{previousDnsName,jdbcType=VARCHAR},
+      </if>
+      <if test="previousDnsDomain != null">
+        previous_dns_domain = #{previousDnsDomain,jdbcType=VARCHAR},
+      </if>
+      <if test="dnsName != null">
+        dns_name = #{dnsName,jdbcType=VARCHAR},
+      </if>
+      <if test="dnsDomain != null">
+        dns_domain = #{dnsDomain,jdbcType=VARCHAR},
+      </if>
+      <if test="policyId != null">
+        policy_id = #{policyId,jdbcType=VARCHAR},
+      </if>
+      <if test="propagateUplinkStatus != null">
+        propagate_uplink_status = #{propagateUplinkStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="macLearningEnabled != null">
+        mac_learning_enabled = #{macLearningEnabled,jdbcType=SMALLINT},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="revisionNumber != null">
+        revision_number = #{revisionNumber,jdbcType=BIGINT},
+      </if>
+      <if test="portSecurityEnabled != null">
+        port_security_enabled = #{portSecurityEnabled,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsPorts">
+    update tbl_cmp_os_ports
+    set project_id = #{projectId,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      network_id = #{networkId,jdbcType=VARCHAR},
+      mac_address = #{macAddress,jdbcType=VARCHAR},
+      admin_state_up = #{adminStateUp,jdbcType=SMALLINT},
+      status = #{status,jdbcType=VARCHAR},
+      device_id = #{deviceId,jdbcType=VARCHAR},
+      device_owner = #{deviceOwner,jdbcType=VARCHAR},
+      standard_attr_id = #{standardAttrId,jdbcType=BIGINT},
+      ip_allocation = #{ipAllocation,jdbcType=VARCHAR},
+      ee_bp = #{eeBp,jdbcType=VARCHAR},
+      ee_user = #{eeUser,jdbcType=VARCHAR},
+      ee_status = #{eeStatus,jdbcType=INTEGER},
+      data_plane_status = #{dataPlaneStatus,jdbcType=VARCHAR},
+      current_dns_name = #{currentDnsName,jdbcType=VARCHAR},
+      current_dns_domain = #{currentDnsDomain,jdbcType=VARCHAR},
+      previous_dns_name = #{previousDnsName,jdbcType=VARCHAR},
+      previous_dns_domain = #{previousDnsDomain,jdbcType=VARCHAR},
+      dns_name = #{dnsName,jdbcType=VARCHAR},
+      dns_domain = #{dnsDomain,jdbcType=VARCHAR},
+      policy_id = #{policyId,jdbcType=VARCHAR},
+      propagate_uplink_status = #{propagateUplinkStatus,jdbcType=SMALLINT},
+      mac_learning_enabled = #{macLearningEnabled,jdbcType=SMALLINT},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      description = #{description,jdbcType=VARCHAR},
+      revision_number = #{revisionNumber,jdbcType=BIGINT},
+      port_security_enabled = #{portSecurityEnabled,jdbcType=SMALLINT}
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="getPortIds" resultType="String">
+    select id from tbl_cmp_os_ports
+    where cloud_id = #{cloudId} and ee_status != -1
+    <if test="deviceId != null">
+      and device_id = #{deviceId}
+    </if>
+  </select>
+
+  <select id="selectByExampleWithShared" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsPortsExample" resultMap="BaseResultMap">
+    select
+    <if test="example.distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_cmp_os_ports t1
+    left join
+    (select id as networkid from tbl_cmp_os_networks
+    where cloud_id = #{cloudId}  and ee_status != -1
+    <if test="projectId != null or userId != null">
+      and ((is_default is not null) or (shared = 1) or (
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=VARCHAR}
+      </if>
+      <if test="projectId != null and userId != null">
+        and
+      </if>
+      <if test="userId != null">
+        ee_user = #{userId,jdbcType=VARCHAR}
+      </if>
+      ))
+    </if>)
+    t2 on t1.network_id = t2.networkid
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+    <if test="example.orderByClause != null">
+      order by ${example.orderByClause}
+    </if>
+  </select>
+</mapper>

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.omc.db.mapper.TblOmcAlertMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.omc.db.model.TblOmcAlert">
+    <!--@mbg.generated-->
+    <!--@Table tbl_omc_alert-->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="alarm_id" jdbcType="VARCHAR" property="alarmId" />
+    <result column="way" jdbcType="INTEGER" property="way" />
+    <result column="way_settings" jdbcType="OTHER" property="waySettings" />
+    <result column="silence" jdbcType="INTEGER" property="silence" />
+    <result column="selience_expression" jdbcType="VARCHAR" property="selienceExpression" />
+    <result column="alert_template" jdbcType="VARCHAR" property="alertTemplate" />
+    <result column="alert_template_type" jdbcType="INTEGER" property="alertTemplateType" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, alarm_id, way, way_settings, silence, selience_expression, alert_template, alert_template_type, 
+    create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_omc_alert
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from tbl_omc_alert
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.omc.db.model.TblOmcAlert">
+    <!--@mbg.generated-->
+    insert into tbl_omc_alert (id, alarm_id, way, 
+      way_settings, silence, selience_expression, 
+      alert_template, alert_template_type, create_time, 
+      update_time)
+    values (#{id,jdbcType=VARCHAR}, #{alarmId,jdbcType=VARCHAR}, #{way,jdbcType=INTEGER}, 
+      #{waySettings,jdbcType=OTHER}, #{silence,jdbcType=INTEGER}, #{selienceExpression,jdbcType=VARCHAR}, 
+      #{alertTemplate,jdbcType=VARCHAR}, #{alertTemplateType,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.omc.db.model.TblOmcAlert">
+    <!--@mbg.generated-->
+    insert into tbl_omc_alert
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        id,
+      </if>
+      <if test="alarmId != null and alarmId != ''">
+        alarm_id,
+      </if>
+      <if test="way != null">
+        way,
+      </if>
+      <if test="waySettings != null">
+        way_settings,
+      </if>
+      <if test="silence != null">
+        silence,
+      </if>
+      <if test="selienceExpression != null and selienceExpression != ''">
+        selience_expression,
+      </if>
+      <if test="alertTemplate != null and alertTemplate != ''">
+        alert_template,
+      </if>
+      <if test="alertTemplateType != null">
+        alert_template_type,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmId != null and alarmId != ''">
+        #{alarmId,jdbcType=VARCHAR},
+      </if>
+      <if test="way != null">
+        #{way,jdbcType=INTEGER},
+      </if>
+      <if test="waySettings != null">
+        #{waySettings,jdbcType=OTHER},
+      </if>
+      <if test="silence != null">
+        #{silence,jdbcType=INTEGER},
+      </if>
+      <if test="selienceExpression != null and selienceExpression != ''">
+        #{selienceExpression,jdbcType=VARCHAR},
+      </if>
+      <if test="alertTemplate != null and alertTemplate != ''">
+        #{alertTemplate,jdbcType=VARCHAR},
+      </if>
+      <if test="alertTemplateType != null">
+        #{alertTemplateType,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.omc.db.model.TblOmcAlert">
+    <!--@mbg.generated-->
+    update tbl_omc_alert
+    <set>
+      <if test="alarmId != null and alarmId != ''">
+        alarm_id = #{alarmId,jdbcType=VARCHAR},
+      </if>
+      <if test="way != null">
+        way = #{way,jdbcType=INTEGER},
+      </if>
+      <if test="waySettings != null">
+        way_settings = #{waySettings,jdbcType=OTHER},
+      </if>
+      <if test="silence != null">
+        silence = #{silence,jdbcType=INTEGER},
+      </if>
+      <if test="selienceExpression != null and selienceExpression != ''">
+        selience_expression = #{selienceExpression,jdbcType=VARCHAR},
+      </if>
+      <if test="alertTemplate != null and alertTemplate != ''">
+        alert_template = #{alertTemplate,jdbcType=VARCHAR},
+      </if>
+      <if test="alertTemplateType != null">
+        alert_template_type = #{alertTemplateType,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.omc.db.model.TblOmcAlert">
+    <!--@mbg.generated-->
+    update tbl_omc_alert
+    set alarm_id = #{alarmId,jdbcType=VARCHAR},
+      way = #{way,jdbcType=INTEGER},
+      way_settings = #{waySettings,jdbcType=OTHER},
+      silence = #{silence,jdbcType=INTEGER},
+      selience_expression = #{selienceExpression,jdbcType=VARCHAR},
+      alert_template = #{alertTemplate,jdbcType=VARCHAR},
+      alert_template_type = #{alertTemplateType,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

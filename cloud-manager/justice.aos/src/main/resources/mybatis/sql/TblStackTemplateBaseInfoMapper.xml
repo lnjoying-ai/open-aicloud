@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.aos.db.mapper.TblStackTemplateBaseInfoMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.aos.db.model.TblStackTemplateBaseInfo">
+    <!--@mbg.generated-->
+    <!--@Table public.tbl_stack_template_base_info-->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="bp_id" jdbcType="VARCHAR" property="bpId" />
+    <result column="logo_url" jdbcType="VARCHAR" property="logoUrl" />
+    <result column="vendor" jdbcType="VARCHAR" property="vendor" />
+    <result column="description" jdbcType="LONGVARCHAR" property="description" />
+    <result column="labels" jdbcType="LONGVARCHAR" property="labels" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="scope" jdbcType="INTEGER" property="scope" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <!--@mbg.generated-->
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <!--@mbg.generated-->
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, "name", user_id, bp_id, logo_url, vendor, description, labels, "status", create_time, 
+    update_time,scope
+  </sql>
+  <select id="selectByExample" parameterType="com.lnjoying.justice.aos.db.model.TblStackTemplateBaseInfoExample" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from public.tbl_stack_template_base_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from public.tbl_stack_template_base_info
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from public.tbl_stack_template_base_info
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lnjoying.justice.aos.db.model.TblStackTemplateBaseInfoExample">
+    <!--@mbg.generated-->
+    delete from public.tbl_stack_template_base_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.aos.db.model.TblStackTemplateBaseInfo">
+    <!--@mbg.generated-->
+    insert into public.tbl_stack_template_base_info (id, "name", user_id, 
+      bp_id, logo_url, vendor, 
+      description, labels, "status", 
+      create_time, update_time, scope)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
+      #{bpId,jdbcType=VARCHAR}, #{logoUrl,jdbcType=VARCHAR}, #{vendor,jdbcType=VARCHAR}, 
+      #{description,jdbcType=LONGVARCHAR}, #{labels,jdbcType=LONGVARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{scope,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.aos.db.model.TblStackTemplateBaseInfo">
+    <!--@mbg.generated-->
+    insert into public.tbl_stack_template_base_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        "name",
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="bpId != null">
+        bp_id,
+      </if>
+      <if test="logoUrl != null">
+        logo_url,
+      </if>
+      <if test="vendor != null">
+        vendor,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="labels != null">
+        labels,
+      </if>
+      <if test="status != null">
+        "status",
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="scope != null">
+        "scope",
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="bpId != null">
+        #{bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="logoUrl != null">
+        #{logoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="vendor != null">
+        #{vendor,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="labels != null">
+        #{labels,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="scope != null">
+        #{scope,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lnjoying.justice.aos.db.model.TblStackTemplateBaseInfoExample" resultType="java.lang.Long">
+    <!--@mbg.generated-->
+    select count(*) from public.tbl_stack_template_base_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    <!--@mbg.generated-->
+    update public.tbl_stack_template_base_info
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        "name" = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bpId != null">
+        bp_id = #{record.bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logoUrl != null">
+        logo_url = #{record.logoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vendor != null">
+        vendor = #{record.vendor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.labels != null">
+        labels = #{record.labels,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.status != null">
+        "status" = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.scope != null">
+        "scope" = #{record.scope,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+
+  </update>
+  <update id="updateByExample" parameterType="map">
+    <!--@mbg.generated-->
+    update public.tbl_stack_template_base_info
+    set id = #{record.id,jdbcType=VARCHAR},
+      "name" = #{record.name,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      bp_id = #{record.bpId,jdbcType=VARCHAR},
+      logo_url = #{record.logoUrl,jdbcType=VARCHAR},
+      vendor = #{record.vendor,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=LONGVARCHAR},
+      labels = #{record.labels,jdbcType=LONGVARCHAR},
+      "status" = #{record.status,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      "scope" = #{record.scope,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.aos.db.model.TblStackTemplateBaseInfo">
+    <!--@mbg.generated-->
+    update public.tbl_stack_template_base_info
+    <set>
+      <if test="name != null">
+        "name" = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="bpId != null">
+        bp_id = #{bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="logoUrl != null">
+        logo_url = #{logoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="vendor != null">
+        vendor = #{vendor,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="labels != null">
+        labels = #{labels,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="status != null">
+        "status" = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="scope != null">
+        "scope" = #{scope,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.aos.db.model.TblStackTemplateBaseInfo">
+    <!--@mbg.generated-->
+    update public.tbl_stack_template_base_info
+    set "name" = #{name,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      bp_id = #{bpId,jdbcType=VARCHAR},
+      logo_url = #{logoUrl,jdbcType=VARCHAR},
+      vendor = #{vendor,jdbcType=VARCHAR},
+      description = #{description,jdbcType=LONGVARCHAR},
+      labels = #{labels,jdbcType=LONGVARCHAR},
+      "status" = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+        "scope" = #{scope,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="countByNameAndBpIdAndUserId" resultType="java.lang.Integer">
+        select count(1)
+        from tbl_stack_template_base_info
+        <where>
+            <if test="name != null and name != ''">
+                and "name"=#{name,jdbcType=VARCHAR}
+            </if>
+            <if test="true">
+              and "name" != 'tty-system-default-stack'
+            </if>
+            <if test="bpId != null and bpId != ''">
+              and (bp_id=#{bpId,jdbcType=VARCHAR} or bp_id is null)
+            </if>
+            <if test="userId != null and userId != ''">
+                and user_id=#{userId,jdbcType=VARCHAR}
+            </if>
+            <if test="true">
+              and status != -1
+            </if>
+        </where>
+    </select>
+
+  <select id="selectAllByNameAndBpIdAndUserId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tbl_stack_template_base_info
+    <where>
+      <if test="id != null and id != ''">
+        and "id"=#{id,jdbcType=VARCHAR}
+      </if>
+      <if test="name != null and name != ''">
+        and "name"=#{name,jdbcType=VARCHAR}
+      </if>
+      <if test="true">
+        and "name" != 'tty-system-default-stack'
+      </if>
+      <if test="bpId != null and bpId != ''">
+        and
+        <trim prefix="(" prefixOverrides="and" suffix=")">
+           bp_id=#{bpId,jdbcType=VARCHAR}
+          <choose>
+            <when test="containsPublic">
+              <!--or bp_id is null-->
+              or scope = 2
+            </when>
+            <otherwise>
+            </otherwise>
+          </choose>
+        </trim>
+      </if>
+      <if test="userId != null and userId != ''">
+        and
+        <trim prefix="(" prefixOverrides="and" suffix=")">
+          user_id=#{userId,jdbcType=VARCHAR}
+          <choose>
+            <when test="containsPublic">
+              <!--or bp_id is null-->
+              or scope = 2
+            </when>
+            <otherwise>
+            </otherwise>
+          </choose>
+        </trim>
+      </if>
+      <if test="true">
+        and status != -1
+      </if>
+    </where>
+    order by update_time desc, create_time desc
+    <if test="startRow != null and pageSize != null and pageSize != 0">
+      limit #{pageSize} offset #{startRow}
+    </if>
+  </select>
+
+  <select id="selectAllByName" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tbl_stack_template_base_info
+    <where>
+      <if test="name != null and name != ''">
+        and "name"=#{name,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+</mapper>

@@ -1,0 +1,8 @@
+clusterServer:
+  url: 127.0.0.1:9080
+#  inner: 127.0.0.1:16443
+clusterManager:
+  addonFilePath: /root/down/k8s/addoncfg
+  addonFileUrl: https://27.221.79.190:9080/k8s/addoncfg/
+cluster:
+  registry-url: harbor-lnjoying.91gpu.cloud

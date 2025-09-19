@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.cmp.db.mapper.TblCmpEsFirewallRulesMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.cmp.db.model.TblCmpEsFirewallRules">
+    <id column="cloud_id" jdbcType="VARCHAR" property="cloudId" />
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="protocol" jdbcType="VARCHAR" property="protocol" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="source_port" jdbcType="VARCHAR" property="sourcePort" />
+    <result column="source_ip_address" jdbcType="VARCHAR" property="sourceIpAddress" />
+    <result column="destination_ip_address" jdbcType="VARCHAR" property="destinationIpAddress" />
+    <result column="firewall_policy_id" jdbcType="VARCHAR" property="firewallPolicyId" />
+    <result column="position" jdbcType="INTEGER" property="position" />
+    <result column="destination_port" jdbcType="VARCHAR" property="destinationPort" />
+    <result column="tenant_id" jdbcType="VARCHAR" property="tenantId" />
+    <result column="enabled" jdbcType="SMALLINT" property="enabled" />
+    <result column="action" jdbcType="VARCHAR" property="action" />
+    <result column="ip_version" jdbcType="INTEGER" property="ipVersion" />
+    <result column="shared" jdbcType="SMALLINT" property="shared" />
+    <result column="project_id" jdbcType="VARCHAR" property="projectId" />
+    <result column="ee_status" jdbcType="INTEGER" property="eeStatus" />
+    <result column="ee_bp" jdbcType="VARCHAR" property="eeBp" />
+    <result column="ee_user" jdbcType="VARCHAR" property="eeUser" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    cloud_id, id, name, protocol, description, source_port, source_ip_address, destination_ip_address, 
+    firewall_policy_id, position, destination_port, tenant_id, enabled, action, ip_version, 
+    shared, project_id, ee_status, ee_bp, ee_user
+  </sql>
+  <select id="selectByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpEsFirewallRulesExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_cmp_es_firewall_rules
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpEsFirewallRulesKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_cmp_es_firewall_rules
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpEsFirewallRulesKey">
+    delete from tbl_cmp_es_firewall_rules
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpEsFirewallRulesExample">
+    delete from tbl_cmp_es_firewall_rules
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpEsFirewallRules">
+    insert into tbl_cmp_es_firewall_rules (cloud_id, id, name, 
+      protocol, description, source_port, 
+      source_ip_address, destination_ip_address, 
+      firewall_policy_id, position, destination_port, 
+      tenant_id, enabled, action, 
+      ip_version, shared, project_id, 
+      ee_status, ee_bp, ee_user
+      )
+    values (#{cloudId,jdbcType=VARCHAR}, #{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{protocol,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{sourcePort,jdbcType=VARCHAR}, 
+      #{sourceIpAddress,jdbcType=VARCHAR}, #{destinationIpAddress,jdbcType=VARCHAR}, 
+      #{firewallPolicyId,jdbcType=VARCHAR}, #{position,jdbcType=INTEGER}, #{destinationPort,jdbcType=VARCHAR}, 
+      #{tenantId,jdbcType=VARCHAR}, #{enabled,jdbcType=SMALLINT}, #{action,jdbcType=VARCHAR}, 
+      #{ipVersion,jdbcType=INTEGER}, #{shared,jdbcType=SMALLINT}, #{projectId,jdbcType=VARCHAR}, 
+      #{eeStatus,jdbcType=INTEGER}, #{eeBp,jdbcType=VARCHAR}, #{eeUser,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpEsFirewallRules">
+    insert into tbl_cmp_es_firewall_rules
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cloudId != null">
+        cloud_id,
+      </if>
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="protocol != null">
+        protocol,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="sourcePort != null">
+        source_port,
+      </if>
+      <if test="sourceIpAddress != null">
+        source_ip_address,
+      </if>
+      <if test="destinationIpAddress != null">
+        destination_ip_address,
+      </if>
+      <if test="firewallPolicyId != null">
+        firewall_policy_id,
+      </if>
+      <if test="position != null">
+        position,
+      </if>
+      <if test="destinationPort != null">
+        destination_port,
+      </if>
+      <if test="tenantId != null">
+        tenant_id,
+      </if>
+      <if test="enabled != null">
+        enabled,
+      </if>
+      <if test="action != null">
+        action,
+      </if>
+      <if test="ipVersion != null">
+        ip_version,
+      </if>
+      <if test="shared != null">
+        shared,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="eeStatus != null">
+        ee_status,
+      </if>
+      <if test="eeBp != null">
+        ee_bp,
+      </if>
+      <if test="eeUser != null">
+        ee_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cloudId != null">
+        #{cloudId,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="protocol != null">
+        #{protocol,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="sourcePort != null">
+        #{sourcePort,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceIpAddress != null">
+        #{sourceIpAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationIpAddress != null">
+        #{destinationIpAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="firewallPolicyId != null">
+        #{firewallPolicyId,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null">
+        #{position,jdbcType=INTEGER},
+      </if>
+      <if test="destinationPort != null">
+        #{destinationPort,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantId != null">
+        #{tenantId,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null">
+        #{enabled,jdbcType=SMALLINT},
+      </if>
+      <if test="action != null">
+        #{action,jdbcType=VARCHAR},
+      </if>
+      <if test="ipVersion != null">
+        #{ipVersion,jdbcType=INTEGER},
+      </if>
+      <if test="shared != null">
+        #{shared,jdbcType=SMALLINT},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="eeStatus != null">
+        #{eeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="eeBp != null">
+        #{eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="eeUser != null">
+        #{eeUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpEsFirewallRulesExample" resultType="java.lang.Long">
+    select count(*) from tbl_cmp_es_firewall_rules
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_cmp_es_firewall_rules
+    <set>
+      <if test="record.cloudId != null">
+        cloud_id = #{record.cloudId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.protocol != null">
+        protocol = #{record.protocol,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sourcePort != null">
+        source_port = #{record.sourcePort,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sourceIpAddress != null">
+        source_ip_address = #{record.sourceIpAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.destinationIpAddress != null">
+        destination_ip_address = #{record.destinationIpAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.firewallPolicyId != null">
+        firewall_policy_id = #{record.firewallPolicyId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.position != null">
+        position = #{record.position,jdbcType=INTEGER},
+      </if>
+      <if test="record.destinationPort != null">
+        destination_port = #{record.destinationPort,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tenantId != null">
+        tenant_id = #{record.tenantId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enabled != null">
+        enabled = #{record.enabled,jdbcType=SMALLINT},
+      </if>
+      <if test="record.action != null">
+        action = #{record.action,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ipVersion != null">
+        ip_version = #{record.ipVersion,jdbcType=INTEGER},
+      </if>
+      <if test="record.shared != null">
+        shared = #{record.shared,jdbcType=SMALLINT},
+      </if>
+      <if test="record.projectId != null">
+        project_id = #{record.projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeStatus != null">
+        ee_status = #{record.eeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.eeBp != null">
+        ee_bp = #{record.eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeUser != null">
+        ee_user = #{record.eeUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_cmp_es_firewall_rules
+    set cloud_id = #{record.cloudId,jdbcType=VARCHAR},
+      id = #{record.id,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      protocol = #{record.protocol,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      source_port = #{record.sourcePort,jdbcType=VARCHAR},
+      source_ip_address = #{record.sourceIpAddress,jdbcType=VARCHAR},
+      destination_ip_address = #{record.destinationIpAddress,jdbcType=VARCHAR},
+      firewall_policy_id = #{record.firewallPolicyId,jdbcType=VARCHAR},
+      position = #{record.position,jdbcType=INTEGER},
+      destination_port = #{record.destinationPort,jdbcType=VARCHAR},
+      tenant_id = #{record.tenantId,jdbcType=VARCHAR},
+      enabled = #{record.enabled,jdbcType=SMALLINT},
+      action = #{record.action,jdbcType=VARCHAR},
+      ip_version = #{record.ipVersion,jdbcType=INTEGER},
+      shared = #{record.shared,jdbcType=SMALLINT},
+      project_id = #{record.projectId,jdbcType=VARCHAR},
+      ee_status = #{record.eeStatus,jdbcType=INTEGER},
+      ee_bp = #{record.eeBp,jdbcType=VARCHAR},
+      ee_user = #{record.eeUser,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpEsFirewallRules">
+    update tbl_cmp_es_firewall_rules
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="protocol != null">
+        protocol = #{protocol,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="sourcePort != null">
+        source_port = #{sourcePort,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceIpAddress != null">
+        source_ip_address = #{sourceIpAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationIpAddress != null">
+        destination_ip_address = #{destinationIpAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="firewallPolicyId != null">
+        firewall_policy_id = #{firewallPolicyId,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null">
+        position = #{position,jdbcType=INTEGER},
+      </if>
+      <if test="destinationPort != null">
+        destination_port = #{destinationPort,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantId != null">
+        tenant_id = #{tenantId,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null">
+        enabled = #{enabled,jdbcType=SMALLINT},
+      </if>
+      <if test="action != null">
+        action = #{action,jdbcType=VARCHAR},
+      </if>
+      <if test="ipVersion != null">
+        ip_version = #{ipVersion,jdbcType=INTEGER},
+      </if>
+      <if test="shared != null">
+        shared = #{shared,jdbcType=SMALLINT},
+      </if>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="eeStatus != null">
+        ee_status = #{eeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="eeBp != null">
+        ee_bp = #{eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="eeUser != null">
+        ee_user = #{eeUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpEsFirewallRules">
+    update tbl_cmp_es_firewall_rules
+    set name = #{name,jdbcType=VARCHAR},
+      protocol = #{protocol,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      source_port = #{sourcePort,jdbcType=VARCHAR},
+      source_ip_address = #{sourceIpAddress,jdbcType=VARCHAR},
+      destination_ip_address = #{destinationIpAddress,jdbcType=VARCHAR},
+      firewall_policy_id = #{firewallPolicyId,jdbcType=VARCHAR},
+      position = #{position,jdbcType=INTEGER},
+      destination_port = #{destinationPort,jdbcType=VARCHAR},
+      tenant_id = #{tenantId,jdbcType=VARCHAR},
+      enabled = #{enabled,jdbcType=SMALLINT},
+      action = #{action,jdbcType=VARCHAR},
+      ip_version = #{ipVersion,jdbcType=INTEGER},
+      shared = #{shared,jdbcType=SMALLINT},
+      project_id = #{projectId,jdbcType=VARCHAR},
+      ee_status = #{eeStatus,jdbcType=INTEGER},
+      ee_bp = #{eeBp,jdbcType=VARCHAR},
+      ee_user = #{eeUser,jdbcType=VARCHAR}
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="getFirewallRuleIds" resultType="String">
+    select id from tbl_cmp_es_firewall_rules
+    where cloud_id = #{cloudId} and ee_status != -1
+  </select>
+</mapper>

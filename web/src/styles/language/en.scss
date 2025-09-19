@@ -1,0 +1,59 @@
+.languageEnStyle{
+  // 表单
+  .el-form{
+    .el-form-item__label{
+      word-break: break-word!important;
+    }
+    &.vmAddPreviewForm{
+      .el-form-item{
+        margin-bottom: 10px!important;
+      }
+      .el-form-item__content{
+        >div{
+          padding:0!important;
+
+        }
+      }
+    }
+  }
+  .el-form-item--small{
+    .el-form-item__label{
+      line-height: 1.4!important;
+    }
+  }
+  .el-form-item--small{
+     .el-form-item__content{
+    line-height: 1.4!important;
+    }
+  }
+  // 表格
+  .el-table{
+    .cell{
+      line-height: 1.2!important;
+    }
+  }
+  // 时间选择
+  .el-picker-panel{
+    .el-picker-panel__body-wrapper{
+      .el-picker-panel__sidebar{
+        .el-picker-panel__shortcut{
+          line-height: 1.2!important;
+          margin-bottom: 10px!important;
+        }
+      }
+    }
+  }
+  .productRecommendation{
+    .el-card__body{
+      ul{
+        li{
+          width: 33.33%!important;
+          margin-bottom: 15px!important;
+          span{
+            line-height: 1.2!important;
+          }
+        }
+      }
+    }
+  }
+}

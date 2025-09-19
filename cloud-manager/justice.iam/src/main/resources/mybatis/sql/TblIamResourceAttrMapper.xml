@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.iam.db.mapper.TblIamResourceAttrMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.iam.db.model.TblIamResourceAttr">
+    <!--@mbg.generated-->
+    <!--@Table tbl_iam_resource_attr-->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="resource_id" jdbcType="VARCHAR" property="resourceId" />
+    <result column="attr_type" jdbcType="VARCHAR" property="attrType" />
+    <result column="attr_name" jdbcType="VARCHAR" property="attrName" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="model" jdbcType="VARCHAR" property="model" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, resource_id, attr_type, attr_name, description, create_time, update_time, model
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_iam_resource_attr
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from tbl_iam_resource_attr
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.iam.db.model.TblIamResourceAttr">
+    <!--@mbg.generated-->
+    insert into tbl_iam_resource_attr (id, resource_id, attr_type, 
+      attr_name, description, create_time, 
+      update_time, model)
+    values (#{id,jdbcType=VARCHAR}, #{resourceId,jdbcType=VARCHAR}, #{attrType,jdbcType=VARCHAR}, 
+      #{attrName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{model,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.iam.db.model.TblIamResourceAttr">
+    <!--@mbg.generated-->
+    insert into tbl_iam_resource_attr
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        id,
+      </if>
+      <if test="resourceId != null and resourceId != ''">
+        resource_id,
+      </if>
+      <if test="attrType != null and attrType != ''">
+        attr_type,
+      </if>
+      <if test="attrName != null and attrName != ''">
+        attr_name,
+      </if>
+      <if test="description != null and description != ''">
+        description,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="model != null and model != ''">
+        model,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceId != null and resourceId != ''">
+        #{resourceId,jdbcType=VARCHAR},
+      </if>
+      <if test="attrType != null and attrType != ''">
+        #{attrType,jdbcType=VARCHAR},
+      </if>
+      <if test="attrName != null and attrName != ''">
+        #{attrName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null and description != ''">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="model != null and model != ''">
+        #{model,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.iam.db.model.TblIamResourceAttr">
+    <!--@mbg.generated-->
+    update tbl_iam_resource_attr
+    <set>
+      <if test="resourceId != null and resourceId != ''">
+        resource_id = #{resourceId,jdbcType=VARCHAR},
+      </if>
+      <if test="attrType != null and attrType != ''">
+        attr_type = #{attrType,jdbcType=VARCHAR},
+      </if>
+      <if test="attrName != null and attrName != ''">
+        attr_name = #{attrName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null and description != ''">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="model != null and model != ''">
+        model = #{model,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.iam.db.model.TblIamResourceAttr">
+    <!--@mbg.generated-->
+    update tbl_iam_resource_attr
+    set resource_id = #{resourceId,jdbcType=VARCHAR},
+      attr_type = #{attrType,jdbcType=VARCHAR},
+      attr_name = #{attrName,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      model = #{model,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectByResourceId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tbl_iam_resource_attr
+    <where>
+      <if test="resourceId != null and resourceId != ''">
+        and resource_id=#{resourceId,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+
+  <select id="countByResourceId" resultType="java.lang.Integer">
+    select count(1)
+    from tbl_iam_resource_attr
+    <where>
+      <if test="resourceId != null and resourceId != ''">
+        and resource_id=#{resourceId,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+
+  <delete id="deleteByResourceId">
+    delete from tbl_iam_resource_attr
+    <where>
+      <if test="resourceId != null and resourceId != ''">
+        and resource_id=#{resourceId,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </delete>
+
+  <insert id="batchInsert">
+    INSERT INTO tbl_iam_resource_attr(
+    id,
+    resource_id,
+    attr_type,
+    attr_name,
+    description,
+    create_time,
+    update_time,
+    model
+    )VALUES
+    <foreach collection="list" index="index" item="element" separator=",">
+      (
+      #{element.id,jdbcType=VARCHAR},
+      #{element.resourceId,jdbcType=VARCHAR},
+      #{element.attrType,jdbcType=VARCHAR},
+      #{element.attrName,jdbcType=VARCHAR},
+      #{element.description,jdbcType=VARCHAR},
+      #{element.createTime,jdbcType=TIMESTAMP},
+      #{element.updateTime,jdbcType=TIMESTAMP},
+      #{element.model,jdbcType=VARCHAR}
+      )
+    </foreach>
+  </insert>
+</mapper>

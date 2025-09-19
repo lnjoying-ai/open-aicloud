@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.cmp.db.mapper.TblCloudInfoMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.cmp.db.model.TblCloudInfo">
+    <id column="cloud_id" jdbcType="VARCHAR" property="cloudId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="product" jdbcType="VARCHAR" property="product" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="mode" jdbcType="VARCHAR" property="mode" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="certificate" jdbcType="VARCHAR" property="certificate" />
+    <result column="region_id" jdbcType="VARCHAR" property="regionId" />
+    <result column="site_id" jdbcType="VARCHAR" property="siteId" />
+    <result column="node_id" jdbcType="VARCHAR" property="nodeId" />
+    <result column="health_check" jdbcType="VARCHAR" property="healthCheck" />
+    <result column="authorization" jdbcType="VARCHAR" property="authorization" typeHandler="com.lnjoying.justice.cmp.handler.EncryptTypeHandler"/>
+    <result column="owner" jdbcType="VARCHAR" property="owner" />
+    <result column="bp" jdbcType="VARCHAR" property="bp" />
+    <result column="labels" jdbcType="VARCHAR" property="labels" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="os_service_endpoints" jdbcType="VARCHAR" property="osServiceEndpoints" />
+    <result column="version" jdbcType="VARCHAR" property="version" />
+    <result column="provider_id" jdbcType="VARCHAR" property="providerId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    cloud_id, name, product, status, mode, url, certificate, region_id, site_id, node_id, 
+    health_check, "authorization", owner, bp, labels, create_time, update_time, os_service_endpoints,
+    version, provider_id
+  </sql>
+  <select id="selectByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCloudInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_cloud_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_cloud_info
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tbl_cloud_info
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCloudInfoExample">
+    delete from tbl_cloud_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.cmp.db.model.TblCloudInfo">
+    insert into tbl_cloud_info (cloud_id, name, product, 
+      status, mode, url, 
+      certificate, region_id, site_id, 
+      node_id, health_check, "authorization",
+      owner, bp, labels, create_time, 
+      update_time, os_service_endpoints, version, 
+      provider_id)
+    values (#{cloudId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{product,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{mode,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{certificate,jdbcType=VARCHAR}, #{regionId,jdbcType=VARCHAR}, #{siteId,jdbcType=VARCHAR}, 
+      #{nodeId,jdbcType=VARCHAR}, #{healthCheck,jdbcType=VARCHAR}, #{authorization,jdbcType=VARCHAR,typeHandler=com.lnjoying.justice.cmp.handler.EncryptTypeHandler},
+      #{owner,jdbcType=VARCHAR}, #{bp,jdbcType=VARCHAR}, #{labels,jdbcType=VARCHAR}::jsonb, #{createTime,jdbcType=TIMESTAMP},
+      #{updateTime,jdbcType=TIMESTAMP}, #{osServiceEndpoints,jdbcType=VARCHAR}, #{version,jdbcType=VARCHAR}, 
+      #{providerId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCloudInfo">
+    insert into tbl_cloud_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cloudId != null">
+        cloud_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="product != null">
+        product,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="mode != null">
+        mode,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="certificate != null">
+        certificate,
+      </if>
+      <if test="regionId != null">
+        region_id,
+      </if>
+      <if test="siteId != null">
+        site_id,
+      </if>
+      <if test="nodeId != null">
+        node_id,
+      </if>
+      <if test="healthCheck != null">
+        health_check,
+      </if>
+      <if test="authorization != null">
+        "authorization",
+      </if>
+      <if test="owner != null">
+        owner,
+      </if>
+      <if test="bp != null">
+        bp,
+      </if>
+      <if test="labels != null">
+        labels,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="osServiceEndpoints != null">
+        os_service_endpoints,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="providerId != null">
+        provider_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cloudId != null">
+        #{cloudId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="product != null">
+        #{product,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="mode != null">
+        #{mode,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="certificate != null">
+        #{certificate,jdbcType=VARCHAR},
+      </if>
+      <if test="regionId != null">
+        #{regionId,jdbcType=VARCHAR},
+      </if>
+      <if test="siteId != null">
+        #{siteId,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeId != null">
+        #{nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="healthCheck != null">
+        #{healthCheck,jdbcType=VARCHAR},
+      </if>
+      <if test="authorization != null">
+        #{authorization,jdbcType=VARCHAR,jdbcType=VARCHAR,typeHandler=com.lnjoying.justice.cmp.handler.EncryptTypeHandler},
+      </if>
+      <if test="owner != null">
+        #{owner,jdbcType=VARCHAR},
+      </if>
+      <if test="bp != null">
+        #{bp,jdbcType=VARCHAR},
+      </if>
+      <if test="labels != null">
+        #{labels,jdbcType=VARCHAR}::jsonb,
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="osServiceEndpoints != null">
+        #{osServiceEndpoints,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="providerId != null">
+        #{providerId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCloudInfoExample" resultType="java.lang.Long">
+    select count(*) from tbl_cloud_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_cloud_info
+    <set>
+      <if test="record.cloudId != null">
+        cloud_id = #{record.cloudId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.product != null">
+        product = #{record.product,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.mode != null">
+        mode = #{record.mode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.url != null">
+        url = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.certificate != null">
+        certificate = #{record.certificate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regionId != null">
+        region_id = #{record.regionId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.siteId != null">
+        site_id = #{record.siteId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nodeId != null">
+        node_id = #{record.nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.healthCheck != null">
+        health_check = #{record.healthCheck,jdbcType=VARCHAR},
+      </if>
+      <if test="record.authorization != null">
+        "authorization" = #{record.authorization,jdbcType=VARCHAR,jdbcType=VARCHAR,typeHandler=com.lnjoying.justice.cmp.handler.EncryptTypeHandler},
+      </if>
+      <if test="record.owner != null">
+        owner = #{record.owner,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bp != null">
+        bp = #{record.bp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.labels != null">
+        labels = #{record.labels,jdbcType=VARCHAR}::jsonb,
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.osServiceEndpoints != null">
+        os_service_endpoints = #{record.osServiceEndpoints,jdbcType=VARCHAR},
+      </if>
+      <if test="record.version != null">
+        version = #{record.version,jdbcType=VARCHAR},
+      </if>
+      <if test="record.providerId != null">
+        provider_id = #{record.providerId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_cloud_info
+    set cloud_id = #{record.cloudId,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      product = #{record.product,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      mode = #{record.mode,jdbcType=VARCHAR},
+      url = #{record.url,jdbcType=VARCHAR},
+      certificate = #{record.certificate,jdbcType=VARCHAR},
+      region_id = #{record.regionId,jdbcType=VARCHAR},
+      site_id = #{record.siteId,jdbcType=VARCHAR},
+      node_id = #{record.nodeId,jdbcType=VARCHAR},
+      health_check = #{record.healthCheck,jdbcType=VARCHAR},
+      "authorization" = #{record.authorization,jdbcType=VARCHAR,jdbcType=VARCHAR,typeHandler=com.lnjoying.justice.cmp.handler.EncryptTypeHandler},
+      owner = #{record.owner,jdbcType=VARCHAR},
+      bp = #{record.bp,jdbcType=VARCHAR},
+      labels = #{record.labels,jdbcType=VARCHAR}::jsonb,
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      os_service_endpoints = #{record.osServiceEndpoints,jdbcType=VARCHAR},
+      version = #{record.version,jdbcType=VARCHAR},
+      provider_id = #{record.providerId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCloudInfo">
+    update tbl_cloud_info
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="product != null">
+        product = #{product,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="mode != null">
+        mode = #{mode,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="certificate != null">
+        certificate = #{certificate,jdbcType=VARCHAR},
+      </if>
+      <if test="regionId != null">
+        region_id = #{regionId,jdbcType=VARCHAR},
+      </if>
+      <if test="siteId != null">
+        site_id = #{siteId,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeId != null">
+        node_id = #{nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="healthCheck != null">
+        health_check = #{healthCheck,jdbcType=VARCHAR},
+      </if>
+      <if test="authorization != null">
+        "authorization" = #{authorization,jdbcType=VARCHAR,jdbcType=VARCHAR,typeHandler=com.lnjoying.justice.cmp.handler.EncryptTypeHandler},
+      </if>
+      <if test="owner != null">
+        owner = #{owner,jdbcType=VARCHAR},
+      </if>
+      <if test="bp != null">
+        bp = #{bp,jdbcType=VARCHAR},
+      </if>
+      <if test="labels != null">
+        labels = #{labels,jdbcType=VARCHAR}::jsonb,
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="osServiceEndpoints != null">
+        os_service_endpoints = #{osServiceEndpoints,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="providerId != null">
+        provider_id = #{providerId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCloudInfo">
+    update tbl_cloud_info
+    set name = #{name,jdbcType=VARCHAR},
+      product = #{product,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      mode = #{mode,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      certificate = #{certificate,jdbcType=VARCHAR},
+      region_id = #{regionId,jdbcType=VARCHAR},
+      site_id = #{siteId,jdbcType=VARCHAR},
+      node_id = #{nodeId,jdbcType=VARCHAR},
+      health_check = #{healthCheck,jdbcType=VARCHAR},
+      "authorization" = #{authorization,jdbcType=VARCHAR,jdbcType=VARCHAR,typeHandler=com.lnjoying.justice.cmp.handler.EncryptTypeHandler},
+      owner = #{owner,jdbcType=VARCHAR},
+      bp = #{bp,jdbcType=VARCHAR},
+      labels = #{labels,jdbcType=VARCHAR}::jsonb,
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      os_service_endpoints = #{osServiceEndpoints,jdbcType=VARCHAR},
+      version = #{version,jdbcType=VARCHAR},
+      provider_id = #{providerId,jdbcType=VARCHAR}
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+  </update>
+
+  <resultMap id="GetStatusMetricsRsp" type="com.lnjoying.justice.schema.entity.stat.StatusMetrics">
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="count" jdbcType="VARCHAR" property="count" />
+  </resultMap>
+
+  <select id="getCloudStatusMetrics" resultMap="GetStatusMetricsRsp">
+    SELECT status, COUNT(*) as count
+    FROM tbl_cloud_info
+    where status != 99
+    <if test="userId != null and userId != ''">
+      and owner = #{userId,jdbcType=VARCHAR}
+    </if>
+    <if test="bpId != null and bpId != ''">
+      and bp = #{bpId,jdbcType=VARCHAR}
+    </if>
+    GROUP BY status
+  </select>
+</mapper>

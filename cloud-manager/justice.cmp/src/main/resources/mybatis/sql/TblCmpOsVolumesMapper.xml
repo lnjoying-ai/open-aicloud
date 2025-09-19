@@ -1,0 +1,898 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.cmp.db.mapper.TblCmpOsVolumesMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.cmp.db.model.TblCmpOsVolumes">
+    <id column="cloud_id" jdbcType="VARCHAR" property="cloudId" />
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+    <result column="deleted_at" jdbcType="TIMESTAMP" property="deletedAt" />
+    <result column="deleted" jdbcType="SMALLINT" property="deleted" />
+    <result column="ec2_id" jdbcType="VARCHAR" property="ec2Id" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="project_id" jdbcType="VARCHAR" property="projectId" />
+    <result column="host" jdbcType="VARCHAR" property="host" />
+    <result column="size" jdbcType="INTEGER" property="size" />
+    <result column="availability_zone" jdbcType="VARCHAR" property="availabilityZone" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="attach_status" jdbcType="VARCHAR" property="attachStatus" />
+    <result column="scheduled_at" jdbcType="TIMESTAMP" property="scheduledAt" />
+    <result column="launched_at" jdbcType="TIMESTAMP" property="launchedAt" />
+    <result column="terminated_at" jdbcType="TIMESTAMP" property="terminatedAt" />
+    <result column="display_name" jdbcType="VARCHAR" property="displayName" />
+    <result column="display_description" jdbcType="VARCHAR" property="displayDescription" />
+    <result column="provider_location" jdbcType="VARCHAR" property="providerLocation" />
+    <result column="provider_auth" jdbcType="VARCHAR" property="providerAuth" />
+    <result column="snapshot_id" jdbcType="VARCHAR" property="snapshotId" />
+    <result column="volume_type_id" jdbcType="VARCHAR" property="volumeTypeId" />
+    <result column="source_volid" jdbcType="VARCHAR" property="sourceVolid" />
+    <result column="bootable" jdbcType="SMALLINT" property="bootable" />
+    <result column="provider_geometry" jdbcType="VARCHAR" property="providerGeometry" />
+    <result column="_name_id" jdbcType="VARCHAR" property="nameId" />
+    <result column="encryption_key_id" jdbcType="VARCHAR" property="encryptionKeyId" />
+    <result column="migration_status" jdbcType="VARCHAR" property="migrationStatus" />
+    <result column="replication_status" jdbcType="VARCHAR" property="replicationStatus" />
+    <result column="replication_extended_status" jdbcType="VARCHAR" property="replicationExtendedStatus" />
+    <result column="replication_driver_data" jdbcType="VARCHAR" property="replicationDriverData" />
+    <result column="consistencygroup_id" jdbcType="VARCHAR" property="consistencygroupId" />
+    <result column="provider_id" jdbcType="VARCHAR" property="providerId" />
+    <result column="multiattch" jdbcType="SMALLINT" property="multiattch" />
+    <result column="previous_status" jdbcType="VARCHAR" property="previousStatus" />
+    <result column="cluster_name" jdbcType="VARCHAR" property="clusterName" />
+    <result column="group_id" jdbcType="VARCHAR" property="groupId" />
+    <result column="service_uuid" jdbcType="VARCHAR" property="serviceUuid" />
+    <result column="shared_targets" jdbcType="SMALLINT" property="sharedTargets" />
+    <result column="ee_status" jdbcType="INTEGER" property="eeStatus" />
+    <result column="ee_bp" jdbcType="VARCHAR" property="eeBp" />
+    <result column="ee_user" jdbcType="VARCHAR" property="eeUser" />
+    <result column="charge_type" jdbcType="INTEGER" property="chargeType" />
+    <result column="price_unit" jdbcType="INTEGER" property="priceUnit" />
+    <result column="period" jdbcType="INTEGER" property="period" />
+    <result column="volume_glance_metadata" jdbcType="VARCHAR" property="volumeGlanceMetadata" />
+    <result column="expire_time" jdbcType="TIMESTAMP" property="expireTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    cloud_id, id, created_at, updated_at, deleted_at, deleted, ec2_id, user_id, project_id, 
+    host, size, availability_zone, status, attach_status, scheduled_at, launched_at, 
+    terminated_at, display_name, display_description, provider_location, provider_auth, 
+    snapshot_id, volume_type_id, source_volid, bootable, provider_geometry, _name_id, 
+    encryption_key_id, migration_status, replication_status, replication_extended_status, 
+    replication_driver_data, consistencygroup_id, provider_id, multiattch, previous_status, 
+    cluster_name, group_id, service_uuid, shared_targets, ee_status, ee_bp, ee_user, 
+    charge_type, price_unit, period, volume_glance_metadata, expire_time
+  </sql>
+  <select id="selectByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsVolumesExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_cmp_os_volumes
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsVolumesKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_cmp_os_volumes
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsVolumesKey">
+    delete from tbl_cmp_os_volumes
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsVolumesExample">
+    delete from tbl_cmp_os_volumes
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsVolumes">
+    insert into tbl_cmp_os_volumes (cloud_id, id, created_at, 
+      updated_at, deleted_at, deleted, 
+      ec2_id, user_id, project_id, 
+      host, size, availability_zone, 
+      status, attach_status, scheduled_at, 
+      launched_at, terminated_at, display_name, 
+      display_description, provider_location, provider_auth, 
+      snapshot_id, volume_type_id, source_volid, 
+      bootable, provider_geometry, _name_id, 
+      encryption_key_id, migration_status, replication_status, 
+      replication_extended_status, replication_driver_data, 
+      consistencygroup_id, provider_id, multiattch, 
+      previous_status, cluster_name, group_id, 
+      service_uuid, shared_targets, ee_status, 
+      ee_bp, ee_user, charge_type, 
+      price_unit, period, volume_glance_metadata, 
+      expire_time)
+    values (#{cloudId,jdbcType=VARCHAR}, #{id,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP}, 
+      #{updatedAt,jdbcType=TIMESTAMP}, #{deletedAt,jdbcType=TIMESTAMP}, #{deleted,jdbcType=SMALLINT}, 
+      #{ec2Id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{projectId,jdbcType=VARCHAR}, 
+      #{host,jdbcType=VARCHAR}, #{size,jdbcType=INTEGER}, #{availabilityZone,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{attachStatus,jdbcType=VARCHAR}, #{scheduledAt,jdbcType=TIMESTAMP}, 
+      #{launchedAt,jdbcType=TIMESTAMP}, #{terminatedAt,jdbcType=TIMESTAMP}, #{displayName,jdbcType=VARCHAR}, 
+      #{displayDescription,jdbcType=VARCHAR}, #{providerLocation,jdbcType=VARCHAR}, #{providerAuth,jdbcType=VARCHAR}, 
+      #{snapshotId,jdbcType=VARCHAR}, #{volumeTypeId,jdbcType=VARCHAR}, #{sourceVolid,jdbcType=VARCHAR}, 
+      #{bootable,jdbcType=SMALLINT}, #{providerGeometry,jdbcType=VARCHAR}, #{nameId,jdbcType=VARCHAR}, 
+      #{encryptionKeyId,jdbcType=VARCHAR}, #{migrationStatus,jdbcType=VARCHAR}, #{replicationStatus,jdbcType=VARCHAR}, 
+      #{replicationExtendedStatus,jdbcType=VARCHAR}, #{replicationDriverData,jdbcType=VARCHAR}, 
+      #{consistencygroupId,jdbcType=VARCHAR}, #{providerId,jdbcType=VARCHAR}, #{multiattch,jdbcType=SMALLINT}, 
+      #{previousStatus,jdbcType=VARCHAR}, #{clusterName,jdbcType=VARCHAR}, #{groupId,jdbcType=VARCHAR}, 
+      #{serviceUuid,jdbcType=VARCHAR}, #{sharedTargets,jdbcType=SMALLINT}, #{eeStatus,jdbcType=INTEGER}, 
+      #{eeBp,jdbcType=VARCHAR}, #{eeUser,jdbcType=VARCHAR}, #{chargeType,jdbcType=INTEGER}, 
+      #{priceUnit,jdbcType=INTEGER}, #{period,jdbcType=INTEGER}, #{volumeGlanceMetadata,jdbcType=VARCHAR}, 
+      #{expireTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsVolumes">
+    insert into tbl_cmp_os_volumes
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cloudId != null">
+        cloud_id,
+      </if>
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedAt != null">
+        updated_at,
+      </if>
+      <if test="deletedAt != null">
+        deleted_at,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+      <if test="ec2Id != null">
+        ec2_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="host != null">
+        host,
+      </if>
+      <if test="size != null">
+        size,
+      </if>
+      <if test="availabilityZone != null">
+        availability_zone,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="attachStatus != null">
+        attach_status,
+      </if>
+      <if test="scheduledAt != null">
+        scheduled_at,
+      </if>
+      <if test="launchedAt != null">
+        launched_at,
+      </if>
+      <if test="terminatedAt != null">
+        terminated_at,
+      </if>
+      <if test="displayName != null">
+        display_name,
+      </if>
+      <if test="displayDescription != null">
+        display_description,
+      </if>
+      <if test="providerLocation != null">
+        provider_location,
+      </if>
+      <if test="providerAuth != null">
+        provider_auth,
+      </if>
+      <if test="snapshotId != null">
+        snapshot_id,
+      </if>
+      <if test="volumeTypeId != null">
+        volume_type_id,
+      </if>
+      <if test="sourceVolid != null">
+        source_volid,
+      </if>
+      <if test="bootable != null">
+        bootable,
+      </if>
+      <if test="providerGeometry != null">
+        provider_geometry,
+      </if>
+      <if test="nameId != null">
+        _name_id,
+      </if>
+      <if test="encryptionKeyId != null">
+        encryption_key_id,
+      </if>
+      <if test="migrationStatus != null">
+        migration_status,
+      </if>
+      <if test="replicationStatus != null">
+        replication_status,
+      </if>
+      <if test="replicationExtendedStatus != null">
+        replication_extended_status,
+      </if>
+      <if test="replicationDriverData != null">
+        replication_driver_data,
+      </if>
+      <if test="consistencygroupId != null">
+        consistencygroup_id,
+      </if>
+      <if test="providerId != null">
+        provider_id,
+      </if>
+      <if test="multiattch != null">
+        multiattch,
+      </if>
+      <if test="previousStatus != null">
+        previous_status,
+      </if>
+      <if test="clusterName != null">
+        cluster_name,
+      </if>
+      <if test="groupId != null">
+        group_id,
+      </if>
+      <if test="serviceUuid != null">
+        service_uuid,
+      </if>
+      <if test="sharedTargets != null">
+        shared_targets,
+      </if>
+      <if test="eeStatus != null">
+        ee_status,
+      </if>
+      <if test="eeBp != null">
+        ee_bp,
+      </if>
+      <if test="eeUser != null">
+        ee_user,
+      </if>
+      <if test="chargeType != null">
+        charge_type,
+      </if>
+      <if test="priceUnit != null">
+        price_unit,
+      </if>
+      <if test="period != null">
+        period,
+      </if>
+      <if test="volumeGlanceMetadata != null">
+        volume_glance_metadata,
+      </if>
+      <if test="expireTime != null">
+        expire_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cloudId != null">
+        #{cloudId,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletedAt != null">
+        #{deletedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=SMALLINT},
+      </if>
+      <if test="ec2Id != null">
+        #{ec2Id,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="host != null">
+        #{host,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        #{size,jdbcType=INTEGER},
+      </if>
+      <if test="availabilityZone != null">
+        #{availabilityZone,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="attachStatus != null">
+        #{attachStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="scheduledAt != null">
+        #{scheduledAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="launchedAt != null">
+        #{launchedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="terminatedAt != null">
+        #{terminatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="displayName != null">
+        #{displayName,jdbcType=VARCHAR},
+      </if>
+      <if test="displayDescription != null">
+        #{displayDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="providerLocation != null">
+        #{providerLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="providerAuth != null">
+        #{providerAuth,jdbcType=VARCHAR},
+      </if>
+      <if test="snapshotId != null">
+        #{snapshotId,jdbcType=VARCHAR},
+      </if>
+      <if test="volumeTypeId != null">
+        #{volumeTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceVolid != null">
+        #{sourceVolid,jdbcType=VARCHAR},
+      </if>
+      <if test="bootable != null">
+        #{bootable,jdbcType=SMALLINT},
+      </if>
+      <if test="providerGeometry != null">
+        #{providerGeometry,jdbcType=VARCHAR},
+      </if>
+      <if test="nameId != null">
+        #{nameId,jdbcType=VARCHAR},
+      </if>
+      <if test="encryptionKeyId != null">
+        #{encryptionKeyId,jdbcType=VARCHAR},
+      </if>
+      <if test="migrationStatus != null">
+        #{migrationStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="replicationStatus != null">
+        #{replicationStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="replicationExtendedStatus != null">
+        #{replicationExtendedStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="replicationDriverData != null">
+        #{replicationDriverData,jdbcType=VARCHAR},
+      </if>
+      <if test="consistencygroupId != null">
+        #{consistencygroupId,jdbcType=VARCHAR},
+      </if>
+      <if test="providerId != null">
+        #{providerId,jdbcType=VARCHAR},
+      </if>
+      <if test="multiattch != null">
+        #{multiattch,jdbcType=SMALLINT},
+      </if>
+      <if test="previousStatus != null">
+        #{previousStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="clusterName != null">
+        #{clusterName,jdbcType=VARCHAR},
+      </if>
+      <if test="groupId != null">
+        #{groupId,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceUuid != null">
+        #{serviceUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="sharedTargets != null">
+        #{sharedTargets,jdbcType=SMALLINT},
+      </if>
+      <if test="eeStatus != null">
+        #{eeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="eeBp != null">
+        #{eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="eeUser != null">
+        #{eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeType != null">
+        #{chargeType,jdbcType=INTEGER},
+      </if>
+      <if test="priceUnit != null">
+        #{priceUnit,jdbcType=INTEGER},
+      </if>
+      <if test="period != null">
+        #{period,jdbcType=INTEGER},
+      </if>
+      <if test="volumeGlanceMetadata != null">
+        #{volumeGlanceMetadata,jdbcType=VARCHAR},
+      </if>
+      <if test="expireTime != null">
+        #{expireTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsVolumesExample" resultType="java.lang.Long">
+    select count(*) from tbl_cmp_os_volumes
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_cmp_os_volumes
+    <set>
+      <if test="record.cloudId != null">
+        cloud_id = #{record.cloudId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdAt != null">
+        created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedAt != null">
+        updated_at = #{record.updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deletedAt != null">
+        deleted_at = #{record.deletedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deleted != null">
+        deleted = #{record.deleted,jdbcType=SMALLINT},
+      </if>
+      <if test="record.ec2Id != null">
+        ec2_id = #{record.ec2Id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.projectId != null">
+        project_id = #{record.projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.host != null">
+        host = #{record.host,jdbcType=VARCHAR},
+      </if>
+      <if test="record.size != null">
+        size = #{record.size,jdbcType=INTEGER},
+      </if>
+      <if test="record.availabilityZone != null">
+        availability_zone = #{record.availabilityZone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attachStatus != null">
+        attach_status = #{record.attachStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scheduledAt != null">
+        scheduled_at = #{record.scheduledAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.launchedAt != null">
+        launched_at = #{record.launchedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.terminatedAt != null">
+        terminated_at = #{record.terminatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.displayName != null">
+        display_name = #{record.displayName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.displayDescription != null">
+        display_description = #{record.displayDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.providerLocation != null">
+        provider_location = #{record.providerLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.providerAuth != null">
+        provider_auth = #{record.providerAuth,jdbcType=VARCHAR},
+      </if>
+      <if test="record.snapshotId != null">
+        snapshot_id = #{record.snapshotId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.volumeTypeId != null">
+        volume_type_id = #{record.volumeTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sourceVolid != null">
+        source_volid = #{record.sourceVolid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bootable != null">
+        bootable = #{record.bootable,jdbcType=SMALLINT},
+      </if>
+      <if test="record.providerGeometry != null">
+        provider_geometry = #{record.providerGeometry,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nameId != null">
+        _name_id = #{record.nameId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.encryptionKeyId != null">
+        encryption_key_id = #{record.encryptionKeyId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.migrationStatus != null">
+        migration_status = #{record.migrationStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.replicationStatus != null">
+        replication_status = #{record.replicationStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.replicationExtendedStatus != null">
+        replication_extended_status = #{record.replicationExtendedStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.replicationDriverData != null">
+        replication_driver_data = #{record.replicationDriverData,jdbcType=VARCHAR},
+      </if>
+      <if test="record.consistencygroupId != null">
+        consistencygroup_id = #{record.consistencygroupId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.providerId != null">
+        provider_id = #{record.providerId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.multiattch != null">
+        multiattch = #{record.multiattch,jdbcType=SMALLINT},
+      </if>
+      <if test="record.previousStatus != null">
+        previous_status = #{record.previousStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clusterName != null">
+        cluster_name = #{record.clusterName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.groupId != null">
+        group_id = #{record.groupId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceUuid != null">
+        service_uuid = #{record.serviceUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sharedTargets != null">
+        shared_targets = #{record.sharedTargets,jdbcType=SMALLINT},
+      </if>
+      <if test="record.eeStatus != null">
+        ee_status = #{record.eeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.eeBp != null">
+        ee_bp = #{record.eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeUser != null">
+        ee_user = #{record.eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chargeType != null">
+        charge_type = #{record.chargeType,jdbcType=INTEGER},
+      </if>
+      <if test="record.priceUnit != null">
+        price_unit = #{record.priceUnit,jdbcType=INTEGER},
+      </if>
+      <if test="record.period != null">
+        period = #{record.period,jdbcType=INTEGER},
+      </if>
+      <if test="record.volumeGlanceMetadata != null">
+        volume_glance_metadata = #{record.volumeGlanceMetadata,jdbcType=VARCHAR},
+      </if>
+      <if test="record.expireTime != null">
+        expire_time = #{record.expireTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_cmp_os_volumes
+    set cloud_id = #{record.cloudId,jdbcType=VARCHAR},
+      id = #{record.id,jdbcType=VARCHAR},
+      created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{record.updatedAt,jdbcType=TIMESTAMP},
+      deleted_at = #{record.deletedAt,jdbcType=TIMESTAMP},
+      deleted = #{record.deleted,jdbcType=SMALLINT},
+      ec2_id = #{record.ec2Id,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      project_id = #{record.projectId,jdbcType=VARCHAR},
+      host = #{record.host,jdbcType=VARCHAR},
+      size = #{record.size,jdbcType=INTEGER},
+      availability_zone = #{record.availabilityZone,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      attach_status = #{record.attachStatus,jdbcType=VARCHAR},
+      scheduled_at = #{record.scheduledAt,jdbcType=TIMESTAMP},
+      launched_at = #{record.launchedAt,jdbcType=TIMESTAMP},
+      terminated_at = #{record.terminatedAt,jdbcType=TIMESTAMP},
+      display_name = #{record.displayName,jdbcType=VARCHAR},
+      display_description = #{record.displayDescription,jdbcType=VARCHAR},
+      provider_location = #{record.providerLocation,jdbcType=VARCHAR},
+      provider_auth = #{record.providerAuth,jdbcType=VARCHAR},
+      snapshot_id = #{record.snapshotId,jdbcType=VARCHAR},
+      volume_type_id = #{record.volumeTypeId,jdbcType=VARCHAR},
+      source_volid = #{record.sourceVolid,jdbcType=VARCHAR},
+      bootable = #{record.bootable,jdbcType=SMALLINT},
+      provider_geometry = #{record.providerGeometry,jdbcType=VARCHAR},
+      _name_id = #{record.nameId,jdbcType=VARCHAR},
+      encryption_key_id = #{record.encryptionKeyId,jdbcType=VARCHAR},
+      migration_status = #{record.migrationStatus,jdbcType=VARCHAR},
+      replication_status = #{record.replicationStatus,jdbcType=VARCHAR},
+      replication_extended_status = #{record.replicationExtendedStatus,jdbcType=VARCHAR},
+      replication_driver_data = #{record.replicationDriverData,jdbcType=VARCHAR},
+      consistencygroup_id = #{record.consistencygroupId,jdbcType=VARCHAR},
+      provider_id = #{record.providerId,jdbcType=VARCHAR},
+      multiattch = #{record.multiattch,jdbcType=SMALLINT},
+      previous_status = #{record.previousStatus,jdbcType=VARCHAR},
+      cluster_name = #{record.clusterName,jdbcType=VARCHAR},
+      group_id = #{record.groupId,jdbcType=VARCHAR},
+      service_uuid = #{record.serviceUuid,jdbcType=VARCHAR},
+      shared_targets = #{record.sharedTargets,jdbcType=SMALLINT},
+      ee_status = #{record.eeStatus,jdbcType=INTEGER},
+      ee_bp = #{record.eeBp,jdbcType=VARCHAR},
+      ee_user = #{record.eeUser,jdbcType=VARCHAR},
+      charge_type = #{record.chargeType,jdbcType=INTEGER},
+      price_unit = #{record.priceUnit,jdbcType=INTEGER},
+      period = #{record.period,jdbcType=INTEGER},
+      volume_glance_metadata = #{record.volumeGlanceMetadata,jdbcType=VARCHAR},
+      expire_time = #{record.expireTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsVolumes">
+    update tbl_cmp_os_volumes
+    <set>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletedAt != null">
+        deleted_at = #{deletedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=SMALLINT},
+      </if>
+      <if test="ec2Id != null">
+        ec2_id = #{ec2Id,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="host != null">
+        host = #{host,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        size = #{size,jdbcType=INTEGER},
+      </if>
+      <if test="availabilityZone != null">
+        availability_zone = #{availabilityZone,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="attachStatus != null">
+        attach_status = #{attachStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="scheduledAt != null">
+        scheduled_at = #{scheduledAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="launchedAt != null">
+        launched_at = #{launchedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="terminatedAt != null">
+        terminated_at = #{terminatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="displayName != null">
+        display_name = #{displayName,jdbcType=VARCHAR},
+      </if>
+      <if test="displayDescription != null">
+        display_description = #{displayDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="providerLocation != null">
+        provider_location = #{providerLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="providerAuth != null">
+        provider_auth = #{providerAuth,jdbcType=VARCHAR},
+      </if>
+      <if test="snapshotId != null">
+        snapshot_id = #{snapshotId,jdbcType=VARCHAR},
+      </if>
+      <if test="volumeTypeId != null">
+        volume_type_id = #{volumeTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceVolid != null">
+        source_volid = #{sourceVolid,jdbcType=VARCHAR},
+      </if>
+      <if test="bootable != null">
+        bootable = #{bootable,jdbcType=SMALLINT},
+      </if>
+      <if test="providerGeometry != null">
+        provider_geometry = #{providerGeometry,jdbcType=VARCHAR},
+      </if>
+      <if test="nameId != null">
+        _name_id = #{nameId,jdbcType=VARCHAR},
+      </if>
+      <if test="encryptionKeyId != null">
+        encryption_key_id = #{encryptionKeyId,jdbcType=VARCHAR},
+      </if>
+      <if test="migrationStatus != null">
+        migration_status = #{migrationStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="replicationStatus != null">
+        replication_status = #{replicationStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="replicationExtendedStatus != null">
+        replication_extended_status = #{replicationExtendedStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="replicationDriverData != null">
+        replication_driver_data = #{replicationDriverData,jdbcType=VARCHAR},
+      </if>
+      <if test="consistencygroupId != null">
+        consistencygroup_id = #{consistencygroupId,jdbcType=VARCHAR},
+      </if>
+      <if test="providerId != null">
+        provider_id = #{providerId,jdbcType=VARCHAR},
+      </if>
+      <if test="multiattch != null">
+        multiattch = #{multiattch,jdbcType=SMALLINT},
+      </if>
+      <if test="previousStatus != null">
+        previous_status = #{previousStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="clusterName != null">
+        cluster_name = #{clusterName,jdbcType=VARCHAR},
+      </if>
+      <if test="groupId != null">
+        group_id = #{groupId,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceUuid != null">
+        service_uuid = #{serviceUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="sharedTargets != null">
+        shared_targets = #{sharedTargets,jdbcType=SMALLINT},
+      </if>
+      <if test="eeStatus != null">
+        ee_status = #{eeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="eeBp != null">
+        ee_bp = #{eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="eeUser != null">
+        ee_user = #{eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeType != null">
+        charge_type = #{chargeType,jdbcType=INTEGER},
+      </if>
+      <if test="priceUnit != null">
+        price_unit = #{priceUnit,jdbcType=INTEGER},
+      </if>
+      <if test="period != null">
+        period = #{period,jdbcType=INTEGER},
+      </if>
+      <if test="volumeGlanceMetadata != null">
+        volume_glance_metadata = #{volumeGlanceMetadata,jdbcType=VARCHAR},
+      </if>
+      <if test="expireTime != null">
+        expire_time = #{expireTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsVolumes">
+    update tbl_cmp_os_volumes
+    set created_at = #{createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      deleted_at = #{deletedAt,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=SMALLINT},
+      ec2_id = #{ec2Id,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      project_id = #{projectId,jdbcType=VARCHAR},
+      host = #{host,jdbcType=VARCHAR},
+      size = #{size,jdbcType=INTEGER},
+      availability_zone = #{availabilityZone,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      attach_status = #{attachStatus,jdbcType=VARCHAR},
+      scheduled_at = #{scheduledAt,jdbcType=TIMESTAMP},
+      launched_at = #{launchedAt,jdbcType=TIMESTAMP},
+      terminated_at = #{terminatedAt,jdbcType=TIMESTAMP},
+      display_name = #{displayName,jdbcType=VARCHAR},
+      display_description = #{displayDescription,jdbcType=VARCHAR},
+      provider_location = #{providerLocation,jdbcType=VARCHAR},
+      provider_auth = #{providerAuth,jdbcType=VARCHAR},
+      snapshot_id = #{snapshotId,jdbcType=VARCHAR},
+      volume_type_id = #{volumeTypeId,jdbcType=VARCHAR},
+      source_volid = #{sourceVolid,jdbcType=VARCHAR},
+      bootable = #{bootable,jdbcType=SMALLINT},
+      provider_geometry = #{providerGeometry,jdbcType=VARCHAR},
+      _name_id = #{nameId,jdbcType=VARCHAR},
+      encryption_key_id = #{encryptionKeyId,jdbcType=VARCHAR},
+      migration_status = #{migrationStatus,jdbcType=VARCHAR},
+      replication_status = #{replicationStatus,jdbcType=VARCHAR},
+      replication_extended_status = #{replicationExtendedStatus,jdbcType=VARCHAR},
+      replication_driver_data = #{replicationDriverData,jdbcType=VARCHAR},
+      consistencygroup_id = #{consistencygroupId,jdbcType=VARCHAR},
+      provider_id = #{providerId,jdbcType=VARCHAR},
+      multiattch = #{multiattch,jdbcType=SMALLINT},
+      previous_status = #{previousStatus,jdbcType=VARCHAR},
+      cluster_name = #{clusterName,jdbcType=VARCHAR},
+      group_id = #{groupId,jdbcType=VARCHAR},
+      service_uuid = #{serviceUuid,jdbcType=VARCHAR},
+      shared_targets = #{sharedTargets,jdbcType=SMALLINT},
+      ee_status = #{eeStatus,jdbcType=INTEGER},
+      ee_bp = #{eeBp,jdbcType=VARCHAR},
+      ee_user = #{eeUser,jdbcType=VARCHAR},
+      charge_type = #{chargeType,jdbcType=INTEGER},
+      price_unit = #{priceUnit,jdbcType=INTEGER},
+      period = #{period,jdbcType=INTEGER},
+      volume_glance_metadata = #{volumeGlanceMetadata,jdbcType=VARCHAR},
+      expire_time = #{expireTime,jdbcType=TIMESTAMP}
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="getVolumeIds" resultType="String">
+    select id from tbl_cmp_os_volumes
+    where cloud_id = #{cloudId} and ee_status != -1
+  </select>
+</mapper>

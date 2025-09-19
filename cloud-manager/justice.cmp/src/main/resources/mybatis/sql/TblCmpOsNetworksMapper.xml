@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.cmp.db.mapper.TblCmpOsNetworksMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.cmp.db.model.TblCmpOsNetworks">
+    <id column="cloud_id" jdbcType="VARCHAR" property="cloudId" />
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="project_id" jdbcType="VARCHAR" property="projectId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="admin_state_up" jdbcType="SMALLINT" property="adminStateUp" />
+    <result column="vlan_transparent" jdbcType="SMALLINT" property="vlanTransparent" />
+    <result column="standard_attr_id" jdbcType="BIGINT" property="standardAttrId" />
+    <result column="availability_zone_hints" jdbcType="VARCHAR" property="availabilityZoneHints" />
+    <result column="mtu" jdbcType="INTEGER" property="mtu" />
+    <result column="ee_bp" jdbcType="VARCHAR" property="eeBp" />
+    <result column="ee_user" jdbcType="VARCHAR" property="eeUser" />
+    <result column="ee_status" jdbcType="INTEGER" property="eeStatus" />
+    <result column="shared" jdbcType="SMALLINT" property="shared" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="revision_number" jdbcType="BIGINT" property="revisionNumber" />
+    <result column="is_default" jdbcType="SMALLINT" property="isDefault" />
+    <result column="dns_domain" jdbcType="VARCHAR" property="dnsDomain" />
+    <result column="port_security_enabled" jdbcType="SMALLINT" property="portSecurityEnabled" />
+    <result column="policy_id" jdbcType="CHAR" property="policyId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    cloud_id, id, project_id, name, status, admin_state_up, vlan_transparent, standard_attr_id, 
+    availability_zone_hints, mtu, ee_bp, ee_user, ee_status, shared, created_at, updated_at, 
+    description, revision_number, is_default, dns_domain, port_security_enabled, policy_id
+  </sql>
+  <select id="selectByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsNetworksExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_cmp_os_networks
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsNetworksKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_cmp_os_networks
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsNetworksKey">
+    delete from tbl_cmp_os_networks
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsNetworksExample">
+    delete from tbl_cmp_os_networks
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsNetworks">
+    insert into tbl_cmp_os_networks (cloud_id, id, project_id, 
+      name, status, admin_state_up, 
+      vlan_transparent, standard_attr_id, availability_zone_hints, 
+      mtu, ee_bp, ee_user, 
+      ee_status, shared, created_at, 
+      updated_at, description, revision_number, 
+      is_default, dns_domain, port_security_enabled, 
+      policy_id)
+    values (#{cloudId,jdbcType=VARCHAR}, #{id,jdbcType=VARCHAR}, #{projectId,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{adminStateUp,jdbcType=SMALLINT}, 
+      #{vlanTransparent,jdbcType=SMALLINT}, #{standardAttrId,jdbcType=BIGINT}, #{availabilityZoneHints,jdbcType=VARCHAR}, 
+      #{mtu,jdbcType=INTEGER}, #{eeBp,jdbcType=VARCHAR}, #{eeUser,jdbcType=VARCHAR}, 
+      #{eeStatus,jdbcType=INTEGER}, #{shared,jdbcType=SMALLINT}, #{createdAt,jdbcType=TIMESTAMP}, 
+      #{updatedAt,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}, #{revisionNumber,jdbcType=BIGINT}, 
+      #{isDefault,jdbcType=SMALLINT}, #{dnsDomain,jdbcType=VARCHAR}, #{portSecurityEnabled,jdbcType=SMALLINT}, 
+      #{policyId,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsNetworks">
+    insert into tbl_cmp_os_networks
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cloudId != null">
+        cloud_id,
+      </if>
+      <if test="id != null">
+        id,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="adminStateUp != null">
+        admin_state_up,
+      </if>
+      <if test="vlanTransparent != null">
+        vlan_transparent,
+      </if>
+      <if test="standardAttrId != null">
+        standard_attr_id,
+      </if>
+      <if test="availabilityZoneHints != null">
+        availability_zone_hints,
+      </if>
+      <if test="mtu != null">
+        mtu,
+      </if>
+      <if test="eeBp != null">
+        ee_bp,
+      </if>
+      <if test="eeUser != null">
+        ee_user,
+      </if>
+      <if test="eeStatus != null">
+        ee_status,
+      </if>
+      <if test="shared != null">
+        shared,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedAt != null">
+        updated_at,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="revisionNumber != null">
+        revision_number,
+      </if>
+      <if test="isDefault != null">
+        is_default,
+      </if>
+      <if test="dnsDomain != null">
+        dns_domain,
+      </if>
+      <if test="portSecurityEnabled != null">
+        port_security_enabled,
+      </if>
+      <if test="policyId != null">
+        policy_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cloudId != null">
+        #{cloudId,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="adminStateUp != null">
+        #{adminStateUp,jdbcType=SMALLINT},
+      </if>
+      <if test="vlanTransparent != null">
+        #{vlanTransparent,jdbcType=SMALLINT},
+      </if>
+      <if test="standardAttrId != null">
+        #{standardAttrId,jdbcType=BIGINT},
+      </if>
+      <if test="availabilityZoneHints != null">
+        #{availabilityZoneHints,jdbcType=VARCHAR},
+      </if>
+      <if test="mtu != null">
+        #{mtu,jdbcType=INTEGER},
+      </if>
+      <if test="eeBp != null">
+        #{eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="eeUser != null">
+        #{eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="eeStatus != null">
+        #{eeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="shared != null">
+        #{shared,jdbcType=SMALLINT},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="revisionNumber != null">
+        #{revisionNumber,jdbcType=BIGINT},
+      </if>
+      <if test="isDefault != null">
+        #{isDefault,jdbcType=SMALLINT},
+      </if>
+      <if test="dnsDomain != null">
+        #{dnsDomain,jdbcType=VARCHAR},
+      </if>
+      <if test="portSecurityEnabled != null">
+        #{portSecurityEnabled,jdbcType=SMALLINT},
+      </if>
+      <if test="policyId != null">
+        #{policyId,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsNetworksExample" resultType="java.lang.Long">
+    select count(*) from tbl_cmp_os_networks
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_cmp_os_networks
+    <set>
+      <if test="record.cloudId != null">
+        cloud_id = #{record.cloudId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.projectId != null">
+        project_id = #{record.projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminStateUp != null">
+        admin_state_up = #{record.adminStateUp,jdbcType=SMALLINT},
+      </if>
+      <if test="record.vlanTransparent != null">
+        vlan_transparent = #{record.vlanTransparent,jdbcType=SMALLINT},
+      </if>
+      <if test="record.standardAttrId != null">
+        standard_attr_id = #{record.standardAttrId,jdbcType=BIGINT},
+      </if>
+      <if test="record.availabilityZoneHints != null">
+        availability_zone_hints = #{record.availabilityZoneHints,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mtu != null">
+        mtu = #{record.mtu,jdbcType=INTEGER},
+      </if>
+      <if test="record.eeBp != null">
+        ee_bp = #{record.eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeUser != null">
+        ee_user = #{record.eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeStatus != null">
+        ee_status = #{record.eeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.shared != null">
+        shared = #{record.shared,jdbcType=SMALLINT},
+      </if>
+      <if test="record.createdAt != null">
+        created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedAt != null">
+        updated_at = #{record.updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.revisionNumber != null">
+        revision_number = #{record.revisionNumber,jdbcType=BIGINT},
+      </if>
+      <if test="record.isDefault != null">
+        is_default = #{record.isDefault,jdbcType=SMALLINT},
+      </if>
+      <if test="record.dnsDomain != null">
+        dns_domain = #{record.dnsDomain,jdbcType=VARCHAR},
+      </if>
+      <if test="record.portSecurityEnabled != null">
+        port_security_enabled = #{record.portSecurityEnabled,jdbcType=SMALLINT},
+      </if>
+      <if test="record.policyId != null">
+        policy_id = #{record.policyId,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_cmp_os_networks
+    set cloud_id = #{record.cloudId,jdbcType=VARCHAR},
+      id = #{record.id,jdbcType=VARCHAR},
+      project_id = #{record.projectId,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      admin_state_up = #{record.adminStateUp,jdbcType=SMALLINT},
+      vlan_transparent = #{record.vlanTransparent,jdbcType=SMALLINT},
+      standard_attr_id = #{record.standardAttrId,jdbcType=BIGINT},
+      availability_zone_hints = #{record.availabilityZoneHints,jdbcType=VARCHAR},
+      mtu = #{record.mtu,jdbcType=INTEGER},
+      ee_bp = #{record.eeBp,jdbcType=VARCHAR},
+      ee_user = #{record.eeUser,jdbcType=VARCHAR},
+      ee_status = #{record.eeStatus,jdbcType=INTEGER},
+      shared = #{record.shared,jdbcType=SMALLINT},
+      created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{record.updatedAt,jdbcType=TIMESTAMP},
+      description = #{record.description,jdbcType=VARCHAR},
+      revision_number = #{record.revisionNumber,jdbcType=BIGINT},
+      is_default = #{record.isDefault,jdbcType=SMALLINT},
+      dns_domain = #{record.dnsDomain,jdbcType=VARCHAR},
+      port_security_enabled = #{record.portSecurityEnabled,jdbcType=SMALLINT},
+      policy_id = #{record.policyId,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsNetworks">
+    update tbl_cmp_os_networks
+    <set>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="adminStateUp != null">
+        admin_state_up = #{adminStateUp,jdbcType=SMALLINT},
+      </if>
+      <if test="vlanTransparent != null">
+        vlan_transparent = #{vlanTransparent,jdbcType=SMALLINT},
+      </if>
+      <if test="standardAttrId != null">
+        standard_attr_id = #{standardAttrId,jdbcType=BIGINT},
+      </if>
+      <if test="availabilityZoneHints != null">
+        availability_zone_hints = #{availabilityZoneHints,jdbcType=VARCHAR},
+      </if>
+      <if test="mtu != null">
+        mtu = #{mtu,jdbcType=INTEGER},
+      </if>
+      <if test="eeBp != null">
+        ee_bp = #{eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="eeUser != null">
+        ee_user = #{eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="eeStatus != null">
+        ee_status = #{eeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="shared != null">
+        shared = #{shared,jdbcType=SMALLINT},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="revisionNumber != null">
+        revision_number = #{revisionNumber,jdbcType=BIGINT},
+      </if>
+      is_default = #{isDefault,jdbcType=SMALLINT},
+      <if test="dnsDomain != null">
+        dns_domain = #{dnsDomain,jdbcType=VARCHAR},
+      </if>
+      <if test="portSecurityEnabled != null">
+        port_security_enabled = #{portSecurityEnabled,jdbcType=SMALLINT},
+      </if>
+      <if test="policyId != null">
+        policy_id = #{policyId,jdbcType=CHAR},
+      </if>
+    </set>
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsNetworks">
+    update tbl_cmp_os_networks
+    set project_id = #{projectId,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      admin_state_up = #{adminStateUp,jdbcType=SMALLINT},
+      vlan_transparent = #{vlanTransparent,jdbcType=SMALLINT},
+      standard_attr_id = #{standardAttrId,jdbcType=BIGINT},
+      availability_zone_hints = #{availabilityZoneHints,jdbcType=VARCHAR},
+      mtu = #{mtu,jdbcType=INTEGER},
+      ee_bp = #{eeBp,jdbcType=VARCHAR},
+      ee_user = #{eeUser,jdbcType=VARCHAR},
+      ee_status = #{eeStatus,jdbcType=INTEGER},
+      shared = #{shared,jdbcType=SMALLINT},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      description = #{description,jdbcType=VARCHAR},
+      revision_number = #{revisionNumber,jdbcType=BIGINT},
+      is_default = #{isDefault,jdbcType=SMALLINT},
+      dns_domain = #{dnsDomain,jdbcType=VARCHAR},
+      port_security_enabled = #{portSecurityEnabled,jdbcType=SMALLINT},
+      policy_id = #{policyId,jdbcType=CHAR}
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="getNetworkIds" resultType="String">
+    select id from tbl_cmp_os_networks
+    where cloud_id = #{cloudId} and ee_status != -1
+  </select>
+  <select id="selectByExampleWithShared" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpOsNetworksExample" resultMap="BaseResultMap">
+    select
+    <if test="example.distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_cmp_os_networks
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+    <if test="projectId != null or userId != null">
+      and ((is_default is not null) or (shared = 1) or (
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=VARCHAR}
+      </if>
+      <if test="projectId != null and userId != null">
+      and
+      </if>
+      <if test="userId != null">
+        ee_user = #{userId,jdbcType=VARCHAR}
+      </if>
+      ))
+    </if>
+    <if test="example.orderByClause != null">
+      order by ${example.orderByClause}
+    </if>
+  </select>
+</mapper>

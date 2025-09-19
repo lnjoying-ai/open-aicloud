@@ -1,0 +1,613 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.omc.db.mapper.TblOmcLogMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.omc.db.model.TblOmcLog">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="level" jdbcType="VARCHAR" property="level" />
+    <result column="bp_id" jdbcType="VARCHAR" property="bpId" />
+    <result column="service" jdbcType="VARCHAR" property="service" />
+    <result column="resource" jdbcType="VARCHAR" property="resource" />
+    <result column="resource_id" jdbcType="VARCHAR" property="resourceId" />
+    <result column="action" jdbcType="VARCHAR" property="action" />
+    <result column="access_ip" jdbcType="VARCHAR" property="accessIp" />
+    <result column="user_agent" jdbcType="VARCHAR" property="userAgent" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="http_method" jdbcType="VARCHAR" property="httpMethod" />
+    <result column="request_path" jdbcType="VARCHAR" property="requestPath" />
+    <result column="in_params" jdbcType="VARCHAR" property="inParams" />
+    <result column="out_params" jdbcType="VARCHAR" property="outParams" />
+    <result column="result" jdbcType="VARCHAR" property="result" />
+    <result column="execution_time" jdbcType="INTEGER" property="executionTime" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="operator" jdbcType="VARCHAR" property="operator" />
+    <result column="trigger_time" jdbcType="TIMESTAMP" property="triggerTime" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, level, bp_id, service, resource, resource_id, action, access_ip, user_agent, 
+    description, http_method, request_path, in_params, out_params, result, execution_time, user_id,
+    operator, trigger_time, created_at
+  </sql>
+  <select id="selectByExample" parameterType="com.lnjoying.justice.omc.db.model.TblOmcLogExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_omc_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null and pageSize != null and pageSize != 0">
+      limit #{pageSize} offset #{startRow}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_omc_log
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tbl_omc_log
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lnjoying.justice.omc.db.model.TblOmcLogExample">
+    delete from tbl_omc_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.omc.db.model.TblOmcLog">
+    insert into tbl_omc_log (id, level, bp_id, 
+      service, resource, resource_id, 
+      action, access_ip, user_agent, 
+      description, http_method, request_path, in_params,
+      out_params, result, execution_time, 
+      user_id, operator, trigger_time, 
+      created_at, operation_type)
+    values (#{id,jdbcType=VARCHAR}, #{level,jdbcType=VARCHAR}, #{bpId,jdbcType=VARCHAR}, 
+      #{service,jdbcType=VARCHAR}, #{resource,jdbcType=VARCHAR}, #{resourceId,jdbcType=VARCHAR}, 
+      #{action,jdbcType=VARCHAR}, #{accessIp,jdbcType=VARCHAR}, #{userAgent,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{httpMethod,jdbcType=VARCHAR}, #{requestPath,jdbcType=VARCHAR}, #{inParams,jdbcType=VARCHAR},
+      #{outParams,jdbcType=VARCHAR}, #{result,jdbcType=VARCHAR}, #{executionTime,jdbcType=INTEGER}, 
+      #{userId,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, #{triggerTime,jdbcType=TIMESTAMP}, 
+      #{createdAt,jdbcType=TIMESTAMP}, #{operationType,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.omc.db.model.TblOmcLog">
+    insert into tbl_omc_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="level != null">
+        level,
+      </if>
+      <if test="bpId != null">
+        bp_id,
+      </if>
+      <if test="service != null">
+        service,
+      </if>
+      <if test="resource != null">
+        resource,
+      </if>
+      <if test="resourceId != null">
+        resource_id,
+      </if>
+      <if test="action != null">
+        action,
+      </if>
+      <if test="accessIp != null">
+        access_ip,
+      </if>
+      <if test="userAgent != null">
+        user_agent,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="httpMethod != null">
+        http_method,
+      </if>
+      <if test="requestPath != null">
+        request_path,
+      </if>
+      <if test="inParams != null">
+        in_params,
+      </if>
+      <if test="outParams != null">
+        out_params,
+      </if>
+      <if test="result != null">
+        result,
+      </if>
+      <if test="executionTime != null">
+        execution_time,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="operator != null">
+        operator,
+      </if>
+      <if test="triggerTime != null">
+        trigger_time,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="operationType != null">
+        operation_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="bpId != null">
+        #{bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="service != null">
+        #{service,jdbcType=VARCHAR},
+      </if>
+      <if test="resource != null">
+        #{resource,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceId != null">
+        #{resourceId,jdbcType=VARCHAR},
+      </if>
+      <if test="action != null">
+        #{action,jdbcType=VARCHAR},
+      </if>
+      <if test="accessIp != null">
+        #{accessIp,jdbcType=VARCHAR},
+      </if>
+      <if test="userAgent != null">
+        #{userAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="httpMethod != null">
+        #{httpMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="requestPath != null">
+        #{requestPath,jdbcType=VARCHAR},
+      </if>
+      <if test="inParams != null">
+        #{inParams,jdbcType=VARCHAR},
+      </if>
+      <if test="outParams != null">
+        #{outParams,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null">
+        #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="executionTime != null">
+        #{executionTime,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null">
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="triggerTime != null">
+        #{triggerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operationType != null">
+        #{operationType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lnjoying.justice.omc.db.model.TblOmcLogExample" resultType="java.lang.Long">
+    select count(*) from tbl_omc_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_omc_log
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.level != null">
+        level = #{record.level,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bpId != null">
+        bp_id = #{record.bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.service != null">
+        service = #{record.service,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resource != null">
+        resource = #{record.resource,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resourceId != null">
+        resource_id = #{record.resourceId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.action != null">
+        action = #{record.action,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accessIp != null">
+        access_ip = #{record.accessIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userAgent != null">
+        user_agent = #{record.userAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.httpMethod != null">
+        httpMethod = #{record.httpMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.requestPath != null">
+        request_path = #{record.requestPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inParams != null">
+        in_params = #{record.inParams,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outParams != null">
+        out_params = #{record.outParams,jdbcType=VARCHAR},
+      </if>
+      <if test="record.result != null">
+        result = #{record.result,jdbcType=VARCHAR},
+      </if>
+      <if test="record.executionTime != null">
+        execution_time = #{record.executionTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operator != null">
+        operator = #{record.operator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.triggerTime != null">
+        trigger_time = #{record.triggerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createdAt != null">
+        created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.operationType != null">
+        operation_type = #{record.operationType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_omc_log
+    set id = #{record.id,jdbcType=VARCHAR},
+      level = #{record.level,jdbcType=VARCHAR},
+      bp_id = #{record.bpId,jdbcType=VARCHAR},
+      service = #{record.service,jdbcType=VARCHAR},
+      resource = #{record.resource,jdbcType=VARCHAR},
+      resource_id = #{record.resourceId,jdbcType=VARCHAR},
+      action = #{record.action,jdbcType=VARCHAR},
+      access_ip = #{record.accessIp,jdbcType=VARCHAR},
+      user_agent = #{record.userAgent,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      http_method = #{record.httpMethod,jdbcType=VARCHAR},
+      request_path = #{record.requestPath,jdbcType=VARCHAR},
+      in_params = #{record.inParams,jdbcType=VARCHAR},
+      out_params = #{record.outParams,jdbcType=VARCHAR},
+      result = #{record.result,jdbcType=VARCHAR},
+      execution_time = #{record.executionTime,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      operator = #{record.operator,jdbcType=VARCHAR},
+      trigger_time = #{record.triggerTime,jdbcType=TIMESTAMP},
+      created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      operation_type= #{record.operationType,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.omc.db.model.TblOmcLog">
+    update tbl_omc_log
+    <set>
+      <if test="level != null">
+        level = #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="bpId != null">
+        bp_id = #{bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="service != null">
+        service = #{service,jdbcType=VARCHAR},
+      </if>
+      <if test="resource != null">
+        resource = #{resource,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceId != null">
+        resource_id = #{resourceId,jdbcType=VARCHAR},
+      </if>
+      <if test="action != null">
+        action = #{action,jdbcType=VARCHAR},
+      </if>
+      <if test="accessIp != null">
+        access_ip = #{accessIp,jdbcType=VARCHAR},
+      </if>
+      <if test="userAgent != null">
+        user_agent = #{userAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="httpMethod != null">
+        http_method = #{httpMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="requestPath != null">
+        request_path = #{requestPath,jdbcType=VARCHAR},
+      </if>
+      <if test="inParams != null">
+        in_params = #{inParams,jdbcType=VARCHAR},
+      </if>
+      <if test="outParams != null">
+        out_params = #{outParams,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null">
+        result = #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="executionTime != null">
+        execution_time = #{executionTime,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null">
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="triggerTime != null">
+        trigger_time = #{triggerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operationType != null">
+        operation_type = #{operationType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.omc.db.model.TblOmcLog">
+    update tbl_omc_log
+    set level = #{level,jdbcType=VARCHAR},
+      bp_id = #{bpId,jdbcType=VARCHAR},
+      service = #{service,jdbcType=VARCHAR},
+      resource = #{resource,jdbcType=VARCHAR},
+      resource_id = #{resourceId,jdbcType=VARCHAR},
+      action = #{action,jdbcType=VARCHAR},
+      access_ip = #{accessIp,jdbcType=VARCHAR},
+      user_agent = #{userAgent,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      http_method = #{httpMethod,jdbcType=VARCHAR},
+      request_path = #{requestPath,jdbcType=VARCHAR},
+      in_params = #{inParams,jdbcType=VARCHAR},
+      out_params = #{outParams,jdbcType=VARCHAR},
+      result = #{result,jdbcType=VARCHAR},
+      execution_time = #{executionTime,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=VARCHAR},
+      operator = #{operator,jdbcType=VARCHAR},
+      trigger_time = #{triggerTime,jdbcType=TIMESTAMP},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      operation_type = #{operationType,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectAllByCreatedAtBetweenEqualAndLevelAndBpIdAndUserId" resultType="com.lnjoying.justice.omc.domain.model.HourlyOperationLog">
+        select
+          date_trunc('hour', created_at) AS logHour,
+          COUNT(*) AS logCount
+        from tbl_omc_log
+        <where>
+            <if test="minCreatedAt != null">
+                and created_at <![CDATA[>=]]> #{minCreatedAt,jdbcType=TIMESTAMP}
+            </if>
+            <if test="maxCreatedAt != null">
+                and created_at <![CDATA[<]]> #{maxCreatedAt,jdbcType=TIMESTAMP}
+            </if>
+            <if test="level != null and level != ''">
+                and "level"=#{level,jdbcType=VARCHAR}
+            </if>
+            <if test="bpId != null and bpId != ''">
+                and bp_id=#{bpId,jdbcType=VARCHAR}
+            </if>
+            <if test="userId != null and userId != ''">
+                and user_id=#{userId,jdbcType=VARCHAR}
+            </if>
+        </where>
+          GROUP BY
+            logHour
+          order by logHour asc
+
+    </select>
+
+  <select id="selectLoginLogsGroupByBpIdAndCreateTimeBetween" resultType="com.lnjoying.justice.schema.entity.omc.BpLastLoginTimeDTO">
+    SELECT
+    t2.bp_id as bpId,
+    t2.user_id as userId,
+    t2.user_name as userName,
+    t2.bp_name as bpName,
+    t2.email,
+    t2.phone,
+    t2.create_time as registrationTime,
+    COALESCE(t1.lastLoginTime, t2.create_time) as lastLoginTime
+    FROM
+    (     select bp_id, MAX(trigger_time) as lastLoginTime from tbl_omc_log
+    <where>
+      <if test="bpIds != null and bpIds.size() > 0 ">
+        and bp_id in
+        <foreach collection="bpIds" item="bpId" index="index" open="(" close=")" separator=",">
+          #{bpId}
+        </foreach>
+      </if>
+      <if test="minCreateTime != null">
+        and created_at <![CDATA[>=]]> #{minCreateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="maxCreateTime != null">
+        and created_at <![CDATA[<=]]> #{maxCreateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="true">
+        and service = 'iam' and action= 'login' and bp_id is not null and bp_id != ''
+      </if>
+    </where>
+    GROUP BY bp_id  ) t1
+    RIGHT JOIN (
+    select t3.*, t4.bp_name from (
+    SELECT * FROM tbl_user_info
+    <where>
+      <if test="true">
+        and kind = 2
+      </if>
+      <if test="bpIds != null and bpIds.size() > 0 ">
+        and bp_id in
+        <foreach collection="bpIds" item="bpId" index="index" open="(" close=")" separator=",">
+          #{bpId}
+        </foreach>
+      </if>
+      <if test="userId != null and userId != ''">
+        and user_id = #{userId,jdbcType=VARCHAR}
+      </if>
+      <if test="userName != null and userName != ''">
+        and user_name like concat('%',#{userName,jdbcType=VARCHAR},'%')
+      </if>
+    </where>
+    ) t3 join (select * from tbl_bp_info) t4 on t3.user_name = t4.master_user and t3.bp_id = t4.bp_id
+    ) t2 ON t1.bp_id = t2.bp_id
+    <where>
+      <if test="minCreateTime != null">
+        and lastLoginTime <![CDATA[>=]]> #{minCreateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="maxCreateTime != null">
+        and lastLoginTime <![CDATA[<=]]> #{maxCreateTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+    ORDER BY lastLoginTime ${sortDirection}
+  </select>
+
+  <select id="selectLoginLogsByBpIdAndCreateTimeBetween" resultType="com.lnjoying.justice.schema.entity.omc.BpLoginDetailDTO">
+    SELECT
+    t2.bp_id as bpId,
+    t2.user_id as userId,
+    t2.user_name as userName,
+    t2.bp_name as bpName,
+    t2.email,
+    t2.phone,
+    t2.create_time as registrationTime,
+    t1.trigger_time as triggerTime,
+    t1.access_ip as accessIp,
+    t1.user_agent as userAgent,
+    t1.description as description,
+    t1.result as result,
+    t1.operation_type as operationType,
+    t1.in_params as inParams,
+    t1.out_params as outParams,
+    t1.execution_time as executionTime
+    FROM
+    (     select * from tbl_omc_log
+    <where>
+      <if test="bpId != null and bpId != '' ">
+        and bp_id = #{bpId,jdbcType=VARCHAR}
+      </if>
+      <if test="userId != null and userId != '' ">
+        and user_id = #{userId,jdbcType=VARCHAR}
+      </if>
+      <if test="minCreateTime != null">
+        and created_at <![CDATA[>=]]> #{minCreateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="maxCreateTime != null">
+        and created_at <![CDATA[<=]]> #{maxCreateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="true">
+        and service = 'iam' and action= 'login' and bp_id is not null and bp_id != ''
+      </if>
+    </where>
+    ) t1
+     JOIN (
+    select t3.*, t4.bp_name from (
+    SELECT * FROM tbl_user_info
+    <where>
+      <if test="true">
+        and kind = 2
+      </if>
+      <if test="bpId != null and bpId != '' ">
+        and bp_id = #{bpId,jdbcType=VARCHAR}
+      </if>
+      <if test="userId != null and userId != '' ">
+        and user_id = #{userId,jdbcType=VARCHAR}
+      </if>
+    </where>
+    ) t3 join (select * from tbl_bp_info) t4 on t3.user_name = t4.master_user and t3.bp_id = t4.bp_id
+    ) t2 ON t1.bp_id = t2.bp_id
+    ORDER BY t1.trigger_time ${sortDirection}
+  </select>
+</mapper>

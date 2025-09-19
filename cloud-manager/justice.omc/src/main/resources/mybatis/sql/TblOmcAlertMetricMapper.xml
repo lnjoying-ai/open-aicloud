@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.omc.db.mapper.TblOmcAlertMetricMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.omc.db.model.TblOmcAlertMetric">
+    <!--@mbg.generated-->
+    <!--@Table tbl_omc_alert_metric-->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="group_id" jdbcType="VARCHAR" property="groupId" />
+    <result column="metric_name" jdbcType="VARCHAR" property="metricName" />
+    <result column="label" jdbcType="OTHER" property="label" />
+    <result column="duration_time" jdbcType="INTEGER" property="durationTime" />
+    <result column="level" jdbcType="INTEGER" property="level" />
+    <result column="message" jdbcType="VARCHAR" property="message" />
+    <result column="metric_key" jdbcType="VARCHAR" property="metricKey" />
+    <result column="alert_condition_display_statement" jdbcType="VARCHAR" property="alertConditionDisplayStatement" />
+    <result column="alert_condition_param" jdbcType="VARCHAR" property="alertConditionParam" />
+    <result column="data_condition_label" jdbcType="VARCHAR" property="dataConditionLabel" />
+    <result column="data_filters" jdbcType="VARCHAR" property="dataFilters" />
+    <result column="prom_content" jdbcType="VARCHAR" property="promContent" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="bp_id" jdbcType="VARCHAR" property="bpId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, group_id, metric_name, "label", duration_time, "level", message, metric_key, 
+    alert_condition_display_statement, alert_condition_param, data_condition_label, data_filters, 
+    prom_content, "status", bp_id, user_id, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_omc_alert_metric
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from tbl_omc_alert_metric
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.omc.db.model.TblOmcAlertMetric">
+    <!--@mbg.generated-->
+    insert into tbl_omc_alert_metric (id, group_id, metric_name, 
+      "label", duration_time, "level", 
+      message, metric_key, alert_condition_display_statement, 
+      alert_condition_param, data_condition_label, 
+      data_filters, prom_content, "status", 
+      bp_id, user_id, create_time, 
+      update_time)
+    values (#{id,jdbcType=VARCHAR}, #{groupId,jdbcType=VARCHAR}, #{metricName,jdbcType=VARCHAR}, 
+      #{label,jdbcType=OTHER}, #{durationTime,jdbcType=INTEGER}, #{level,jdbcType=INTEGER}, 
+      #{message,jdbcType=VARCHAR}, #{metricKey,jdbcType=VARCHAR}, #{alertConditionDisplayStatement,jdbcType=VARCHAR}, 
+      #{alertConditionParam,jdbcType=VARCHAR}, #{dataConditionLabel,jdbcType=VARCHAR}, 
+      #{dataFilters,jdbcType=VARCHAR}, #{promContent,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{bpId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.omc.db.model.TblOmcAlertMetric">
+    <!--@mbg.generated-->
+    insert into tbl_omc_alert_metric
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        id,
+      </if>
+      <if test="groupId != null and groupId != ''">
+        group_id,
+      </if>
+      <if test="metricName != null and metricName != ''">
+        metric_name,
+      </if>
+      <if test="label != null">
+        "label",
+      </if>
+      <if test="durationTime != null">
+        duration_time,
+      </if>
+      <if test="level != null">
+        "level",
+      </if>
+      <if test="message != null and message != ''">
+        message,
+      </if>
+      <if test="metricKey != null and metricKey != ''">
+        metric_key,
+      </if>
+      <if test="alertConditionDisplayStatement != null and alertConditionDisplayStatement != ''">
+        alert_condition_display_statement,
+      </if>
+      <if test="alertConditionParam != null and alertConditionParam != ''">
+        alert_condition_param,
+      </if>
+      <if test="dataConditionLabel != null and dataConditionLabel != ''">
+        data_condition_label,
+      </if>
+      <if test="dataFilters != null and dataFilters != ''">
+        data_filters,
+      </if>
+      <if test="promContent != null and promContent != ''">
+        prom_content,
+      </if>
+      <if test="status != null">
+        "status",
+      </if>
+      <if test="bpId != null and bpId != ''">
+        bp_id,
+      </if>
+      <if test="userId != null and userId != ''">
+        user_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="groupId != null and groupId != ''">
+        #{groupId,jdbcType=VARCHAR},
+      </if>
+      <if test="metricName != null and metricName != ''">
+        #{metricName,jdbcType=VARCHAR},
+      </if>
+      <if test="label != null">
+        #{label,jdbcType=OTHER},
+      </if>
+      <if test="durationTime != null">
+        #{durationTime,jdbcType=INTEGER},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="message != null and message != ''">
+        #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="metricKey != null and metricKey != ''">
+        #{metricKey,jdbcType=VARCHAR},
+      </if>
+      <if test="alertConditionDisplayStatement != null and alertConditionDisplayStatement != ''">
+        #{alertConditionDisplayStatement,jdbcType=VARCHAR},
+      </if>
+      <if test="alertConditionParam != null and alertConditionParam != ''">
+        #{alertConditionParam,jdbcType=VARCHAR},
+      </if>
+      <if test="dataConditionLabel != null and dataConditionLabel != ''">
+        #{dataConditionLabel,jdbcType=VARCHAR},
+      </if>
+      <if test="dataFilters != null and dataFilters != ''">
+        #{dataFilters,jdbcType=VARCHAR},
+      </if>
+      <if test="promContent != null and promContent != ''">
+        #{promContent,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="bpId != null and bpId != ''">
+        #{bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null and userId != ''">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.omc.db.model.TblOmcAlertMetric">
+    <!--@mbg.generated-->
+    update tbl_omc_alert_metric
+    <set>
+      <if test="groupId != null and groupId != ''">
+        group_id = #{groupId,jdbcType=VARCHAR},
+      </if>
+      <if test="metricName != null and metricName != ''">
+        metric_name = #{metricName,jdbcType=VARCHAR},
+      </if>
+      <if test="label != null">
+        "label" = #{label,jdbcType=OTHER},
+      </if>
+      <if test="durationTime != null">
+        duration_time = #{durationTime,jdbcType=INTEGER},
+      </if>
+      <if test="level != null">
+        "level" = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="message != null and message != ''">
+        message = #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="metricKey != null and metricKey != ''">
+        metric_key = #{metricKey,jdbcType=VARCHAR},
+      </if>
+      <if test="alertConditionDisplayStatement != null and alertConditionDisplayStatement != ''">
+        alert_condition_display_statement = #{alertConditionDisplayStatement,jdbcType=VARCHAR},
+      </if>
+      <if test="alertConditionParam != null and alertConditionParam != ''">
+        alert_condition_param = #{alertConditionParam,jdbcType=VARCHAR},
+      </if>
+      <if test="dataConditionLabel != null and dataConditionLabel != ''">
+        data_condition_label = #{dataConditionLabel,jdbcType=VARCHAR},
+      </if>
+      <if test="dataFilters != null and dataFilters != ''">
+        data_filters = #{dataFilters,jdbcType=VARCHAR},
+      </if>
+      <if test="promContent != null and promContent != ''">
+        prom_content = #{promContent,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        "status" = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="bpId != null and bpId != ''">
+        bp_id = #{bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null and userId != ''">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.omc.db.model.TblOmcAlertMetric">
+    <!--@mbg.generated-->
+    update tbl_omc_alert_metric
+    set group_id = #{groupId,jdbcType=VARCHAR},
+      metric_name = #{metricName,jdbcType=VARCHAR},
+      "label" = #{label,jdbcType=OTHER},
+      duration_time = #{durationTime,jdbcType=INTEGER},
+      "level" = #{level,jdbcType=INTEGER},
+      message = #{message,jdbcType=VARCHAR},
+      metric_key = #{metricKey,jdbcType=VARCHAR},
+      alert_condition_display_statement = #{alertConditionDisplayStatement,jdbcType=VARCHAR},
+      alert_condition_param = #{alertConditionParam,jdbcType=VARCHAR},
+      data_condition_label = #{dataConditionLabel,jdbcType=VARCHAR},
+      data_filters = #{dataFilters,jdbcType=VARCHAR},
+      prom_content = #{promContent,jdbcType=VARCHAR},
+      "status" = #{status,jdbcType=INTEGER},
+      bp_id = #{bpId,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from tbl_omc_alert_metric
+        <where>
+            <if test="groupId != null and groupId != ''">
+                and group_id=#{groupId,jdbcType=VARCHAR}
+            </if>
+            <if test="metricName != null and metricName != ''">
+                and metric_name=#{metricName,jdbcType=VARCHAR}
+            </if>
+        </where>
+    order by update_time desc
+    </select>
+</mapper>

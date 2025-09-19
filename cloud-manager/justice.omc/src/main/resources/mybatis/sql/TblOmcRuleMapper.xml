@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.omc.db.mapper.TblOmcRuleMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.omc.db.model.TblOmcRule">
+    <!--@mbg.generated-->
+    <!--@Table tbl_omc_rule-->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="rule_type" jdbcType="INTEGER" property="ruleType" />
+    <result column="expr" jdbcType="VARCHAR" property="expr" />
+    <result column="duration_time" jdbcType="INTEGER" property="durationTime" />
+    <result column="data_source_id" jdbcType="VARCHAR" property="dataSourceId" />
+    <result column="labels" jdbcType="OTHER" property="labels" typeHandler="com.lnjoying.justice.omc.handler.JsonbTypeHandler" />
+    <result column="annotations" jdbcType="OTHER" property="annotations" typeHandler="com.lnjoying.justice.omc.handler.JsonbTypeHandler" />
+    <result column="prom_content" jdbcType="VARCHAR" property="promContent" />
+    <result column="alert_condition_contents" jdbcType="VARCHAR" property="alertConditionContents" />
+    <result column="alert_condition_params" jdbcType="VARCHAR" property="alertConditionParams" />
+    <result column="data_condition_contents" jdbcType="VARCHAR" property="dataConditionContents" />
+    <result column="data_condition_params" jdbcType="VARCHAR" property="dataConditionParams" />
+    <result column="unit" jdbcType="VARCHAR" property="unit" />
+    <result column="notice" jdbcType="BOOLEAN" property="notice" />
+    <result column="alert_template" jdbcType="VARCHAR" property="alertTemplate" />
+    <result column="alert_template_type" jdbcType="INTEGER" property="alertTemplateType" />
+    <result column="bp_id" jdbcType="VARCHAR" property="bpId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="alarm_id" jdbcType="VARCHAR" property="alarmId" />
+    <result column="alert_message" jdbcType="VARCHAR" property="alertMessage" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, rule_type, expr, duration_time, data_source_id, labels, annotations, prom_content, 
+    alert_condition_contents, alert_condition_params, data_condition_contents, data_condition_params, 
+    unit, notice, alert_template, alert_template_type, bp_id, user_id, create_time, update_time, 
+    alarm_id, alert_message
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_omc_rule
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from tbl_omc_rule
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.omc.db.model.TblOmcRule">
+    <!--@mbg.generated-->
+    insert into tbl_omc_rule (id, rule_type, expr, 
+      duration_time, data_source_id, labels, 
+      annotations, 
+      prom_content, alert_condition_contents, alert_condition_params, 
+      data_condition_contents, data_condition_params, 
+      unit, notice, alert_template, 
+      alert_template_type, bp_id, user_id, 
+      create_time, update_time, alarm_id, 
+      alert_message)
+    values (#{id,jdbcType=VARCHAR}, #{ruleType,jdbcType=INTEGER}, #{expr,jdbcType=VARCHAR}, 
+      #{durationTime,jdbcType=INTEGER}, #{dataSourceId,jdbcType=VARCHAR}, #{labels,jdbcType=OTHER,typeHandler=com.lnjoying.justice.omc.handler.JsonbTypeHandler}, 
+      #{annotations,jdbcType=OTHER,typeHandler=com.lnjoying.justice.omc.handler.JsonbTypeHandler}, 
+      #{promContent,jdbcType=VARCHAR}, #{alertConditionContents,jdbcType=VARCHAR}, #{alertConditionParams,jdbcType=VARCHAR}, 
+      #{dataConditionContents,jdbcType=VARCHAR}, #{dataConditionParams,jdbcType=VARCHAR}, 
+      #{unit,jdbcType=VARCHAR}, #{notice,jdbcType=BOOLEAN}, #{alertTemplate,jdbcType=VARCHAR}, 
+      #{alertTemplateType,jdbcType=INTEGER}, #{bpId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{alarmId,jdbcType=VARCHAR}, 
+      #{alertMessage,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.omc.db.model.TblOmcRule">
+    <!--@mbg.generated-->
+    insert into tbl_omc_rule
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        id,
+      </if>
+      <if test="ruleType != null">
+        rule_type,
+      </if>
+      <if test="expr != null and expr != ''">
+        expr,
+      </if>
+      <if test="durationTime != null">
+        duration_time,
+      </if>
+      <if test="dataSourceId != null and dataSourceId != ''">
+        data_source_id,
+      </if>
+      <if test="labels != null">
+        labels,
+      </if>
+      <if test="annotations != null">
+        annotations,
+      </if>
+      <if test="promContent != null and promContent != ''">
+        prom_content,
+      </if>
+      <if test="alertConditionContents != null and alertConditionContents != ''">
+        alert_condition_contents,
+      </if>
+      <if test="alertConditionParams != null and alertConditionParams != ''">
+        alert_condition_params,
+      </if>
+      <if test="dataConditionContents != null and dataConditionContents != ''">
+        data_condition_contents,
+      </if>
+      <if test="dataConditionParams != null and dataConditionParams != ''">
+        data_condition_params,
+      </if>
+      <if test="unit != null and unit != ''">
+        unit,
+      </if>
+      <if test="notice != null">
+        notice,
+      </if>
+      <if test="alertTemplate != null and alertTemplate != ''">
+        alert_template,
+      </if>
+      <if test="alertTemplateType != null">
+        alert_template_type,
+      </if>
+      <if test="bpId != null and bpId != ''">
+        bp_id,
+      </if>
+      <if test="userId != null and userId != ''">
+        user_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="alarmId != null and alarmId != ''">
+        alarm_id,
+      </if>
+      <if test="alertMessage != null and alertMessage != ''">
+        alert_message,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleType != null">
+        #{ruleType,jdbcType=INTEGER},
+      </if>
+      <if test="expr != null and expr != ''">
+        #{expr,jdbcType=VARCHAR},
+      </if>
+      <if test="durationTime != null">
+        #{durationTime,jdbcType=INTEGER},
+      </if>
+      <if test="dataSourceId != null and dataSourceId != ''">
+        #{dataSourceId,jdbcType=VARCHAR},
+      </if>
+      <if test="labels != null">
+        #{labels,jdbcType=OTHER,typeHandler=com.lnjoying.justice.omc.handler.JsonbTypeHandler},
+      </if>
+      <if test="annotations != null">
+        #{annotations,jdbcType=OTHER,typeHandler=com.lnjoying.justice.omc.handler.JsonbTypeHandler},
+      </if>
+      <if test="promContent != null and promContent != ''">
+        #{promContent,jdbcType=VARCHAR},
+      </if>
+      <if test="alertConditionContents != null and alertConditionContents != ''">
+        #{alertConditionContents,jdbcType=VARCHAR},
+      </if>
+      <if test="alertConditionParams != null and alertConditionParams != ''">
+        #{alertConditionParams,jdbcType=VARCHAR},
+      </if>
+      <if test="dataConditionContents != null and dataConditionContents != ''">
+        #{dataConditionContents,jdbcType=VARCHAR},
+      </if>
+      <if test="dataConditionParams != null and dataConditionParams != ''">
+        #{dataConditionParams,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null and unit != ''">
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="notice != null">
+        #{notice,jdbcType=BOOLEAN},
+      </if>
+      <if test="alertTemplate != null and alertTemplate != ''">
+        #{alertTemplate,jdbcType=VARCHAR},
+      </if>
+      <if test="alertTemplateType != null">
+        #{alertTemplateType,jdbcType=INTEGER},
+      </if>
+      <if test="bpId != null and bpId != ''">
+        #{bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null and userId != ''">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="alarmId != null and alarmId != ''">
+        #{alarmId,jdbcType=VARCHAR},
+      </if>
+      <if test="alertMessage != null and alertMessage != ''">
+        #{alertMessage,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.omc.db.model.TblOmcRule">
+    <!--@mbg.generated-->
+    update tbl_omc_rule
+    <set>
+      <if test="ruleType != null">
+        rule_type = #{ruleType,jdbcType=INTEGER},
+      </if>
+      <if test="expr != null and expr != ''">
+        expr = #{expr,jdbcType=VARCHAR},
+      </if>
+      <if test="durationTime != null">
+        duration_time = #{durationTime,jdbcType=INTEGER},
+      </if>
+      <if test="dataSourceId != null and dataSourceId != ''">
+        data_source_id = #{dataSourceId,jdbcType=VARCHAR},
+      </if>
+      <if test="labels != null">
+        labels = #{labels,jdbcType=OTHER,typeHandler=com.lnjoying.justice.omc.handler.JsonbTypeHandler},
+      </if>
+      <if test="annotations != null">
+        annotations = #{annotations,jdbcType=OTHER,typeHandler=com.lnjoying.justice.omc.handler.JsonbTypeHandler},
+      </if>
+      <if test="promContent != null and promContent != ''">
+        prom_content = #{promContent,jdbcType=VARCHAR},
+      </if>
+      <if test="alertConditionContents != null and alertConditionContents != ''">
+        alert_condition_contents = #{alertConditionContents,jdbcType=VARCHAR},
+      </if>
+      <if test="alertConditionParams != null and alertConditionParams != ''">
+        alert_condition_params = #{alertConditionParams,jdbcType=VARCHAR},
+      </if>
+      <if test="dataConditionContents != null and dataConditionContents != ''">
+        data_condition_contents = #{dataConditionContents,jdbcType=VARCHAR},
+      </if>
+      <if test="dataConditionParams != null and dataConditionParams != ''">
+        data_condition_params = #{dataConditionParams,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null and unit != ''">
+        unit = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="notice != null">
+        notice = #{notice,jdbcType=BOOLEAN},
+      </if>
+      <if test="alertTemplate != null and alertTemplate != ''">
+        alert_template = #{alertTemplate,jdbcType=VARCHAR},
+      </if>
+      <if test="alertTemplateType != null">
+        alert_template_type = #{alertTemplateType,jdbcType=INTEGER},
+      </if>
+      <if test="bpId != null and bpId != ''">
+        bp_id = #{bpId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null and userId != ''">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="alarmId != null and alarmId != ''">
+        alarm_id = #{alarmId,jdbcType=VARCHAR},
+      </if>
+      <if test="alertMessage != null and alertMessage != ''">
+        alert_message = #{alertMessage,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.omc.db.model.TblOmcRule">
+    <!--@mbg.generated-->
+    update tbl_omc_rule
+    set rule_type = #{ruleType,jdbcType=INTEGER},
+      expr = #{expr,jdbcType=VARCHAR},
+      duration_time = #{durationTime,jdbcType=INTEGER},
+      data_source_id = #{dataSourceId,jdbcType=VARCHAR},
+      labels = #{labels,jdbcType=OTHER,typeHandler=com.lnjoying.justice.omc.handler.JsonbTypeHandler},
+      annotations = #{annotations,jdbcType=OTHER,typeHandler=com.lnjoying.justice.omc.handler.JsonbTypeHandler},
+      prom_content = #{promContent,jdbcType=VARCHAR},
+      alert_condition_contents = #{alertConditionContents,jdbcType=VARCHAR},
+      alert_condition_params = #{alertConditionParams,jdbcType=VARCHAR},
+      data_condition_contents = #{dataConditionContents,jdbcType=VARCHAR},
+      data_condition_params = #{dataConditionParams,jdbcType=VARCHAR},
+      unit = #{unit,jdbcType=VARCHAR},
+      notice = #{notice,jdbcType=BOOLEAN},
+      alert_template = #{alertTemplate,jdbcType=VARCHAR},
+      alert_template_type = #{alertTemplateType,jdbcType=INTEGER},
+      bp_id = #{bpId,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      alarm_id = #{alarmId,jdbcType=VARCHAR},
+      alert_message = #{alertMessage,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectOneByAlarmId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from tbl_omc_rule
+        <where>
+            <if test="alarmId != null and alarmId != ''">
+                and alarm_id=#{alarmId,jdbcType=VARCHAR}
+            </if>
+        </where>
+        limit 1
+    </select>
+</mapper>

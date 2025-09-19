@@ -1,0 +1,102 @@
+version: '3'
+
+networks:
+  monitor-net:
+    driver: bridge
+
+volumes:
+  prometheus_data: {}
+  grafana_data: {}
+
+services:
+
+  prometheus:
+    image: swr.cn-north-1.myhuaweicloud.com/lnjoying/prometheus:v2.47.2
+    container_name: lnjoying-prometheus-server
+    volumes:
+      - /home/lnjoying/mount/monitor/prometheus:/etc/prometheus
+      - /home/lnjoying/mount/monitor/prometheus/data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+      - '--log.level=debug'
+      - '--web.enable-remote-write-receiver'
+    restart: unless-stopped
+    user: root
+    expose:
+      - 9090
+    networks:
+      - monitor-net
+    labels:
+      org.label-schema.group: "lnjoying"
+
+  alertmanager:
+    image: swr.cn-north-1.myhuaweicloud.com/lnjoying/alertmanager:v0.26.0
+    container_name: lnjoying-alertmanager
+    volumes:
+      - /home/lnjoying/mount/monitor/alertmanager:/etc/alertmanager
+    command:
+      - '--config.file=/etc/alertmanager/config.yml'
+      - '--storage.path=/alertmanager'
+    restart: unless-stopped
+    expose:
+      - 9093
+    networks:
+      - monitor-net
+    labels:
+      org.label-schema.group: "lnjoying"
+
+  grafana:
+    image: swr.cn-north-1.myhuaweicloud.com/lnjoying/grafana:10.2.2
+    container_name: lnjoying-grafana
+    volumes:
+      - /home/lnjoying/mount/monitor/grafana/dashboard:/etc/grafana/dashboard
+      - /home/lnjoying/mount/monitor/grafana/data:/var/lib/grafana
+      - /home/lnjoying/mount/monitor/grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
+      - /home/lnjoying/mount/monitor/grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+      - /home/lnjoying/mount/monitor/grafana/grafana.ini:/etc/grafana/grafana.ini
+      - /home/lnjoying/mount/monitor/grafana/public/views/index.html:/usr/share/grafana/public/views/index.html
+      - /home/lnjoying/mount/monitor/grafana/public/img/grafana_icon.svg:/usr/share/grafana/public/img/grafana_icon.svg
+    environment:
+      - GF_SECURITY_ADMIN_USER=${ADMIN_USER:-admin}
+      - GF_SECURITY_ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin}
+      #- GF_USERS_ALLOW_SIGN_UP=true
+      - GF_DATABASE_WAL=true
+      #- GF_AUTH_ANONYMOUS_ENABLED=true
+      #- GF_AUTH_DISABLE_LOGIN=true
+    restart: unless-stopped
+    user: root
+    expose:
+      - 3000
+    ports:
+      - "13000:3000"
+    networks:
+      - monitor-net
+    labels:
+      org.label-schema.group: "lnjoying"
+
+  openresty:
+    image: swr.cn-north-1.myhuaweicloud.com/lnjoying/openresty:v1.0.3
+    container_name: lnjoying-openresty
+    ports:
+      - "19085:19085"
+      - "19090:9090"
+      - "19093:9093"
+    restart: unless-stopped
+    networks:
+      - monitor-net
+    volumes:
+      - /home/lnjoying/mount/monitor/openresty/nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf
+      - /home/lnjoying/mount/monitor/openresty/lua:/usr/local/openresty/lnjoying/resty
+      - /home/lnjoying/mount/justice/config/etc/ssl:/opt/ssl
+      # - /home/lnjoying/mount/monitor/openresty/lua/basic_auth.lua:/usr/local/openresty/lualib/resty/basic_auth.lua
+    environment:
+      - ADMIN_USER=${ADMIN_USER:-admin}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin}
+    labels:
+      org.label-schema.group: "lnjoying"
+

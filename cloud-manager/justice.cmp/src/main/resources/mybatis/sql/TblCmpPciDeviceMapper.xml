@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.cmp.db.mapper.TblCmpPciDeviceMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.cmp.db.model.TblCmpPciDevice">
+    <id column="cloud_id" jdbcType="VARCHAR" property="cloudId" />
+    <id column="device_id" jdbcType="VARCHAR" property="deviceId" />
+    <result column="device_group_id" jdbcType="VARCHAR" property="deviceGroupId" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="phase_status" jdbcType="INTEGER" property="phaseStatus" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="device_id_from_agent" jdbcType="VARCHAR" property="deviceIdFromAgent" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+    <result column="ee_bp" jdbcType="VARCHAR" property="eeBp" />
+    <result column="ee_user" jdbcType="VARCHAR" property="eeUser" />
+    <result column="ee_status" jdbcType="INTEGER" property="eeStatus" />
+    <result column="vm_instance_id" jdbcType="VARCHAR" property="vmInstanceId" />
+    <result column="partition_id" jdbcType="VARCHAR" property="partitionId" />
+    <result column="node_id" jdbcType="VARCHAR" property="nodeId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    cloud_id, device_id, device_group_id, type, name, phase_status, user_id, create_time, 
+    update_time, device_id_from_agent, version, ee_bp, ee_user, ee_status, vm_instance_id, 
+    partition_id, node_id
+  </sql>
+  <select id="selectByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpPciDeviceExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_cmp_pci_device
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null and pageSize != null and pageSize != 0">
+      limit #{pageSize} offset #{startRow}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpPciDeviceKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_cmp_pci_device
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and device_id = #{deviceId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpPciDeviceKey">
+    delete from tbl_cmp_pci_device
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and device_id = #{deviceId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpPciDeviceExample">
+    delete from tbl_cmp_pci_device
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpPciDevice">
+    insert into tbl_cmp_pci_device (cloud_id, device_id, device_group_id, 
+      type, name, phase_status, 
+      user_id, create_time, update_time, 
+      device_id_from_agent, version, ee_bp, 
+      ee_user, ee_status, vm_instance_id, 
+      partition_id, node_id)
+    values (#{cloudId,jdbcType=VARCHAR}, #{deviceId,jdbcType=VARCHAR}, #{deviceGroupId,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{phaseStatus,jdbcType=INTEGER}, 
+      #{userId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{deviceIdFromAgent,jdbcType=VARCHAR}, #{version,jdbcType=INTEGER}, #{eeBp,jdbcType=VARCHAR}, 
+      #{eeUser,jdbcType=VARCHAR}, #{eeStatus,jdbcType=INTEGER}, #{vmInstanceId,jdbcType=VARCHAR}, 
+      #{partitionId,jdbcType=VARCHAR}, #{nodeId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpPciDevice">
+    insert into tbl_cmp_pci_device
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cloudId != null">
+        cloud_id,
+      </if>
+      <if test="deviceId != null">
+        device_id,
+      </if>
+      <if test="deviceGroupId != null">
+        device_group_id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="phaseStatus != null">
+        phase_status,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="deviceIdFromAgent != null">
+        device_id_from_agent,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="eeBp != null">
+        ee_bp,
+      </if>
+      <if test="eeUser != null">
+        ee_user,
+      </if>
+      <if test="eeStatus != null">
+        ee_status,
+      </if>
+      <if test="vmInstanceId != null">
+        vm_instance_id,
+      </if>
+      <if test="partitionId != null">
+        partition_id,
+      </if>
+      <if test="nodeId != null">
+        node_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cloudId != null">
+        #{cloudId,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null">
+        #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceGroupId != null">
+        #{deviceGroupId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phaseStatus != null">
+        #{phaseStatus,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deviceIdFromAgent != null">
+        #{deviceIdFromAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="eeBp != null">
+        #{eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="eeUser != null">
+        #{eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="eeStatus != null">
+        #{eeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="vmInstanceId != null">
+        #{vmInstanceId,jdbcType=VARCHAR},
+      </if>
+      <if test="partitionId != null">
+        #{partitionId,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeId != null">
+        #{nodeId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpPciDeviceExample" resultType="java.lang.Long">
+    select count(*) from tbl_cmp_pci_device
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_cmp_pci_device
+    <set>
+      <if test="record.cloudId != null">
+        cloud_id = #{record.cloudId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceId != null">
+        device_id = #{record.deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceGroupId != null">
+        device_group_id = #{record.deviceGroupId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phaseStatus != null">
+        phase_status = #{record.phaseStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deviceIdFromAgent != null">
+        device_id_from_agent = #{record.deviceIdFromAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.version != null">
+        version = #{record.version,jdbcType=INTEGER},
+      </if>
+      <if test="record.eeBp != null">
+        ee_bp = #{record.eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeUser != null">
+        ee_user = #{record.eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eeStatus != null">
+        ee_status = #{record.eeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.vmInstanceId != null">
+        vm_instance_id = #{record.vmInstanceId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.partitionId != null">
+        partition_id = #{record.partitionId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nodeId != null">
+        node_id = #{record.nodeId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_cmp_pci_device
+    set cloud_id = #{record.cloudId,jdbcType=VARCHAR},
+      device_id = #{record.deviceId,jdbcType=VARCHAR},
+      device_group_id = #{record.deviceGroupId,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      phase_status = #{record.phaseStatus,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      device_id_from_agent = #{record.deviceIdFromAgent,jdbcType=VARCHAR},
+      version = #{record.version,jdbcType=INTEGER},
+      ee_bp = #{record.eeBp,jdbcType=VARCHAR},
+      ee_user = #{record.eeUser,jdbcType=VARCHAR},
+      ee_status = #{record.eeStatus,jdbcType=INTEGER},
+      vm_instance_id = #{record.vmInstanceId,jdbcType=VARCHAR},
+      partition_id = #{record.partitionId,jdbcType=VARCHAR},
+      node_id = #{record.nodeId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpPciDevice">
+    update tbl_cmp_pci_device
+    <set>
+      <if test="deviceGroupId != null">
+        device_group_id = #{deviceGroupId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phaseStatus != null">
+        phase_status = #{phaseStatus,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deviceIdFromAgent != null">
+        device_id_from_agent = #{deviceIdFromAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="eeBp != null">
+        ee_bp = #{eeBp,jdbcType=VARCHAR},
+      </if>
+      <if test="eeUser != null">
+        ee_user = #{eeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="eeStatus != null">
+        ee_status = #{eeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="vmInstanceId != null">
+        vm_instance_id = #{vmInstanceId,jdbcType=VARCHAR},
+      </if>
+      <if test="partitionId != null">
+        partition_id = #{partitionId,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeId != null">
+        node_id = #{nodeId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and device_id = #{deviceId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpPciDevice">
+    update tbl_cmp_pci_device
+    set device_group_id = #{deviceGroupId,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      phase_status = #{phaseStatus,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      device_id_from_agent = #{deviceIdFromAgent,jdbcType=VARCHAR},
+      version = #{version,jdbcType=INTEGER},
+      ee_bp = #{eeBp,jdbcType=VARCHAR},
+      ee_user = #{eeUser,jdbcType=VARCHAR},
+      ee_status = #{eeStatus,jdbcType=INTEGER},
+      vm_instance_id = #{vmInstanceId,jdbcType=VARCHAR},
+      partition_id = #{partitionId,jdbcType=VARCHAR},
+      node_id = #{nodeId,jdbcType=VARCHAR}
+    where cloud_id = #{cloudId,jdbcType=VARCHAR}
+      and device_id = #{deviceId,jdbcType=VARCHAR}
+  </update>
+
+  <resultMap id="PciDeviceInfoMap" type="com.lnjoying.justice.cmp.domain.dto.response.nextstack.vm.PciDeviceInfo">
+    <result column="pci_device_name" jdbcType="VARCHAR" property="pciDeviceName" />
+    <result column="pci_device_type" jdbcType="VARCHAR" property="pciDeviceType" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="phase_status" jdbcType="INTEGER" property="phaseStatus" />
+    <result column="device_id" jdbcType="VARCHAR" property="deviceId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <select id="selectPCIDevices" resultMap="PciDeviceInfoMap">
+    select tbl_cmp_pci_device.device_id,
+    tbl_cmp_pci_device.type as pci_device_type, tbl_cmp_pci_device.name as pci_device_name, tbl_cmp_pci_device.phase_status,
+    tbl_cmp_pci_device.create_time, tbl_cmp_pci_device.update_time from tbl_cmp_pci_device
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null and pageSize != null and pageSize != 0">
+      limit #{pageSize} offset #{startRow}
+    </if>
+  </select>
+
+  <resultMap id="PciDeviceDetailInfoMap" type="com.lnjoying.justice.cmp.domain.dto.request.nextstack.vm.PciDeviceDetailInfo">
+    <id column="node_id" jdbcType="VARCHAR" property="nodeId" />
+    <result column="node_name" jdbcType="VARCHAR" property="nodeName" />
+    <result column="pci_device_group_id" jdbcType="VARCHAR" property="pciDeviceGroupId" />
+    <result column="pci_device_name" jdbcType="VARCHAR" property="pciDeviceName" />
+    <result column="pci_device_type" jdbcType="VARCHAR" property="pciDeviceType" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="phase_status" jdbcType="INTEGER" property="phaseStatus" />
+    <result column="device_id" jdbcType="VARCHAR" property="deviceId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="vm_instance_id" jdbcType="VARCHAR" property="vmInstanceId" />
+    <result column="vm_instance_name" jdbcType="VARCHAR" property="vmInstanceName" />
+  </resultMap>
+  <select id="selectPciDevices" resultMap="PciDeviceDetailInfoMap">
+    select tbl_cmp_hypervisor_node.node_id, tbl_cmp_hypervisor_node.name as node_name,
+    tbl_cmp_pci_device.name as pci_device_name, tbl_cmp_pci_device.type as pci_device_type, tbl_cmp_pci_device.user_id,
+    tbl_cmp_pci_device.phase_status, tbl_cmp_pci_device.device_id, tbl_cmp_pci_device.create_time, tbl_cmp_pci_device.update_time,
+    tbl_cmp_vm_instance.vm_instance_id, tbl_cmp_vm_instance.name as vm_instance_name
+    from tbl_cmp_hypervisor_node LEFT JOIN tbl_cmp_pci_device on tbl_cmp_hypervisor_node.node_id = tbl_cmp_pci_device.node_id
+    LEFT JOIN tbl_cmp_vm_instance on tbl_cmp_pci_device.vm_instance_id = tbl_cmp_vm_instance.vm_instance_id
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null and pageSize != null and pageSize != 0">
+      limit #{pageSize} offset #{startRow}
+    </if>
+  </select>
+
+  <select id="countPCIDevices" parameterType="com.lnjoying.justice.cmp.db.model.TblCmpPciDeviceExample" resultType="java.lang.Long">
+    select count(*) from tbl_cmp_hypervisor_node LEFT JOIN tbl_cmp_pci_device on tbl_cmp_hypervisor_node.node_id = tbl_cmp_pci_device.node_id
+    LEFT JOIN tbl_cmp_vm_instance on tbl_cmp_pci_device.vm_instance_id = tbl_cmp_vm_instance.vm_instance_id
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+
+  <select id="getPciDeviceIds" resultType="String">
+    select device_id from tbl_cmp_pci_device
+    where cloud_id = #{cloudId} and ee_status != -1
+  </select>
+
+  <resultMap id="RpcGpuFlavorInfoMap" type="com.lnjoying.justice.cmp.domain.dto.response.nextstack.vm.RpcGpuFlavorInfo">
+    <id column="gpuName" jdbcType="VARCHAR" property="gpuName" />
+    <result column="gpuCount" jdbcType="INTEGER" property="gpuCount" />
+  </resultMap>
+  <select id="selectGpuFlavorInfo" resultMap="RpcGpuFlavorInfoMap">
+    SELECT tbl_cmp_pci_device.NAME AS gpuName, COUNT ( tbl_cmp_pci_device.device_id ) AS gpuCount
+    FROM tbl_cmp_pci_device
+    LEFT JOIN tbl_cmp_hypervisor_node ON tbl_cmp_pci_device.node_id = tbl_cmp_hypervisor_node.node_id
+    WHERE tbl_cmp_hypervisor_node.phase_status = 40
+    <if test="cloudId != null">
+      and tbl_cmp_pci_device.cloud_id = #{cloudId,jdbcType=VARCHAR} and tbl_cmp_pci_device.ee_status != -1
+      and tbl_cmp_hypervisor_node.cloud_id = #{cloudId,jdbcType=VARCHAR} and tbl_cmp_hypervisor_node.ee_status != -1
+    </if>
+    GROUP BY ( tbl_cmp_pci_device.NAME, tbl_cmp_hypervisor_node.node_id )
+  </select>
+
+  <select id="selectPciDeviceCount" resultType="java.lang.Long">
+    SELECT count(*) FROM tbl_cmp_pci_device
+    WHERE
+    <if test="cloudId != null">
+    cloud_id = #{cloudId,jdbcType=VARCHAR} and ee_status != -1
+    </if>
+    and phase_status != -1  group by node_id limit 1
+  </select>
+
+  <select id="getGpuNames" resultType="String">
+    SELECT DISTINCT name FROM
+    <choose>
+      <when test="providerId != null">
+        (SELECT t1.cloud_id, t1.name FROM
+        (SELECT cloud_id, name FROM tbl_cmp_pci_device WHERE ee_status != -1 GROUP BY (cloud_id, NAME)) t1 LEFT JOIN
+        tbl_cloud_info ON t1.cloud_id = tbl_cloud_info.cloud_id WHERE tbl_cloud_info.provider_id = #{providerId,jdbcType=VARCHAR} ) t2
+      </when>
+      <otherwise>
+        tbl_cmp_pci_device WHERE ee_status != -1
+      </otherwise>
+    </choose>
+    <if test="cloudIds != null and cloudIds.size() > 0">
+      AND cloud_id IN
+      <foreach collection="cloudIds" item="item" open="(" separator="," close=")">
+        #{item}
+      </foreach>
+    </if>
+  </select>
+
+  <resultMap id="GpuResourceMetricMap" type="com.lnjoying.justice.schema.entity.cmp.RpcGpuResourceMetric">
+    <id column="cloud_id" jdbcType="VARCHAR" property="cloudId" />
+    <result column="cloudName" jdbcType="VARCHAR" property="cloudName" />
+    <result column="gpuName" jdbcType="VARCHAR" property="gpuName" />
+    <result column="gpuTotal" jdbcType="INTEGER" property="gpuTotal" />
+    <result column="availableGpuCount" jdbcType="INTEGER" property="availableGpuCount" />
+    <result column="ibTotal" jdbcType="INTEGER" property="ibTotal" />
+    <result column="availableIbCount" jdbcType="INTEGER" property="availableIbCount" />
+  </resultMap>
+  <select id="selectGpuResourceMetrics" resultMap="GpuResourceMetricMap">
+    SELECT cloud_id, cloudName, gpuName, COALESCE(gpuTotal,0) as gpuTotal, COALESCE(availableGpuCount,0) as availableGpuCount
+    FROM
+    (SELECT t1.cloud_id, tbl_cloud_info.name AS cloudName, t1.gpuName, t1.gpuTotal, t1.availableGpuCount FROM
+    (SELECT cloud_id, tbl_cmp_pci_device.name AS gpuName, COUNT ( tbl_cmp_pci_device.device_id ) AS gpuTotal,
+    SUM (CASE WHEN tbl_cmp_pci_device.vm_instance_id IS NULL THEN 1 ELSE 0 END) AS availableGpuCount
+    FROM tbl_cmp_pci_device WHERE ee_status != -1
+    <if test="cloudIds != null and cloudIds.size() > 0">
+      AND cloud_id IN
+      <foreach collection="cloudIds" item="item" open="(" separator="," close=")">
+        #{item}
+      </foreach>
+    </if>
+    GROUP BY (cloud_id, name)) t1 LEFT JOIN
+    tbl_cloud_info ON t1.cloud_id = tbl_cloud_info.cloud_id
+    <if test="providerId != null">
+    WHERE tbl_cloud_info.provider_id = #{providerId,jdbcType=VARCHAR}
+    </if>
+    ) t2
+    <if test="gpuName != null">
+    WHERE gpuName like concat('%',#{gpuName,jdbcType=VARCHAR},'%')
+    </if>
+  </select>
+
+  <resultMap id="VmInstanceInfoMap" type="com.lnjoying.justice.schema.entity.cmp.RpcGpuVmInstance">
+    <id column="vm_instance_id" jdbcType="VARCHAR" property="instanceId" />
+    <result column="instanceName" jdbcType="VARCHAR" property="instanceName" />
+    <result column="charge_type" jdbcType="INTEGER" property="chargeType" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="expire_time" jdbcType="TIMESTAMP" property="expireTime" />
+    <result column="ee_bp" jdbcType="VARCHAR" property="bpId" />
+    <result column="ee_user" jdbcType="VARCHAR" property="userId" />
+    <result column="gpuName" jdbcType="VARCHAR" property="gpuName" />
+    <result column="gpuCount" jdbcType="INTEGER" property="gpuCount" />
+  </resultMap>
+  <select id="getVmInstanceInfoByCloudIdAndGpu" resultMap="VmInstanceInfoMap">
+    SELECT t1.vm_instance_id, tbl_cmp_vm_instance.name AS instanceName, charge_type, create_time, expire_time, ee_bp, ee_user, gpuName, COALESCE(gpuCount,0) as gpuCount
+    FROM
+    (SELECT vm_instance_id, name AS gpuName, COUNT ( tbl_cmp_pci_device.device_id ) AS gpuCount
+    FROM tbl_cmp_pci_device WHERE ee_status != -1 AND cloud_id = #{cloudId,jdbcType=VARCHAR}  AND name = #{gpuName}
+    GROUP BY (vm_instance_id, name)) t1
+    LEFT JOIN
+    tbl_cmp_vm_instance ON t1.vm_instance_id = tbl_cmp_vm_instance.vm_instance_id
+  </select>
+</mapper>

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lnjoying.justice.ims.db.mapper.TblOperationLogMapper">
+  <resultMap id="BaseResultMap" type="com.lnjoying.justice.ims.db.model.TblOperationLog">
+    <!--@mbg.generated-->
+    <!--@Table tbl_operation_log-->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="user_id" jdbcType="CHAR" property="userId" />
+    <result column="user_name" jdbcType="CHAR" property="userName" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="spend_time" jdbcType="INTEGER" property="spendTime" />
+    <result column="uri" jdbcType="VARCHAR" property="uri" />
+    <result column="method" jdbcType="VARCHAR" property="method" />
+    <result column="parameter" jdbcType="VARCHAR" property="parameter" />
+    <result column="user_agent" jdbcType="VARCHAR" property="userAgent" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="result" jdbcType="VARCHAR" property="result" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, description, user_id, user_name, start_time, spend_time, uri, "method", "parameter", 
+    user_agent, ip, "result"
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_operation_log
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from tbl_operation_log
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.lnjoying.justice.ims.db.model.TblOperationLog" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into tbl_operation_log (description, user_id, user_name, 
+      start_time, spend_time, uri, 
+      "method", "parameter", user_agent, 
+      ip, "result")
+    values (#{description,jdbcType=VARCHAR}, #{userId,jdbcType=CHAR}, #{userName,jdbcType=CHAR}, 
+      #{startTime,jdbcType=TIMESTAMP}, #{spendTime,jdbcType=INTEGER}, #{uri,jdbcType=VARCHAR}, 
+      #{method,jdbcType=VARCHAR}, #{parameter,jdbcType=VARCHAR}, #{userAgent,jdbcType=VARCHAR}, 
+      #{ip,jdbcType=VARCHAR}, #{result,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.lnjoying.justice.ims.db.model.TblOperationLog" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into tbl_operation_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        id,
+      </if>
+      <if test="description != null and description != ''">
+        description,
+      </if>
+      <if test="userId != null and userId != ''">
+        user_id,
+      </if>
+      <if test="userName != null and userName != ''">
+        user_name,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="spendTime != null">
+        spend_time,
+      </if>
+      <if test="uri != null and uri != ''">
+        uri,
+      </if>
+      <if test="method != null and method != ''">
+        "method",
+      </if>
+      <if test="parameter != null and parameter != ''">
+        "parameter",
+      </if>
+      <if test="userAgent != null and userAgent != ''">
+        user_agent,
+      </if>
+      <if test="ip != null and ip != ''">
+        ip,
+      </if>
+      <if test="result != null and result != ''">
+        "result",
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null and description != ''">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null and userId != ''">
+        #{userId,jdbcType=CHAR},
+      </if>
+      <if test="userName != null and userName != ''">
+        #{userName,jdbcType=CHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="spendTime != null">
+        #{spendTime,jdbcType=INTEGER},
+      </if>
+      <if test="uri != null and uri != ''">
+        #{uri,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null and method != ''">
+        #{method,jdbcType=VARCHAR},
+      </if>
+      <if test="parameter != null and parameter != ''">
+        #{parameter,jdbcType=VARCHAR},
+      </if>
+      <if test="userAgent != null and userAgent != ''">
+        #{userAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null and ip != ''">
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null and result != ''">
+        #{result,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lnjoying.justice.ims.db.model.TblOperationLog">
+    <!--@mbg.generated-->
+    update tbl_operation_log
+    <set>
+      <if test="description != null and description != ''">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null and userId != ''">
+        user_id = #{userId,jdbcType=CHAR},
+      </if>
+      <if test="userName != null and userName != ''">
+        user_name = #{userName,jdbcType=CHAR},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="spendTime != null">
+        spend_time = #{spendTime,jdbcType=INTEGER},
+      </if>
+      <if test="uri != null and uri != ''">
+        uri = #{uri,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null and method != ''">
+        "method" = #{method,jdbcType=VARCHAR},
+      </if>
+      <if test="parameter != null and parameter != ''">
+        "parameter" = #{parameter,jdbcType=VARCHAR},
+      </if>
+      <if test="userAgent != null and userAgent != ''">
+        user_agent = #{userAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null and ip != ''">
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null and result != ''">
+        "result" = #{result,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lnjoying.justice.ims.db.model.TblOperationLog">
+    <!--@mbg.generated-->
+    update tbl_operation_log
+    set description = #{description,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=CHAR},
+      user_name = #{userName,jdbcType=CHAR},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      spend_time = #{spendTime,jdbcType=INTEGER},
+      uri = #{uri,jdbcType=VARCHAR},
+      "method" = #{method,jdbcType=VARCHAR},
+      "parameter" = #{parameter,jdbcType=VARCHAR},
+      user_agent = #{userAgent,jdbcType=VARCHAR},
+      ip = #{ip,jdbcType=VARCHAR},
+      "result" = #{result,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
