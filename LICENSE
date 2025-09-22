@@ -1,0 +1,43 @@
+
+                                 Apache License
+                           Version 2.0, January 2004
+                        http://www.apache.org/licenses/
+
+Copyright 2025 Lnjoying Tech
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+------------------------------------------------------------------------
+
+Additional Terms for Commercial Use of AiCloud:
+
+This open-source version of AiCloud is made available for individual
+developers and community use free of charge under the Apache 2.0 License.
+
+The following scenarios require a commercial license:
+
+1. Use in commercial PaaS products or bundled with AI cloud platforms.
+2. Deployment in production environments serving external customers.
+3. Use cases involving:
+   - Multi-node and large-scale cluster deployment beyond personal/lab use.
+4. Modify the product's logo.
+
+
+As a contributor, you should agree that:
+   - The producer can adjust the open-source agreement to be more strict or relaxed as deemed necessary.
+   - Your contributed code may be used for commercial purposes, including but not limited to its cloud business operations.
+
+To obtain a commercial license, please contact:
+    service@lnjoying.com
+
+We welcome contributions and community engagement. Commercial deployment requires written permission.
