@@ -446,7 +446,7 @@
     tbl_cmp_pci_device.phase_status, tbl_cmp_pci_device.device_id, tbl_cmp_pci_device.create_time, tbl_cmp_pci_device.update_time,
     tbl_cmp_vm_instance.vm_instance_id, tbl_cmp_vm_instance.name as vm_instance_name
     from tbl_cmp_hypervisor_node LEFT JOIN tbl_cmp_pci_device on tbl_cmp_hypervisor_node.node_id = tbl_cmp_pci_device.node_id
-    LEFT JOIN tbl_cmp_vm_instance on tbl_cmp_pci_device.vm_instance_id = tbl_cmp_vm_instance.vm_instance_id
+    LEFT JOIN tbl_cmp_vm_instance on tbl_cmp_pci_device.vm_instance_id = tbl_cmp_vm_instance.vm_instance_id and tbl_cmp_vm_instance.ee_status != -1
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>

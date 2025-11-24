@@ -75,21 +75,11 @@ AiCloud 具备**灵活私有化部署能力**，支持对接**跨区域的数据
 
 ## 🧪 快速上手
 
-```bash
-# 拉取 aiCloud 安装包
-git clone https://github.com/your-org/aiCloud.git
-cd aiCloud
-
-# 部署容器服务
-./deploy.sh
-
-# 访问平台控制台
-http://localhost:8081
-```
+- **详细安装部署介绍**：[Installation Manual](/cloud-manager/doc/InstallationManual-ZH.md)
 
 ---
 
-## 推荐部署配置（待完成）
+## 推荐部署配置
 
 ### 📦 基础环境要求
 
@@ -97,35 +87,22 @@ http://localhost:8081
 |---------------|---------------------------|
 | 操作系统      | Ubuntu 20.04 / CentOS 7+   |
 | 内核版本      | 5.10+                      |
-| Docker 版本   | 20.10.x                    |
-| Kubernetes    | 1.26+                      |
-| Helm 版本     | 3.10+                      |
 | Python        | 3.8+                       |
-| GPU 驱动      | NVIDIA Driver 525+         |
-| CUDA Toolkit  | CUDA 11.8+                 |
-| 网络端口      | 80/443/30000-32767（TCP）  |
 
 ---
 
 ### 🚀 软硬件资源建议
 
-#### 管理节点（Master）
-- CPU：8 核心
-- 内存：32 GB
-- 硬盘：500 GB SSD
+#### 管理节点
+- CPU：16 核心以上
+- 内存：32 GB以上
+- 硬盘：200 GB SSD以上
 - 网络：千兆以上网络接口
 
-#### 计算节点（Compute）
-- CPU：16 核心以上
-- 内存：64 GB 以上
-- 硬盘：1 TB SSD 或 NVMe
-- GPU：NVIDIA A100 / RTX 4090 / V100
-- 网络：万兆网络或 RoCE 网络（建议）
-
-#### 存储节点（可选）
-- CPU：8 核心
-- 内存：32 GB
-- 存储：10 TB 以上 HDD + SSD 缓存
+#### 网关节点（可选）
+- CPU：1 核心以上
+- 内存：2 GB以上
+- 存储：50 GB以上
 - 网络：千兆以上网络接口
 
 ---
@@ -140,15 +117,6 @@ http://localhost:8081
 
 ---
 
-## 📚 文档资源
-
-- **开发者指南**：[Developer Guide](https://your-dev-guide-link)
-- **API 文档**：[API Reference](https://your-api-docs-link)
-- **系统架构**：[Architecture Overview](https://your-architecture-link)
-- **快速入门**：[Quickstart Guide](https://your-quickstart-link)
-
----
-
 ## 🤝 贡献方式
 
 欢迎所有开发者参与 aiCloud 的构建：
@@ -159,13 +127,11 @@ http://localhost:8081
 4. 推送分支 `git push origin feature/awesome-feature`
 5. 发起 Pull Request
 
-📌 详细贡献说明：[Contributing Guide](https://your-contribution-guide)
-
 ---
 
 ## 🪪 License
 
-本项目采用 **Apache 2.0** 开源许可证，详情见 [LICENSE](LICENSE)
+本项目采用 **Apache 2.0** 开源许可证，详情见 [LICENSE](/LICENSE.TXT)
 
 ---
 
