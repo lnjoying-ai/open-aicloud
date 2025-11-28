@@ -133,7 +133,7 @@ AiCloud 具备**灵活私有化部署能力**，支持对接**跨区域的数据
 
 ## 🪪 许可证（License）
 
-本项目采用 **Apache 2.0 开源协议** 开源许可证，详情见 [LICENSE](LICENSE)
+本项目采用 **Apache 2.0 开源协议** ，详情请查看 [LICENSE](LICENSE)文件。
 
 ---
 
