@@ -117,21 +117,23 @@ AiCloud 具备**灵活私有化部署能力**，支持对接**跨区域的数据
 
 ---
 
-## 🤝 贡献方式
+## 🤝 贡献指南
 
-欢迎所有开发者参与 aiCloud 的构建：
+欢迎所有开发者参与 aiCloud 的构建！
 
-1. Fork 本仓库
-2. 创建特性分支 `git checkout -b feature/awesome-feature`
-3. 提交代码 `git commit -m 'Add awesome feature'`
-4. 推送分支 `git push origin feature/awesome-feature`
-5. 发起 Pull Request
+### 贡献方式
+
+1. **Fork 本项目**
+2. **创建新分支** (`git checkout -b feature-xyz`)
+3. **提交代码** (`git commit -m "Add feature xyz"`)
+4. **推送到远程仓库** (`git push origin feature-xyz`)
+5. **创建 PR（Pull Request）**，等待审核
 
 ---
 
-## 🪪 License
+## 🪪 许可证（License）
 
-本项目采用 **Apache 2.0** 开源许可证，详情见 [LICENSE](/LICENSE.TXT)
+本项目采用 **Apache 2.0 开源协议** 开源许可证，详情见 [LICENSE](LICENSE)
 
 ---
 
@@ -139,4 +141,4 @@ AiCloud 具备**灵活私有化部署能力**，支持对接**跨区域的数据
 
 - 官网：[https://91gpu.cloud](https://91gpu.cloud)
 - 邮箱：service@lnjoying.com
-- 社区：微信交流群
+- 社区：微信交流群+V：lnjoying-ai
