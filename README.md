@@ -1,144 +1,250 @@
-# AiCloud: 面向AI场景的智能PaaS平台
+# AiCloud: Intelligent PaaS Platform for AI Workloads
 
-## 🌐 项目简介
+English | [简体中文](README_CN.md)
 
-**AiCloud** 是一套面向 AI 计算与高性能算力服务的全栈云平台解决方案，专注于为企业、科研机构、AI 开发者提供端到端的算力基础设施和智能化服务能力。  
-平台集 **算力资源纳管、智能调度、分布式算力管理、统一数据管理、高速传输、商业化运营、统一运维** 于一体，广泛适用于 AI 训练、推理、大模型微调、大数据分析、高性能计算（HPC）等多样化业务场景。
+## 🌐 Project Overview
 
-AiCloud 具备**灵活私有化部署能力**，支持对接**跨区域的数据中心、GPU算力资源池**，帮助用户轻松构建弹性、高效、安全的智算平台。同时，平台提供丰富的 **应用市场和镜像服务**，内置多种 **AI 应用模板和推理服务**，支持用户一键部署，加速 AI 业务上线。
+**AiCloud** is a full‑stack cloud platform purpose‑built for **AI computing and high‑performance workloads**. It delivers end‑to‑end capabilities for enterprises, research institutes, and AI developers, covering everything from infrastructure to application delivery.
 
-本项目已开放核心能力模块，包括 **分布式算力资源管理、智能调度**，欢迎开发者、企业用户、合作伙伴参与共建，共同打造开放可信的下一代 AI 云基础设施平台。
+The platform integrates:
 
----
+- **Compute resource onboarding & pooling**
+- **Intelligent scheduling & distributed compute management**
+- **Unified data management & high‑speed transfer**
+- **Commercial operations & billing**
+- **Centralized monitoring, logging, and O&M**
 
-## 💡 为什么选择 AiCloud？
+AiCloud is well‑suited for:
 
-### ✅ 端到端一体化 AI 云平台  
-从算力资源纳管、调度、编排，到应用交付、数据管理、商业化运营，91GPU.Cloud 提供覆盖全链路的一体化解决方案，满足企业从基础设施到业务交付的所有需求。
-### ✅ 灵活适配多种部署与算力环境  
-无论是裸金属、虚拟机、容器，还是多云、跨地域、分布式资源，平台均可灵活对接与统一管理，帮助企业快速构建弹性算力架构。
-### ✅ 专为 AI 与高性能计算打造  
-深度适配 AI 训练、推理、大模型微调等场景，内置主流 AI 框架与模型库，配备 GPU 专属调度与资源池优化，提升算力利用率与业务交付效率。
-### ✅ 高速数据传输与安全隔离保障  
-自主研发高速传输协议，突破公网带宽瓶颈，同时全链路数据加密、权限隔离、多副本容灾，保障数据安全与业务连续性。
-### ✅ 商业化运营能力与生态赋能  
-支持多样化定价、促销管理、供应商分账、客户门户等商业化能力，助力平台化运营与合作生态共赢。
-### ✅ 完善的运维与监控体系  
-提供全栈监控、智能告警、日志审计等多维运维能力，保障平台稳定可靠运行，降低运维成本与风险。
+- Large‑scale **AI training** and **inference**
+- **Large language model (LLM) fine‑tuning**
+- **Big data analytics**
+- **High‑performance computing (HPC)**
 
----
+With **flexible on‑prem deployment**, AiCloud can connect to **multi‑region data centers and GPU resource pools**, helping you build an elastic, efficient, and secure AI compute platform. On top of that, AiCloud provides a rich **application marketplace and image services**, with built‑in **AI application templates and inference services**, enabling one‑click deployment and faster AI time‑to‑production.
 
-## ⚙️ 核心功能特性
-
-### 🎛️ 全栈算力纳管与资源池化管理
-- **多形态算力资源支持**：支持裸金属、虚拟机、GPU/CPU 异构资源的统一纳管与调度，适配多样化算力需求。
-- **灵活的网络资源编排**：支持 VPC、子网、EIP、NAT、网络安全组等多维网络隔离与策略配置，提升业务网络安全性与灵活性。
-- **统一存储资源池管理**：支持 HDD/SSD/NVMe 存储资源池化管理，提供多副本、RAID、快照、分布式存储接入能力，保障数据高可用。
-- **跨区域算力接入与统一调度**：支持多地域算力接入，实现全球资源统一编排、纳管与调度，提升资源利用率和业务连续性。
-- **智能检索与推荐**：支持按算力类型、计费类型、地理位置、节点负载、可用性等推荐最佳节点，适配用户多样化的算力需求。
-
-### ⚙️ 智能算力调度与多引擎容器编排
-- **原生 Kubernetes 编排兼容**：深度适配 K8s、Docker Compose 等主流容器编排工具，支持跨节点、多集群应用部署。
-- **多架构适配能力**：兼容 Docker容器引擎，全面支持 x86、ARM 及国产芯片架构，适应多元硬件环境。
-- **丰富的语言与 AI 框架支持**：兼容 Java、Python、Node.js 及 TensorFlow、PyTorch 等主流 AI 框架，助力 AI 应用快速交付。
-- **完善的容器生命周期管理**：支持容器的创建、启停、监控、迁移等全生命周期管理，提升容器服务稳定性与弹性。
-
-### 🛒 应用市场
-- **预置主流开源大模型与AI应用**：平台内置如 Llama、Gemma、Stable Diffusion 等主流开源大模型和 AI 应用模板，支持用户一键部署，快速搭建训练或推理环境。
-- **集成 Nvidia NIM AI 推理服务**：预集成 Nvidia 推出的 NIM AI 推理服务镜像，提供即插即用的企业级 AI 推理能力，降低部署门槛，加速企业 AI 服务上线。
-- **自定义应用模板工具**：提供易用的 Compose 模板配置工具，用户可根据自身业务需求，自定义部署脚本并保存为私有或共享模板，提升应用交付效率。
-- **一键部署能力**：用户可通过简单的参数配置，快速完成 AI 模型、应用或数据服务的一键部署，大幅降低技术门槛，加快业务上线节奏。
-
-### 🐳 容器镜像服务
-- **内置企业级镜像仓库**：提供多项目、多用户隔离的镜像管理能力，支持镜像版本控制、访问权限管理，保障企业内部镜像安全合规。
-- **镜像预载与加速分发**：支持将常用镜像预载至节点，减少网络带宽占用，加速应用启动与大规模批量部署。
-- **私有与第三方镜像仓库对接**：支持对接企业私有 Harbor、Docker Hub 等第三方镜像仓库，兼容 OCI 标准，满足多源镜像拉取需求。
-
-### ⚡ 统一数据管理与高速传输引擎
-- **个人/公共数据空间管理**：支持用户自定义管理模型、数据集、程序包等资源，提升数据共享与交付效率。
-- **自研 UDP 高速传输引擎**：基于 UDP 传输协议，支持 TB 级大文件、断点续传、高丢包网络环境下的高速稳定传输。
-- **多维安全防护机制**：采用 AES-256 加密、CRC 校验、数据切片技术，全面保障数据传输过程的完整性与安全性。
-
-### 💼 算力运营与商业化支持
-- **丰富的算力产品组合**：支持 CPU/GPU/内存/带宽等多种资源套餐组合，满足不同场景下的算力供给需求。
-- **灵活的计费与促销策略**：支持包月包年、按量计费、折扣促销等多样化定价模式，帮助平台优化资源变现能力。
-- **供应商分账与收益管理**：内置分账结算模块，支持与多方资源供应商合作，自动化收益分配与结算。
-- **多角色运营管理门户**：支持客户、供应商、运维人员多角色登录与权限管理，提升平台运营效率与服务体验。
-
-### 🛠️ 智算统一运维平台
-- **全栈资源实时监控**：提供服务器 CPU、内存、硬盘、网络、GPU 显存与算力利用率，以及容器、虚拟机等资源的全维度监控能力，保障资源透明可视。
-- **智能告警与自动恢复**：支持自定义阈值告警，结合短信、邮件多通道实时通知，帮助运维人员快速响应异常事件。
-- **日志与事件审计管理**：集中管理集群、虚拟机、容器、用户操作等多类日志，支持快速检索与分析，提升运维排障效率。
-- **多租户资源隔离与权限管理**：内置 IAM 权限管理，支持多角色、多租户资源隔离管理，保障平台多租户业务的安全与稳定运行。
+This repository open‑sources the core capabilities of AiCloud, including **distributed compute resource management** and **intelligent scheduling**. We welcome developers, enterprise users, and partners to join us in building an open and trustworthy next‑generation AI cloud infrastructure.
 
 ---
 
-## 🧪 快速上手
+## 💡 Why AiCloud?
 
-- **详细安装部署介绍**：[Installation Manual](/cloud-manager/doc/InstallationManual-ZH.md)
+### ✅ End‑to‑end AI cloud platform
 
----
+From resource onboarding, scheduling, and orchestration, to application delivery, data management, and commercial operations, **AiCloud** provides a truly **end‑to‑end solution** that covers the entire lifecycle from infrastructure to business delivery.
 
-## 推荐部署配置
+### ✅ Flexible deployment and heterogeneous environments
 
-### 📦 基础环境要求
+AiCloud can manage **bare metal, virtual machines, and containers**, and connect to **multi‑cloud, cross‑region, and distributed resources**, helping organizations build an elastic and future‑proof compute architecture.
 
-| 组件          | 推荐配置                  |
-|---------------|---------------------------|
-| 操作系统      | Ubuntu 20.04 / CentOS 7+   |
-| 内核版本      | 5.10+                      |
-| Python        | 3.8+                       |
+### ✅ Designed for AI and HPC
 
----
+AiCloud is deeply optimized for **AI training, inference, LLM fine‑tuning**, and other compute‑intensive workloads. It ships with mainstream **AI frameworks and model libraries**, and provides **GPU‑aware scheduling and resource‑pool optimization** to boost utilization and delivery efficiency.
 
-### 🚀 软硬件资源建议
+### ✅ High‑speed data transfer and strong isolation
 
-#### 管理节点
-- CPU：16 核心以上
-- 内存：32 GB以上
-- 硬盘：200 GB SSD以上
-- 网络：千兆以上网络接口
+AiCloud includes a self‑developed **high‑speed transfer engine** that breaks through traditional public network bottlenecks. With **end‑to‑end encryption**, **fine‑grained access control**, and **multi‑replica disaster recovery**, the platform protects both data security and business continuity.
 
-#### 网关节点（可选）
-- CPU：1 核心以上
-- 内存：2 GB以上
-- 存储：50 GB以上
-- 网络：千兆以上网络接口
+### ✅ Built‑in commercialization & ecosystem enablement
+
+With flexible **pricing, promotions, supplier settlement, and customer portals**, AiCloud helps platform operators monetize compute resources, build partner ecosystems, and run a sustainable AI cloud business.
+
+### ✅ Comprehensive observability and operations
+
+AiCloud offers **full‑stack monitoring, intelligent alerting, and audit logging**, ensuring stable platform operations while reducing O&M costs and risks.
 
 ---
 
-### 🛠️ 可选组件支持
+## ⚙️ Core Features
 
-- **分布式存储**：Ceph / MinIO / NFS
-- **对象存储**：S3 / MinIO
-- **负载均衡**：NGINX / HAProxy
-- **日志与监控**：Prometheus + Grafana
-- **高速传输组件**：Lnjoying自研 UDP 传输引擎
+### 🎛️ Full‑stack compute onboarding & resource pool management
 
----
+- **Multi‑form compute resource support**  
+  Manage and schedule **bare metal, VMs, and heterogeneous GPU/CPU resources** under a unified control plane to meet diverse workload requirements.
 
-## 🤝 贡献指南
+- **Flexible network resource orchestration**  
+  Configure **VPCs, subnets, EIPs, NAT, security groups**, and more to achieve secure and flexible network isolation and traffic control.
 
-欢迎所有开发者参与 aiCloud 的构建！
+- **Unified storage pool management**  
+  Pool and manage **HDD/SSD/NVMe** storage, with support for **multi‑replica policies, RAID, snapshots, and distributed storage backends** to guarantee high availability.
 
-### 贡献方式
+- **Cross‑region compute access & scheduling**  
+  Connect compute resources from multiple regions into a single global fabric, enabling **centralized management and scheduling** for higher utilization and fault tolerance.
 
-1. **Fork 本项目**
-2. **创建新分支** (`git checkout -b feature-xyz`)
-3. **提交代码** (`git commit -m "Add feature xyz"`)
-4. **推送到远程仓库** (`git push origin feature-xyz`)
-5. **创建 PR（Pull Request）**，等待审核
+- **Intelligent search and recommendation**  
+  Recommend the **best compute nodes** based on GPU type, pricing model, geography, node load, and availability to match different user requirements.
 
 ---
 
-## 🪪 许可证（License）
+### ⚙️ Intelligent scheduling & multi‑engine container orchestration
 
-本项目采用 **Apache 2.0 开源协议** ，详情请查看 [LICENSE](LICENSE)文件。
+- **Kubernetes‑native orchestration**  
+  Natively compatible with **Kubernetes** and **Docker Compose**, supporting cross‑node and multi‑cluster application deployments.
+
+- **Multi‑architecture support**  
+  Supports the Docker container engine and runs on **x86, ARM, and domestic CPU architectures**, adapting to diverse hardware environments.
+
+- **Rich language & AI framework support**  
+  Compatible with **Java, Python, Node.js**, and mainstream AI frameworks such as **TensorFlow** and **PyTorch**, enabling rapid delivery of AI applications.
+
+- **Full container lifecycle management**  
+  Manage container **creation, start/stop, monitoring, and migration**, improving stability, elasticity, and operational efficiency.
 
 ---
 
-## 📣 联系我们
+### 🛒 Application Marketplace
 
-- 官网：[https://91gpu.cloud](https://91gpu.cloud)
-- 邮箱：service@lnjoying.com
-- 社区：微信交流群+V：lnjoying-ai
+- **Pre‑integrated open‑source LLMs and AI apps**  
+  Includes popular open‑source models such as **Llama, Gemma, Stable Diffusion**, along with AI application templates for one‑click deployment of training or inference environments.
+
+- **NVIDIA NIM AI inference integration**  
+  Pre‑integrated **NVIDIA NIM** inference images, offering plug‑and‑play enterprise‑grade AI inference services that dramatically lower deployment complexity.
+
+- **Custom application templates**  
+  Provides a user‑friendly **Compose‑style template tool** so you can define deployment specs, save them as **private or shared templates**, and reuse them for future rollouts.
+
+- **One‑click deployment**  
+  Through simple parameter configuration, users can deploy AI models, applications, or data services with **a single click**, significantly reducing the technical barrier and time‑to‑market.
+
+---
+
+### 🐳 Container image services
+
+- **Built‑in enterprise image registry**  
+  Multi‑project, multi‑tenant image management with **versioning and fine‑grained access control**, ensuring secure and compliant image distribution.
+
+- **Preload & accelerated distribution**  
+  Frequently used images can be **pre‑pulled to nodes**, reducing bandwidth consumption and accelerating application startup and large‑scale rollouts.
+
+- **Integration with private & third‑party registries**  
+  Connect to **private Harbor registries, Docker Hub**, and other OCI‑compliant registries to support multi‑source image pulling.
+
+---
+
+### ⚡ Unified data management & high‑speed transfer engine
+
+- **Personal and shared data spaces**  
+  Manage models, datasets, and packages via **personal or public data spaces** to streamline collaboration and delivery.
+
+- **Self‑developed UDP high‑speed transfer engine**  
+  Based on UDP, the engine supports **TB‑scale files, resume‑from‑breakpoint, and high‑loss networks**, delivering stable and high‑throughput transfers.
+
+- **Multi‑layer security protection**  
+  Uses **AES‑256 encryption, CRC checksum, and data sharding** to ensure integrity and security throughout the transfer process.
+
+---
+
+### 💼 Compute operations & commercialization
+
+- **Flexible compute product catalog**  
+  Offer a variety of **CPU/GPU/memory/bandwidth** combinations to support different customer segments and workload patterns.
+
+- **Rich pricing & promotion strategies**  
+  Support **subscription and pay‑as‑you‑go**, discounts, coupons, and other flexible pricing schemes to optimize revenue.
+
+- **Supplier settlement & revenue management**  
+  Built‑in **multi‑party settlement** for resource providers, enabling automated revenue sharing and financial reconciliation.
+
+- **Multi‑role operations portals**  
+  Separate portals for **customers, suppliers, and operators**, each with appropriate permissions and views, to streamline day‑to‑day operations.
+
+---
+
+### 🛠️ Unified AI operations platform
+
+- **Full‑stack real‑time monitoring**  
+  Monitor **CPU, memory, disk, network, and GPU (VRAM and utilization)**, as well as containers and VMs, with a single, unified view.
+
+- **Intelligent alerting & auto‑recovery**  
+  Customizable alert thresholds with delivery via **email, SMS**, and other channels, enabling fast incident response and automated recovery flows.
+
+- **Logs & audit trail management**  
+  Centralized collection and analysis of logs from **clusters, VMs, containers, and user operations**, supporting quick troubleshooting and compliance audits.
+
+- **Multi‑tenant isolation & IAM**  
+  Built‑in **IAM** with multi‑tenant, multi‑role isolation to ensure secure and stable operation in shared environments.
+
+---
+
+## 🧪 Getting Started
+
+For a detailed installation and deployment guide, please refer to:
+
+- **Installation Manual (ZH)**: [`/cloud-manager/doc/InstallationManual-ZH.md`](/cloud-manager/doc/InstallationManual-ZH.md)
+
+> ℹ️ An English installation manual is planned. Contributions are very welcome!
+
+---
+
+## 🧰 Recommended Deployment Configuration
+
+### 📦 Base environment
+
+| Component       | Recommended Version              |
+|----------------|----------------------------------|
+| Operating System | Ubuntu 20.04 / CentOS 7+       |
+| Kernel          | 5.10+                           |
+| Python          | 3.8+                            |
+
+---
+
+### 🚀 Suggested hardware resources
+
+#### Management node
+
+- CPU: **16+ cores**
+- Memory: **32 GB+**
+- Disk: **200 GB+ SSD**
+- Network: **1 Gbps or higher NIC**
+
+#### Gateway node (optional)
+
+- CPU: **1+ core**
+- Memory: **2 GB+**
+- Storage: **50 GB+**
+- Network: **1 Gbps or higher NIC**
+
+---
+
+### 🛠️ Optional components
+
+AiCloud can be integrated with the following ecosystem components:
+
+- **Distributed storage**: Ceph / MinIO / NFS  
+- **Object storage**: S3 / MinIO  
+- **Load balancer**: NGINX / HAProxy  
+- **Monitoring & logging**: Prometheus + Grafana  
+- **High‑speed transfer**: Lnjoying self‑developed UDP transfer engine  
+
+---
+
+## 🤝 Contributing
+
+We warmly welcome contributions to **AiCloud**!
+
+### How to contribute
+
+1. **Fork** this repository  
+2. **Create a feature branch**: `git checkout -b feature-xyz`  
+3. **Commit your changes**: `git commit -m "Add feature xyz"`  
+4. **Push to your fork**: `git push origin feature-xyz`  
+5. **Open a Pull Request (PR)** and wait for review  
+
+Please make sure your code follows the existing style and includes necessary tests and documentation updates where appropriate.
+
+---
+
+## 🪪 License
+
+The community edition of this project is provided under an **Apache 2.0–style open-source license with additional terms for commercial use**.
+Please see the [LICENSE](LICENSE) file for the full license text.
+
+---
+
+## 📣 Contact
+
+- Website: [https://91gpu.cloud](https://91gpu.cloud)  
+- Email: `service@lnjoying.com`  
+- Community: WeChat group (add friend): `lnjoying-ai`  
+
+If you are deploying AiCloud in production or would like to discuss partnership opportunities, feel free to reach out.
