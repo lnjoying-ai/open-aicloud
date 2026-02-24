@@ -161,7 +161,7 @@ public class NfsServiceBiz
         if (!StringUtils.isBlank(userId) && !userId.equals(tblNfs.getEeUser()))
         {
             LOGGER.error("get nfs failed, nfsId:{}, userId:{}", nfsId, userId);
-            throw new WebSystemException(ErrorCode.InvalidAuthority, ErrorLevel.ERROR);
+            throw new WebSystemException(ErrorCode.User_Not_Grant, ErrorLevel.ERROR);
         }
 
         NfsInfoRsp rsp = new NfsInfoRsp();

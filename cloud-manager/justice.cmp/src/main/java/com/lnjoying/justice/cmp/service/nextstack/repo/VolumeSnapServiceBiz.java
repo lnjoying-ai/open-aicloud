@@ -107,7 +107,7 @@ public class VolumeSnapServiceBiz
         }
         if (!StringUtils.isBlank(userId) && !userId.equals(volumeSnap.getEeUser()))
         {
-            throw new WebSystemException(ErrorCode.InvalidAuthority, ErrorLevel.INFO);
+            throw new WebSystemException(ErrorCode.User_Not_Grant, ErrorLevel.INFO);
         }
 
         TblCmpVolume tblVolume = repoRepository.getVolumeById(cloudId, volumeSnap.getVolumeId());
@@ -277,7 +277,7 @@ public class VolumeSnapServiceBiz
         }
         if (userId != null && !userId.equals(volumeSnap.getEeUser()))
         {
-            throw new WebSystemException(ErrorCode.InvalidAuthority, ErrorLevel.INFO);
+            throw new WebSystemException(ErrorCode.User_Not_Grant, ErrorLevel.INFO);
         }
     }
 }

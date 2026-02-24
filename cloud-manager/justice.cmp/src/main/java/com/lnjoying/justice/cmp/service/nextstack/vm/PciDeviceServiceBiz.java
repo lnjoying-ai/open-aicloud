@@ -236,7 +236,7 @@ public class PciDeviceServiceBiz
         }
         if (!StringUtils.isBlank(userId) && !userId.equals(tblVmInstance.getEeUser()))
         {
-            throw new WebSystemException(ErrorCode.InvalidAuthority, ErrorLevel.INFO);
+            throw new WebSystemException(ErrorCode.User_Not_Grant, ErrorLevel.INFO);
         }
     }
 

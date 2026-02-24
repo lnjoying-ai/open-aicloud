@@ -153,7 +153,7 @@ public class ImageServiceBiz
         }
         if (!StringUtils.isBlank(userId)&&!image.getIsPublic() && !userId.equals(image.getEeUser()))
         {
-            throw new WebSystemException(ErrorCode.InvalidAuthority, ErrorLevel.INFO);
+            throw new WebSystemException(ErrorCode.User_Not_Grant, ErrorLevel.INFO);
         }
         ImageDetailInfoRsp imageDetailInfoRsp = new ImageDetailInfoRsp();
         imageDetailInfoRsp.setImageDetailInfoRsp(image);

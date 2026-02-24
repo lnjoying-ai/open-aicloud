@@ -362,7 +362,6 @@ docker restart lnjoying-nginx
 
 
 ## 三、验证
+使用浏览器访问http://ip:9080查看是否正常
 
-netstat -alnpt #查看端口
-
-http://ip:9080 #访问前端查看是否正常
+默认管理用户/密码：admin/Admin+1.!
